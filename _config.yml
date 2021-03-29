@@ -68,7 +68,9 @@ prismjs:
 index_generator:
   path: ''
   per_page: 10
-  order_by: -date
+  order_by:
+    top: -1
+    data: -1
 
 # Category & Tag
 default_category: uncategorized
@@ -127,6 +129,7 @@ symbols_count_time:
   total_time: true
   
   
+#备份
 backup:
     type: git
     repository:
