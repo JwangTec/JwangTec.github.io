@@ -1,0 +1,251 @@
+body {
+    background:url(/assets/background.jpg);
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    background-position:50% 50%;
+    opacity: 0.8;
+    //可选
+    +mobile(){
+      //background-position: 0% -20%;https://i.loli.net/2018/12/29/5c270a0523154.jpg
+      //https://i.loli.net/2018/12/29/5c270fc2bfcad.png
+      background-image: url(https://ziyuan.lruihao.cn/images/bg_cell.png);
+      background-size: cover;
+    }
+}
+
+//博客内容透明化
+//文章内容的透明度设置
+.content-wrap {
+  opacity: 0.9;
+}
+
+//侧边框的透明度设置
+.sidebar {
+  opacity: 0.9;
+}
+
+//菜单栏的透明度设置
+.header-inner {
+  background: rgba(255,255,255,0.9);
+}
+
+//搜索框（local-search）的透明度设置
+.popup {
+  opacity: 0.9;
+}
+
+
+
+.post {
+   margin-top: 60px;
+   margin-bottom: 60px;
+   padding: 25px;
+   -webkit-box-shadow: 0 0 5px rgba(202, 203, 203, .5);
+   -moz-box-shadow: 0 0 5px rgba(202, 203, 204, .5);
+}
+
+
+// 分类&&标签 页面样式
+.post-block.page {
+    margin-top: 40px;
+}
+// 分类页面page
+.category-all-page {
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+    background-color: #797D7F;
+    padding: 20px 30px 60px 30px;
+    border-radius: 25px 25px 25px 25px;
+}
+.category-all-title {
+    font-family: Impact;
+    font-size: 24px;
+    color: aqua;
+}
+.category-list {
+    overflow: auto;
+}
+.category-list li {
+    height: 100%;
+    float: left;
+    border-right: 3px solid #222;
+    padding: 0 20px;
+}
+.category-all ul li {
+    list-style: none!important;
+}
+.category-list li:last-child {
+    border-right: none;
+}
+.category-list li a {
+    font-size: 16px;
+    text-decoration: none;
+    color: chartreuse;
+    font-family: Helvetica, Verdana, sans-serif;
+    // text-transform: uppercase;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+.category-list li a:hover {
+    color: black;
+}
+.category-list li.active a {
+    font-weight: bold;
+    color: black;
+}
+
+
+// 修改不蒜子数据颜色
+#busuanzi_value_site_pv,#busuanzi_value_site_uv{
+  color: #00BFFF;
+}
+
+
+//TOC目录全部展开
+.post-toc.nav.nav-child {
+  display: block;
+}
+//TOC目录不显示三级以上目录
+.nav-level-3.nav-child {
+  display: none !important;
+}
+
+// 右下角返回顶部按钮样式
+.back-to-top:hover {
+    color: rgb(136, 255, 13);
+	background-color: rgba(0, 0, 0, 0.75); //black
+}
+
+// 文章代码块顶部样式
+.highlight figcaption {
+    margin: 0em;
+    padding: 0.5em;
+    background: #eee;
+    border-bottom: 1px solid #e9e9e9;
+}
+.highlight figcaption a {
+    color: rgb(80, 115, 184);
+}
+
+//代码块复制按钮
+.highlight{
+  //方便copy代码按钮（btn-copy）的定位
+  position: relative;
+}
+.btn-copy {
+    display: inline-block;
+    cursor: pointer;
+    background-color: #eee;
+    background-image: linear-gradient(#fcfcfc,#eee);
+    border: 1px solid #d5d5d5;
+    border-radius: 3px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-appearance: none;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 20px;
+    color: #333;
+    -webkit-transition: opacity .3s ease-in-out;
+    -o-transition: opacity .3s ease-in-out;
+    transition: opacity .3s ease-in-out;
+    padding: 2px 6px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    opacity: 0;
+}
+.btn-copy span {
+    margin-left: 5px;
+}
+.highlight:hover .btn-copy{
+  opacity: 1;
+}
+
+//修改文章内code样式
+code {color:#c7254e;background:#f9f2f4;border:1px solid #d6d6d6;}
+
+// [Read More]按钮样式: 黑底绿字
+.post-button .btn:hover {
+	
+    color: rgb(136, 255, 13) !important;
+	background-color: rgba(0, 0, 0, 0.75); //black
+}
+
+// 页面底部页码
+.pagination .page-number.current {
+	
+    border-radius: 100%;
+    background-color: rgba(100, 100, 100, 0.75);
+}
+// 页面底部页码, 去除鼠标置于上方时，数字上方的线
+.pagination .prev, .pagination .next, .pagination .page-number {
+    margin-bottom: 10px;
+    border: none;
+	color: rgb(1, 1, 1);
+}
+
+// 页面底部页码，鼠标置于上方，黑底绿字
+.page-number:hover,.page-number:active{
+	color: rgb(136, 255, 13);
+	border-radius: 100%;
+    //background-color: rgba(255, 0, 100, 0.75); //品红
+	background-color: rgba(0, 0, 0, 0.75); //black
+}
+
+
+// [Read More]按钮样式
+.post-button .btn {
+    color: #555 !important;
+    background-color: rgb(255, 255, 255);
+    border-radius: 3px;
+    font-size: 15px;
+    box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.35);
+    border: none !important;
+    transition-property: unset;
+    padding: 0px 15px;
+}
+
+.post-button .btn:hover {
+    color: rgb(255, 255, 255) !important;
+    border-radius: 3px;
+    font-size: 15px;
+    box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.35);
+    background-image: linear-gradient(90deg, #a166ab 0%, #ef4e7b 25%, #f37055 50%, #ef4e7b 75%, #a166ab 100%);
+}
+
+
+  //去掉顶部黑线：
+.headband {display:none;}
+
+
+// 修改选中字符的颜色
+/* webkit, opera, IE9 */
+::selection { 
+    background: #06d633;
+    color: #f7f7f7; 
+}
+/* firefox */
+::-moz-selection { 
+    background: #06d633;
+    color: #f7f7f7;    
+}
+
+// 代码块选中颜色
+.highlight *::selection {
+    background: #06d633;
+}
+
+
+// 标题栏背景图片
+.site-brand-container { 
+  background-image: url(/images/log-small.png);
+  background-size: 100% 100%;
+  opacity: 0.9;
+}
+
+
