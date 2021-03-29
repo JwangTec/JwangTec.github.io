@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="安装">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Django框架04--基础知识">
+<meta property="og:url" content="http://example.com/jwangcloud/3407305082/index.html">
+<meta property="og:site_name" content="jwangcloud">
+<meta property="og:description" content="安装">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/Django.jpeg">
+<meta property="article:published_time" content="2019-06-04T10:18:19.000Z">
+<meta property="article:modified_time" content="2021-03-29T13:03:17.878Z">
+<meta property="article:author" content="jwangtec">
+<meta property="article:tag" content="Django基础知识">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/Django.jpeg">
+
+<link rel="canonical" href="http://example.com/jwangcloud/3407305082/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Django框架04--基础知识 | jwangcloud</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">jwangcloud</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/JwangTec" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/jwangcloud/3407305082/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="jwangtec">
+      <meta itemprop="description" content="小脑袋，大智慧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jwangcloud">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Django框架04--基础知识
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-06-04 18:18:19" itemprop="dateCreated datePublished" datetime="2019-06-04T18:18:19+08:00">2019-06-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-29 21:03:17" itemprop="dateModified" datetime="2021-03-29T21:03:17+08:00">2021-03-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python%E6%A1%86%E6%9E%B6/" itemprop="url" rel="index"><span itemprop="name">python框架</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>10k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/Django.jpeg"></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><span id="more"></span>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">安装：</span><br><span class="line">pip3 install django -i https:&#x2F;&#x2F;pypi.doubanio.com&#x2F;simple&#x2F;</span><br><span class="line"></span><br><span class="line">查看：</span><br><span class="line">django-admin</span><br><span class="line"></span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+<h3 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">pycharm中可直接创建</span><br><span class="line"></span><br><span class="line">或者命令行：django-admin startproject priject_name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">运行Django：python3 manage.py runserver   浏览器打开有小火箭即成功</span><br><span class="line"></span><br><span class="line">创建app：python3 manage.py  startapp app_name</span><br><span class="line"></span><br><span class="line">pycharm: debug运行  ：edit可设置ip和端口</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="Django"><a href="#Django" class="headerlink" title="Django"></a>Django</h3><h4 id="配置目录"><a href="#配置目录" class="headerlink" title="配置目录"></a>配置目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">与Django一样名字的目录为配置目录</span><br><span class="line"></span><br><span class="line">urls：各种链接，功能的实现，路由URL    </span><br><span class="line">	1.path(‘地址栏取名’,相关函数)</span><br><span class="line">		例如：path(&#39;hello&#x2F;&#39;, views.hello_world) </span><br><span class="line">	2.需要使用import调用函数所在文件 调用的为views中的函数</span><br><span class="line">		例如：from app1 import views</span><br><span class="line">settings：</span><br><span class="line">	1.allowed_hosts（允许访问的IP）bug:同一局域网里IP可随意访问</span><br><span class="line">	2.templates:模版  ‘dirs’：确认html放置的文件夹</span><br><span class="line">		例如：&#39;DIRS&#39;: [os.path.join(BASE_DIR, &#39;templates&#39;)]</span><br><span class="line">			base_dir:该项目的路径</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="app操作"><a href="#app操作" class="headerlink" title="app操作"></a>app操作</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">自己建立的app包中：</span><br><span class="line"></span><br><span class="line">views：创建函数   </span><br><span class="line">	1.httpresponse函数：创建报文内容 用于return HttpResponse(‘html语句’)  需要使用import导入该函数</span><br><span class="line">	2.requests参数：创建函数时必须加上该参数，用于接收数据等便于使用 </span><br><span class="line">	3.render(re参数,html位置—&gt;直接html名,参数dict) ：将其发送给浏览器</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="文件发送"><a href="#文件发送" class="headerlink" title="文件发送"></a>文件发送</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">html：</span><br><span class="line">	1.创建放置html文件夹</span><br><span class="line">	2.确认文件夹位置：settings 2  templates中</span><br><span class="line">	3.书写html</span><br><span class="line">	4.编写调用函数 views 3</span><br><span class="line">	5.urls增加该网页 urls 1，2</span><br><span class="line"></span><br><span class="line">css&#x2F;js&#x2F;images(静态文件访问):</span><br><span class="line">	1.在编写的html中增加</span><br><span class="line">		&lt;head&gt;中加：</span><br><span class="line">		激活：</span><br><span class="line">             &#123;% load static %&#125;</span><br><span class="line">             自动生成静态文件链接：</span><br><span class="line">	      &lt;link rel&#x3D;&quot;stylesheet&quot; href&#x3D;&#39;&#123;% static &quot;css.css&quot; %&#125;&#39;&gt;</span><br><span class="line">		html中的&#123;&#123;&#125;&#125;</span><br><span class="line">		&lt;li&gt;&#123;&#123; age &#125;&#125;&lt;&#x2F;li&gt;</span><br><span class="line">		编写views中的函数内容时可以将&#123;&#123;&#125;&#125;中的参数以dict的形式发送过来并替换其中的字段</span><br><span class="line">	2.创建css js文件夹</span><br><span class="line">	3.settings添加：</span><br><span class="line">		1.设置访问url的路径（网址名）：STATIC_URL &#x3D; &#39;&#x2F;static&#x2F;&#39;	</span><br><span class="line">		2.确认位置：STATICFILES_DIRS &#x3D; [os.path.join(BASE_DIR, “html存放路径”),] </span><br><span class="line">	</span><br><span class="line">		</span><br><span class="line">	4.配置urls:</span><br><span class="line">	    from django.conf import settings  调用上面的设置</span><br><span class="line">	 from django.conf.urls.static import static   调用该函数</span><br><span class="line">	 urlpatterns &#x3D; [</span><br><span class="line">				]+static(settings.STATIC_URL)</span><br><span class="line">	5.书写css js images</span><br><span class="line">	6.浏览器访问：&#x2F;static&#x2F;css.css</span><br><span class="line">	7.浏览器访问对应html便可以</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="数据库连接"><a href="#数据库连接" class="headerlink" title="数据库连接"></a>数据库连接</h4><p>1.与settings在相同文件夹下创建：my.cnf普通文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># my.cnf</span><br><span class="line">[client]</span><br><span class="line">database &#x3D; NAME</span><br><span class="line">user &#x3D; USER</span><br><span class="line">password &#x3D; PASSWORD</span><br><span class="line">default-character-set &#x3D; utf8mb4</span><br></pre></td></tr></table></figure>
+
+<p>2.settings设置：databases 中将本身数据库配置替换成mysql的配置代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># settings.py</span><br><span class="line">DATABASES &#x3D; &#123;</span><br><span class="line">  		&#39;default&#39;: &#123;</span><br><span class="line">   		   &#39;ENGINE&#39;: &#39;django.db.backends.mysql&#39;,</span><br><span class="line">    		  &#39;OPTIONS&#39;: &#123;</span><br><span class="line">    		      &#39;read_default_file&#39;: os.path.join(base_dir,‘django_s’,’my.cnf’),</span><br><span class="line">    		  &#125;,</span><br><span class="line"> 		 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3.安装pymysql : </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pip install pymsql </span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; pycharm&#x2F;preferences&#x2F;project.django_s&#x2F;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>4.Django使用mysql：settings同级的__init__中增加代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">		</span><br><span class="line">(1).__init__中代码：</span><br><span class="line"></span><br><span class="line">	import pymysql			</span><br><span class="line">	pymysql.version_info(2,0,0)        &lt;—版本报错问题解决 无可不修改</span><br><span class="line">	pymysql.install_as_MySQLdb()</span><br><span class="line"></span><br><span class="line">(2).在external library&#x2F;&#x2F;site-packages&#x2F;django&#x2F;db&#x2F;backends&#x2F;mysql&#x2F;operations</span><br><span class="line">中将与下面5 1对应修改146行  可以先运行会自定跳到该错误这里修改即可</span><br><span class="line"></span><br><span class="line">last_executed_query中query.decode改成encode</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h4><p>1.命令行：在manage.py同级目录下执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 manage.py migrate   —&gt;在mysql中直接创建django内置的表 </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">(1).出现’decode’:在 external library&#x2F;python 3.7&#x2F;site-packages&#x2F;django&#x2F;db&#x2F;backends&#x2F;mysql&#x2F;operations</span><br><span class="line">last_executed_query中query.decode改成encode  (直接vim修改)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>2.orm:通过对象操作数据库</p>
+<p>（1）在views同级的models.py中编写定义自己的数据库表：即class创建</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">例如：创建一个文章发布的数据库</span><br><span class="line">	score &#x3D; models.FloatField(default &#x3D; 0,verbose_name&#x3D;‘电影评分’)</span><br><span class="line">	class Article(models.Model):</span><br><span class="line">	title &#x3D; models.CharField(max_length&#x3D;255)  #文章标题</span><br><span class="line">	punish_time &#x3D; models.DateTimeField()  #文章发布时间</span><br><span class="line">	author &#x3D; models.CharField(max_length&#x3D;20) #文章作者</span><br><span class="line">	text &#x3D; models.CharField(max_length&#x3D;2000)  #文章内容</span><br><span class="line">		</span><br><span class="line">	def __str__(self):</span><br><span class="line">		return self.title       (admin中直接以title字段显示)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>（2）在settings：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">installed_apps&#x3D;[‘添加自己创建的app,即views所在文件夹名’ 例：’app1’]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>（3）生成数据库表：命令行执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.python3 manage.py makemigrations    (会在migrations文件夹下生成一个数据库迁移文件) </span><br><span class="line">2.python3 manage.py migrate     （根据（3）生成的建表文件在数据库中建表）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>注意：1执行成功的迁移文件会在数据库中django_migrations表中也创建一个该记录  
+        必须同时存在才行 不然会一直报错：table
+解决：
+    （1）删除migrations中的相关文件 再删除数据库表中的对应的记录 重新执行上述两个命令
+</code></pre>
+<p>(4）数据库表数据读取并在html中显示出来：</p>
+<pre><code>1.创建html相关网页
+2.views：
+    创建函数提取：
+            引入models中的相关class  即2(1)中创建的相关表的类名
+            from app1.models import Article
+            
+    编写发送函数：
+            def article(requests):
+                #相当于select * from article where id = 1 语句（并未执行）：
+                data = Article.objects.filter(id=1)
+                #切片执行该语句：
+                res = data[0]
+                return render(requests,’article.html’,&#123;html中&#123;&#123;&#125;&#125;&#125;的对应值dict&#125;)
+3.配置urls ：与上面urls配置一样 先导入再添加
+</code></pre>
+<h4 id="admin用户创建"><a href="#admin用户创建" class="headerlink" title="admin用户创建"></a>admin用户创建</h4><p>1.命令行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python3 manage.py createsuperuser  (本次设置user:wangqi password:wang1995)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>2.添加数据库到admin：</p>
+<p>   （1）admin文件中添加代码</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> 导入models中创建的数据库类名：</span><br><span class="line"> from app1.models import Article</span><br><span class="line">添加到admin中：</span><br><span class="line">@admin.register(Article)</span><br><span class="line">class ArticleAdmin(admin.ModelAdmin):</span><br><span class="line">	pass</span><br></pre></td></tr></table></figure>
+</code></pre>
+<p>   (2）浏览器中进入admin即有自己创建的数据库，可以进行相关插入等操作</p>
+<h4 id="外部app-或者html"><a href="#外部app-或者html" class="headerlink" title="外部app(或者html)"></a>外部app(或者html)</h4><p>1.在django文件夹下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python3 manage.py startapp ‘名字’  创建新的app</span><br><span class="line">先运行 python3 manage.py rumserver  确定Django开启成功</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>2.将其外部的网页代码放入django 项目下</p>
+<p>3.配置路径 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">settings installed_apps添加该app名 templates:添加html存放路径  </span><br><span class="line">在最后添加存放静态文件（html中的css&#x2F;js）的代码以及媒体文件的media路径（见下）</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>4.配置urls  先连接index.html看是否成功</p>
+<p>5.设置css/js/images</p>
+<pre><code>    1) python中 提供 win+r 可以查询+替换修改代码中的相关代码  
+    2) 在使用正则表达式时需要勾选Regex  
+    3) 查询：(css/.*\.css)  加括号表示一个整体    \ 转译     
+    4) 替换：&#123;% static ‘$1’ %&#125;    $1表示匹配（3）中的第一个括号里的东西 再replace
+         
+         
+</code></pre>
+<p>6.建立数据库:</p>
+<pre><code>    1)modele:建表 + 命令行操作数据库链接
+    2)admin建立后台
+    3)settings设置路径 databases添加数据库my.cnf文件位置
+    4)views添加查询和插入函数     将切片转到html代码中去：
+            html中循环：&#123;% for %&#125;     循环代码     &#123;% endear %&#125;
+
+					
+	例如
+
+
+	views:
+				def index_movie(requests):
+					data = Movie.objects.all()
+					return render(requests, 'index.html', &#123;‘data’:data&#125;
+	html：
+						&#123;% for movie in data %&#125;
+						<li><p class="title">&#123;&#123; movie.title &#125;&#125;</p></li>
+						&#123;% endfor %&#125;
+模版中切片：&#123;% for movie in data |slice:"0:5"%&#125;
+        取前5个
+
+
+5)url建立连接
+</code></pre>
+<p>7.图片处理：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">models:添加字段：</span><br><span class="line"></span><br><span class="line">		img &#x3D; models.ImageField(upload_to&#x3D;&#39;images&#39;,verbose_name&#x3D;&#39;电影图片&#39;)再执行数据库操作2（3）</span><br><span class="line">		</span><br><span class="line">注意 ：进行3第一步时会跳出选择：</span><br><span class="line">			1.后续更改 先创建 2.退出,先添加 选择1 然后随便添加内容回车html中修改图片的链接</span><br><span class="line">		   </span><br></pre></td></tr></table></figure>
+
+<p>8.html中使用自定义函数：</p>
+<p>函数模版：</p>
+<pre><code>在app中建立一个目录：名字固定：templatetags  其中包含__init__文件
+创建一个功能名.py文件
+在该.py中自定义函数编写：
+    模版：from django import template
+          register = template.Library()
+          import math
+
+        @register.filter(name = ‘count_star’)  #计算星星数量
+        def count_star(value):
+            return range(math.floor(value))
+
+
+在需要该函数的html中装载：&#123;% load 功能名 %&#125;
+</code></pre>
+<p>9.媒体文件访问</p>
+<p>图片以及视频与静态文件分开：</p>
+<p>(1)创建图片视频等存放文件夹</p>
+<p>(2)settings : </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">templates添加：django.template.context_processors.media</span><br><span class="line">			最后添加：#代表媒体文件的存储路径</span><br><span class="line">			MEDIA_ROOT &#x3D; os.path.join(BASE_DIR,&#39;media&#39;)  #指定后 其媒体文件根目录为media</span><br><span class="line">			MEDIA_URL &#x3D; &#39;&#x2F;media&#x2F;&#39;</span><br><span class="line">					</span><br></pre></td></tr></table></figure>
+
+<p>(3)urls：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">调用re_path 使用正则表达式</span><br><span class="line">		from django.urls import path,re_path</span><br><span class="line">		from django.views.static import serve</span><br><span class="line">		from p1904_django2.settings import MEDIA_ROOT,MEDIA_URL</span><br><span class="line">		urlpatterns添加：</span><br><span class="line"> 			re_path(r&#39;^media&#x2F;(?P&lt;path&gt;.*)$&#39;, serve, &#123;&#39;document_root&#39;:MEDIA_ROOT&#125;),</span><br><span class="line"> 			   </span><br></pre></td></tr></table></figure>
+
+
+<p>(4)html:</p>
+<pre><code>装载：&#123;% load movie_extras %&#125; 
+ 替换所有img:&#123;% static  movie.img.url %&#125;    \&#123; % static  &#39;(images/.*\.jpg)&#39; %\&#125;
+    替换成： &#123;&#123; MEDIA_URL &#125;&#125;images/m15.jpg     \&#123; MEDIA_URL &#125;&#125;$1
+    以及：&#123;&#123; movie.img.url &#125;&#125;
+    
+</code></pre>
+<p>(5)models：</p>
+<pre><code>修改img的存储结构（路径格式）其媒体跟目录为media 只需要在这个跟目录下创建images文件用来存放媒体文件即可
+</code></pre>
+<p>10.登陆 注册 退出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">django 自带用户表  auth_user :password   pbkdf2_sha256$150000$   使用sha256加密了150000次</span><br><span class="line">		   使用该表并使用orm继承并扩展</span><br><span class="line">		1.建立一个用户单独的app python3 manage.py startalp users    (django官网：documentation 查询user有步骤)</span><br><span class="line">		2.用户models 中 </span><br><span class="line">			from django.contrib.auth.models import AbstractUser   #在用户app中继承用户模型</span><br><span class="line">			class UserInfo(Abstract..)</span><br><span class="line">		3.添加app到 settings：确认其修改</span><br><span class="line">			INS.._APP添加：users</span><br><span class="line">			AUTH_USER_MODEL &#x3D; ‘users.UserInfo’</span><br><span class="line">		4.命令行执行：数据库迁移  执行时会出问题：用户表在数据库中存在，删除不了</span><br><span class="line">								解决办法：在Django之前就创建好上诉继承代码 若已经创建 直接删除所有表</span><br><span class="line">										然后再python3 manage两步  再创建命令行超级用户</span><br><span class="line">		5.注册功能：</span><br><span class="line">			views：导入数据库models中创建表类名</span><br><span class="line">				def register(requests):pass   </span><br><span class="line">					UserInfo.objects.create_user(username&#x3D;requ.POST[‘username’],password&#x3D;..)  creat_user:可在生成名字时就会生成密码					return HttpResponse(‘hello’) #检测链接</span><br><span class="line">				</span><br><span class="line">				出现CSRF验证：settings中middleware中注销掉Csrf  </span><br><span class="line">				     </span><br><span class="line">			urls：添加该函数到path</span><br><span class="line">				网页中找到注册表单—html中找到相应位置 修改action http:&#x2F;&#x2F;ip&#x2F;register函数   所有表单信息便传到该函数的requests中</span><br><span class="line">			</span><br><span class="line">		6.登陆功能：</span><br><span class="line">			views：def login(re..):</span><br><span class="line">				username &#x3D; re…POST[‘username’]</span><br><span class="line">				password &#x3D; re…POST[‘ps’]</span><br><span class="line">				user &#x3D; UserInfo.objects.filter(username&#x3D;username)[0]  #数据库查询语句 查询用户表中username密码</span><br><span class="line">						check_password 函数(需要导入)： 检测密码</span><br><span class="line">				return  </span><br><span class="line"></span><br><span class="line">				注意：表单形式的验证前后端需要同时做：</span><br><span class="line">				例如：密码验证需要前后端都同时做</span><br><span class="line">						前端：html：min_length &#x3D; ‘4’   （这里设置后，如果后端没改，前端网页里的限制条件仍然可以改，因其html保存在本地的，在elements中						可以修改，相当于漏洞）</span><br><span class="line">							后端：if leng(‘username’) &lt; 4:</span><br><span class="line">									return HttpResponse(‘用户名长度必须大于4’)</span><br><span class="line"></span><br><span class="line">		7.登陆注册只用后端做的方法</span><br><span class="line">			forms模块(表单渲染 生成表单和验证表单 生成表单属于index中的  解决6中注意)  class LoginForm(forms.Form)</span><br><span class="line">			charfield:数据库中为varchar()   html:type元素    </span><br><span class="line">			app中创建forms.py文件：			</span><br><span class="line">				导入forms模块  :</span><br><span class="line">			 	与创建module一样创建相关class，比如登陆表单的input字段等</span><br><span class="line">							密码字段定义：password &#x3D; forms.CharField(min_length &#x3D; 8, widget &#x3D; forms.PasswordInput)  将type中改成password</span><br><span class="line">							邮箱字段:EmailField</span><br><span class="line">							网址字段:urlfiled</span><br><span class="line">			views:添加该相关函数的值到html调用函数中进行实例化，f &#x3D; LoginForm()   表示在html中生成表单</span><br><span class="line">			html:在form表单中直接使用该字段</span><br><span class="line">		</span><br><span class="line">			验证表单：users app中</span><br><span class="line">				导入表单</span><br><span class="line">				f &#x3D; LoginForm(requests.POST)    </span><br><span class="line">				print(f.is_valid())  :ture false    表示该表单符合创建表单其中的字段限制</span><br><span class="line">				username &#x3D; f.cleaned_data[‘username’]    从cleaned中取html中验证成功的相关字段  （与form表单中的字段名需要一致） 用户不存在:try</span><br><span class="line"></span><br><span class="line">			ModelForm模块（与数据库相连，比上面更好,可以以数据库中字段创建表）：  </span><br><span class="line">					forms.py:</span><br><span class="line">					from django.contrib.auth import get_user_model  #获取user的数据库信息  类</span><br><span class="line">					User &#x3D; get_user_model()			</span><br><span class="line">					class UserForm(forms.ModelForm):      #</span><br><span class="line">						class Meta: </span><br><span class="line">							model &#x3D; User      #创建用户模版</span><br><span class="line">							fields &#x3D; (“username”, “password”)    #需要验证的字段</span><br><span class="line">							widgets &#x3D; &#123;         #选择需要修改的字段</span><br><span class="line">								‘password’: forms.PasswordInput(attrs&#x3D;&#123;“min_length”:8&#125;),     #设置最小长度 （数据库中该字段只有max_length）</span><br><span class="line">								‘username’: forms.TextInput(attrs&#x3D;&#123;“min_length”:4, ‘class’: text&#125;)  #启动class字段</span><br><span class="line">										&#125;</span><br><span class="line">					html&#x2F;views：</span><br><span class="line">					users&#x2F;views:登陆注意:is_valid()函数会验证在数据库中是否存在，需要在上述中将该方法在上面类下重写方法  def validate_unique(self):pass</span><br><span class="line">				</span><br><span class="line"></span><br><span class="line">		8.保持登陆： Django中的login方法  </span><br><span class="line">			引用：from django.contrib.auth import login as user_login</span><br><span class="line">				在登陆函数中users&#x2F;views&#x2F;login:check_password 正确后：user_login(requests, user) 将该user加到报文中，并在html中保存为session以及数据库中				保存</span><br><span class="line">			在登陆页面（index.html）：加入判断语句：&#123;% if not requests.user.is_authenticated %&#125; 判断是否登陆，以此返回不同的标签 &#123;% else %&#125;&#123;% endif %&#125; 以此保持登陆</span><br><span class="line">		退出：loginout模块</span><br><span class="line">			user&#x2F;views: def logout:user_logout(requests) return HttpResponse(‘logout success’)</span><br><span class="line">			urls中配置</span><br><span class="line">			html中加入到相关href中</span><br><span class="line">		urls:可以设置别名：name&#x3D;‘’    相应href 中可以使用&#123;% url ‘别名’ %&#125;  可以把固定地址换成与后台同步</span><br><span class="line">		</span><br><span class="line">跳转页面		</span><br><span class="line">from django.shortcuts import redirect	</span><br><span class="line">from django.urls </span><br><span class="line">return redirect(‘http&#x2F;&#x2F; …’)</span><br><span class="line">return redirect(‘别名’)</span><br></pre></td></tr></table></figure>
+
+
+<p>10 评分：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"> 新建评分app</span><br><span class="line">settings：添加app</span><br><span class="line">新建model：导入models Movie get_user_model 模块</span><br><span class="line">		User &#x3D; get_user_model</span><br><span class="line">		class Score(models.Model):</span><br><span class="line">			tags &#x3D; ((1, ‘aa’),(2,’bb’),)</span><br><span class="line">			movie_score &#x3D; models.Int..(choices&#x3D;tags)  选择分数</span><br><span class="line">			movie &#x3D; models.ForieginKey(‘movie.Movie’, on_delete&#x3D;models.CASCADE)   删除的方式</span><br><span class="line">			user &#x3D; models.for…key(‘users.UserInfo, ..’)</span><br><span class="line"></span><br><span class="line">			class Meta:</span><br><span class="line">				unique_together &#x3D; (‘movie’, ‘user’)  唯一</span><br><span class="line"></span><br><span class="line">注意：字段不能与相关联表的字段重合</span><br><span class="line"></span><br><span class="line">命令行创建数据库表	</span><br><span class="line"></span><br><span class="line">修改之前自定义打星函数：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>11.部署：将本地代码放到云服务器以便所有人都可以访问</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1.服务器</span><br><span class="line">2.登陆部署电脑：ssh rimi@10.2.0.26</span><br><span class="line">3.本地上传代码到 git 再在部署电脑上拷贝下来</span><br><span class="line">4. 部署机：安装django, 注意版本号</span><br><span class="line">5.输出本地关于oython3的所有包版本号:pip3 freeze &gt; requirements.txt</span><br><span class="line">6.服务器:pip3 install -r requirements.txt</span><br><span class="line">7. 启动 0.0.0.0:8000 所有人都可以访问（测试用）gunicorn(上线)</span><br><span class="line">8.gunicorn:    安装   线程数量：cpu*2 +1   进程 &#x3D; 线程&#x2F;2   </span><br><span class="line">9.启动：wigs: scoket 接收http协议    需要将python的socket替换成wigs</span><br><span class="line">10.访问日志&#x2F;报错</span><br><span class="line">11.图片美化  分类搜索  活动  后台分类（分级） </span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    
+    <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束 <i class="fa fa-heart"></i> 感谢阅读-------------</div>
+
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>jwangtec
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/jwangcloud/3407305082/" title="Django框架04--基础知识">http://example.com/jwangcloud/3407305082/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Django%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag"><i class="fa fa-tag"></i> Django基础知识</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/jwangcloud/3329310760/" rel="prev" title="Django框架03--视图">
+      <i class="fa fa-chevron-left"></i> Django框架03--视图
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/jwangcloud/663967090/" rel="next" title="Django框架05--语法整理">
+      Django框架05--语法整理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="nav-number">2.</span> <span class="nav-text">创建项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Django"><span class="nav-number">3.</span> <span class="nav-text">Django</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%9B%AE%E5%BD%95"><span class="nav-number">3.1.</span> <span class="nav-text">配置目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#app%E6%93%8D%E4%BD%9C"><span class="nav-number">3.2.</span> <span class="nav-text">app操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%8F%91%E9%80%81"><span class="nav-number">3.3.</span> <span class="nav-text">文件发送</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5"><span class="nav-number">3.4.</span> <span class="nav-text">数据库连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C"><span class="nav-number">3.5.</span> <span class="nav-text">数据库操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#admin%E7%94%A8%E6%88%B7%E5%88%9B%E5%BB%BA"><span class="nav-number">3.6.</span> <span class="nav-text">admin用户创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%96%E9%83%A8app-%E6%88%96%E8%80%85html"><span class="nav-number">3.7.</span> <span class="nav-text">外部app(或者html)</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="jwangtec"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">jwangtec</p>
+  <div class="site-description" itemprop="description">小脑袋，大智慧</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jwangtec" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jwangtec" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.jianshu.com/u/684433bc744b" title="简书 → https:&#x2F;&#x2F;www.jianshu.com&#x2F;u&#x2F;684433bc744b" rel="noopener" target="_blank"><i class="fa fa-heartbeat fa-fw"></i>简书</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/qq_34536604" title="csdn → https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_34536604" rel="noopener" target="_blank"><i class="fa fa-crosshairs fa-fw"></i>csdn</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://juejin.im/user/5e5c685e6fb9a07cd443bedai" title="掘金 → https:&#x2F;&#x2F;juejin.im&#x2F;user&#x2F;5e5c685e6fb9a07cd443bedai" rel="noopener" target="_blank"><i class="fa fa-spinner fa-fw"></i>掘金</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://app.gitbook.com/@79896867/spaces" title="gitbook → https:&#x2F;&#x2F;app.gitbook.com&#x2F;@79896867&#x2F;spaces" rel="noopener" target="_blank"><i class="fa fa-git fa-fw"></i>gitbook</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/jwangtec@163.com" title="E-Mail → jwangtec@163.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.runoob.com/manual/jdk11api/index.html" title="https:&#x2F;&#x2F;www.runoob.com&#x2F;manual&#x2F;jdk11api&#x2F;index.html" rel="noopener" target="_blank">Java11开发文档</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://spring.io/projects/spring-cloud-azure" title="https:&#x2F;&#x2F;spring.io&#x2F;projects&#x2F;spring-cloud-azure" rel="noopener" target="_blank">Spring cloud</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://ife.baidu.com/" title="http:&#x2F;&#x2F;ife.baidu.com&#x2F;" rel="noopener" target="_blank">百度前端技术学院</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://learn666-gif.github.io/Jwang/4cff2ea4.html" title="https:&#x2F;&#x2F;learn666-gif.github.io&#x2F;Jwang&#x2F;4cff2ea4.html" rel="noopener" target="_blank">JAVA体系构建</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jwangtec</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">283k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4:17</span>
+</div>
+
+
+<!-- 网站运行时间的设置 -->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>  努力创造未来
+<script>
+        var now = new Date();
+        function createtime() {
+            var grt= new Date("01/05/2018 00:00:00");//此处修改你的建站时间或者网站上线时间
+            now.setTime(now.getTime()+250);
+            days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+            hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+            if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+            mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+            seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+            snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+            document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+            document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()",250);
+</script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

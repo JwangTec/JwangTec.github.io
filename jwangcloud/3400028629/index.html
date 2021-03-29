@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="异常类 ：报告错误 –&gt; 中断 运行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python基础大全10--异常类、手写list">
+<meta property="og:url" content="http://example.com/jwangcloud/3400028629/index.html">
+<meta property="og:site_name" content="jwangcloud">
+<meta property="og:description" content="异常类 ：报告错误 –&gt; 中断 运行">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/python01.jpeg">
+<meta property="article:published_time" content="2019-04-27T10:18:19.000Z">
+<meta property="article:modified_time" content="2021-03-29T13:03:17.859Z">
+<meta property="article:author" content="jwangtec">
+<meta property="article:tag" content="python异常类">
+<meta property="article:tag" content="python手写list">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/python01.jpeg">
+
+<link rel="canonical" href="http://example.com/jwangcloud/3400028629/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>python基础大全10--异常类、手写list | jwangcloud</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">jwangcloud</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/JwangTec" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/jwangcloud/3400028629/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="jwangtec">
+      <meta itemprop="description" content="小脑袋，大智慧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jwangcloud">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python基础大全10--异常类、手写list
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-27 18:18:19" itemprop="dateCreated datePublished" datetime="2019-04-27T18:18:19+08:00">2019-04-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-29 21:03:17" itemprop="dateModified" datetime="2021-03-29T21:03:17+08:00">2021-03-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/python01.jpeg"></p>
+<h3 id="异常类-：报告错误-–-gt-中断-运行"><a href="#异常类-：报告错误-–-gt-中断-运行" class="headerlink" title="异常类 ：报告错误 –&gt; 中断 运行"></a>异常类 ：报告错误 –&gt; 中断 运行</h3><span id="more"></span>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#只会监听特殊类型的错误</span><br><span class="line">try:</span><br><span class="line">    xx &#x3D; [qxaas]</span><br><span class="line">#监听与 NameError 相关的错误，监听所有报错只需要监听其父类（Exception）即可    </span><br><span class="line">except NameError:      </span><br><span class="line">    print(&#39;cuo  wu&#39;)</span><br><span class="line"></span><br><span class="line"># class TestError(Exception):  #exception属于报错的父类，继承即可</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义报错"><a href="#自定义报错" class="headerlink" title="自定义报错"></a>自定义报错</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">class TestError(Exception):  #自定义一个报错</span><br><span class="line">    pass</span><br><span class="line">def rujiao(age):</span><br><span class="line">    if age &lt; 30:</span><br><span class="line">        print(age)</span><br><span class="line">    else:</span><br><span class="line">        raise TestError(&#39;xiajibaluanxie&#39;)  #报错目标 ：中止程序，并输出错误提示</span><br><span class="line"># try:                #出现报错并继续运行后面的代码</span><br><span class="line">#     rujiao(333)</span><br><span class="line"># except TestError:</span><br><span class="line">#     print(&quot;xxx&quot;)   #若输入pass 则会直接跳过并不会报错</span><br><span class="line">#</span><br><span class="line"># print(&#39;xxxxxxxxxx&#39;)</span><br><span class="line">l &#x3D; [1,2,3,4]</span><br><span class="line">try:                #出现报错并继续运行后面的代码</span><br><span class="line">    l[7]             #出现错误则直接报错，不会执行下面的语句快</span><br><span class="line">    rujiao(60)</span><br><span class="line">#打印错误提示 (as后接错误提示)   可以重复抓取不同的错误，显示抓取的只有一种</span><br><span class="line">except TestError as errortype:  </span><br><span class="line">    print(errortype)</span><br><span class="line">except IndexError:</span><br><span class="line">    print(&quot;下标错误&quot;)</span><br><span class="line">except AttributeError:</span><br><span class="line">    print(&#39;无法赋值&#39;)</span><br><span class="line">else:  #上述若未发现错误，就执行else中语句</span><br><span class="line">    print(&#39;++++++++&#39;)</span><br><span class="line">finally:  #若上述未出现错误或中断：至少会执行该命令</span><br><span class="line">    print(&#39;-------&#39;)</span><br><span class="line"></span><br><span class="line">print(&#39;xxxxxxxxxx&#39;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="编写列表类，实现列表的基础方法"><a href="#编写列表类，实现列表的基础方法" class="headerlink" title="编写列表类，实现列表的基础方法"></a>编写列表类，实现列表的基础方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br></pre></td><td class="code"><pre><span class="line">class Node:</span><br><span class="line">    def __init__(self, v, n):</span><br><span class="line">        self.value &#x3D; v</span><br><span class="line">        self.next &#x3D; n</span><br><span class="line"></span><br><span class="line">class MyList:</span><br><span class="line">    def __init__(self, *args):</span><br><span class="line">        self.first_node &#x3D; Node(None, None)</span><br><span class="line">        self.length &#x3D; 1</span><br><span class="line">        for i in args:</span><br><span class="line">            self.append(i)</span><br><span class="line">        self.listxx &#x3D; args</span><br><span class="line"></span><br><span class="line">    def __len__(self):</span><br><span class="line">        return self.length - 1</span><br><span class="line"></span><br><span class="line">    def append(self, v):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        给列表添加一个新的元素</span><br><span class="line">        :param v:</span><br><span class="line">        :return:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        node &#x3D; self.find_last_node()</span><br><span class="line">        node.next &#x3D; Node(v, None)</span><br><span class="line">        self.length +&#x3D; 1</span><br><span class="line"></span><br><span class="line">    def find_last_node(self):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        找到最后一个元素</span><br><span class="line">        :return:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        node &#x3D; self.first_node</span><br><span class="line">        if node is None:</span><br><span class="line">            return None</span><br><span class="line">        while True:</span><br><span class="line">            if node.next is None:</span><br><span class="line">                break</span><br><span class="line">            node &#x3D; node.next</span><br><span class="line">        return node</span><br><span class="line"></span><br><span class="line">    def pop(self, index&#x3D;-1):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        把列表最后一个元素删除</span><br><span class="line">        :return:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        if self.length &lt;&#x3D; 1:</span><br><span class="line">            return False</span><br><span class="line">        if index &#x3D;&#x3D; -1:</span><br><span class="line">            index &#x3D; self.length - 2</span><br><span class="line">        n &#x3D; self.get(index)</span><br><span class="line">        next &#x3D; n.next  # 要删除元素的最后一个元素</span><br><span class="line">        pre &#x3D; self.get(index - 1)  # 要删除元素前面一个元素</span><br><span class="line">        pre.next &#x3D; next</span><br><span class="line">        self.length -&#x3D; 1</span><br><span class="line"></span><br><span class="line">    def get(self, index):</span><br><span class="line">        index +&#x3D; 1</span><br><span class="line">        if index &gt;&#x3D; self.length:</span><br><span class="line">            return False</span><br><span class="line">        counter &#x3D; 0</span><br><span class="line">        node &#x3D; self.first_node</span><br><span class="line">        if counter &#x3D;&#x3D; index:</span><br><span class="line">            return node</span><br><span class="line">        while counter !&#x3D; index:</span><br><span class="line">            counter +&#x3D; 1</span><br><span class="line">            # 找到下一个元素</span><br><span class="line">            node &#x3D; node.next</span><br><span class="line">        return node.value</span><br><span class="line"></span><br><span class="line">    def clear(self):</span><br><span class="line">        self.first_node.next &#x3D; None</span><br><span class="line">        self.length &#x3D; 1</span><br><span class="line"></span><br><span class="line">    def count(self, value):</span><br><span class="line">        counter &#x3D; 0</span><br><span class="line">        node &#x3D; self.first_node.next</span><br><span class="line">        while True:</span><br><span class="line">            if node is not None:</span><br><span class="line">                if node.value &#x3D;&#x3D; value:</span><br><span class="line">                    counter +&#x3D; 1</span><br><span class="line">                node &#x3D; node.next</span><br><span class="line">            else:</span><br><span class="line">                break</span><br><span class="line">        return counter</span><br><span class="line"></span><br><span class="line">    def remove(self,value):</span><br><span class="line">        pre_node &#x3D; self.first_node</span><br><span class="line">        current_node &#x3D; pre_node.next</span><br><span class="line">        while True:</span><br><span class="line">            if current_node is None:</span><br><span class="line">                raise ValueError(&quot;&#123;&#125; not in &#123;&#125;&quot;.format(value,self.__class__.__name__))</span><br><span class="line">            if current_node.value &#x3D;&#x3D; value:</span><br><span class="line">                pre_node.next &#x3D; current_node.next</span><br><span class="line">                return</span><br><span class="line">            pre_node &#x3D; pre_node.next</span><br><span class="line">            current_node &#x3D; current_node.next</span><br><span class="line"></span><br><span class="line">    def index(self, value):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        找出value所在的第一个节点</span><br><span class="line">        :param value:</span><br><span class="line">        :return:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        counter &#x3D; 0</span><br><span class="line">        node &#x3D; self.first_node.next</span><br><span class="line">        while True:</span><br><span class="line">            if node is not None:</span><br><span class="line">                if node.value &#x3D;&#x3D; value:</span><br><span class="line">                    return counter</span><br><span class="line">                else:</span><br><span class="line">                    counter +&#x3D; 1</span><br><span class="line">                    node &#x3D; node.next</span><br><span class="line">            else:</span><br><span class="line">                raise ValueError(&quot;&#123;&#125; is not in list&quot;.format(value))</span><br><span class="line"></span><br><span class="line">    def insert(self, index, value):</span><br><span class="line">        counter &#x3D; 0</span><br><span class="line">        pre_node &#x3D; self.first_node</span><br><span class="line">        while True:</span><br><span class="line">            if pre_node is None:</span><br><span class="line">                self.append(value)</span><br><span class="line">                break</span><br><span class="line">            if counter &#x3D;&#x3D; index:</span><br><span class="line">                next_node &#x3D; pre_node.next</span><br><span class="line">                new_node &#x3D; Node(value, None)</span><br><span class="line">                pre_node.next &#x3D; new_node</span><br><span class="line">                new_node.next &#x3D; next_node</span><br><span class="line">                self.length +&#x3D; 1</span><br><span class="line">                break</span><br><span class="line">            else:</span><br><span class="line">                counter +&#x3D; 1</span><br><span class="line">                pre_node &#x3D; pre_node.next</span><br><span class="line"></span><br><span class="line">    def __str__(self):</span><br><span class="line">        string &#x3D; &quot;[&quot;</span><br><span class="line">        node &#x3D; self.first_node.next</span><br><span class="line">        if node is not None:</span><br><span class="line">            v &#x3D; node.value</span><br><span class="line">            string +&#x3D; str(v)</span><br><span class="line">            node &#x3D; node.next</span><br><span class="line">            while node is not None:</span><br><span class="line">                string +&#x3D; &quot;, &quot; + str(node.value)</span><br><span class="line">                node &#x3D; node.next</span><br><span class="line">        string +&#x3D; &quot;]&quot;</span><br><span class="line"></span><br><span class="line">        return string</span><br><span class="line"></span><br><span class="line">    def reverse(self):</span><br><span class="line">        counter &#x3D; 0</span><br><span class="line">        while self.length-2 &gt; counter:</span><br><span class="line">            node &#x3D; self.first_node.next</span><br><span class="line">            if node is None:</span><br><span class="line">                return</span><br><span class="line">            self.insert(self.length-1-counter,node.value)</span><br><span class="line">            counter +&#x3D; 1</span><br><span class="line">            self.pop(0)</span><br><span class="line">    # timsort</span><br><span class="line">    # &lt;__main__.MyListV2 object at 0x103aa1bd0&gt;</span><br><span class="line">    # def __str__(self):</span><br><span class="line">    #     global __name__</span><br><span class="line">    #     string &#x3D; &quot;&lt;&quot;</span><br><span class="line">    #     string +&#x3D; __name__</span><br><span class="line">    #     string +&#x3D; &quot;.MyList&quot;</span><br><span class="line">    #     string +&#x3D; &#39;  object at &#123;0:x&#125;&#39;.format(id(self))</span><br><span class="line">    #     string +&#x3D; &quot;&gt;&quot;</span><br><span class="line">    #     return string</span><br><span class="line">    def __getitem__(self, item):</span><br><span class="line">        if item &#x3D;&#x3D; -1:</span><br><span class="line">            item &#x3D; self.length - 2</span><br><span class="line">        node &#x3D; self.get(item)</span><br><span class="line">        return node.value</span><br><span class="line"></span><br><span class="line">    def __delitem__(self, *args, **kwargs):  # real signature unknown</span><br><span class="line">        &quot;&quot;&quot; Delete self[key]. &quot;&quot;&quot;</span><br><span class="line">        self.pop(args[0])</span><br><span class="line"></span><br><span class="line">    def __gt__(self, other):  #other表示另一个对象，self表示本次的对象   __gt__(&gt;)  __at__(&lt;)</span><br><span class="line">        if self.length &gt; other.length:</span><br><span class="line">            return True</span><br><span class="line">        else:</span><br><span class="line">            return False</span><br><span class="line">    def __add__(self, other):</span><br><span class="line"></span><br><span class="line">        len1 &#x3D; len(self)</span><br><span class="line">        len2 &#x3D; len(other)</span><br><span class="line">        l3 &#x3D; MyList()</span><br><span class="line">        for i in range(len1):</span><br><span class="line">            l3.append(self.get(i))</span><br><span class="line"></span><br><span class="line">        for j in range(len2):</span><br><span class="line">            l3.append(other.get(j))</span><br><span class="line"></span><br><span class="line">        return l3</span><br><span class="line"></span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line">l1 &#x3D; MyList(1,2,3,4,5,6)</span><br><span class="line">print(l1.get(2))</span><br><span class="line">l2 &#x3D; MyList(1,2,3,4)</span><br><span class="line">print(l1+l2)</span><br><span class="line"></span><br><span class="line"># l.reverse()</span><br><span class="line"># #l1.remove(77)</span><br><span class="line"># # l.insert(10,77)</span><br><span class="line"># # l.clear()</span><br><span class="line"># #</span><br><span class="line"># # l &#x3D; [9,2,9,4,9,2,7,8,9]</span><br><span class="line"># # print(l.index(9))</span><br><span class="line"># # print(l1.index(9))</span><br><span class="line">#</span><br><span class="line"># # print(l1)</span><br><span class="line"># print(l)</span><br><span class="line"># print(len(l))</span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line"># class MyListV2(MyList):</span><br><span class="line">#     def sort(self):</span><br><span class="line">#         pass</span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line"># class MyListV3(MyListV2):</span><br><span class="line">#     def reverse(self):</span><br><span class="line">#         pass</span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line"># l &#x3D; MyListV2(6, 7, 8, 9, 10)</span><br><span class="line">#</span><br><span class="line"># l.append(9)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    
+    <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束 <i class="fa fa-heart"></i> 感谢阅读-------------</div>
+
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>jwangtec
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/jwangcloud/3400028629/" title="python基础大全10--异常类、手写list">http://example.com/jwangcloud/3400028629/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/python%E5%BC%82%E5%B8%B8%E7%B1%BB/" rel="tag"><i class="fa fa-tag"></i> python异常类</a>
+              <a href="/tags/python%E6%89%8B%E5%86%99list/" rel="tag"><i class="fa fa-tag"></i> python手写list</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/jwangcloud/1559717923/" rel="prev" title="python基础大全09--模块操作">
+      <i class="fa fa-chevron-left"></i> python基础大全09--模块操作
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/jwangcloud/1278160075/" rel="next" title="python基础大全11--面相对象">
+      python基础大全11--面相对象 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E7%B1%BB-%EF%BC%9A%E6%8A%A5%E5%91%8A%E9%94%99%E8%AF%AF-%E2%80%93-gt-%E4%B8%AD%E6%96%AD-%E8%BF%90%E8%A1%8C"><span class="nav-number">1.</span> <span class="nav-text">异常类 ：报告错误 –&gt; 中断 运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8A%A5%E9%94%99"><span class="nav-number">2.</span> <span class="nav-text">自定义报错</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E5%88%97%E8%A1%A8%E7%B1%BB%EF%BC%8C%E5%AE%9E%E7%8E%B0%E5%88%97%E8%A1%A8%E7%9A%84%E5%9F%BA%E7%A1%80%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">编写列表类，实现列表的基础方法</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="jwangtec"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">jwangtec</p>
+  <div class="site-description" itemprop="description">小脑袋，大智慧</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jwangtec" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jwangtec" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.jianshu.com/u/684433bc744b" title="简书 → https:&#x2F;&#x2F;www.jianshu.com&#x2F;u&#x2F;684433bc744b" rel="noopener" target="_blank"><i class="fa fa-heartbeat fa-fw"></i>简书</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/qq_34536604" title="csdn → https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_34536604" rel="noopener" target="_blank"><i class="fa fa-crosshairs fa-fw"></i>csdn</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://juejin.im/user/5e5c685e6fb9a07cd443bedai" title="掘金 → https:&#x2F;&#x2F;juejin.im&#x2F;user&#x2F;5e5c685e6fb9a07cd443bedai" rel="noopener" target="_blank"><i class="fa fa-spinner fa-fw"></i>掘金</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://app.gitbook.com/@79896867/spaces" title="gitbook → https:&#x2F;&#x2F;app.gitbook.com&#x2F;@79896867&#x2F;spaces" rel="noopener" target="_blank"><i class="fa fa-git fa-fw"></i>gitbook</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/jwangtec@163.com" title="E-Mail → jwangtec@163.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.runoob.com/manual/jdk11api/index.html" title="https:&#x2F;&#x2F;www.runoob.com&#x2F;manual&#x2F;jdk11api&#x2F;index.html" rel="noopener" target="_blank">Java11开发文档</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://spring.io/projects/spring-cloud-azure" title="https:&#x2F;&#x2F;spring.io&#x2F;projects&#x2F;spring-cloud-azure" rel="noopener" target="_blank">Spring cloud</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://ife.baidu.com/" title="http:&#x2F;&#x2F;ife.baidu.com&#x2F;" rel="noopener" target="_blank">百度前端技术学院</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://learn666-gif.github.io/Jwang/4cff2ea4.html" title="https:&#x2F;&#x2F;learn666-gif.github.io&#x2F;Jwang&#x2F;4cff2ea4.html" rel="noopener" target="_blank">JAVA体系构建</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jwangtec</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">283k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4:17</span>
+</div>
+
+
+<!-- 网站运行时间的设置 -->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>  努力创造未来
+<script>
+        var now = new Date();
+        function createtime() {
+            var grt= new Date("01/05/2018 00:00:00");//此处修改你的建站时间或者网站上线时间
+            now.setTime(now.getTime()+250);
+            days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+            hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+            if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+            mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+            seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+            snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+            document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+            document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()",250);
+</script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
