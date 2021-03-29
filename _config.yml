@@ -130,7 +130,7 @@ symbols_count_time:
 backup:
     type: git
     repository:
-       github: git@github.com:JwangTec/JwangTec.github.io.git,backups
+       origin: git@github.com:JwangTec/JwangTec.github.io.git,backups
 #       gitcafe: git@github.com:JwangTec/JwangTec.github.io.git,branchName
 
 
