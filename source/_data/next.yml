@@ -272,15 +272,15 @@ symbols_count_time:
 tag_icon: true
 
 # Reward (Donate)
-# Front-matter variable (unsupport animation).
+# Front-matter variable (unsupport animation). 开启打赏
 reward_settings:
   # If true, reward will be displayed in every article by default.
-  enable: false
-  animation: false
-  #comment: Donate comment here.
+  enable: true
+  animation: true
+  comment: <p style="font-size:14px; color:#34495e; margin:0 0 5px 0;">赞赏一下吧～ 还可以关注公众号订阅最新内容</p>
 
 reward:
-  #wechatpay: /images/wechatpay.png
+  wechatpay: /images/WechatIMG18.png
   #alipay: /images/alipay.png
   #paypal: /images/paypal.png
   #bitcoin: /images/bitcoin.png
@@ -293,10 +293,10 @@ follow_me:
   #WeChat: /images/wechat_channel.jpg || fab fa-weixin
   #RSS: /atom.xml || fa fa-rss
 
-# Related popular posts
+# Related popular posts 相关文章推荐
 # Dependencies: https://github.com/tea3/hexo-related-popular-posts
 related_posts:
-  enable: false
+  enable: true
   title: # Custom header, leave empty to use the default one
   display_in_home: false
   params:
@@ -584,7 +584,7 @@ comments:
   # Setting `true` means remembering the comment system selected by the visitor.
   storage: true
   # Lazyload all comment systems.
-  lazyload: false
+  lazyload: true
   # Modify texts or order for any navs, here are some examples.
   nav:
     #disqus:
@@ -624,16 +624,16 @@ changyan:
 # Valine
 # For more information: https://valine.js.org, https://github.com/xCss/Valine
 valine:
-  enable: false
-  appid: # Your leancloud application appid
-  appkey: # Your leancloud application appkey
+  enable: true
+  appid: 2UzmUUcYke4dpzoJtJNAzAPL-gzGzoHsz # Your leancloud application appid
+  appkey: rdlKv9Hl6K9hnMEp9A1NCRMB # Your leancloud application appkey
   notify: false # Mail notifier
   verify: false # Verification code
-  placeholder: Just go go # Comment box placeholder
-  avatar: mm # Gravatar style
+  placeholder: 留下邮箱，有回复时你将收到提醒，邮箱不会被公开。 # Comment box placeholder
+  avatar: wavatar # Gravatar style
   guest_info: nick,mail,link # Custom comment header
   pageSize: 10 # Pagination size
-  language: # Language, available values: en, zh-cn
+  language: zh-cn # Language, available values: en, zh-cn
   visitor: false # Article reading statistic
   comment_count: true # If false, comment count will only be displayed in post page, not in home page
   recordIP: false # Whether to record the commenter IP
@@ -642,7 +642,7 @@ valine:
 
 # LiveRe comments system
 # You can get your uid from https://livere.com/insight/myCode (General web site)
-livere_uid: # <your_uid>
+#livere_uid: MTAyMC80ODg5NC8yNTM4OA== # <your_uid>
 
 # Gitalk
 # For more information: https://gitalk.github.io, https://github.com/gitalk/gitalk

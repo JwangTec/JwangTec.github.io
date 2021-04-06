@@ -136,4 +136,10 @@ backup:
        origin: git@github.com:JwangTec/JwangTec.github.io.git,backups
 #       gitcafe: git@github.com:JwangTec/JwangTec.github.io.git,branchName
 
+# hexo-admin authentification
 
+admin:
+  deployCommand: './hexo-deploy.sh'
+  username: jwangtec
+  password_hash: $2a$10$8RI0ep0oVGMUAoLqUBmz1eW9ZxRWKH33sML5KvcnIklEmhgK3C/8C
+  secret: helloword
