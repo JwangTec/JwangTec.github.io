@@ -1,6 +1,246 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Java重要知识积累01--面相对象</title>
+    <url>/jwangcloud/1572511114/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="类和对象"><a href="#类和对象" class="headerlink" title="类和对象"></a>类和对象</h2><h3 id="面向对象和面向过程编程思想"><a href="#面向对象和面向过程编程思想" class="headerlink" title="面向对象和面向过程编程思想"></a>面向对象和面向过程编程思想</h3><h4 id="面向过程编程思想"><a href="#面向过程编程思想" class="headerlink" title="面向过程编程思想"></a>面向过程编程思想</h4><ul>
+<li><strong>强调的是过程,必须清楚每一个步骤,然后按照步骤一步一步去实现</strong></li>
+</ul>
+<h4 id="面向对象编程思想"><a href="#面向对象编程思想" class="headerlink" title="面向对象编程思想"></a>面向对象编程思想</h4><ul>
+<li><strong>强调的是对象, 通过调用对象的行为来实现功能，而不是自己一步一步的去操作实现。</strong></li>
+</ul>
+<h4 id="举例对比2种编程思想"><a href="#举例对比2种编程思想" class="headerlink" title="举例对比2种编程思想"></a>举例对比2种编程思想</h4><ul>
+<li>java程序:  需求:打印数组中所有的元素,打印格式为: [元素1，元素2，元素3，元素，…，元素n]</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">method01</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1.面向过程来实现该需求</span></span><br><span class="line">    <span class="comment">// 1.1 定义一个数组,并且初始化数组中的元素</span></span><br><span class="line">    <span class="keyword">int</span>[] arr = &#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 1.2 按照指定格式去打印</span></span><br><span class="line">    <span class="comment">// 1.2.1 先打印一个左中括号 &quot;[&quot;</span></span><br><span class="line">    System.out.print(<span class="string">&quot;[&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 1.2.2 循环遍历元素</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">        <span class="comment">// 1.2.3 判断遍历的元素是否是最后一个元素</span></span><br><span class="line">        <span class="keyword">int</span> e = arr[i];</span><br><span class="line">        <span class="keyword">if</span> (i == arr.length - <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="comment">// 1.2.5 如果是最后一个元素,那么打印格式就是 &quot;元素]&quot;</span></span><br><span class="line">            System.out.print(e+<span class="string">&quot;]&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 1.2.4 如果不是最后一个元素,那么打印格式就是 &quot;元素, &quot;</span></span><br><span class="line">            System.out.print(e+<span class="string">&quot;, &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2.面向对象来实现该需求</span></span><br><span class="line">    <span class="comment">// Arrays数组的工具类,toString()方法,可以帮助我们按照该指定格式打印数组</span></span><br><span class="line">    System.out.println(Arrays.toString(arr));<span class="comment">// [10, 20, 30, 40, 50]</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="类的概述"><a href="#类的概述" class="headerlink" title="类的概述"></a>类的概述</h3><ul>
+<li>类是用来描述一类具有<strong>共同属性和行为事物的统称</strong>。所以其实类在客观世界里是不存在的，<strong>是抽象的</strong>，只是用来描述数据信息的。</li>
+</ul>
+<h4 id="类的组成"><a href="#类的组成" class="headerlink" title="类的组成"></a>类的组成</h4><ul>
+<li>属性：就是该事物的状态信息。</li>
+<li>行为：就是该事物能够做什么。</li>
+</ul>
+<h5 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h5><ul>
+<li>手机类<ul>
+<li>属性：品牌、价格—-成员变量</li>
+<li>行为：打电话、发短信—-成员方法</li>
+</ul>
+</li>
+</ul>
+<h3 id="对象的概述"><a href="#对象的概述" class="headerlink" title="对象的概述"></a>对象的概述</h3><ul>
+<li>对象是类的一个实例，<strong>具体存在的，看得见摸得着的</strong>，并且具备该类事物的属性和行为<ul>
+<li>对象的属性:对象的属性具有特定的值</li>
+<li>对象的行为:对象可以操作的行为</li>
+</ul>
+</li>
+<li>手机类: 描述手机<ul>
+<li>对象:袁芳老师的手机</li>
+</ul>
+</li>
+</ul>
+<h3 id="类和对象的关系"><a href="#类和对象的关系" class="headerlink" title="类和对象的关系"></a>类和对象的关系</h3><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/OA/img/1_%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%85%B3%E7%B3%BB.png" alt="1584029135069"></p>
+<h3 id="类的定义【应用】"><a href="#类的定义【应用】" class="headerlink" title="类的定义【应用】"></a>类的定义【应用】</h3><p>类的组成是由属性和行为两部分组成</p>
+<ul>
+<li>属性：该类事物的状态信息,在类中通过成员变量来体现（类中方法外的变量）</li>
+<li>行为：该类事物有什么功能,在类中通过成员方法来体现（和前面的方法相比去掉static关键字即可）</li>
+</ul>
+<h4 id="类的定义格式"><a href="#类的定义格式" class="headerlink" title="类的定义格式"></a>类的定义格式</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> 类名 </span>&#123;<span class="comment">// 定义一个类</span></span><br><span class="line">	<span class="comment">// 类里面:属性(成员变量),行为(成员方法)</span></span><br><span class="line">    <span class="comment">// 定义成员变量</span></span><br><span class="line">    数据类型 变量名<span class="number">1</span>;</span><br><span class="line">    数据类型 变量名<span class="number">2</span>;</span><br><span class="line">    ...</span><br><span class="line">        </span><br><span class="line">    <span class="comment">// 定义成员方法</span></span><br><span class="line">    方法;  去掉<span class="keyword">static</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="对象的创建和使用"><a href="#对象的创建和使用" class="headerlink" title="对象的创建和使用"></a>对象的创建和使用</h3><h4 id="对象的创建"><a href="#对象的创建" class="headerlink" title="对象的创建"></a>对象的创建</h4><ul>
+<li>创建对象的格式：<ul>
+<li><code>类名 对象名 = new 类名();</code></li>
+<li>类其实就是对象的数据类型,类是引用数据类型<ul>
+<li>例: Phone p1 = new Phone ();   创建了一个手机对象(Phone类的对象)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="对象的使用"><a href="#对象的使用" class="headerlink" title="对象的使用"></a>对象的使用</h4><ul>
+<li>调用成员的格式：<ul>
+<li>访问成员变量<ul>
+<li>获取成员变量的值: 对象名.成员变量名</li>
+<li>给成员变量赋值: 对象名.成员变量名=值;</li>
+</ul>
+</li>
+<li>访问成员方法<ul>
+<li>对象名.成员方法名(实参);</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="成员变量是有默认值"><a href="#成员变量是有默认值" class="headerlink" title="成员变量是有默认值"></a>成员变量是有默认值</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">整数类型    默认值         <span class="number">0</span></span><br><span class="line">小数类型    默认值         <span class="number">0.0</span></span><br><span class="line">字符类型    默认值         不可见字符 <span class="string">&#x27;\u0000&#x27;</span></span><br><span class="line">布尔类型    默认值         <span class="keyword">false</span></span><br><span class="line">引用数据类型 默认值        <span class="keyword">null</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="对象内存图相关使用的测试类"><a href="#对象内存图相关使用的测试类" class="headerlink" title="对象内存图相关使用的测试类"></a>对象内存图相关使用的测试类</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 属性: 姓名,年龄</span></span><br><span class="line">    String name;<span class="comment">// 姓名</span></span><br><span class="line">    <span class="keyword">int</span> age;<span class="comment">// 年龄</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 行为:学习功能</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">study</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;正在努力学Java...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="单个对象内存图"><a href="#单个对象内存图" class="headerlink" title="单个对象内存图"></a>单个对象内存图</h3><ul>
+<li>只要创建对象,就会在堆区开辟一块空间</li>
+<li>只要调用方法,就会在栈区开辟一块空间,用来执行该方法</li>
+</ul>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/OA/img/2_%E5%8D%95%E4%B8%AA%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E5%9B%BE.png" alt="1584072556325"></p>
+<h3 id="多个对象内存图"><a href="#多个对象内存图" class="headerlink" title="多个对象内存图"></a>多个对象内存图</h3><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/OA/img/image-20200607105906300.png" alt="image-20200607105906300"></p>
+<ul>
+<li>多个对象在堆内存中，都有不同的内存划分，成员变量存储在各自的内存区域中，成员方法多个对象共用的一份</li>
+<li>凡是new就会重新在堆区开辟一块新空间</li>
+<li>对象和对象之间的关系是相互独立的</li>
+</ul>
+<h3 id="多个变量指向相同对象内存图"><a href="#多个变量指向相同对象内存图" class="headerlink" title="多个变量指向相同对象内存图"></a>多个变量指向相同对象内存图</h3><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/OA/img/4_%E5%A4%9A%E4%B8%AA%E5%8F%98%E9%87%8F%E6%8C%87%E5%90%91%E7%9B%B8%E5%90%8C%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%9B%BE.png" alt="1584081535183"></p>
+<ul>
+<li>当多个对象的引用指向同一个内存空间（变量所记录的地址值是一样的）</li>
+<li>只要有任何一个对象修改了内存中的数据，随后，无论使用哪一个对象进行数据获取，都是修改后的数据。</li>
+</ul>
+<h3 id="成员变量和局部变量的区别"><a href="#成员变量和局部变量的区别" class="headerlink" title="成员变量和局部变量的区别"></a>成员变量和局部变量的区别</h3><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/OA/img/1582716017361.png" alt="1582716017361"></p>
+<ul>
+<li>类中位置不同：成员变量（类中方法外）局部变量（方法内部或方法声明上）</li>
+<li>内存中位置不同：成员变量（堆内存）局部变量（栈内存）</li>
+<li>生命周期不同：成员变量（随着对象的存在而存在，随着对象的消失而消失）局部变量（随着方法的调用而存在，随着方法的调用完毕而消失）</li>
+<li>初始化值不同：成员变量（有默认初始化值）局部变量（没有默认初始化值，必须先定义，赋值才能使用）</li>
+</ul>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/OA/img/5_%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%92%8C%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E7%9A%84%E5%8C%BA%E5%88%AB.png" alt="1584082793302"></p>
+<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><h3 id="private关键字"><a href="#private关键字" class="headerlink" title="private关键字"></a>private关键字</h3><ul>
+<li>概述: private是一个权限修饰符，代表最小权限。</li>
+<li>特点:<ul>
+<li>可以修饰成员变量和成员方法。</li>
+<li>被private修饰后的成员变量和成员方法，只在本类中才能访问。</li>
+</ul>
+</li>
+</ul>
+<h4 id="private的使用格式"><a href="#private的使用格式" class="headerlink" title="private的使用格式"></a>private的使用格式</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// private关键字修饰成员变量</span></span><br><span class="line"><span class="keyword">private</span> 数据类型 变量名 ；</span><br><span class="line"></span><br><span class="line"><span class="comment">// private关键字修饰成员方法</span></span><br><span class="line"><span class="keyword">private</span> 返回值类型 方法名(参数列表)&#123;</span><br><span class="line">    代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 成员变量</span></span><br><span class="line">    String name;<span class="comment">// 姓名</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;<span class="comment">// 年龄</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(name);</span><br><span class="line">        System.out.println(age);<span class="comment">// 可以访问</span></span><br><span class="line">        study();<span class="comment">// 可以访问</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">study</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;正在努力学Java&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Student stu = <span class="keyword">new</span> Student();</span><br><span class="line">        System.out.println(stu.name);</span><br><span class="line">        <span class="comment">//System.out.println(stu.age);// 编译报错,没有访问权限</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//stu.study();// 编译报错,没有访问权限</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 间接访问</span></span><br><span class="line">        stu.show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="对属性封装的步骤"><a href="#对属性封装的步骤" class="headerlink" title="对属性封装的步骤"></a>对属性封装的步骤</h3><h4 id="为什么要对属性进行封装"><a href="#为什么要对属性进行封装" class="headerlink" title="为什么要对属性进行封装"></a>为什么要对属性进行封装</h4><ul>
+<li>通过对象名直接访问成员变量的方式来对属性赋值,会存在数据安全隐患,应该怎么解决呢?</li>
+<li>解决方式: 不让外界直接访问成员变量(也就是要对属性进行封装)</li>
+</ul>
+<h4 id="对属性封装的步骤-1"><a href="#对属性封装的步骤-1" class="headerlink" title="对属性封装的步骤"></a>对属性封装的步骤</h4><ol>
+<li>使用private修饰成员变量</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">   <span class="comment">// 类的属性 ---&gt; 成员变量</span></span><br><span class="line">   <span class="comment">// 姓名(name)</span></span><br><span class="line">   <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 年龄(age)</span></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 类的行为 ---&gt; 成员方法</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">       System.out.println(<span class="string">&quot;姓名:&quot;</span>+name+<span class="string">&quot;,年龄:&quot;</span>+age);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>对需要访问的成员变量,提供对应的<code>getXxx</code>方法(获取属性的值) 、<code>setXxx</code> 方法(给属性赋值)。</li>
+</ol>
+<h3 id="set和get方法"><a href="#set和get方法" class="headerlink" title="set和get方法"></a>set和get方法</h3><ul>
+<li><p>由于属性使用了private关键字修饰,在其他类中无法直接访问,所以得提供公共的访问方法,我们把这张方法叫做set和get方法</p>
+<ul>
+<li>get方法:  提供“get变量名()”方法，用于获取成员变量的值，方法用public修饰</li>
+</ul>
+<ul>
+<li>set方法: 提供“set变量名(参数)”方法，用于设置成员变量的值，方法用public修饰</li>
+</ul>
+</li>
+</ul>
+<h4 id="set和get方法的书写"><a href="#set和get方法的书写" class="headerlink" title="set和get方法的书写"></a>set和get方法的书写</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</span><br><span class="line">    age = a;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> age;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">set方法的书写规律:</span><br><span class="line">    <span class="number">1.</span>set方法一定是一个公共的方法(<span class="keyword">public</span>)</span><br><span class="line">        <span class="number">2.</span>set方法一定没有返回值(<span class="keyword">void</span>)</span><br><span class="line">        <span class="number">3.</span>set方法的方法名一定是set+属性名,并且属性名首字母大写</span><br><span class="line">        <span class="number">4.</span>set方法一定有参数</span><br><span class="line">        <span class="number">5.</span>set方法一定会给属性赋值</span><br><span class="line"></span><br><span class="line">get方法的书写规律:</span><br><span class="line">    <span class="number">1.</span>get方法一定是一个公共的方法(<span class="keyword">public</span>)</span><br><span class="line">        <span class="number">2.</span>get方法一定有返回值,并且返回值类型与获取的属性类型一致</span><br><span class="line">        <span class="number">3.</span>get方法的方法名一定是get+属性名,并且属性名首字母大写</span><br><span class="line">        <span class="number">4.</span>get方法一定没有参数</span><br><span class="line">        <span class="number">5.</span>get方法一定会返回属性的值</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="this关键字"><a href="#this关键字" class="headerlink" title="this关键字"></a>this关键字</h3><ul>
+<li><code>setXxx</code> 方法中的形参名字并不符合见名知意的规定，那么如果修改与成员变量名一致，是否就见名知意了呢？</li>
+</ul>
+<ul>
+<li>经过修改和测试，我们发现新的问题，成员变量赋值失败了。也就是说，在修改了<code>setXxx()</code> 的形参变量名后，方法并没有给成员变量赋值！这是由于形参变量名与成员变量名重名，导致成员变量名被隐藏，方法中的变量名，无法访问到成员变量，从而赋值失败。所以，我们只能使用this关键字，来解决这个重名问题。</li>
+</ul>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/OA/img/5_%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%92%8C%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E5%90%8C%E5%90%8D%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90.png" alt="1584082793302"></p>
+<h4 id="this的含义和使用"><a href="#this的含义和使用" class="headerlink" title="this的含义和使用"></a>this的含义和使用</h4><ul>
+<li><p>this含义: this代表当前调用方法的引用，哪个对象调用this所在的方法，this就代表哪一个对象</p>
+</li>
+<li><p>this关键字其主要作用是区分同名的局部变量和成员变量</p>
+<ul>
+<li>方法的形参如果与成员变量同名，不带this修饰的变量指的是形参，而不是成员变量</li>
+<li>方法的形参没有与成员变量同名，不带this修饰的变量指的是成员变量</li>
+</ul>
+</li>
+<li><p>this的使用格式:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>.成员变量名</span><br></pre></td></tr></table></figure></li>
+<li><p>使用 <code>this</code> 修饰方法中的变量，解决成员变量被隐藏的问题</p>
+</li>
+</ul>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/OA/img/6_this%E5%85%B3%E9%94%AE%E5%AD%97.png"></p>
+<blockquote>
+<p>小贴士：方法中只有一个变量名时，默认也是使用 <code>this</code> 修饰，可以省略不写。</p>
+</blockquote>
+<h3 id="this内存原理"><a href="#this内存原理" class="headerlink" title="this内存原理"></a>this内存原理</h3><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/OA/img/image-20200601121319604.png"></p>
+<h3 id="封装概述"><a href="#封装概述" class="headerlink" title="封装概述"></a>封装概述</h3><ul>
+<li>是面向对象三大特征之一（封装，继承，多态）</li>
+<li>是面向对象编程语言对客观世界的模拟，客观世界里成员变量都是<strong>隐藏</strong>在对象内部的，外界是无法直接操作的</li>
+</ul>
+<h4 id="封装原则"><a href="#封装原则" class="headerlink" title="封装原则"></a>封装原则</h4><ul>
+<li>将类的某些信息隐藏在类内部，不允许外部程序直接访问，而是通过该类提供的方法来实现对隐藏信息的操作和访问</li>
+<li>例如:成员变量使用private修饰，提供对应的getXxx()/setXxx()方法</li>
+</ul>
+<h4 id="封装好处"><a href="#封装好处" class="headerlink" title="封装好处"></a>封装好处</h4><ul>
+<li>通过方法来控制成员变量的操作，提高了代码的安全性</li>
+<li>把代码用方法进行封装，提高了代码的复用性</li>
+</ul>
+<h2 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h2><h3 id="构造方法概述"><a href="#构造方法概述" class="headerlink" title="构造方法概述"></a>构造方法概述</h3><ul>
+<li>构造方法是一种特殊的方法,主要是完成对象的创建和对象数据的初始化</li>
+</ul>
+<h4 id="构造方法的定义"><a href="#构造方法的定义" class="headerlink" title="构造方法的定义"></a>构造方法的定义</h4><ul>
+<li><p>格式</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 空参构造方法</span></span><br><span class="line">修饰符 类名()&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 有参构造方法</span></span><br><span class="line">修饰符 类名(参数列表)&#123;</span><br><span class="line">	<span class="comment">// 方法体</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>特点:</p>
+<ul>
+<li>构造方法的写法上，方法名与它所在的类名相同</li>
+<li>构造方法没有返回值，所以不需要返回值类型，甚至不需要void</li>
+</ul>
+</li>
+<li><p>示例代码：</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 属性</span></span><br><span class="line">    String name;</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构造方法:</span></span><br><span class="line">    <span class="comment">// 空参构造方法</span></span><br><span class="line">    <span class="comment">// 创建对象,属性为默认值</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">()</span></span>&#123;<span class="comment">//空参构造</span></span><br><span class="line">        System.out.println(<span class="string">&quot;空参构造方法执行了...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 有参构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name,<span class="keyword">int</span> age)</span></span>&#123;<span class="comment">// 满参构造方法</span></span><br><span class="line">        <span class="comment">// 给属性赋值</span></span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name)</span></span>&#123;<span class="comment">// 有参构造方法</span></span><br><span class="line">        <span class="comment">// 给属性赋值</span></span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;姓名:&quot;</span>+name+<span class="string">&quot;,年龄:&quot;</span>+age);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    测试类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo1Student</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 使用构造方法</span></span><br><span class="line">        <span class="comment">// 创建Student对象:  类名 对象名 = new 类名();</span></span><br><span class="line">        <span class="comment">// 调用空参构造方法创建对象,对象的属性为默认值</span></span><br><span class="line">        Student stu1 = <span class="keyword">new</span> Student();<span class="comment">// 等于号的右边其实就是调用空参构造方法</span></span><br><span class="line">        stu1.show();<span class="comment">// 姓名:null,年龄:0</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 调用满参构造方法创建对象,对象的属性会被赋值</span></span><br><span class="line">        Student stu2 = <span class="keyword">new</span> Student(<span class="string">&quot;冰冰&quot;</span>,<span class="number">18</span>);</span><br><span class="line">        stu2.show();<span class="comment">// 姓名:冰冰,年龄:18</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 调用有参构造方法创建对象,对象的部分属性会被赋值</span></span><br><span class="line">        Student stu3 = <span class="keyword">new</span> Student(<span class="string">&quot;小泽老师&quot;</span>);</span><br><span class="line">        stu3.show();<span class="comment">// // 姓名:小泽老师,年龄:0</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="构造方法的注意事项"><a href="#构造方法的注意事项" class="headerlink" title="构造方法的注意事项"></a>构造方法的注意事项</h3><ul>
+<li><p>构造方法的创建</p>
+<ul>
+<li>如果没有定义构造方法，系统将给出一个默认的无参数构造方法</li>
+<li>如果定义了构造方法，系统将不再提供默认的构造方法</li>
+</ul>
+</li>
+<li><p>构造方法可以重载，既可以定义参数，也可以不定义参数。</p>
+</li>
+<li><p>示例代码</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    学生类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name,<span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(name + <span class="string">&quot;,&quot;</span> + age);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    测试类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//创建对象</span></span><br><span class="line">        Student s1 = <span class="keyword">new</span> Student();</span><br><span class="line">        s1.show();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//public Student(String name)</span></span><br><span class="line">        Student s2 = <span class="keyword">new</span> Student(<span class="string">&quot;林青霞&quot;</span>);</span><br><span class="line">        s2.show();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//public Student(int age)</span></span><br><span class="line">        Student s3 = <span class="keyword">new</span> Student(<span class="number">30</span>);</span><br><span class="line">        s3.show();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//public Student(String name,int age)</span></span><br><span class="line">        Student s4 = <span class="keyword">new</span> Student(<span class="string">&quot;林青霞&quot;</span>,<span class="number">30</span>);</span><br><span class="line">        s4.show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="标准类制作"><a href="#标准类制作" class="headerlink" title="标准类制作"></a>标准类制作</h3><h4 id="标准类的组成"><a href="#标准类的组成" class="headerlink" title="标准类的组成"></a>标准类的组成</h4><p><code>JavaBean</code> 是 Java语言编写类的一种标准规范。符合<code>JavaBean</code> 的类，要求类必须是公共的，属性使用private修饰,并且具有无参数的构造方法，提供用来操作成员变量的<code>set</code> 和<code>get</code> 方法。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassName</span></span>&#123;</span><br><span class="line">  <span class="comment">//成员变量  private</span></span><br><span class="line">  <span class="comment">//构造方法</span></span><br><span class="line">  <span class="comment">//无参构造方法【必须】</span></span><br><span class="line">  <span class="comment">//满参构造方法【建议】</span></span><br><span class="line">  <span class="comment">//getXxx()</span></span><br><span class="line">  <span class="comment">//setXxx()</span></span><br><span class="line">  <span class="comment">//成员方法	</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><ul>
+<li><p>什么是API</p>
+<p>​    API (Application Programming Interface) ：应用程序编程接口。Java API是一本程序员的<code>字典</code> ，是JDK中提供给我们使用的类的<strong>说明文档</strong>。这些类将底层的代码实现封装了起来，我们不需要关心这些类是如何实现的，只需要学习这些类如何使用即可。所以我们可以通过查询API的方式，来学习Java提供的类，并得知如何使用它们。</p>
+<ul>
+<li>API其实就是jdk中核心类库的说明文档</li>
+<li>对于jdk中的核心类库只需要知道如何使用,无须关心他是如何实现的</li>
+</ul>
+</li>
+</ul>
+<h3 id="API的使用步骤"><a href="#API的使用步骤" class="headerlink" title="API的使用步骤"></a>API的使用步骤</h3><ol>
+<li>打开API帮助文档。</li>
+<li>点击显示，找到索引，看到输入框。</li>
+<li>你要找谁？在输入框里输入，然后回车。</li>
+<li>看包。java.lang下的类不需要导包，其他需要。  </li>
+<li>看类的解释和说明。</li>
+<li>看构造方法。</li>
+<li>看成员方法。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Java知识积累</category>
+      </categories>
+      <tags>
+        <tag>面相对象</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux操作系统01--Linux入门</title>
     <url>/jwangcloud/1737435959/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/Linux.jpeg"></p>
@@ -54,38 +294,6 @@ mkdir -p : 可以创建一个新文件夹下创建新文件
       </categories>
       <tags>
         <tag>Linux入门</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux操作系统02--Linux权限</title>
-    <url>/jwangcloud/4264740339/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/Linux.jpeg"></p>
-<h2 id="进制计算"><a href="#进制计算" class="headerlink" title="进制计算"></a>进制计算</h2><span id="more"></span>    
-
-<pre><code>二进制 ： 以111（2） 为例：1*2^0 + 1*2^1 + 1*2^2 =7 
-十六进制：以16为底：0～9 A～F
-三十六进制：以32为低：0-9 A-Z 除开 i o s z
-</code></pre>
-<h2 id="Linux权限"><a href="#Linux权限" class="headerlink" title="Linux权限"></a>Linux权限</h2><ol>
-<li>例：使用ls -lh 文件属性字段显示信息如下<pre><code> d  rwx  r_x  r_x  d(文件夹) r(可读) w(可写) x(可执行) 
-   111  101  101
-    7    5    5
-    u    g    o
-  
-</code></pre>
-整个信息段表示：文件属性字段 文件硬链接数/目录子文件数 文件拥有者 文件拥有者所在组 文件大小（以字节为单位） 文件创建时间 文件名（–&gt;符号为指向目标文件夹）</li>
-<li> 修改权限：chmod 权限的十进制 文件名 （chmod 755 1.txt）权限最高为777<br>修改文件夹权限：chmod -R</li>
-<li>修改某一个权限：chmod u-x 文件名 （u-x 为 user 用户去掉可执行，还可以为u+x、u-wx、g+rx）</li>
-</ol>
-<h2 id="编码表"><a href="#编码表" class="headerlink" title="编码表"></a>编码表</h2><p>最早的字符编码表：Ascil码（不能存汉字）</p>
-<p>中文编码：gbk（简体） big5(繁体)</p>
-<p>世界性文字编码：unicode32  通过加工–通用编码：utf-8(可变长)、utf-16(即固定又可变)、utf-32(固定)</p>
-]]></content>
-      <categories>
-        <category>Linux操作系统</category>
-      </categories>
-      <tags>
-        <tag>Linux权限</tag>
       </tags>
   </entry>
   <entry>
@@ -177,6 +385,38 @@ mkdir -p : 可以创建一个新文件夹下创建新文件
       <tags>
         <tag>vim</tag>
         <tag>ssh</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux操作系统02--Linux权限</title>
+    <url>/jwangcloud/4264740339/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/Linux.jpeg"></p>
+<h2 id="进制计算"><a href="#进制计算" class="headerlink" title="进制计算"></a>进制计算</h2><span id="more"></span>    
+
+<pre><code>二进制 ： 以111（2） 为例：1*2^0 + 1*2^1 + 1*2^2 =7 
+十六进制：以16为底：0～9 A～F
+三十六进制：以32为低：0-9 A-Z 除开 i o s z
+</code></pre>
+<h2 id="Linux权限"><a href="#Linux权限" class="headerlink" title="Linux权限"></a>Linux权限</h2><ol>
+<li>例：使用ls -lh 文件属性字段显示信息如下<pre><code> d  rwx  r_x  r_x  d(文件夹) r(可读) w(可写) x(可执行) 
+   111  101  101
+    7    5    5
+    u    g    o
+  
+</code></pre>
+整个信息段表示：文件属性字段 文件硬链接数/目录子文件数 文件拥有者 文件拥有者所在组 文件大小（以字节为单位） 文件创建时间 文件名（–&gt;符号为指向目标文件夹）</li>
+<li> 修改权限：chmod 权限的十进制 文件名 （chmod 755 1.txt）权限最高为777<br>修改文件夹权限：chmod -R</li>
+<li>修改某一个权限：chmod u-x 文件名 （u-x 为 user 用户去掉可执行，还可以为u+x、u-wx、g+rx）</li>
+</ol>
+<h2 id="编码表"><a href="#编码表" class="headerlink" title="编码表"></a>编码表</h2><p>最早的字符编码表：Ascil码（不能存汉字）</p>
+<p>中文编码：gbk（简体） big5(繁体)</p>
+<p>世界性文字编码：unicode32  通过加工–通用编码：utf-8(可变长)、utf-16(即固定又可变)、utf-32(固定)</p>
+]]></content>
+      <categories>
+        <category>Linux操作系统</category>
+      </categories>
+      <tags>
+        <tag>Linux权限</tag>
       </tags>
   </entry>
   <entry>
@@ -4245,84 +4485,6 @@ deleteview
       </tags>
   </entry>
   <entry>
-    <title>通用技术03--hexo博客搭建</title>
-    <url>/jwangcloud/3848869124/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/hexo.jpeg"></p>
-<meta name="referrer" content="no-referrer">
-
-<p>版权声明：本文为github博主「_xaoxuu」的原创文章，遵循 CC4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。</p>
-<p><a href="https://xaoxuu.com/blog/2017-07-05-hexo-blog/">原文链接: </a><a href="https://xaoxuu.com/blog/2017-07-05-hexo-blog/">https://xaoxuu.com/blog/2017-07-05-hexo-blog/</a></p>
-<h2 id="搭建基于hexo的独立博客"><a href="#搭建基于hexo的独立博客" class="headerlink" title="搭建基于hexo的独立博客"></a>搭建基于hexo的独立博客</h2><span id="more"></span>
-
-<h3 id="傻瓜式操作-仅限于macos系统"><a href="#傻瓜式操作-仅限于macos系统" class="headerlink" title="傻瓜式操作(仅限于macos系统)"></a>傻瓜式操作(仅限于macos系统)</h3><p>打开终端，cd 到你想创建博客的地方，执行这一行命令：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -O &#39;https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;xaoxuu&#x2F;hexo.sh&#x2F;master&#x2F;hexo.sh&#39; -# &amp;&amp; chmod 777 hexo.sh &amp;&amp; . hexo.sh -i init</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h3 id="详细操作"><a href="#详细操作" class="headerlink" title="详细操作"></a>详细操作</h3><h4 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h4><p>Hexo依赖Node.js和git。如果电脑上没有node环境可以去 Nodejs官网 下载。安装完成可以查看版本，在终端输入：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm -v    #出现版本号表示安装成功</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h4><p>macOS自带git，可以跳过此步骤。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Windows: Download &amp; install git.</span><br><span class="line">Mac: Install it with Homebrew, MacPorts or installer.</span><br><span class="line">Linux (Ubuntu, Debian): sudo apt-get install git-core</span><br><span class="line">Linux (Fedora, Red Hat, CentOS): sudo yum install git-core</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="安装Command-Line-Tools"><a href="#安装Command-Line-Tools" class="headerlink" title="安装Command Line Tools"></a>安装Command Line Tools</h4><p>macOS需要安装Command Line Tools，Windows可以跳过这一步骤。在终端输入：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">xcode-select --install</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<p>点击install 安装</p>
-<h4 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>安装如图：</p>
-<p>若出现下图,则需要以管理员身份运行：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo npm install hexo-cli -g</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-<h4 id="开始运行hexo"><a href="#开始运行hexo" class="headerlink" title="开始运行hexo"></a>开始运行hexo</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="选择主题"><a href="#选择主题" class="headerlink" title="选择主题"></a>选择主题</h4><p>执行完上面几条命令之后，在浏览器打开地址：<a href="http://localhost:4000/%E5%B0%B1%E4%BC%9A%E7%9C%8B%E5%88%B0hexo%E4%B8%BA%E4%BD%A0%E6%8F%90%E4%BE%9B%E7%9A%84%E9%BB%98%E8%AE%A4%E4%B8%BB%E9%A2%98%E3%80%82%E5%A6%82%E6%9E%9C%E4%BD%A0%E4%B8%8D%E5%96%9C%E6%AC%A2hexo%E8%87%AA%E5%B8%A6%E7%9A%84%E4%B8%BB%E9%A2%98%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%8E%BB">http://localhost:4000/就会看到hexo为你提供的默认主题。如果你不喜欢hexo自带的主题，可以去</a> hexo官网 找个喜欢的主题。下载主题源码到…/你的博客/themes/里面，根据主题的README文档提示，可能需要安装一些依赖包，或者对主题的_config.myl文件进行修改。如果你想使用本站的博客主题的话，只需要打开终端，cd到你博客所在的目录，执行以下这条命令：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo.sh i x</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>如果提示 command not found ，说明你的电脑上还没有使用过 hexo.sh 脚本，那么可以执行下面这一段命令下载脚本然后应用主题：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -O &#39;https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;xaoxuu&#x2F;hexo.sh&#x2F;master&#x2F;hexo.sh&#39; -# &amp;&amp; chmod 777 hexo.sh &amp;&amp; . hexo.sh -i i x</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h4 id="博客书写"><a href="#博客书写" class="headerlink" title="博客书写"></a>博客书写</h4><p>你可以按照 官方文档 的方法去创建一个具有初始化内容的md文件到…/你的博客/source/_posts/位置，当然也可以通过其他任意方式创建md文件，只要文件开头有如下格式的内容即可：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">layout:     post</span><br><span class="line">date:       2017-07-05</span><br><span class="line">title:      如何搭建基于Hexo的独立博客</span><br><span class="line">categories: [Dev, Cocoa]</span><br><span class="line">tags:</span><br><span class="line">    - Hexo</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">这是预览</span><br><span class="line"></span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line"></span><br><span class="line">这是正文</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="在文章中添加图片、音乐等"><a href="#在文章中添加图片、音乐等" class="headerlink" title="在文章中添加图片、音乐等"></a>在文章中添加图片、音乐等</h4><p>安装图片插件-路径选择你的博客文件夹 即_plot文件夹下</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-asset-image --save</span><br><span class="line">或者</span><br><span class="line">npm install https:&#x2F;&#x2F;github.com&#x2F;CodeFalling&#x2F;hexo-asset-image -- save</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在_config.yml配置文件中，修改为 post_asset_folder: true， 然后新建一篇文章</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo new post ceshi  #会生成一个附带的相同名字的文件夹放置图片，以及一个.md文件写内容</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>文章引用</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![图片名](图片完整名字：例如book.png) 即相对路径</span><br><span class="line"></span><br><span class="line">当然也可以使用cdn来存储图片，这样速度会相对来说快一点</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>音乐</p>
-<p>大家可以看网易云音乐的官网，播放音乐可以生成外链，直接拿来用就行了。iframe插件可以在代码中设置宽高等参数，auto为自动播放。flash不可以自己设置参数。看喜好，随便你。<br>其他音乐，把插件中的链接替换成要播放的链接就可以了</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#iframe插件</span><br><span class="line"></span><br><span class="line">&lt;iframe frameborder&#x3D;&quot;no&quot; border&#x3D;&quot;0&quot; marginwidth&#x3D;&quot;0&quot; marginheight&#x3D;&quot;0&quot; width&#x3D;330 height&#x3D;86 src&#x3D;&quot;&#x2F;&#x2F;music.163.com&#x2F;outchain&#x2F;player?type&#x3D;2&amp;id&#x3D;505820138&amp;auto&#x3D;0&amp;height&#x3D;66&quot;&gt;</span><br><span class="line">&lt;&#x2F;iframe&gt;</span><br><span class="line"></span><br><span class="line">#flash插件</span><br><span class="line"></span><br><span class="line">&lt;embed src&#x3D;&quot;&#x2F;&#x2F;music.163.com&#x2F;style&#x2F;swf&#x2F;widget.swf?sid&#x3D;40249713&amp;type&#x3D;2&amp;auto&#x3D;0&amp;width&#x3D;320&amp;height&#x3D;66&quot; width&#x3D;&quot;340&quot; height&#x3D;&quot;86&quot; allowNetworking&#x3D;&quot;all&quot;&gt;</span><br><span class="line">&lt;&#x2F;embed&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>链接</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[我的微博](http:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;123455)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>视频</p>
-<p>视频链接最好是打开就是视频的链接（支持youku，YouTube）<br>可以把视频上传到优酷，腾讯视频，生成外链再拿来用。（上传需要注册和实名认证）</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&lt;iframe</span><br><span class="line">height&#x3D;498 width&#x3D;510</span><br><span class="line">src&#x3D;&quot;http:&#x2F;&#x2F;player.youku.com&#x2F;embed&#x2F;XMzY0MzgxNDMyOA&#x3D;&#x3D;&quot;</span><br><span class="line">frameborder&#x3D;0 allowfullscreen&gt;</span><br><span class="line">&lt;&#x2F;iframe&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="发布博客"><a href="#发布博客" class="headerlink" title="发布博客"></a>发布博客</h4><p>博客发布到服务器才能被外网访问，如果你有服务器更好，可以支持一些有趣的功能，例如 hexo-admin 可以为你的博客增加后台管理功能，在其他地方只要登录管理员账号就可以在线写博文了。但是如果没有自己的服务器的，也可以将博客托管到 GitHub 、 Coding 等网站。他们的优缺点如下：</p>
-<p>GitHub<br>优点：功能最强大，最知名，偏技术性的博客力荐。<br>缺点：国内访问稍慢（以前是很慢，现在已经好多了，但是仍不及国内的服务快）；GitHub服务器屏蔽了百度爬虫，要想被百度收录，需要去百度站长平台手动提交。</p>
-<p>Coding<br>优点：国内访问速度很快，一键申请并配置好SSL证书，很容易被百度收录。<br>缺点：只能通过CNAME方式设置域名，也就意味着你不能同时使用域名邮箱等其他域名服务。</p>
-]]></content>
-      <categories>
-        <category>git</category>
-      </categories>
-      <tags>
-        <tag>hexo博客搭建</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>通用技术02--hexo</title>
     <url>/jwangcloud/2780304565/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/hexo.jpeg"></p>
@@ -4489,6 +4651,84 @@ deleteview
       </tags>
   </entry>
   <entry>
+    <title>通用技术03--hexo博客搭建</title>
+    <url>/jwangcloud/3848869124/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/hexo.jpeg"></p>
+<meta name="referrer" content="no-referrer">
+
+<p>版权声明：本文为github博主「_xaoxuu」的原创文章，遵循 CC4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。</p>
+<p><a href="https://xaoxuu.com/blog/2017-07-05-hexo-blog/">原文链接: </a><a href="https://xaoxuu.com/blog/2017-07-05-hexo-blog/">https://xaoxuu.com/blog/2017-07-05-hexo-blog/</a></p>
+<h2 id="搭建基于hexo的独立博客"><a href="#搭建基于hexo的独立博客" class="headerlink" title="搭建基于hexo的独立博客"></a>搭建基于hexo的独立博客</h2><span id="more"></span>
+
+<h3 id="傻瓜式操作-仅限于macos系统"><a href="#傻瓜式操作-仅限于macos系统" class="headerlink" title="傻瓜式操作(仅限于macos系统)"></a>傻瓜式操作(仅限于macos系统)</h3><p>打开终端，cd 到你想创建博客的地方，执行这一行命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -O &#39;https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;xaoxuu&#x2F;hexo.sh&#x2F;master&#x2F;hexo.sh&#39; -# &amp;&amp; chmod 777 hexo.sh &amp;&amp; . hexo.sh -i init</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="详细操作"><a href="#详细操作" class="headerlink" title="详细操作"></a>详细操作</h3><h4 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h4><p>Hexo依赖Node.js和git。如果电脑上没有node环境可以去 Nodejs官网 下载。安装完成可以查看版本，在终端输入：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm -v    #出现版本号表示安装成功</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h4><p>macOS自带git，可以跳过此步骤。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Windows: Download &amp; install git.</span><br><span class="line">Mac: Install it with Homebrew, MacPorts or installer.</span><br><span class="line">Linux (Ubuntu, Debian): sudo apt-get install git-core</span><br><span class="line">Linux (Fedora, Red Hat, CentOS): sudo yum install git-core</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="安装Command-Line-Tools"><a href="#安装Command-Line-Tools" class="headerlink" title="安装Command Line Tools"></a>安装Command Line Tools</h4><p>macOS需要安装Command Line Tools，Windows可以跳过这一步骤。在终端输入：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">xcode-select --install</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>点击install 安装</p>
+<h4 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>安装如图：</p>
+<p>若出现下图,则需要以管理员身份运行：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo npm install hexo-cli -g</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+<h4 id="开始运行hexo"><a href="#开始运行hexo" class="headerlink" title="开始运行hexo"></a>开始运行hexo</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="选择主题"><a href="#选择主题" class="headerlink" title="选择主题"></a>选择主题</h4><p>执行完上面几条命令之后，在浏览器打开地址：<a href="http://localhost:4000/%E5%B0%B1%E4%BC%9A%E7%9C%8B%E5%88%B0hexo%E4%B8%BA%E4%BD%A0%E6%8F%90%E4%BE%9B%E7%9A%84%E9%BB%98%E8%AE%A4%E4%B8%BB%E9%A2%98%E3%80%82%E5%A6%82%E6%9E%9C%E4%BD%A0%E4%B8%8D%E5%96%9C%E6%AC%A2hexo%E8%87%AA%E5%B8%A6%E7%9A%84%E4%B8%BB%E9%A2%98%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%8E%BB">http://localhost:4000/就会看到hexo为你提供的默认主题。如果你不喜欢hexo自带的主题，可以去</a> hexo官网 找个喜欢的主题。下载主题源码到…/你的博客/themes/里面，根据主题的README文档提示，可能需要安装一些依赖包，或者对主题的_config.myl文件进行修改。如果你想使用本站的博客主题的话，只需要打开终端，cd到你博客所在的目录，执行以下这条命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo.sh i x</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>如果提示 command not found ，说明你的电脑上还没有使用过 hexo.sh 脚本，那么可以执行下面这一段命令下载脚本然后应用主题：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -O &#39;https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;xaoxuu&#x2F;hexo.sh&#x2F;master&#x2F;hexo.sh&#39; -# &amp;&amp; chmod 777 hexo.sh &amp;&amp; . hexo.sh -i i x</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="博客书写"><a href="#博客书写" class="headerlink" title="博客书写"></a>博客书写</h4><p>你可以按照 官方文档 的方法去创建一个具有初始化内容的md文件到…/你的博客/source/_posts/位置，当然也可以通过其他任意方式创建md文件，只要文件开头有如下格式的内容即可：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">layout:     post</span><br><span class="line">date:       2017-07-05</span><br><span class="line">title:      如何搭建基于Hexo的独立博客</span><br><span class="line">categories: [Dev, Cocoa]</span><br><span class="line">tags:</span><br><span class="line">    - Hexo</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">这是预览</span><br><span class="line"></span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line"></span><br><span class="line">这是正文</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="在文章中添加图片、音乐等"><a href="#在文章中添加图片、音乐等" class="headerlink" title="在文章中添加图片、音乐等"></a>在文章中添加图片、音乐等</h4><p>安装图片插件-路径选择你的博客文件夹 即_plot文件夹下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-asset-image --save</span><br><span class="line">或者</span><br><span class="line">npm install https:&#x2F;&#x2F;github.com&#x2F;CodeFalling&#x2F;hexo-asset-image -- save</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在_config.yml配置文件中，修改为 post_asset_folder: true， 然后新建一篇文章</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo new post ceshi  #会生成一个附带的相同名字的文件夹放置图片，以及一个.md文件写内容</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>文章引用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![图片名](图片完整名字：例如book.png) 即相对路径</span><br><span class="line"></span><br><span class="line">当然也可以使用cdn来存储图片，这样速度会相对来说快一点</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>音乐</p>
+<p>大家可以看网易云音乐的官网，播放音乐可以生成外链，直接拿来用就行了。iframe插件可以在代码中设置宽高等参数，auto为自动播放。flash不可以自己设置参数。看喜好，随便你。<br>其他音乐，把插件中的链接替换成要播放的链接就可以了</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#iframe插件</span><br><span class="line"></span><br><span class="line">&lt;iframe frameborder&#x3D;&quot;no&quot; border&#x3D;&quot;0&quot; marginwidth&#x3D;&quot;0&quot; marginheight&#x3D;&quot;0&quot; width&#x3D;330 height&#x3D;86 src&#x3D;&quot;&#x2F;&#x2F;music.163.com&#x2F;outchain&#x2F;player?type&#x3D;2&amp;id&#x3D;505820138&amp;auto&#x3D;0&amp;height&#x3D;66&quot;&gt;</span><br><span class="line">&lt;&#x2F;iframe&gt;</span><br><span class="line"></span><br><span class="line">#flash插件</span><br><span class="line"></span><br><span class="line">&lt;embed src&#x3D;&quot;&#x2F;&#x2F;music.163.com&#x2F;style&#x2F;swf&#x2F;widget.swf?sid&#x3D;40249713&amp;type&#x3D;2&amp;auto&#x3D;0&amp;width&#x3D;320&amp;height&#x3D;66&quot; width&#x3D;&quot;340&quot; height&#x3D;&quot;86&quot; allowNetworking&#x3D;&quot;all&quot;&gt;</span><br><span class="line">&lt;&#x2F;embed&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>链接</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[我的微博](http:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;123455)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>视频</p>
+<p>视频链接最好是打开就是视频的链接（支持youku，YouTube）<br>可以把视频上传到优酷，腾讯视频，生成外链再拿来用。（上传需要注册和实名认证）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&lt;iframe</span><br><span class="line">height&#x3D;498 width&#x3D;510</span><br><span class="line">src&#x3D;&quot;http:&#x2F;&#x2F;player.youku.com&#x2F;embed&#x2F;XMzY0MzgxNDMyOA&#x3D;&#x3D;&quot;</span><br><span class="line">frameborder&#x3D;0 allowfullscreen&gt;</span><br><span class="line">&lt;&#x2F;iframe&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="发布博客"><a href="#发布博客" class="headerlink" title="发布博客"></a>发布博客</h4><p>博客发布到服务器才能被外网访问，如果你有服务器更好，可以支持一些有趣的功能，例如 hexo-admin 可以为你的博客增加后台管理功能，在其他地方只要登录管理员账号就可以在线写博文了。但是如果没有自己的服务器的，也可以将博客托管到 GitHub 、 Coding 等网站。他们的优缺点如下：</p>
+<p>GitHub<br>优点：功能最强大，最知名，偏技术性的博客力荐。<br>缺点：国内访问稍慢（以前是很慢，现在已经好多了，但是仍不及国内的服务快）；GitHub服务器屏蔽了百度爬虫，要想被百度收录，需要去百度站长平台手动提交。</p>
+<p>Coding<br>优点：国内访问速度很快，一键申请并配置好SSL证书，很容易被百度收录。<br>缺点：只能通过CNAME方式设置域名，也就意味着你不能同时使用域名邮箱等其他域名服务。</p>
+]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>hexo博客搭建</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>通用技术01--git</title>
     <url>/jwangcloud/2499844314/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/git.jpeg"></p>
@@ -4568,6 +4808,38 @@ deleteview
       </categories>
       <tags>
         <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据分析02--spark错误分析</title>
+    <url>/jwangcloud/3907582757/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/date.jpeg"></p>
+<h2 id="spark错误分析"><a href="#spark错误分析" class="headerlink" title="spark错误分析"></a>spark错误分析</h2><span id="more"></span>
+
+
+<p><a href="http://spark.apache.org/docs/2.4.4/">官方文档</a></p>
+<p>错误1</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1020104:sbin rimi$ .&#x2F;start-master.sh </span><br><span class="line">starting org.apache.spark.deploy.master.Master, logging to &#x2F;Users&#x2F;rimi&#x2F;Desktop&#x2F;spark-2.4.4-bin-hadoop2.7&#x2F;</span><br><span class="line">logs&#x2F;spark-rimi-org.apache.spark.deploy.master.Master-1-1020104.local.out</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>解决：本地ip未找到，添加</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#sudo vim &#x2F;etc&#x2F;hosts</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">127.0.0.1       localhost</span><br><span class="line">255.255.255.255 broadcasthost</span><br><span class="line">::1             localhost</span><br><span class="line">0.0.0.0 1020104.local   (这一个没有)</span><br></pre></td></tr></table></figure>
+
+<p>错误2</p>
+<blockquote>
+<p>spark 与 jdk 不兼容  </p>
+</blockquote>
+<p>解决：</p>
+<blockquote>
+<p>下载saprk2.7 或者更加稳定版本  jdk下载1.8  8u231</p>
+<p>重新配置jdk环境</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>数据分析</tag>
       </tags>
   </entry>
   <entry>
@@ -5542,38 +5814,6 @@ model.predict()
 <ol>
 <li>K-means</li>
 </ol>
-]]></content>
-      <categories>
-        <category>大数据</category>
-      </categories>
-      <tags>
-        <tag>数据分析</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>数据分析02--spark错误分析</title>
-    <url>/jwangcloud/3907582757/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/date.jpeg"></p>
-<h2 id="spark错误分析"><a href="#spark错误分析" class="headerlink" title="spark错误分析"></a>spark错误分析</h2><span id="more"></span>
-
-
-<p><a href="http://spark.apache.org/docs/2.4.4/">官方文档</a></p>
-<p>错误1</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1020104:sbin rimi$ .&#x2F;start-master.sh </span><br><span class="line">starting org.apache.spark.deploy.master.Master, logging to &#x2F;Users&#x2F;rimi&#x2F;Desktop&#x2F;spark-2.4.4-bin-hadoop2.7&#x2F;</span><br><span class="line">logs&#x2F;spark-rimi-org.apache.spark.deploy.master.Master-1-1020104.local.out</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>解决：本地ip未找到，添加</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#sudo vim &#x2F;etc&#x2F;hosts</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">127.0.0.1       localhost</span><br><span class="line">255.255.255.255 broadcasthost</span><br><span class="line">::1             localhost</span><br><span class="line">0.0.0.0 1020104.local   (这一个没有)</span><br></pre></td></tr></table></figure>
-
-<p>错误2</p>
-<blockquote>
-<p>spark 与 jdk 不兼容  </p>
-</blockquote>
-<p>解决：</p>
-<blockquote>
-<p>下载saprk2.7 或者更加稳定版本  jdk下载1.8  8u231</p>
-<p>重新配置jdk环境</p>
-</blockquote>
 ]]></content>
       <categories>
         <category>大数据</category>

@@ -191,6 +191,341 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/jwangcloud/1572511114/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="jwangtec">
+      <meta itemprop="description" content="小脑袋，大智慧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jwangcloud">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/jwangcloud/1572511114/" class="post-title-link" itemprop="url">Java重要知识积累01--面相对象</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-07-01 18:18:19" itemprop="dateCreated datePublished" datetime="2019-07-01T18:18:19+08:00">2019-07-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-06 17:04:28" itemprop="dateModified" datetime="2021-04-06T17:04:28+08:00">2021-04-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java%E7%9F%A5%E8%AF%86%E7%A7%AF%E7%B4%AF/" itemprop="url" rel="index"><span itemprop="name">Java知识积累</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/jwangcloud/1572511114/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/jwangcloud/1572511114/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="类和对象"><a href="#类和对象" class="headerlink" title="类和对象"></a>类和对象</h2><h3 id="面向对象和面向过程编程思想"><a href="#面向对象和面向过程编程思想" class="headerlink" title="面向对象和面向过程编程思想"></a>面向对象和面向过程编程思想</h3><h4 id="面向过程编程思想"><a href="#面向过程编程思想" class="headerlink" title="面向过程编程思想"></a>面向过程编程思想</h4><ul>
+<li><strong>强调的是过程,必须清楚每一个步骤,然后按照步骤一步一步去实现</strong></li>
+</ul>
+<h4 id="面向对象编程思想"><a href="#面向对象编程思想" class="headerlink" title="面向对象编程思想"></a>面向对象编程思想</h4><ul>
+<li><strong>强调的是对象, 通过调用对象的行为来实现功能，而不是自己一步一步的去操作实现。</strong></li>
+</ul>
+<h4 id="举例对比2种编程思想"><a href="#举例对比2种编程思想" class="headerlink" title="举例对比2种编程思想"></a>举例对比2种编程思想</h4><ul>
+<li>java程序:  需求:打印数组中所有的元素,打印格式为: [元素1，元素2，元素3，元素，…，元素n]</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">method01</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1.面向过程来实现该需求</span></span><br><span class="line">    <span class="comment">// 1.1 定义一个数组,并且初始化数组中的元素</span></span><br><span class="line">    <span class="keyword">int</span>[] arr = &#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 1.2 按照指定格式去打印</span></span><br><span class="line">    <span class="comment">// 1.2.1 先打印一个左中括号 &quot;[&quot;</span></span><br><span class="line">    System.out.print(<span class="string">&quot;[&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 1.2.2 循环遍历元素</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">        <span class="comment">// 1.2.3 判断遍历的元素是否是最后一个元素</span></span><br><span class="line">        <span class="keyword">int</span> e = arr[i];</span><br><span class="line">        <span class="keyword">if</span> (i == arr.length - <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="comment">// 1.2.5 如果是最后一个元素,那么打印格式就是 &quot;元素]&quot;</span></span><br><span class="line">            System.out.print(e+<span class="string">&quot;]&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 1.2.4 如果不是最后一个元素,那么打印格式就是 &quot;元素, &quot;</span></span><br><span class="line">            System.out.print(e+<span class="string">&quot;, &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2.面向对象来实现该需求</span></span><br><span class="line">    <span class="comment">// Arrays数组的工具类,toString()方法,可以帮助我们按照该指定格式打印数组</span></span><br><span class="line">    System.out.println(Arrays.toString(arr));<span class="comment">// [10, 20, 30, 40, 50]</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="类的概述"><a href="#类的概述" class="headerlink" title="类的概述"></a>类的概述</h3><ul>
+<li>类是用来描述一类具有<strong>共同属性和行为事物的统称</strong>。所以其实类在客观世界里是不存在的，<strong>是抽象的</strong>，只是用来描述数据信息的。</li>
+</ul>
+<h4 id="类的组成"><a href="#类的组成" class="headerlink" title="类的组成"></a>类的组成</h4><ul>
+<li>属性：就是该事物的状态信息。</li>
+<li>行为：就是该事物能够做什么。</li>
+</ul>
+<h5 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h5><ul>
+<li>手机类<ul>
+<li>属性：品牌、价格—-成员变量</li>
+<li>行为：打电话、发短信—-成员方法</li>
+</ul>
+</li>
+</ul>
+<h3 id="对象的概述"><a href="#对象的概述" class="headerlink" title="对象的概述"></a>对象的概述</h3><ul>
+<li>对象是类的一个实例，<strong>具体存在的，看得见摸得着的</strong>，并且具备该类事物的属性和行为<ul>
+<li>对象的属性:对象的属性具有特定的值</li>
+<li>对象的行为:对象可以操作的行为</li>
+</ul>
+</li>
+<li>手机类: 描述手机<ul>
+<li>对象:袁芳老师的手机</li>
+</ul>
+</li>
+</ul>
+<h3 id="类和对象的关系"><a href="#类和对象的关系" class="headerlink" title="类和对象的关系"></a>类和对象的关系</h3><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/OA/img/1_%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%85%B3%E7%B3%BB.png" alt="1584029135069"></p>
+<h3 id="类的定义【应用】"><a href="#类的定义【应用】" class="headerlink" title="类的定义【应用】"></a>类的定义【应用】</h3><p>类的组成是由属性和行为两部分组成</p>
+<ul>
+<li>属性：该类事物的状态信息,在类中通过成员变量来体现（类中方法外的变量）</li>
+<li>行为：该类事物有什么功能,在类中通过成员方法来体现（和前面的方法相比去掉static关键字即可）</li>
+</ul>
+<h4 id="类的定义格式"><a href="#类的定义格式" class="headerlink" title="类的定义格式"></a>类的定义格式</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> 类名 </span>&#123;<span class="comment">// 定义一个类</span></span><br><span class="line">	<span class="comment">// 类里面:属性(成员变量),行为(成员方法)</span></span><br><span class="line">    <span class="comment">// 定义成员变量</span></span><br><span class="line">    数据类型 变量名<span class="number">1</span>;</span><br><span class="line">    数据类型 变量名<span class="number">2</span>;</span><br><span class="line">    ...</span><br><span class="line">        </span><br><span class="line">    <span class="comment">// 定义成员方法</span></span><br><span class="line">    方法;  去掉<span class="keyword">static</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="对象的创建和使用"><a href="#对象的创建和使用" class="headerlink" title="对象的创建和使用"></a>对象的创建和使用</h3><h4 id="对象的创建"><a href="#对象的创建" class="headerlink" title="对象的创建"></a>对象的创建</h4><ul>
+<li>创建对象的格式：<ul>
+<li><code>类名 对象名 = new 类名();</code></li>
+<li>类其实就是对象的数据类型,类是引用数据类型<ul>
+<li>例: Phone p1 = new Phone ();   创建了一个手机对象(Phone类的对象)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="对象的使用"><a href="#对象的使用" class="headerlink" title="对象的使用"></a>对象的使用</h4><ul>
+<li>调用成员的格式：<ul>
+<li>访问成员变量<ul>
+<li>获取成员变量的值: 对象名.成员变量名</li>
+<li>给成员变量赋值: 对象名.成员变量名=值;</li>
+</ul>
+</li>
+<li>访问成员方法<ul>
+<li>对象名.成员方法名(实参);</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="成员变量是有默认值"><a href="#成员变量是有默认值" class="headerlink" title="成员变量是有默认值"></a>成员变量是有默认值</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">整数类型    默认值         <span class="number">0</span></span><br><span class="line">小数类型    默认值         <span class="number">0.0</span></span><br><span class="line">字符类型    默认值         不可见字符 <span class="string">&#x27;\u0000&#x27;</span></span><br><span class="line">布尔类型    默认值         <span class="keyword">false</span></span><br><span class="line">引用数据类型 默认值        <span class="keyword">null</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="对象内存图相关使用的测试类"><a href="#对象内存图相关使用的测试类" class="headerlink" title="对象内存图相关使用的测试类"></a>对象内存图相关使用的测试类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 属性: 姓名,年龄</span></span><br><span class="line">    String name;<span class="comment">// 姓名</span></span><br><span class="line">    <span class="keyword">int</span> age;<span class="comment">// 年龄</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 行为:学习功能</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">study</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;正在努力学Java...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="单个对象内存图"><a href="#单个对象内存图" class="headerlink" title="单个对象内存图"></a>单个对象内存图</h3><ul>
+<li>只要创建对象,就会在堆区开辟一块空间</li>
+<li>只要调用方法,就会在栈区开辟一块空间,用来执行该方法</li>
+</ul>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/OA/img/2_%E5%8D%95%E4%B8%AA%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E5%9B%BE.png" alt="1584072556325"></p>
+<h3 id="多个对象内存图"><a href="#多个对象内存图" class="headerlink" title="多个对象内存图"></a>多个对象内存图</h3><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/OA/img/image-20200607105906300.png" alt="image-20200607105906300"></p>
+<ul>
+<li>多个对象在堆内存中，都有不同的内存划分，成员变量存储在各自的内存区域中，成员方法多个对象共用的一份</li>
+<li>凡是new就会重新在堆区开辟一块新空间</li>
+<li>对象和对象之间的关系是相互独立的</li>
+</ul>
+<h3 id="多个变量指向相同对象内存图"><a href="#多个变量指向相同对象内存图" class="headerlink" title="多个变量指向相同对象内存图"></a>多个变量指向相同对象内存图</h3><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/OA/img/4_%E5%A4%9A%E4%B8%AA%E5%8F%98%E9%87%8F%E6%8C%87%E5%90%91%E7%9B%B8%E5%90%8C%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%9B%BE.png" alt="1584081535183"></p>
+<ul>
+<li>当多个对象的引用指向同一个内存空间（变量所记录的地址值是一样的）</li>
+<li>只要有任何一个对象修改了内存中的数据，随后，无论使用哪一个对象进行数据获取，都是修改后的数据。</li>
+</ul>
+<h3 id="成员变量和局部变量的区别"><a href="#成员变量和局部变量的区别" class="headerlink" title="成员变量和局部变量的区别"></a>成员变量和局部变量的区别</h3><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/OA/img/1582716017361.png" alt="1582716017361"></p>
+<ul>
+<li>类中位置不同：成员变量（类中方法外）局部变量（方法内部或方法声明上）</li>
+<li>内存中位置不同：成员变量（堆内存）局部变量（栈内存）</li>
+<li>生命周期不同：成员变量（随着对象的存在而存在，随着对象的消失而消失）局部变量（随着方法的调用而存在，随着方法的调用完毕而消失）</li>
+<li>初始化值不同：成员变量（有默认初始化值）局部变量（没有默认初始化值，必须先定义，赋值才能使用）</li>
+</ul>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/OA/img/5_%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%92%8C%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E7%9A%84%E5%8C%BA%E5%88%AB.png" alt="1584082793302"></p>
+<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><h3 id="private关键字"><a href="#private关键字" class="headerlink" title="private关键字"></a>private关键字</h3><ul>
+<li>概述: private是一个权限修饰符，代表最小权限。</li>
+<li>特点:<ul>
+<li>可以修饰成员变量和成员方法。</li>
+<li>被private修饰后的成员变量和成员方法，只在本类中才能访问。</li>
+</ul>
+</li>
+</ul>
+<h4 id="private的使用格式"><a href="#private的使用格式" class="headerlink" title="private的使用格式"></a>private的使用格式</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// private关键字修饰成员变量</span></span><br><span class="line"><span class="keyword">private</span> 数据类型 变量名 ；</span><br><span class="line"></span><br><span class="line"><span class="comment">// private关键字修饰成员方法</span></span><br><span class="line"><span class="keyword">private</span> 返回值类型 方法名(参数列表)&#123;</span><br><span class="line">    代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 成员变量</span></span><br><span class="line">    String name;<span class="comment">// 姓名</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;<span class="comment">// 年龄</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(name);</span><br><span class="line">        System.out.println(age);<span class="comment">// 可以访问</span></span><br><span class="line">        study();<span class="comment">// 可以访问</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">study</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;正在努力学Java&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Student stu = <span class="keyword">new</span> Student();</span><br><span class="line">        System.out.println(stu.name);</span><br><span class="line">        <span class="comment">//System.out.println(stu.age);// 编译报错,没有访问权限</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//stu.study();// 编译报错,没有访问权限</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 间接访问</span></span><br><span class="line">        stu.show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="对属性封装的步骤"><a href="#对属性封装的步骤" class="headerlink" title="对属性封装的步骤"></a>对属性封装的步骤</h3><h4 id="为什么要对属性进行封装"><a href="#为什么要对属性进行封装" class="headerlink" title="为什么要对属性进行封装"></a>为什么要对属性进行封装</h4><ul>
+<li>通过对象名直接访问成员变量的方式来对属性赋值,会存在数据安全隐患,应该怎么解决呢?</li>
+<li>解决方式: 不让外界直接访问成员变量(也就是要对属性进行封装)</li>
+</ul>
+<h4 id="对属性封装的步骤-1"><a href="#对属性封装的步骤-1" class="headerlink" title="对属性封装的步骤"></a>对属性封装的步骤</h4><ol>
+<li>使用private修饰成员变量</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">   <span class="comment">// 类的属性 ---&gt; 成员变量</span></span><br><span class="line">   <span class="comment">// 姓名(name)</span></span><br><span class="line">   <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 年龄(age)</span></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 类的行为 ---&gt; 成员方法</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">       System.out.println(<span class="string">&quot;姓名:&quot;</span>+name+<span class="string">&quot;,年龄:&quot;</span>+age);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>对需要访问的成员变量,提供对应的<code>getXxx</code>方法(获取属性的值) 、<code>setXxx</code> 方法(给属性赋值)。</li>
+</ol>
+<h3 id="set和get方法"><a href="#set和get方法" class="headerlink" title="set和get方法"></a>set和get方法</h3><ul>
+<li><p>由于属性使用了private关键字修饰,在其他类中无法直接访问,所以得提供公共的访问方法,我们把这张方法叫做set和get方法</p>
+<ul>
+<li>get方法:  提供“get变量名()”方法，用于获取成员变量的值，方法用public修饰</li>
+</ul>
+<ul>
+<li>set方法: 提供“set变量名(参数)”方法，用于设置成员变量的值，方法用public修饰</li>
+</ul>
+</li>
+</ul>
+<h4 id="set和get方法的书写"><a href="#set和get方法的书写" class="headerlink" title="set和get方法的书写"></a>set和get方法的书写</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</span><br><span class="line">    age = a;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> age;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">set方法的书写规律:</span><br><span class="line">    <span class="number">1.</span>set方法一定是一个公共的方法(<span class="keyword">public</span>)</span><br><span class="line">        <span class="number">2.</span>set方法一定没有返回值(<span class="keyword">void</span>)</span><br><span class="line">        <span class="number">3.</span>set方法的方法名一定是set+属性名,并且属性名首字母大写</span><br><span class="line">        <span class="number">4.</span>set方法一定有参数</span><br><span class="line">        <span class="number">5.</span>set方法一定会给属性赋值</span><br><span class="line"></span><br><span class="line">get方法的书写规律:</span><br><span class="line">    <span class="number">1.</span>get方法一定是一个公共的方法(<span class="keyword">public</span>)</span><br><span class="line">        <span class="number">2.</span>get方法一定有返回值,并且返回值类型与获取的属性类型一致</span><br><span class="line">        <span class="number">3.</span>get方法的方法名一定是get+属性名,并且属性名首字母大写</span><br><span class="line">        <span class="number">4.</span>get方法一定没有参数</span><br><span class="line">        <span class="number">5.</span>get方法一定会返回属性的值</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="this关键字"><a href="#this关键字" class="headerlink" title="this关键字"></a>this关键字</h3><ul>
+<li><code>setXxx</code> 方法中的形参名字并不符合见名知意的规定，那么如果修改与成员变量名一致，是否就见名知意了呢？</li>
+</ul>
+<ul>
+<li>经过修改和测试，我们发现新的问题，成员变量赋值失败了。也就是说，在修改了<code>setXxx()</code> 的形参变量名后，方法并没有给成员变量赋值！这是由于形参变量名与成员变量名重名，导致成员变量名被隐藏，方法中的变量名，无法访问到成员变量，从而赋值失败。所以，我们只能使用this关键字，来解决这个重名问题。</li>
+</ul>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/OA/img/5_%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%92%8C%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E5%90%8C%E5%90%8D%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90.png" alt="1584082793302"></p>
+<h4 id="this的含义和使用"><a href="#this的含义和使用" class="headerlink" title="this的含义和使用"></a>this的含义和使用</h4><ul>
+<li><p>this含义: this代表当前调用方法的引用，哪个对象调用this所在的方法，this就代表哪一个对象</p>
+</li>
+<li><p>this关键字其主要作用是区分同名的局部变量和成员变量</p>
+<ul>
+<li>方法的形参如果与成员变量同名，不带this修饰的变量指的是形参，而不是成员变量</li>
+<li>方法的形参没有与成员变量同名，不带this修饰的变量指的是成员变量</li>
+</ul>
+</li>
+<li><p>this的使用格式:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.成员变量名</span><br></pre></td></tr></table></figure></li>
+<li><p>使用 <code>this</code> 修饰方法中的变量，解决成员变量被隐藏的问题</p>
+</li>
+</ul>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/OA/img/6_this%E5%85%B3%E9%94%AE%E5%AD%97.png"></p>
+<blockquote>
+<p>小贴士：方法中只有一个变量名时，默认也是使用 <code>this</code> 修饰，可以省略不写。</p>
+</blockquote>
+<h3 id="this内存原理"><a href="#this内存原理" class="headerlink" title="this内存原理"></a>this内存原理</h3><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/OA/img/image-20200601121319604.png"></p>
+<h3 id="封装概述"><a href="#封装概述" class="headerlink" title="封装概述"></a>封装概述</h3><ul>
+<li>是面向对象三大特征之一（封装，继承，多态）</li>
+<li>是面向对象编程语言对客观世界的模拟，客观世界里成员变量都是<strong>隐藏</strong>在对象内部的，外界是无法直接操作的</li>
+</ul>
+<h4 id="封装原则"><a href="#封装原则" class="headerlink" title="封装原则"></a>封装原则</h4><ul>
+<li>将类的某些信息隐藏在类内部，不允许外部程序直接访问，而是通过该类提供的方法来实现对隐藏信息的操作和访问</li>
+<li>例如:成员变量使用private修饰，提供对应的getXxx()/setXxx()方法</li>
+</ul>
+<h4 id="封装好处"><a href="#封装好处" class="headerlink" title="封装好处"></a>封装好处</h4><ul>
+<li>通过方法来控制成员变量的操作，提高了代码的安全性</li>
+<li>把代码用方法进行封装，提高了代码的复用性</li>
+</ul>
+<h2 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h2><h3 id="构造方法概述"><a href="#构造方法概述" class="headerlink" title="构造方法概述"></a>构造方法概述</h3><ul>
+<li>构造方法是一种特殊的方法,主要是完成对象的创建和对象数据的初始化</li>
+</ul>
+<h4 id="构造方法的定义"><a href="#构造方法的定义" class="headerlink" title="构造方法的定义"></a>构造方法的定义</h4><ul>
+<li><p>格式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 空参构造方法</span></span><br><span class="line">修饰符 类名()&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 有参构造方法</span></span><br><span class="line">修饰符 类名(参数列表)&#123;</span><br><span class="line">	<span class="comment">// 方法体</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>特点:</p>
+<ul>
+<li>构造方法的写法上，方法名与它所在的类名相同</li>
+<li>构造方法没有返回值，所以不需要返回值类型，甚至不需要void</li>
+</ul>
+</li>
+<li><p>示例代码：</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 属性</span></span><br><span class="line">    String name;</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构造方法:</span></span><br><span class="line">    <span class="comment">// 空参构造方法</span></span><br><span class="line">    <span class="comment">// 创建对象,属性为默认值</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">()</span></span>&#123;<span class="comment">//空参构造</span></span><br><span class="line">        System.out.println(<span class="string">&quot;空参构造方法执行了...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 有参构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name,<span class="keyword">int</span> age)</span></span>&#123;<span class="comment">// 满参构造方法</span></span><br><span class="line">        <span class="comment">// 给属性赋值</span></span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name)</span></span>&#123;<span class="comment">// 有参构造方法</span></span><br><span class="line">        <span class="comment">// 给属性赋值</span></span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;姓名:&quot;</span>+name+<span class="string">&quot;,年龄:&quot;</span>+age);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    测试类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo1Student</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 使用构造方法</span></span><br><span class="line">        <span class="comment">// 创建Student对象:  类名 对象名 = new 类名();</span></span><br><span class="line">        <span class="comment">// 调用空参构造方法创建对象,对象的属性为默认值</span></span><br><span class="line">        Student stu1 = <span class="keyword">new</span> Student();<span class="comment">// 等于号的右边其实就是调用空参构造方法</span></span><br><span class="line">        stu1.show();<span class="comment">// 姓名:null,年龄:0</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 调用满参构造方法创建对象,对象的属性会被赋值</span></span><br><span class="line">        Student stu2 = <span class="keyword">new</span> Student(<span class="string">&quot;冰冰&quot;</span>,<span class="number">18</span>);</span><br><span class="line">        stu2.show();<span class="comment">// 姓名:冰冰,年龄:18</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 调用有参构造方法创建对象,对象的部分属性会被赋值</span></span><br><span class="line">        Student stu3 = <span class="keyword">new</span> Student(<span class="string">&quot;小泽老师&quot;</span>);</span><br><span class="line">        stu3.show();<span class="comment">// // 姓名:小泽老师,年龄:0</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="构造方法的注意事项"><a href="#构造方法的注意事项" class="headerlink" title="构造方法的注意事项"></a>构造方法的注意事项</h3><ul>
+<li><p>构造方法的创建</p>
+<ul>
+<li>如果没有定义构造方法，系统将给出一个默认的无参数构造方法</li>
+<li>如果定义了构造方法，系统将不再提供默认的构造方法</li>
+</ul>
+</li>
+<li><p>构造方法可以重载，既可以定义参数，也可以不定义参数。</p>
+</li>
+<li><p>示例代码</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    学生类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name,<span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(name + <span class="string">&quot;,&quot;</span> + age);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    测试类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//创建对象</span></span><br><span class="line">        Student s1 = <span class="keyword">new</span> Student();</span><br><span class="line">        s1.show();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//public Student(String name)</span></span><br><span class="line">        Student s2 = <span class="keyword">new</span> Student(<span class="string">&quot;林青霞&quot;</span>);</span><br><span class="line">        s2.show();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//public Student(int age)</span></span><br><span class="line">        Student s3 = <span class="keyword">new</span> Student(<span class="number">30</span>);</span><br><span class="line">        s3.show();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//public Student(String name,int age)</span></span><br><span class="line">        Student s4 = <span class="keyword">new</span> Student(<span class="string">&quot;林青霞&quot;</span>,<span class="number">30</span>);</span><br><span class="line">        s4.show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="标准类制作"><a href="#标准类制作" class="headerlink" title="标准类制作"></a>标准类制作</h3><h4 id="标准类的组成"><a href="#标准类的组成" class="headerlink" title="标准类的组成"></a>标准类的组成</h4><p><code>JavaBean</code> 是 Java语言编写类的一种标准规范。符合<code>JavaBean</code> 的类，要求类必须是公共的，属性使用private修饰,并且具有无参数的构造方法，提供用来操作成员变量的<code>set</code> 和<code>get</code> 方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassName</span></span>&#123;</span><br><span class="line">  <span class="comment">//成员变量  private</span></span><br><span class="line">  <span class="comment">//构造方法</span></span><br><span class="line">  <span class="comment">//无参构造方法【必须】</span></span><br><span class="line">  <span class="comment">//满参构造方法【建议】</span></span><br><span class="line">  <span class="comment">//getXxx()</span></span><br><span class="line">  <span class="comment">//setXxx()</span></span><br><span class="line">  <span class="comment">//成员方法	</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><ul>
+<li><p>什么是API</p>
+<p>​    API (Application Programming Interface) ：应用程序编程接口。Java API是一本程序员的<code>字典</code> ，是JDK中提供给我们使用的类的<strong>说明文档</strong>。这些类将底层的代码实现封装了起来，我们不需要关心这些类是如何实现的，只需要学习这些类如何使用即可。所以我们可以通过查询API的方式，来学习Java提供的类，并得知如何使用它们。</p>
+<ul>
+<li>API其实就是jdk中核心类库的说明文档</li>
+<li>对于jdk中的核心类库只需要知道如何使用,无须关心他是如何实现的</li>
+</ul>
+</li>
+</ul>
+<h3 id="API的使用步骤"><a href="#API的使用步骤" class="headerlink" title="API的使用步骤"></a>API的使用步骤</h3><ol>
+<li>打开API帮助文档。</li>
+<li>点击显示，找到索引，看到输入框。</li>
+<li>你要找谁？在输入框里输入，然后回车。</li>
+<li>看包。java.lang下的类不需要导包，其他需要。  </li>
+<li>看类的解释和说明。</li>
+<li>看构造方法。</li>
+<li>看成员方法。</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/jwangcloud/1737435959/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -306,121 +641,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/jwangcloud/4264740339/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="jwangtec">
-      <meta itemprop="description" content="小脑袋，大智慧">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jwangcloud">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/jwangcloud/4264740339/" class="post-title-link" itemprop="url">Linux操作系统02--Linux权限</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-05-08 18:18:19" itemprop="dateCreated datePublished" datetime="2019-05-08T18:18:19+08:00">2019-05-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-29 21:03:17" itemprop="dateModified" datetime="2021-03-29T21:03:17+08:00">2021-03-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">Linux操作系统</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/jwangcloud/4264740339/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/jwangcloud/4264740339/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>450</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/Linux.jpeg"></p>
-<h2 id="进制计算"><a href="#进制计算" class="headerlink" title="进制计算"></a>进制计算</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/jwangcloud/4264740339/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/jwangcloud/2793636500/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -508,6 +728,121 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/jwangcloud/2793636500/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/jwangcloud/4264740339/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="jwangtec">
+      <meta itemprop="description" content="小脑袋，大智慧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jwangcloud">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/jwangcloud/4264740339/" class="post-title-link" itemprop="url">Linux操作系统02--Linux权限</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-08 18:18:19" itemprop="dateCreated datePublished" datetime="2019-05-08T18:18:19+08:00">2019-05-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-29 21:03:17" itemprop="dateModified" datetime="2021-03-29T21:03:17+08:00">2021-03-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">Linux操作系统</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/jwangcloud/4264740339/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/jwangcloud/4264740339/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>450</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/Linux.jpeg"></p>
+<h2 id="进制计算"><a href="#进制计算" class="headerlink" title="进制计算"></a>进制计算</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jwangcloud/4264740339/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1222,121 +1557,6 @@
 
 
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/jwangcloud/1576459572/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="jwangtec">
-      <meta itemprop="description" content="小脑袋，大智慧">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jwangcloud">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/jwangcloud/1576459572/" class="post-title-link" itemprop="url">html语法05--表格、表单</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-05-15 18:18:19" itemprop="dateCreated datePublished" datetime="2019-05-15T18:18:19+08:00">2019-05-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-29 21:05:02" itemprop="dateModified" datetime="2021-03-29T21:05:02+08:00">2021-03-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/jwangcloud/1576459572/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/jwangcloud/1576459572/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/html.jpeg"></p>
-<h3 id="1-表格"><a href="#1-表格" class="headerlink" title="1.表格"></a>1.表格</h3>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/jwangcloud/1576459572/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-
-
 
   
   <nav class="pagination">
@@ -1408,20 +1628,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-count">46</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-count">54</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1501,13 +1721,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">283k</span>
+    <span title="站点总字数">290k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">4:17</span>
+    <span title="站点阅读时长">4:24</span>
 </div>
 
 
