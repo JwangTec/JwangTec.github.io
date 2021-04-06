@@ -1,6 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Linux操作系统01--Linux入门</title>
+    <url>/jwangcloud/1737435959/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/Linux.jpeg"></p>
+<h3 id="Linux版本之间的区别"><a href="#Linux版本之间的区别" class="headerlink" title="Linux版本之间的区别"></a>Linux版本之间的区别</h3><span id="more"></span>
+
+
+<pre><code>             redhat  RHEL CentOs 
+                     Fedora               --&gt; 稳定版本
+             Debian  Ubuntu
+     Linux           Mint Linux   knopix  --&gt; 最新版本
+             SlackWare  SUSE   SLEs
+                               openSuse
+             其它发行家族 
+</code></pre>
+<h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><pre><code>top : 查看电脑当前状态，比如CPU的使用率，物理内存（Physcmem）,可看作一个
+任务管理器（使用q键退出）
+date：日期。其中取的时区为CST 代表 中国上海
+cal ：日历
+echo : 将字符串输出到屏幕  &gt; ：输出重定向  &gt;&gt; : 输出追加重定向
+echo &#39;hello&#39; &gt; tmp.txt : 将字符串输出重定向，若当前目录下没有该文件，
+则会新建该文件并将字符串输出到文件，若存在该文件，则会覆盖该文件中的内容
+echo &#39;hello&#39; &gt;&gt; tmp.txt : 与上述一样，但存在该文件时会在该文件内容后
+追加字符串
+2&gt; : 标准错误截获，将错误提示输出到文件中
+unix时间戳（timestamp）: 以格林威治时间为准，计算机开始时间1970开始
+Tab键：命令自动补全，多个相同命令则按两下，会将全部相似的命令显示在屏幕上
+</code></pre>
+<h3 id="文件夹操作"><a href="#文件夹操作" class="headerlink" title="文件夹操作"></a>文件夹操作</h3><pre><code>cd  进入目标文件夹中
+cd .  当前目录
+cd ..  返回上一个文件夹下
+ls  查看当前所在文件夹下面所拥有的文件夹清单
+pwd 查看当前所在文件夹路径，属于绝对路径
+mkdir 创建文件夹
+rm -r -f 删除文件夹（不可恢复）
+/ 文件路径分隔符  \ 转义字符
+～ 用户根目录  ./ 当前目录
+ls -la 可显示隐藏文件  隐藏文件的创建为在名字前+“.”,例如：.match
+less 文件名  查看文件内信息  more可查看部分文件内信息
+cp 文件夹1 文件夹2  考本文件夹1到文件夹2（需要是文件夹全名）与文件操作一样
+</code></pre>
+<h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><pre><code>cp -r   : 文件复制
+cp -r &#123;文件1，文件2&#125; 目标文件夹   ： 拷贝多个文件到一个文件夹中
+rm -rf  : 删除任何相关的文件或文件夹 删除多个使用 空格隔开或者通配符
+touch   : 新建文件（使用通配符可创建多个）
+mkdir -p : 可以创建一个新文件夹下创建新文件
+&gt; text.txt : 创建空文件
+</code></pre>
+]]></content>
+      <categories>
+        <category>Linux操作系统</category>
+      </categories>
+      <tags>
+        <tag>Linux入门</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux操作系统03--vim操作、ssh</title>
     <url>/jwangcloud/2793636500/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/Linux.jpeg"></p>
@@ -92,62 +148,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Linux操作系统01--Linux入门</title>
-    <url>/jwangcloud/1737435959/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/Linux.jpeg"></p>
-<h3 id="Linux版本之间的区别"><a href="#Linux版本之间的区别" class="headerlink" title="Linux版本之间的区别"></a>Linux版本之间的区别</h3><span id="more"></span>
-
-
-<pre><code>             redhat  RHEL CentOs 
-                     Fedora               --&gt; 稳定版本
-             Debian  Ubuntu
-     Linux           Mint Linux   knopix  --&gt; 最新版本
-             SlackWare  SUSE   SLEs
-                               openSuse
-             其它发行家族 
-</code></pre>
-<h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><pre><code>top : 查看电脑当前状态，比如CPU的使用率，物理内存（Physcmem）,可看作一个
-任务管理器（使用q键退出）
-date：日期。其中取的时区为CST 代表 中国上海
-cal ：日历
-echo : 将字符串输出到屏幕  &gt; ：输出重定向  &gt;&gt; : 输出追加重定向
-echo &#39;hello&#39; &gt; tmp.txt : 将字符串输出重定向，若当前目录下没有该文件，
-则会新建该文件并将字符串输出到文件，若存在该文件，则会覆盖该文件中的内容
-echo &#39;hello&#39; &gt;&gt; tmp.txt : 与上述一样，但存在该文件时会在该文件内容后
-追加字符串
-2&gt; : 标准错误截获，将错误提示输出到文件中
-unix时间戳（timestamp）: 以格林威治时间为准，计算机开始时间1970开始
-Tab键：命令自动补全，多个相同命令则按两下，会将全部相似的命令显示在屏幕上
-</code></pre>
-<h3 id="文件夹操作"><a href="#文件夹操作" class="headerlink" title="文件夹操作"></a>文件夹操作</h3><pre><code>cd  进入目标文件夹中
-cd .  当前目录
-cd ..  返回上一个文件夹下
-ls  查看当前所在文件夹下面所拥有的文件夹清单
-pwd 查看当前所在文件夹路径，属于绝对路径
-mkdir 创建文件夹
-rm -r -f 删除文件夹（不可恢复）
-/ 文件路径分隔符  \ 转义字符
-～ 用户根目录  ./ 当前目录
-ls -la 可显示隐藏文件  隐藏文件的创建为在名字前+“.”,例如：.match
-less 文件名  查看文件内信息  more可查看部分文件内信息
-cp 文件夹1 文件夹2  考本文件夹1到文件夹2（需要是文件夹全名）与文件操作一样
-</code></pre>
-<h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><pre><code>cp -r   : 文件复制
-cp -r &#123;文件1，文件2&#125; 目标文件夹   ： 拷贝多个文件到一个文件夹中
-rm -rf  : 删除任何相关的文件或文件夹 删除多个使用 空格隔开或者通配符
-touch   : 新建文件（使用通配符可创建多个）
-mkdir -p : 可以创建一个新文件夹下创建新文件
-&gt; text.txt : 创建空文件
-</code></pre>
-]]></content>
-      <categories>
-        <category>Linux操作系统</category>
-      </categories>
-      <tags>
-        <tag>Linux入门</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Linux操作系统02--Linux权限</title>
     <url>/jwangcloud/4264740339/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/Linux.jpeg"></p>
@@ -177,48 +177,6 @@ mkdir -p : 可以创建一个新文件夹下创建新文件
       </categories>
       <tags>
         <tag>Linux权限</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>mysql数据库04--存储过程、触发器、事件</title>
-    <url>/jwangcloud/898521826/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/mysql.jpeg"></p>
-<h2 id="mysql进阶"><a href="#mysql进阶" class="headerlink" title="mysql进阶"></a>mysql进阶</h2><span id="more"></span>
-
-<h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h3><p>1.存储函数（stored function）。返回一个计算结果，该结果可以用在表达式里。<br>2.存储过程（stored procedure）。不直接返回一个结果，但可以用来完成一般的运算或是生成一个结果集并传递回客户。<br>3.触发器（trigger）。与数据表相关联，当那个数据表被INSERT、DELETE或UPDATE语句修改时，触发器将自动执行。<br>4.事件（event）。根据时间表在预定时刻自动执行。</p>
-<h3 id="2-存储过程"><a href="#2-存储过程" class="headerlink" title="2.存储过程"></a>2.存储过程</h3><p>1.存储过程和存储函数的区别<br>    使用存储过程的情况主要有两种：<br>    （1）只需通过运算来实现某种效果或动作而无需返回一个值，<br>    （2）运算会返回多个结果集（函数做不到这一点）。这只是些指导性建议，不是硬性规定。<br>    存储函数要用CREATE FUNCTION语句来创建，存储过程要用CREATE PROCEDURE语句来创建，为了与数据表或数据列的名字有所区别，给参数起名字时将使用p_前缀。</p>
-<p>2.分隔符,由于mysql默认分隔符是 ; 如果我们使用了;表示存储过程已经结束,但是mysql默认语句也是;结束,如果我们想要在存储过程中多加几个sql语句怎么办？我们需要先修改分割符,然后写sql语句和存储过程然后恢复到默认的分隔符。</p>
-<p>3.delimiter命令把mysql程序的语句分隔符重定义为另一个字符或字符串，它必须是在存储例程的定义里没有出现过的。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">创建存储过程：</span><br><span class="line">delimiter $</span><br><span class="line">create procedure show_born()</span><br><span class="line">begin</span><br><span class="line">select 1;</span><br><span class="line">select 2;</span><br><span class="line">end$</span><br><span class="line">delimiter ;</span><br><span class="line">存储过程调用：</span><br><span class="line">call show_born</span><br><span class="line">存储过程参数传入：</span><br><span class="line">create procedure p1 (p_id INT) begin select p_id; end$</span><br><span class="line"></span><br><span class="line">创建存储函数：</span><br><span class="line">delimiter $</span><br><span class="line">create function show()</span><br><span class="line">begin</span><br><span class="line">select 1;</span><br><span class="line">select 2;</span><br><span class="line">end$</span><br><span class="line">delimiter ;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="3-触发器"><a href="#3-触发器" class="headerlink" title="3.触发器"></a>3.触发器</h3><p>1.触发器是与特定数据表相关联的存储过程，当相应的数据表被INSERT、DELETE或UPDATE语句修改时，触发器将自动执行。<br>触发器可以被设置成在这几种语句处理每个数据行之前或之后触发。触发器的定义包括一条将在触发器被触发时执行的语句。</p>
-<p>2.创建触发器</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">每次创建新值的时候,新的数据列test2都会变成999:</span><br><span class="line">create trigger test1_t before insert on test1 for each row begin set NEW.test2&#x3D;999; end$</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="4-事件"><a href="#4-事件" class="headerlink" title="4.事件"></a>4.事件</h3><p>1.我们可以把数据库操作安排在预定时间执行。事件是与一个时间表相关联的存储程序，时间表用来定义事件发生的时间、次数以及何时消失。事件非常适合用来执行各种无人值守的系统管理任务，如定期更新汇总报告、清理过期失效的数据、对日志数据表进行轮转等。</p>
-<p>2.默认条件下，事件不会执行，需要启动事件调度器：</p>
-<pre><code>把以下语句添加到一个选项文件中（服务器在启动时将读取）： [mysqld] event_scheduler=ON
-</code></pre>
-<p>3.查看事件调度器状态：show variables like ‘event_scheduler’</p>
-<p>4.创建事件：</p>
-<pre><code>create event e1 on schedule every 5 second do insert into test1 (test1)values(&#39;8888&#39;);
-
-do 定义语句部分
-</code></pre>
-<p>5.事件禁用和激活</p>
-<pre><code>事件禁用：
-    alter event e1 disable;
-事件激活：
-    alter event e1 enable;
-</code></pre>
-]]></content>
-      <categories>
-        <category>数据库</category>
-      </categories>
-      <tags>
-        <tag>mysql存储器</tag>
-        <tag>mysql触发器</tag>
-        <tag>mysql事件</tag>
       </tags>
   </entry>
   <entry>
@@ -476,6 +434,122 @@ Query的执行；
       </tags>
   </entry>
   <entry>
+    <title>mysql数据库04--存储过程、触发器、事件</title>
+    <url>/jwangcloud/898521826/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/mysql.jpeg"></p>
+<h2 id="mysql进阶"><a href="#mysql进阶" class="headerlink" title="mysql进阶"></a>mysql进阶</h2><span id="more"></span>
+
+<h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h3><p>1.存储函数（stored function）。返回一个计算结果，该结果可以用在表达式里。<br>2.存储过程（stored procedure）。不直接返回一个结果，但可以用来完成一般的运算或是生成一个结果集并传递回客户。<br>3.触发器（trigger）。与数据表相关联，当那个数据表被INSERT、DELETE或UPDATE语句修改时，触发器将自动执行。<br>4.事件（event）。根据时间表在预定时刻自动执行。</p>
+<h3 id="2-存储过程"><a href="#2-存储过程" class="headerlink" title="2.存储过程"></a>2.存储过程</h3><p>1.存储过程和存储函数的区别<br>    使用存储过程的情况主要有两种：<br>    （1）只需通过运算来实现某种效果或动作而无需返回一个值，<br>    （2）运算会返回多个结果集（函数做不到这一点）。这只是些指导性建议，不是硬性规定。<br>    存储函数要用CREATE FUNCTION语句来创建，存储过程要用CREATE PROCEDURE语句来创建，为了与数据表或数据列的名字有所区别，给参数起名字时将使用p_前缀。</p>
+<p>2.分隔符,由于mysql默认分隔符是 ; 如果我们使用了;表示存储过程已经结束,但是mysql默认语句也是;结束,如果我们想要在存储过程中多加几个sql语句怎么办？我们需要先修改分割符,然后写sql语句和存储过程然后恢复到默认的分隔符。</p>
+<p>3.delimiter命令把mysql程序的语句分隔符重定义为另一个字符或字符串，它必须是在存储例程的定义里没有出现过的。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">创建存储过程：</span><br><span class="line">delimiter $</span><br><span class="line">create procedure show_born()</span><br><span class="line">begin</span><br><span class="line">select 1;</span><br><span class="line">select 2;</span><br><span class="line">end$</span><br><span class="line">delimiter ;</span><br><span class="line">存储过程调用：</span><br><span class="line">call show_born</span><br><span class="line">存储过程参数传入：</span><br><span class="line">create procedure p1 (p_id INT) begin select p_id; end$</span><br><span class="line"></span><br><span class="line">创建存储函数：</span><br><span class="line">delimiter $</span><br><span class="line">create function show()</span><br><span class="line">begin</span><br><span class="line">select 1;</span><br><span class="line">select 2;</span><br><span class="line">end$</span><br><span class="line">delimiter ;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-触发器"><a href="#3-触发器" class="headerlink" title="3.触发器"></a>3.触发器</h3><p>1.触发器是与特定数据表相关联的存储过程，当相应的数据表被INSERT、DELETE或UPDATE语句修改时，触发器将自动执行。<br>触发器可以被设置成在这几种语句处理每个数据行之前或之后触发。触发器的定义包括一条将在触发器被触发时执行的语句。</p>
+<p>2.创建触发器</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">每次创建新值的时候,新的数据列test2都会变成999:</span><br><span class="line">create trigger test1_t before insert on test1 for each row begin set NEW.test2&#x3D;999; end$</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-事件"><a href="#4-事件" class="headerlink" title="4.事件"></a>4.事件</h3><p>1.我们可以把数据库操作安排在预定时间执行。事件是与一个时间表相关联的存储程序，时间表用来定义事件发生的时间、次数以及何时消失。事件非常适合用来执行各种无人值守的系统管理任务，如定期更新汇总报告、清理过期失效的数据、对日志数据表进行轮转等。</p>
+<p>2.默认条件下，事件不会执行，需要启动事件调度器：</p>
+<pre><code>把以下语句添加到一个选项文件中（服务器在启动时将读取）： [mysqld] event_scheduler=ON
+</code></pre>
+<p>3.查看事件调度器状态：show variables like ‘event_scheduler’</p>
+<p>4.创建事件：</p>
+<pre><code>create event e1 on schedule every 5 second do insert into test1 (test1)values(&#39;8888&#39;);
+
+do 定义语句部分
+</code></pre>
+<p>5.事件禁用和激活</p>
+<pre><code>事件禁用：
+    alter event e1 disable;
+事件激活：
+    alter event e1 enable;
+</code></pre>
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>mysql存储器</tag>
+        <tag>mysql触发器</tag>
+        <tag>mysql事件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mysql数据库03--事务</title>
+    <url>/jwangcloud/864966898/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/mysql.jpeg"></p>
+<h3 id="mysql隔离级别"><a href="#mysql隔离级别" class="headerlink" title="mysql隔离级别"></a>mysql隔离级别</h3><span id="more"></span>
+
+<p>隔离级别是mysql进行事务提交的时候,对数据的一种表现形式</p>
+<h4 id="1-事务的基本要素（ACID）"><a href="#1-事务的基本要素（ACID）" class="headerlink" title="1. 事务的基本要素（ACID）"></a>1. 事务的基本要素（ACID）</h4><p>1.1 原子性（Atomicity）：</p>
+<p>事务开始后所有操作，要么全部做完，要么全部不做，不可能停滞在中间环节。事务执行过程中出错，会回滚到事务开始前的状态，所有的操作就像没有发生一样。也就是说事务是一个不可分割的整体，就像化学中学过的原子，是物质构成的基本单位。</p>
+<p>1.2 一致性（Consistency）：</p>
+<p>事务开始前和结束后，数据库的完整性约束没有被破坏 。比如A向B转账，不可能A扣了钱，B却没收到。</p>
+<p>1.3 隔离性（Isolation）：</p>
+<p>同一时间，只允许一个事务请求同一数据，不同的事务之间彼此没有任何干扰。比如A正在从一张银行卡中取钱，在A取钱的过程结束前，B不能向这张卡转账。</p>
+<p>1.4 持久性（Durability）：</p>
+<p>事务完成后，事务对数据库的所有更新将被保存到数据库，不能回滚。</p>
+<h4 id="2-事务的操作方式"><a href="#2-事务的操作方式" class="headerlink" title="2. 事务的操作方式"></a>2. 事务的操作方式</h4><p>提交使用commit 回滚使用 rollback</p>
+<pre><code>begin
+
+&#39;&#39;&#39;&#39;&#39;语句快
+
+commit
+</code></pre>
+<h4 id="3-事务的并发问题"><a href="#3-事务的并发问题" class="headerlink" title="3.事务的并发问题"></a>3.事务的并发问题</h4><p>3.1 脏读：事务A读取了事务B更新的数据，然后B回滚操作，那么A读取到的数据是脏数据</p>
+<p>3.2 不可重复读：事务 A 多次读取同一数据，事务 B 在事务A多次读取的过程中，对数据作了更新并提交，导致事务A多次读取同一数据时，结果 不一致。</p>
+<p>3.3 幻读：系统管理员A将数据库中所有学生的成绩从具体分数改为ABCDE等级，但是系统管理员B就在这个时候插入了一条具体分数的记录，当系统管理员A改结束后发现还有一条记录没有改过来，就好像发生了幻觉一样，这就叫幻读。</p>
+<table>
+<thead>
+<tr>
+<th align="center">事物隔离级别</th>
+<th align="center">胀读</th>
+<th align="center">不可重复读</th>
+<th align="center">幻读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">读未提交（read-uncommitted）</td>
+<td align="center">是</td>
+<td align="center">是</td>
+<td align="center">是</td>
+</tr>
+<tr>
+<td align="center">不可重复读（read-committed）</td>
+<td align="center">否</td>
+<td align="center">是</td>
+<td align="center">是</td>
+</tr>
+<tr>
+<td align="center">可重复读（repeatable-read）</td>
+<td align="center">否</td>
+<td align="center">否</td>
+<td align="center">是</td>
+</tr>
+<tr>
+<td align="center">串行化（serializable）</td>
+<td align="center">否</td>
+<td align="center">否</td>
+<td align="center">否</td>
+</tr>
+</tbody></table>
+<p>3.4 语句实现</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">	</span><br><span class="line">说明: 我们使用a,b两个端 a负责开启事务,并且修改数据。b负责开启事务,并且在a执行事务的时候不断去获取数</span><br><span class="line">	  据。以此研究数据的影响.a先执行,因为a需要去修改数据,所以a要首先获取到锁才行</span><br><span class="line"></span><br><span class="line">1.脏读:</span><br><span class="line">首先在b中去设置隔离级别</span><br><span class="line">a客户端</span><br><span class="line">	start transaction</span><br><span class="line">	update &#96;Employee&#96; set Name&#x3D;&#39;test2&#39; where Id&#x3D;1</span><br><span class="line">b客户端</span><br><span class="line">	set session transaction isolation level read uncommitted</span><br><span class="line">	start transaction</span><br><span class="line">	select * from &#96;Employee&#96;</span><br><span class="line">可以看到a中修改的数据,b中已经可以查看到,但是a的数据并没有commit,b读取到了a还没有提交上</span><br><span class="line">去的脏数据,称为脏读</span><br><span class="line"></span><br><span class="line">2.不可复读:</span><br><span class="line">a客户端</span><br><span class="line">	start transaction</span><br><span class="line">	update &#96;Employee&#96; set Name&#x3D;&#39;test2&#39; where Id&#x3D;1</span><br><span class="line">b客户端</span><br><span class="line">	set session transaction isolation level read committed</span><br><span class="line">	start transaction</span><br><span class="line">	select * from &#96;Employee&#96;</span><br><span class="line">这时候再去查看数据就不会出现脏读的情况,但是在a提交之后,再使用b去查看的话就会有一定的问题</span><br><span class="line"></span><br><span class="line">a客户端</span><br><span class="line">	commit</span><br><span class="line">b客户端</span><br><span class="line">	select * from &#96;Employee&#96;</span><br><span class="line">这时候b的中表的数据就变了,虽然没有脏读的情况,但是b中的数据两次不一样, 所以称之为不可复读</span><br><span class="line"></span><br><span class="line">3.幻读:</span><br><span class="line">a客户端</span><br><span class="line">	start transaction</span><br><span class="line">	update &#96;Employee&#96; set Name&#x3D;&#39;test2&#39; where Id&#x3D;1</span><br><span class="line">b客户端</span><br><span class="line">	set session transaction isolation level REPEATABLE read</span><br><span class="line">	start transaction</span><br><span class="line">	select * from &#96;Employee&#96;</span><br><span class="line">这个时候,b中查看的数据没有没有问题,他看到的一直都是老数据。这里使用了mvvc技术</span><br><span class="line"></span><br><span class="line">a客户端</span><br><span class="line">	commit</span><br><span class="line">b客户端</span><br><span class="line">	select * from &#96;Employee&#96;</span><br><span class="line">但是有一个问题,当a表去Insert一条数据数据并且commit了之后,b去select的时候就会看到a表中新加的数据,就像幻读</span><br><span class="line">一样,多出了一条数据来</span><br><span class="line"></span><br><span class="line">a</span><br><span class="line">	start transaction</span><br><span class="line">	insert into &#96;Employee&#96; (name,id)value(&#39;test&#39;,10</span><br><span class="line">	commit</span><br><span class="line">为了避免这个问题,b可以设置</span><br><span class="line">	set session transaction isolation level serializable</span><br><span class="line">在a操作事务的时候,b操作事务会一直卡住,直到a表操作完成b才能去select操作，这就是串行化</span><br><span class="line"></span><br><span class="line">4. mysql默认的级别是不可复读</span><br></pre></td></tr></table></figure>
+
+
+<p>3.5 不可重复读 和 幻读</p>
+<p>不可复读是针对同一条数据两次读取会有变化 幻读是说当select到数据id=9的时候,这个时候我们可以去插入id=10的数据,但是其他的事务已经插入了id=10的记录,这个时候就会报错。但是从本事务的观点来看id为10的东西是不存在的。所以就想有幻觉一样,称为幻读。</p>
+<p>其实对于 幻读, MySQL的InnoDB引擎默认的RR级别已经通过MVCC自动帮我们(部分)解决了。因为当其他事务增加一条数据的时候。我们两次执行查询语句结果都是一样的。这是使用了mvcc模式来实现的,在RR模式下面，事务每次读取的都是一个快照。同一个事务中每次都读取同一份快照。所以就算数据更新了。读的也是老数据</p>
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>mysql数据库事务</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>mysql数据库02--进阶语句</title>
     <url>/jwangcloud/1482967651/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/mysql.jpeg"></p>
@@ -669,80 +743,6 @@ select substring_index(name,&#39;,&#39;,1) from score;选取name列中以第一�
       </categories>
       <tags>
         <tag>mysql数据库</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>mysql数据库03--事务</title>
-    <url>/jwangcloud/864966898/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/mysql.jpeg"></p>
-<h3 id="mysql隔离级别"><a href="#mysql隔离级别" class="headerlink" title="mysql隔离级别"></a>mysql隔离级别</h3><span id="more"></span>
-
-<p>隔离级别是mysql进行事务提交的时候,对数据的一种表现形式</p>
-<h4 id="1-事务的基本要素（ACID）"><a href="#1-事务的基本要素（ACID）" class="headerlink" title="1. 事务的基本要素（ACID）"></a>1. 事务的基本要素（ACID）</h4><p>1.1 原子性（Atomicity）：</p>
-<p>事务开始后所有操作，要么全部做完，要么全部不做，不可能停滞在中间环节。事务执行过程中出错，会回滚到事务开始前的状态，所有的操作就像没有发生一样。也就是说事务是一个不可分割的整体，就像化学中学过的原子，是物质构成的基本单位。</p>
-<p>1.2 一致性（Consistency）：</p>
-<p>事务开始前和结束后，数据库的完整性约束没有被破坏 。比如A向B转账，不可能A扣了钱，B却没收到。</p>
-<p>1.3 隔离性（Isolation）：</p>
-<p>同一时间，只允许一个事务请求同一数据，不同的事务之间彼此没有任何干扰。比如A正在从一张银行卡中取钱，在A取钱的过程结束前，B不能向这张卡转账。</p>
-<p>1.4 持久性（Durability）：</p>
-<p>事务完成后，事务对数据库的所有更新将被保存到数据库，不能回滚。</p>
-<h4 id="2-事务的操作方式"><a href="#2-事务的操作方式" class="headerlink" title="2. 事务的操作方式"></a>2. 事务的操作方式</h4><p>提交使用commit 回滚使用 rollback</p>
-<pre><code>begin
-
-&#39;&#39;&#39;&#39;&#39;语句快
-
-commit
-</code></pre>
-<h4 id="3-事务的并发问题"><a href="#3-事务的并发问题" class="headerlink" title="3.事务的并发问题"></a>3.事务的并发问题</h4><p>3.1 脏读：事务A读取了事务B更新的数据，然后B回滚操作，那么A读取到的数据是脏数据</p>
-<p>3.2 不可重复读：事务 A 多次读取同一数据，事务 B 在事务A多次读取的过程中，对数据作了更新并提交，导致事务A多次读取同一数据时，结果 不一致。</p>
-<p>3.3 幻读：系统管理员A将数据库中所有学生的成绩从具体分数改为ABCDE等级，但是系统管理员B就在这个时候插入了一条具体分数的记录，当系统管理员A改结束后发现还有一条记录没有改过来，就好像发生了幻觉一样，这就叫幻读。</p>
-<table>
-<thead>
-<tr>
-<th align="center">事物隔离级别</th>
-<th align="center">胀读</th>
-<th align="center">不可重复读</th>
-<th align="center">幻读</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">读未提交（read-uncommitted）</td>
-<td align="center">是</td>
-<td align="center">是</td>
-<td align="center">是</td>
-</tr>
-<tr>
-<td align="center">不可重复读（read-committed）</td>
-<td align="center">否</td>
-<td align="center">是</td>
-<td align="center">是</td>
-</tr>
-<tr>
-<td align="center">可重复读（repeatable-read）</td>
-<td align="center">否</td>
-<td align="center">否</td>
-<td align="center">是</td>
-</tr>
-<tr>
-<td align="center">串行化（serializable）</td>
-<td align="center">否</td>
-<td align="center">否</td>
-<td align="center">否</td>
-</tr>
-</tbody></table>
-<p>3.4 语句实现</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">	</span><br><span class="line">说明: 我们使用a,b两个端 a负责开启事务,并且修改数据。b负责开启事务,并且在a执行事务的时候不断去获取数</span><br><span class="line">	  据。以此研究数据的影响.a先执行,因为a需要去修改数据,所以a要首先获取到锁才行</span><br><span class="line"></span><br><span class="line">1.脏读:</span><br><span class="line">首先在b中去设置隔离级别</span><br><span class="line">a客户端</span><br><span class="line">	start transaction</span><br><span class="line">	update &#96;Employee&#96; set Name&#x3D;&#39;test2&#39; where Id&#x3D;1</span><br><span class="line">b客户端</span><br><span class="line">	set session transaction isolation level read uncommitted</span><br><span class="line">	start transaction</span><br><span class="line">	select * from &#96;Employee&#96;</span><br><span class="line">可以看到a中修改的数据,b中已经可以查看到,但是a的数据并没有commit,b读取到了a还没有提交上</span><br><span class="line">去的脏数据,称为脏读</span><br><span class="line"></span><br><span class="line">2.不可复读:</span><br><span class="line">a客户端</span><br><span class="line">	start transaction</span><br><span class="line">	update &#96;Employee&#96; set Name&#x3D;&#39;test2&#39; where Id&#x3D;1</span><br><span class="line">b客户端</span><br><span class="line">	set session transaction isolation level read committed</span><br><span class="line">	start transaction</span><br><span class="line">	select * from &#96;Employee&#96;</span><br><span class="line">这时候再去查看数据就不会出现脏读的情况,但是在a提交之后,再使用b去查看的话就会有一定的问题</span><br><span class="line"></span><br><span class="line">a客户端</span><br><span class="line">	commit</span><br><span class="line">b客户端</span><br><span class="line">	select * from &#96;Employee&#96;</span><br><span class="line">这时候b的中表的数据就变了,虽然没有脏读的情况,但是b中的数据两次不一样, 所以称之为不可复读</span><br><span class="line"></span><br><span class="line">3.幻读:</span><br><span class="line">a客户端</span><br><span class="line">	start transaction</span><br><span class="line">	update &#96;Employee&#96; set Name&#x3D;&#39;test2&#39; where Id&#x3D;1</span><br><span class="line">b客户端</span><br><span class="line">	set session transaction isolation level REPEATABLE read</span><br><span class="line">	start transaction</span><br><span class="line">	select * from &#96;Employee&#96;</span><br><span class="line">这个时候,b中查看的数据没有没有问题,他看到的一直都是老数据。这里使用了mvvc技术</span><br><span class="line"></span><br><span class="line">a客户端</span><br><span class="line">	commit</span><br><span class="line">b客户端</span><br><span class="line">	select * from &#96;Employee&#96;</span><br><span class="line">但是有一个问题,当a表去Insert一条数据数据并且commit了之后,b去select的时候就会看到a表中新加的数据,就像幻读</span><br><span class="line">一样,多出了一条数据来</span><br><span class="line"></span><br><span class="line">a</span><br><span class="line">	start transaction</span><br><span class="line">	insert into &#96;Employee&#96; (name,id)value(&#39;test&#39;,10</span><br><span class="line">	commit</span><br><span class="line">为了避免这个问题,b可以设置</span><br><span class="line">	set session transaction isolation level serializable</span><br><span class="line">在a操作事务的时候,b操作事务会一直卡住,直到a表操作完成b才能去select操作，这就是串行化</span><br><span class="line"></span><br><span class="line">4. mysql默认的级别是不可复读</span><br></pre></td></tr></table></figure>
-
-
-<p>3.5 不可重复读 和 幻读</p>
-<p>不可复读是针对同一条数据两次读取会有变化 幻读是说当select到数据id=9的时候,这个时候我们可以去插入id=10的数据,但是其他的事务已经插入了id=10的记录,这个时候就会报错。但是从本事务的观点来看id为10的东西是不存在的。所以就想有幻觉一样,称为幻读。</p>
-<p>其实对于 幻读, MySQL的InnoDB引擎默认的RR级别已经通过MVCC自动帮我们(部分)解决了。因为当其他事务增加一条数据的时候。我们两次执行查询语句结果都是一样的。这是使用了mvcc模式来实现的,在RR模式下面，事务每次读取的都是一个快照。同一个事务中每次都读取同一份快照。所以就算数据更新了。读的也是老数据</p>
-]]></content>
-      <categories>
-        <category>数据库</category>
-      </categories>
-      <tags>
-        <tag>mysql数据库事务</tag>
       </tags>
   </entry>
   <entry>
@@ -4245,6 +4245,84 @@ deleteview
       </tags>
   </entry>
   <entry>
+    <title>通用技术03--hexo博客搭建</title>
+    <url>/jwangcloud/3848869124/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/hexo.jpeg"></p>
+<meta name="referrer" content="no-referrer">
+
+<p>版权声明：本文为github博主「_xaoxuu」的原创文章，遵循 CC4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。</p>
+<p><a href="https://xaoxuu.com/blog/2017-07-05-hexo-blog/">原文链接: </a><a href="https://xaoxuu.com/blog/2017-07-05-hexo-blog/">https://xaoxuu.com/blog/2017-07-05-hexo-blog/</a></p>
+<h2 id="搭建基于hexo的独立博客"><a href="#搭建基于hexo的独立博客" class="headerlink" title="搭建基于hexo的独立博客"></a>搭建基于hexo的独立博客</h2><span id="more"></span>
+
+<h3 id="傻瓜式操作-仅限于macos系统"><a href="#傻瓜式操作-仅限于macos系统" class="headerlink" title="傻瓜式操作(仅限于macos系统)"></a>傻瓜式操作(仅限于macos系统)</h3><p>打开终端，cd 到你想创建博客的地方，执行这一行命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -O &#39;https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;xaoxuu&#x2F;hexo.sh&#x2F;master&#x2F;hexo.sh&#39; -# &amp;&amp; chmod 777 hexo.sh &amp;&amp; . hexo.sh -i init</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="详细操作"><a href="#详细操作" class="headerlink" title="详细操作"></a>详细操作</h3><h4 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h4><p>Hexo依赖Node.js和git。如果电脑上没有node环境可以去 Nodejs官网 下载。安装完成可以查看版本，在终端输入：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm -v    #出现版本号表示安装成功</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h4><p>macOS自带git，可以跳过此步骤。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Windows: Download &amp; install git.</span><br><span class="line">Mac: Install it with Homebrew, MacPorts or installer.</span><br><span class="line">Linux (Ubuntu, Debian): sudo apt-get install git-core</span><br><span class="line">Linux (Fedora, Red Hat, CentOS): sudo yum install git-core</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="安装Command-Line-Tools"><a href="#安装Command-Line-Tools" class="headerlink" title="安装Command Line Tools"></a>安装Command Line Tools</h4><p>macOS需要安装Command Line Tools，Windows可以跳过这一步骤。在终端输入：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">xcode-select --install</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>点击install 安装</p>
+<h4 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>安装如图：</p>
+<p>若出现下图,则需要以管理员身份运行：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo npm install hexo-cli -g</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+<h4 id="开始运行hexo"><a href="#开始运行hexo" class="headerlink" title="开始运行hexo"></a>开始运行hexo</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="选择主题"><a href="#选择主题" class="headerlink" title="选择主题"></a>选择主题</h4><p>执行完上面几条命令之后，在浏览器打开地址：<a href="http://localhost:4000/%E5%B0%B1%E4%BC%9A%E7%9C%8B%E5%88%B0hexo%E4%B8%BA%E4%BD%A0%E6%8F%90%E4%BE%9B%E7%9A%84%E9%BB%98%E8%AE%A4%E4%B8%BB%E9%A2%98%E3%80%82%E5%A6%82%E6%9E%9C%E4%BD%A0%E4%B8%8D%E5%96%9C%E6%AC%A2hexo%E8%87%AA%E5%B8%A6%E7%9A%84%E4%B8%BB%E9%A2%98%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%8E%BB">http://localhost:4000/就会看到hexo为你提供的默认主题。如果你不喜欢hexo自带的主题，可以去</a> hexo官网 找个喜欢的主题。下载主题源码到…/你的博客/themes/里面，根据主题的README文档提示，可能需要安装一些依赖包，或者对主题的_config.myl文件进行修改。如果你想使用本站的博客主题的话，只需要打开终端，cd到你博客所在的目录，执行以下这条命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo.sh i x</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>如果提示 command not found ，说明你的电脑上还没有使用过 hexo.sh 脚本，那么可以执行下面这一段命令下载脚本然后应用主题：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -O &#39;https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;xaoxuu&#x2F;hexo.sh&#x2F;master&#x2F;hexo.sh&#39; -# &amp;&amp; chmod 777 hexo.sh &amp;&amp; . hexo.sh -i i x</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="博客书写"><a href="#博客书写" class="headerlink" title="博客书写"></a>博客书写</h4><p>你可以按照 官方文档 的方法去创建一个具有初始化内容的md文件到…/你的博客/source/_posts/位置，当然也可以通过其他任意方式创建md文件，只要文件开头有如下格式的内容即可：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">layout:     post</span><br><span class="line">date:       2017-07-05</span><br><span class="line">title:      如何搭建基于Hexo的独立博客</span><br><span class="line">categories: [Dev, Cocoa]</span><br><span class="line">tags:</span><br><span class="line">    - Hexo</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">这是预览</span><br><span class="line"></span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line"></span><br><span class="line">这是正文</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="在文章中添加图片、音乐等"><a href="#在文章中添加图片、音乐等" class="headerlink" title="在文章中添加图片、音乐等"></a>在文章中添加图片、音乐等</h4><p>安装图片插件-路径选择你的博客文件夹 即_plot文件夹下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-asset-image --save</span><br><span class="line">或者</span><br><span class="line">npm install https:&#x2F;&#x2F;github.com&#x2F;CodeFalling&#x2F;hexo-asset-image -- save</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在_config.yml配置文件中，修改为 post_asset_folder: true， 然后新建一篇文章</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo new post ceshi  #会生成一个附带的相同名字的文件夹放置图片，以及一个.md文件写内容</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>文章引用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![图片名](图片完整名字：例如book.png) 即相对路径</span><br><span class="line"></span><br><span class="line">当然也可以使用cdn来存储图片，这样速度会相对来说快一点</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>音乐</p>
+<p>大家可以看网易云音乐的官网，播放音乐可以生成外链，直接拿来用就行了。iframe插件可以在代码中设置宽高等参数，auto为自动播放。flash不可以自己设置参数。看喜好，随便你。<br>其他音乐，把插件中的链接替换成要播放的链接就可以了</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#iframe插件</span><br><span class="line"></span><br><span class="line">&lt;iframe frameborder&#x3D;&quot;no&quot; border&#x3D;&quot;0&quot; marginwidth&#x3D;&quot;0&quot; marginheight&#x3D;&quot;0&quot; width&#x3D;330 height&#x3D;86 src&#x3D;&quot;&#x2F;&#x2F;music.163.com&#x2F;outchain&#x2F;player?type&#x3D;2&amp;id&#x3D;505820138&amp;auto&#x3D;0&amp;height&#x3D;66&quot;&gt;</span><br><span class="line">&lt;&#x2F;iframe&gt;</span><br><span class="line"></span><br><span class="line">#flash插件</span><br><span class="line"></span><br><span class="line">&lt;embed src&#x3D;&quot;&#x2F;&#x2F;music.163.com&#x2F;style&#x2F;swf&#x2F;widget.swf?sid&#x3D;40249713&amp;type&#x3D;2&amp;auto&#x3D;0&amp;width&#x3D;320&amp;height&#x3D;66&quot; width&#x3D;&quot;340&quot; height&#x3D;&quot;86&quot; allowNetworking&#x3D;&quot;all&quot;&gt;</span><br><span class="line">&lt;&#x2F;embed&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>链接</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[我的微博](http:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;123455)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>视频</p>
+<p>视频链接最好是打开就是视频的链接（支持youku，YouTube）<br>可以把视频上传到优酷，腾讯视频，生成外链再拿来用。（上传需要注册和实名认证）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&lt;iframe</span><br><span class="line">height&#x3D;498 width&#x3D;510</span><br><span class="line">src&#x3D;&quot;http:&#x2F;&#x2F;player.youku.com&#x2F;embed&#x2F;XMzY0MzgxNDMyOA&#x3D;&#x3D;&quot;</span><br><span class="line">frameborder&#x3D;0 allowfullscreen&gt;</span><br><span class="line">&lt;&#x2F;iframe&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="发布博客"><a href="#发布博客" class="headerlink" title="发布博客"></a>发布博客</h4><p>博客发布到服务器才能被外网访问，如果你有服务器更好，可以支持一些有趣的功能，例如 hexo-admin 可以为你的博客增加后台管理功能，在其他地方只要登录管理员账号就可以在线写博文了。但是如果没有自己的服务器的，也可以将博客托管到 GitHub 、 Coding 等网站。他们的优缺点如下：</p>
+<p>GitHub<br>优点：功能最强大，最知名，偏技术性的博客力荐。<br>缺点：国内访问稍慢（以前是很慢，现在已经好多了，但是仍不及国内的服务快）；GitHub服务器屏蔽了百度爬虫，要想被百度收录，需要去百度站长平台手动提交。</p>
+<p>Coding<br>优点：国内访问速度很快，一键申请并配置好SSL证书，很容易被百度收录。<br>缺点：只能通过CNAME方式设置域名，也就意味着你不能同时使用域名邮箱等其他域名服务。</p>
+]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>hexo博客搭建</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>通用技术02--hexo</title>
     <url>/jwangcloud/2780304565/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/hexo.jpeg"></p>
@@ -4411,84 +4489,6 @@ deleteview
       </tags>
   </entry>
   <entry>
-    <title>通用技术03--hexo博客搭建</title>
-    <url>/jwangcloud/3848869124/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/hexo.jpeg"></p>
-<meta name="referrer" content="no-referrer">
-
-<p>版权声明：本文为github博主「_xaoxuu」的原创文章，遵循 CC4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。</p>
-<p><a href="https://xaoxuu.com/blog/2017-07-05-hexo-blog/">原文链接: </a><a href="https://xaoxuu.com/blog/2017-07-05-hexo-blog/">https://xaoxuu.com/blog/2017-07-05-hexo-blog/</a></p>
-<h2 id="搭建基于hexo的独立博客"><a href="#搭建基于hexo的独立博客" class="headerlink" title="搭建基于hexo的独立博客"></a>搭建基于hexo的独立博客</h2><span id="more"></span>
-
-<h3 id="傻瓜式操作-仅限于macos系统"><a href="#傻瓜式操作-仅限于macos系统" class="headerlink" title="傻瓜式操作(仅限于macos系统)"></a>傻瓜式操作(仅限于macos系统)</h3><p>打开终端，cd 到你想创建博客的地方，执行这一行命令：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -O &#39;https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;xaoxuu&#x2F;hexo.sh&#x2F;master&#x2F;hexo.sh&#39; -# &amp;&amp; chmod 777 hexo.sh &amp;&amp; . hexo.sh -i init</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h3 id="详细操作"><a href="#详细操作" class="headerlink" title="详细操作"></a>详细操作</h3><h4 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h4><p>Hexo依赖Node.js和git。如果电脑上没有node环境可以去 Nodejs官网 下载。安装完成可以查看版本，在终端输入：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm -v    #出现版本号表示安装成功</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h4><p>macOS自带git，可以跳过此步骤。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Windows: Download &amp; install git.</span><br><span class="line">Mac: Install it with Homebrew, MacPorts or installer.</span><br><span class="line">Linux (Ubuntu, Debian): sudo apt-get install git-core</span><br><span class="line">Linux (Fedora, Red Hat, CentOS): sudo yum install git-core</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="安装Command-Line-Tools"><a href="#安装Command-Line-Tools" class="headerlink" title="安装Command Line Tools"></a>安装Command Line Tools</h4><p>macOS需要安装Command Line Tools，Windows可以跳过这一步骤。在终端输入：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">xcode-select --install</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<p>点击install 安装</p>
-<h4 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>安装如图：</p>
-<p>若出现下图,则需要以管理员身份运行：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo npm install hexo-cli -g</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-<h4 id="开始运行hexo"><a href="#开始运行hexo" class="headerlink" title="开始运行hexo"></a>开始运行hexo</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="选择主题"><a href="#选择主题" class="headerlink" title="选择主题"></a>选择主题</h4><p>执行完上面几条命令之后，在浏览器打开地址：<a href="http://localhost:4000/%E5%B0%B1%E4%BC%9A%E7%9C%8B%E5%88%B0hexo%E4%B8%BA%E4%BD%A0%E6%8F%90%E4%BE%9B%E7%9A%84%E9%BB%98%E8%AE%A4%E4%B8%BB%E9%A2%98%E3%80%82%E5%A6%82%E6%9E%9C%E4%BD%A0%E4%B8%8D%E5%96%9C%E6%AC%A2hexo%E8%87%AA%E5%B8%A6%E7%9A%84%E4%B8%BB%E9%A2%98%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%8E%BB">http://localhost:4000/就会看到hexo为你提供的默认主题。如果你不喜欢hexo自带的主题，可以去</a> hexo官网 找个喜欢的主题。下载主题源码到…/你的博客/themes/里面，根据主题的README文档提示，可能需要安装一些依赖包，或者对主题的_config.myl文件进行修改。如果你想使用本站的博客主题的话，只需要打开终端，cd到你博客所在的目录，执行以下这条命令：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo.sh i x</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>如果提示 command not found ，说明你的电脑上还没有使用过 hexo.sh 脚本，那么可以执行下面这一段命令下载脚本然后应用主题：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -O &#39;https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;xaoxuu&#x2F;hexo.sh&#x2F;master&#x2F;hexo.sh&#39; -# &amp;&amp; chmod 777 hexo.sh &amp;&amp; . hexo.sh -i i x</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h4 id="博客书写"><a href="#博客书写" class="headerlink" title="博客书写"></a>博客书写</h4><p>你可以按照 官方文档 的方法去创建一个具有初始化内容的md文件到…/你的博客/source/_posts/位置，当然也可以通过其他任意方式创建md文件，只要文件开头有如下格式的内容即可：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">layout:     post</span><br><span class="line">date:       2017-07-05</span><br><span class="line">title:      如何搭建基于Hexo的独立博客</span><br><span class="line">categories: [Dev, Cocoa]</span><br><span class="line">tags:</span><br><span class="line">    - Hexo</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">这是预览</span><br><span class="line"></span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line"></span><br><span class="line">这是正文</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="在文章中添加图片、音乐等"><a href="#在文章中添加图片、音乐等" class="headerlink" title="在文章中添加图片、音乐等"></a>在文章中添加图片、音乐等</h4><p>安装图片插件-路径选择你的博客文件夹 即_plot文件夹下</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-asset-image --save</span><br><span class="line">或者</span><br><span class="line">npm install https:&#x2F;&#x2F;github.com&#x2F;CodeFalling&#x2F;hexo-asset-image -- save</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在_config.yml配置文件中，修改为 post_asset_folder: true， 然后新建一篇文章</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo new post ceshi  #会生成一个附带的相同名字的文件夹放置图片，以及一个.md文件写内容</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>文章引用</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![图片名](图片完整名字：例如book.png) 即相对路径</span><br><span class="line"></span><br><span class="line">当然也可以使用cdn来存储图片，这样速度会相对来说快一点</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>音乐</p>
-<p>大家可以看网易云音乐的官网，播放音乐可以生成外链，直接拿来用就行了。iframe插件可以在代码中设置宽高等参数，auto为自动播放。flash不可以自己设置参数。看喜好，随便你。<br>其他音乐，把插件中的链接替换成要播放的链接就可以了</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#iframe插件</span><br><span class="line"></span><br><span class="line">&lt;iframe frameborder&#x3D;&quot;no&quot; border&#x3D;&quot;0&quot; marginwidth&#x3D;&quot;0&quot; marginheight&#x3D;&quot;0&quot; width&#x3D;330 height&#x3D;86 src&#x3D;&quot;&#x2F;&#x2F;music.163.com&#x2F;outchain&#x2F;player?type&#x3D;2&amp;id&#x3D;505820138&amp;auto&#x3D;0&amp;height&#x3D;66&quot;&gt;</span><br><span class="line">&lt;&#x2F;iframe&gt;</span><br><span class="line"></span><br><span class="line">#flash插件</span><br><span class="line"></span><br><span class="line">&lt;embed src&#x3D;&quot;&#x2F;&#x2F;music.163.com&#x2F;style&#x2F;swf&#x2F;widget.swf?sid&#x3D;40249713&amp;type&#x3D;2&amp;auto&#x3D;0&amp;width&#x3D;320&amp;height&#x3D;66&quot; width&#x3D;&quot;340&quot; height&#x3D;&quot;86&quot; allowNetworking&#x3D;&quot;all&quot;&gt;</span><br><span class="line">&lt;&#x2F;embed&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>链接</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[我的微博](http:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;123455)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>视频</p>
-<p>视频链接最好是打开就是视频的链接（支持youku，YouTube）<br>可以把视频上传到优酷，腾讯视频，生成外链再拿来用。（上传需要注册和实名认证）</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&lt;iframe</span><br><span class="line">height&#x3D;498 width&#x3D;510</span><br><span class="line">src&#x3D;&quot;http:&#x2F;&#x2F;player.youku.com&#x2F;embed&#x2F;XMzY0MzgxNDMyOA&#x3D;&#x3D;&quot;</span><br><span class="line">frameborder&#x3D;0 allowfullscreen&gt;</span><br><span class="line">&lt;&#x2F;iframe&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="发布博客"><a href="#发布博客" class="headerlink" title="发布博客"></a>发布博客</h4><p>博客发布到服务器才能被外网访问，如果你有服务器更好，可以支持一些有趣的功能，例如 hexo-admin 可以为你的博客增加后台管理功能，在其他地方只要登录管理员账号就可以在线写博文了。但是如果没有自己的服务器的，也可以将博客托管到 GitHub 、 Coding 等网站。他们的优缺点如下：</p>
-<p>GitHub<br>优点：功能最强大，最知名，偏技术性的博客力荐。<br>缺点：国内访问稍慢（以前是很慢，现在已经好多了，但是仍不及国内的服务快）；GitHub服务器屏蔽了百度爬虫，要想被百度收录，需要去百度站长平台手动提交。</p>
-<p>Coding<br>优点：国内访问速度很快，一键申请并配置好SSL证书，很容易被百度收录。<br>缺点：只能通过CNAME方式设置域名，也就意味着你不能同时使用域名邮箱等其他域名服务。</p>
-]]></content>
-      <categories>
-        <category>git</category>
-      </categories>
-      <tags>
-        <tag>hexo博客搭建</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>通用技术01--git</title>
     <url>/jwangcloud/2499844314/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/git.jpeg"></p>
@@ -4568,38 +4568,6 @@ deleteview
       </categories>
       <tags>
         <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>数据分析02--spark错误分析</title>
-    <url>/jwangcloud/3907582757/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/date.jpeg"></p>
-<h2 id="spark错误分析"><a href="#spark错误分析" class="headerlink" title="spark错误分析"></a>spark错误分析</h2><span id="more"></span>
-
-
-<p><a href="http://spark.apache.org/docs/2.4.4/">官方文档</a></p>
-<p>错误1</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1020104:sbin rimi$ .&#x2F;start-master.sh </span><br><span class="line">starting org.apache.spark.deploy.master.Master, logging to &#x2F;Users&#x2F;rimi&#x2F;Desktop&#x2F;spark-2.4.4-bin-hadoop2.7&#x2F;</span><br><span class="line">logs&#x2F;spark-rimi-org.apache.spark.deploy.master.Master-1-1020104.local.out</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>解决：本地ip未找到，添加</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#sudo vim &#x2F;etc&#x2F;hosts</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">127.0.0.1       localhost</span><br><span class="line">255.255.255.255 broadcasthost</span><br><span class="line">::1             localhost</span><br><span class="line">0.0.0.0 1020104.local   (这一个没有)</span><br></pre></td></tr></table></figure>
-
-<p>错误2</p>
-<blockquote>
-<p>spark 与 jdk 不兼容  </p>
-</blockquote>
-<p>解决：</p>
-<blockquote>
-<p>下载saprk2.7 或者更加稳定版本  jdk下载1.8  8u231</p>
-<p>重新配置jdk环境</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>大数据</category>
-      </categories>
-      <tags>
-        <tag>数据分析</tag>
       </tags>
   </entry>
   <entry>
@@ -5583,6 +5551,38 @@ model.predict()
       </tags>
   </entry>
   <entry>
+    <title>数据分析02--spark错误分析</title>
+    <url>/jwangcloud/3907582757/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/date.jpeg"></p>
+<h2 id="spark错误分析"><a href="#spark错误分析" class="headerlink" title="spark错误分析"></a>spark错误分析</h2><span id="more"></span>
+
+
+<p><a href="http://spark.apache.org/docs/2.4.4/">官方文档</a></p>
+<p>错误1</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1020104:sbin rimi$ .&#x2F;start-master.sh </span><br><span class="line">starting org.apache.spark.deploy.master.Master, logging to &#x2F;Users&#x2F;rimi&#x2F;Desktop&#x2F;spark-2.4.4-bin-hadoop2.7&#x2F;</span><br><span class="line">logs&#x2F;spark-rimi-org.apache.spark.deploy.master.Master-1-1020104.local.out</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>解决：本地ip未找到，添加</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#sudo vim &#x2F;etc&#x2F;hosts</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">127.0.0.1       localhost</span><br><span class="line">255.255.255.255 broadcasthost</span><br><span class="line">::1             localhost</span><br><span class="line">0.0.0.0 1020104.local   (这一个没有)</span><br></pre></td></tr></table></figure>
+
+<p>错误2</p>
+<blockquote>
+<p>spark 与 jdk 不兼容  </p>
+</blockquote>
+<p>解决：</p>
+<blockquote>
+<p>下载saprk2.7 或者更加稳定版本  jdk下载1.8  8u231</p>
+<p>重新配置jdk环境</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>数据分析</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>计算机基础01--计算机硬件</title>
     <url>/jwangcloud/1575270746/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/computer.jpeg"></p>
@@ -6412,26 +6412,6 @@ null|    None
       </tags>
   </entry>
   <entry>
-    <title>python基础大全10--异常类、手写list</title>
-    <url>/jwangcloud/3400028629/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/python01.jpeg"></p>
-<h3 id="异常类-：报告错误-–-gt-中断-运行"><a href="#异常类-：报告错误-–-gt-中断-运行" class="headerlink" title="异常类 ：报告错误 –&gt; 中断 运行"></a>异常类 ：报告错误 –&gt; 中断 运行</h3><span id="more"></span>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#只会监听特殊类型的错误</span><br><span class="line">try:</span><br><span class="line">    xx &#x3D; [qxaas]</span><br><span class="line">#监听与 NameError 相关的错误，监听所有报错只需要监听其父类（Exception）即可    </span><br><span class="line">except NameError:      </span><br><span class="line">    print(&#39;cuo  wu&#39;)</span><br><span class="line"></span><br><span class="line"># class TestError(Exception):  #exception属于报错的父类，继承即可</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="自定义报错"><a href="#自定义报错" class="headerlink" title="自定义报错"></a>自定义报错</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class TestError(Exception):  #自定义一个报错</span><br><span class="line">    pass</span><br><span class="line">def rujiao(age):</span><br><span class="line">    if age &lt; 30:</span><br><span class="line">        print(age)</span><br><span class="line">    else:</span><br><span class="line">        raise TestError(&#39;xiajibaluanxie&#39;)  #报错目标 ：中止程序，并输出错误提示</span><br><span class="line"># try:                #出现报错并继续运行后面的代码</span><br><span class="line">#     rujiao(333)</span><br><span class="line"># except TestError:</span><br><span class="line">#     print(&quot;xxx&quot;)   #若输入pass 则会直接跳过并不会报错</span><br><span class="line">#</span><br><span class="line"># print(&#39;xxxxxxxxxx&#39;)</span><br><span class="line">l &#x3D; [1,2,3,4]</span><br><span class="line">try:                #出现报错并继续运行后面的代码</span><br><span class="line">    l[7]             #出现错误则直接报错，不会执行下面的语句快</span><br><span class="line">    rujiao(60)</span><br><span class="line">#打印错误提示 (as后接错误提示)   可以重复抓取不同的错误，显示抓取的只有一种</span><br><span class="line">except TestError as errortype:  </span><br><span class="line">    print(errortype)</span><br><span class="line">except IndexError:</span><br><span class="line">    print(&quot;下标错误&quot;)</span><br><span class="line">except AttributeError:</span><br><span class="line">    print(&#39;无法赋值&#39;)</span><br><span class="line">else:  #上述若未发现错误，就执行else中语句</span><br><span class="line">    print(&#39;++++++++&#39;)</span><br><span class="line">finally:  #若上述未出现错误或中断：至少会执行该命令</span><br><span class="line">    print(&#39;-------&#39;)</span><br><span class="line"></span><br><span class="line">print(&#39;xxxxxxxxxx&#39;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h3 id="编写列表类，实现列表的基础方法"><a href="#编写列表类，实现列表的基础方法" class="headerlink" title="编写列表类，实现列表的基础方法"></a>编写列表类，实现列表的基础方法</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Node:</span><br><span class="line">    def __init__(self, v, n):</span><br><span class="line">        self.value &#x3D; v</span><br><span class="line">        self.next &#x3D; n</span><br><span class="line"></span><br><span class="line">class MyList:</span><br><span class="line">    def __init__(self, *args):</span><br><span class="line">        self.first_node &#x3D; Node(None, None)</span><br><span class="line">        self.length &#x3D; 1</span><br><span class="line">        for i in args:</span><br><span class="line">            self.append(i)</span><br><span class="line">        self.listxx &#x3D; args</span><br><span class="line"></span><br><span class="line">    def __len__(self):</span><br><span class="line">        return self.length - 1</span><br><span class="line"></span><br><span class="line">    def append(self, v):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        给列表添加一个新的元素</span><br><span class="line">        :param v:</span><br><span class="line">        :return:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        node &#x3D; self.find_last_node()</span><br><span class="line">        node.next &#x3D; Node(v, None)</span><br><span class="line">        self.length +&#x3D; 1</span><br><span class="line"></span><br><span class="line">    def find_last_node(self):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        找到最后一个元素</span><br><span class="line">        :return:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        node &#x3D; self.first_node</span><br><span class="line">        if node is None:</span><br><span class="line">            return None</span><br><span class="line">        while True:</span><br><span class="line">            if node.next is None:</span><br><span class="line">                break</span><br><span class="line">            node &#x3D; node.next</span><br><span class="line">        return node</span><br><span class="line"></span><br><span class="line">    def pop(self, index&#x3D;-1):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        把列表最后一个元素删除</span><br><span class="line">        :return:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        if self.length &lt;&#x3D; 1:</span><br><span class="line">            return False</span><br><span class="line">        if index &#x3D;&#x3D; -1:</span><br><span class="line">            index &#x3D; self.length - 2</span><br><span class="line">        n &#x3D; self.get(index)</span><br><span class="line">        next &#x3D; n.next  # 要删除元素的最后一个元素</span><br><span class="line">        pre &#x3D; self.get(index - 1)  # 要删除元素前面一个元素</span><br><span class="line">        pre.next &#x3D; next</span><br><span class="line">        self.length -&#x3D; 1</span><br><span class="line"></span><br><span class="line">    def get(self, index):</span><br><span class="line">        index +&#x3D; 1</span><br><span class="line">        if index &gt;&#x3D; self.length:</span><br><span class="line">            return False</span><br><span class="line">        counter &#x3D; 0</span><br><span class="line">        node &#x3D; self.first_node</span><br><span class="line">        if counter &#x3D;&#x3D; index:</span><br><span class="line">            return node</span><br><span class="line">        while counter !&#x3D; index:</span><br><span class="line">            counter +&#x3D; 1</span><br><span class="line">            # 找到下一个元素</span><br><span class="line">            node &#x3D; node.next</span><br><span class="line">        return node.value</span><br><span class="line"></span><br><span class="line">    def clear(self):</span><br><span class="line">        self.first_node.next &#x3D; None</span><br><span class="line">        self.length &#x3D; 1</span><br><span class="line"></span><br><span class="line">    def count(self, value):</span><br><span class="line">        counter &#x3D; 0</span><br><span class="line">        node &#x3D; self.first_node.next</span><br><span class="line">        while True:</span><br><span class="line">            if node is not None:</span><br><span class="line">                if node.value &#x3D;&#x3D; value:</span><br><span class="line">                    counter +&#x3D; 1</span><br><span class="line">                node &#x3D; node.next</span><br><span class="line">            else:</span><br><span class="line">                break</span><br><span class="line">        return counter</span><br><span class="line"></span><br><span class="line">    def remove(self,value):</span><br><span class="line">        pre_node &#x3D; self.first_node</span><br><span class="line">        current_node &#x3D; pre_node.next</span><br><span class="line">        while True:</span><br><span class="line">            if current_node is None:</span><br><span class="line">                raise ValueError(&quot;&#123;&#125; not in &#123;&#125;&quot;.format(value,self.__class__.__name__))</span><br><span class="line">            if current_node.value &#x3D;&#x3D; value:</span><br><span class="line">                pre_node.next &#x3D; current_node.next</span><br><span class="line">                return</span><br><span class="line">            pre_node &#x3D; pre_node.next</span><br><span class="line">            current_node &#x3D; current_node.next</span><br><span class="line"></span><br><span class="line">    def index(self, value):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        找出value所在的第一个节点</span><br><span class="line">        :param value:</span><br><span class="line">        :return:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        counter &#x3D; 0</span><br><span class="line">        node &#x3D; self.first_node.next</span><br><span class="line">        while True:</span><br><span class="line">            if node is not None:</span><br><span class="line">                if node.value &#x3D;&#x3D; value:</span><br><span class="line">                    return counter</span><br><span class="line">                else:</span><br><span class="line">                    counter +&#x3D; 1</span><br><span class="line">                    node &#x3D; node.next</span><br><span class="line">            else:</span><br><span class="line">                raise ValueError(&quot;&#123;&#125; is not in list&quot;.format(value))</span><br><span class="line"></span><br><span class="line">    def insert(self, index, value):</span><br><span class="line">        counter &#x3D; 0</span><br><span class="line">        pre_node &#x3D; self.first_node</span><br><span class="line">        while True:</span><br><span class="line">            if pre_node is None:</span><br><span class="line">                self.append(value)</span><br><span class="line">                break</span><br><span class="line">            if counter &#x3D;&#x3D; index:</span><br><span class="line">                next_node &#x3D; pre_node.next</span><br><span class="line">                new_node &#x3D; Node(value, None)</span><br><span class="line">                pre_node.next &#x3D; new_node</span><br><span class="line">                new_node.next &#x3D; next_node</span><br><span class="line">                self.length +&#x3D; 1</span><br><span class="line">                break</span><br><span class="line">            else:</span><br><span class="line">                counter +&#x3D; 1</span><br><span class="line">                pre_node &#x3D; pre_node.next</span><br><span class="line"></span><br><span class="line">    def __str__(self):</span><br><span class="line">        string &#x3D; &quot;[&quot;</span><br><span class="line">        node &#x3D; self.first_node.next</span><br><span class="line">        if node is not None:</span><br><span class="line">            v &#x3D; node.value</span><br><span class="line">            string +&#x3D; str(v)</span><br><span class="line">            node &#x3D; node.next</span><br><span class="line">            while node is not None:</span><br><span class="line">                string +&#x3D; &quot;, &quot; + str(node.value)</span><br><span class="line">                node &#x3D; node.next</span><br><span class="line">        string +&#x3D; &quot;]&quot;</span><br><span class="line"></span><br><span class="line">        return string</span><br><span class="line"></span><br><span class="line">    def reverse(self):</span><br><span class="line">        counter &#x3D; 0</span><br><span class="line">        while self.length-2 &gt; counter:</span><br><span class="line">            node &#x3D; self.first_node.next</span><br><span class="line">            if node is None:</span><br><span class="line">                return</span><br><span class="line">            self.insert(self.length-1-counter,node.value)</span><br><span class="line">            counter +&#x3D; 1</span><br><span class="line">            self.pop(0)</span><br><span class="line">    # timsort</span><br><span class="line">    # &lt;__main__.MyListV2 object at 0x103aa1bd0&gt;</span><br><span class="line">    # def __str__(self):</span><br><span class="line">    #     global __name__</span><br><span class="line">    #     string &#x3D; &quot;&lt;&quot;</span><br><span class="line">    #     string +&#x3D; __name__</span><br><span class="line">    #     string +&#x3D; &quot;.MyList&quot;</span><br><span class="line">    #     string +&#x3D; &#39;  object at &#123;0:x&#125;&#39;.format(id(self))</span><br><span class="line">    #     string +&#x3D; &quot;&gt;&quot;</span><br><span class="line">    #     return string</span><br><span class="line">    def __getitem__(self, item):</span><br><span class="line">        if item &#x3D;&#x3D; -1:</span><br><span class="line">            item &#x3D; self.length - 2</span><br><span class="line">        node &#x3D; self.get(item)</span><br><span class="line">        return node.value</span><br><span class="line"></span><br><span class="line">    def __delitem__(self, *args, **kwargs):  # real signature unknown</span><br><span class="line">        &quot;&quot;&quot; Delete self[key]. &quot;&quot;&quot;</span><br><span class="line">        self.pop(args[0])</span><br><span class="line"></span><br><span class="line">    def __gt__(self, other):  #other表示另一个对象，self表示本次的对象   __gt__(&gt;)  __at__(&lt;)</span><br><span class="line">        if self.length &gt; other.length:</span><br><span class="line">            return True</span><br><span class="line">        else:</span><br><span class="line">            return False</span><br><span class="line">    def __add__(self, other):</span><br><span class="line"></span><br><span class="line">        len1 &#x3D; len(self)</span><br><span class="line">        len2 &#x3D; len(other)</span><br><span class="line">        l3 &#x3D; MyList()</span><br><span class="line">        for i in range(len1):</span><br><span class="line">            l3.append(self.get(i))</span><br><span class="line"></span><br><span class="line">        for j in range(len2):</span><br><span class="line">            l3.append(other.get(j))</span><br><span class="line"></span><br><span class="line">        return l3</span><br><span class="line"></span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line">l1 &#x3D; MyList(1,2,3,4,5,6)</span><br><span class="line">print(l1.get(2))</span><br><span class="line">l2 &#x3D; MyList(1,2,3,4)</span><br><span class="line">print(l1+l2)</span><br><span class="line"></span><br><span class="line"># l.reverse()</span><br><span class="line"># #l1.remove(77)</span><br><span class="line"># # l.insert(10,77)</span><br><span class="line"># # l.clear()</span><br><span class="line"># #</span><br><span class="line"># # l &#x3D; [9,2,9,4,9,2,7,8,9]</span><br><span class="line"># # print(l.index(9))</span><br><span class="line"># # print(l1.index(9))</span><br><span class="line">#</span><br><span class="line"># # print(l1)</span><br><span class="line"># print(l)</span><br><span class="line"># print(len(l))</span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line"># class MyListV2(MyList):</span><br><span class="line">#     def sort(self):</span><br><span class="line">#         pass</span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line"># class MyListV3(MyListV2):</span><br><span class="line">#     def reverse(self):</span><br><span class="line">#         pass</span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line"># l &#x3D; MyListV2(6, 7, 8, 9, 10)</span><br><span class="line">#</span><br><span class="line"># l.append(9)</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>python异常类</tag>
-        <tag>python手写list</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>python基础大全11--面相对象</title>
     <url>/jwangcloud/1278160075/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/python01.jpeg"></p>
@@ -6457,6 +6437,26 @@ null|    None
       </categories>
       <tags>
         <tag>python面向对象</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python基础大全10--异常类、手写list</title>
+    <url>/jwangcloud/3400028629/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/python01.jpeg"></p>
+<h3 id="异常类-：报告错误-–-gt-中断-运行"><a href="#异常类-：报告错误-–-gt-中断-运行" class="headerlink" title="异常类 ：报告错误 –&gt; 中断 运行"></a>异常类 ：报告错误 –&gt; 中断 运行</h3><span id="more"></span>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#只会监听特殊类型的错误</span><br><span class="line">try:</span><br><span class="line">    xx &#x3D; [qxaas]</span><br><span class="line">#监听与 NameError 相关的错误，监听所有报错只需要监听其父类（Exception）即可    </span><br><span class="line">except NameError:      </span><br><span class="line">    print(&#39;cuo  wu&#39;)</span><br><span class="line"></span><br><span class="line"># class TestError(Exception):  #exception属于报错的父类，继承即可</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义报错"><a href="#自定义报错" class="headerlink" title="自定义报错"></a>自定义报错</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class TestError(Exception):  #自定义一个报错</span><br><span class="line">    pass</span><br><span class="line">def rujiao(age):</span><br><span class="line">    if age &lt; 30:</span><br><span class="line">        print(age)</span><br><span class="line">    else:</span><br><span class="line">        raise TestError(&#39;xiajibaluanxie&#39;)  #报错目标 ：中止程序，并输出错误提示</span><br><span class="line"># try:                #出现报错并继续运行后面的代码</span><br><span class="line">#     rujiao(333)</span><br><span class="line"># except TestError:</span><br><span class="line">#     print(&quot;xxx&quot;)   #若输入pass 则会直接跳过并不会报错</span><br><span class="line">#</span><br><span class="line"># print(&#39;xxxxxxxxxx&#39;)</span><br><span class="line">l &#x3D; [1,2,3,4]</span><br><span class="line">try:                #出现报错并继续运行后面的代码</span><br><span class="line">    l[7]             #出现错误则直接报错，不会执行下面的语句快</span><br><span class="line">    rujiao(60)</span><br><span class="line">#打印错误提示 (as后接错误提示)   可以重复抓取不同的错误，显示抓取的只有一种</span><br><span class="line">except TestError as errortype:  </span><br><span class="line">    print(errortype)</span><br><span class="line">except IndexError:</span><br><span class="line">    print(&quot;下标错误&quot;)</span><br><span class="line">except AttributeError:</span><br><span class="line">    print(&#39;无法赋值&#39;)</span><br><span class="line">else:  #上述若未发现错误，就执行else中语句</span><br><span class="line">    print(&#39;++++++++&#39;)</span><br><span class="line">finally:  #若上述未出现错误或中断：至少会执行该命令</span><br><span class="line">    print(&#39;-------&#39;)</span><br><span class="line"></span><br><span class="line">print(&#39;xxxxxxxxxx&#39;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="编写列表类，实现列表的基础方法"><a href="#编写列表类，实现列表的基础方法" class="headerlink" title="编写列表类，实现列表的基础方法"></a>编写列表类，实现列表的基础方法</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Node:</span><br><span class="line">    def __init__(self, v, n):</span><br><span class="line">        self.value &#x3D; v</span><br><span class="line">        self.next &#x3D; n</span><br><span class="line"></span><br><span class="line">class MyList:</span><br><span class="line">    def __init__(self, *args):</span><br><span class="line">        self.first_node &#x3D; Node(None, None)</span><br><span class="line">        self.length &#x3D; 1</span><br><span class="line">        for i in args:</span><br><span class="line">            self.append(i)</span><br><span class="line">        self.listxx &#x3D; args</span><br><span class="line"></span><br><span class="line">    def __len__(self):</span><br><span class="line">        return self.length - 1</span><br><span class="line"></span><br><span class="line">    def append(self, v):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        给列表添加一个新的元素</span><br><span class="line">        :param v:</span><br><span class="line">        :return:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        node &#x3D; self.find_last_node()</span><br><span class="line">        node.next &#x3D; Node(v, None)</span><br><span class="line">        self.length +&#x3D; 1</span><br><span class="line"></span><br><span class="line">    def find_last_node(self):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        找到最后一个元素</span><br><span class="line">        :return:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        node &#x3D; self.first_node</span><br><span class="line">        if node is None:</span><br><span class="line">            return None</span><br><span class="line">        while True:</span><br><span class="line">            if node.next is None:</span><br><span class="line">                break</span><br><span class="line">            node &#x3D; node.next</span><br><span class="line">        return node</span><br><span class="line"></span><br><span class="line">    def pop(self, index&#x3D;-1):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        把列表最后一个元素删除</span><br><span class="line">        :return:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        if self.length &lt;&#x3D; 1:</span><br><span class="line">            return False</span><br><span class="line">        if index &#x3D;&#x3D; -1:</span><br><span class="line">            index &#x3D; self.length - 2</span><br><span class="line">        n &#x3D; self.get(index)</span><br><span class="line">        next &#x3D; n.next  # 要删除元素的最后一个元素</span><br><span class="line">        pre &#x3D; self.get(index - 1)  # 要删除元素前面一个元素</span><br><span class="line">        pre.next &#x3D; next</span><br><span class="line">        self.length -&#x3D; 1</span><br><span class="line"></span><br><span class="line">    def get(self, index):</span><br><span class="line">        index +&#x3D; 1</span><br><span class="line">        if index &gt;&#x3D; self.length:</span><br><span class="line">            return False</span><br><span class="line">        counter &#x3D; 0</span><br><span class="line">        node &#x3D; self.first_node</span><br><span class="line">        if counter &#x3D;&#x3D; index:</span><br><span class="line">            return node</span><br><span class="line">        while counter !&#x3D; index:</span><br><span class="line">            counter +&#x3D; 1</span><br><span class="line">            # 找到下一个元素</span><br><span class="line">            node &#x3D; node.next</span><br><span class="line">        return node.value</span><br><span class="line"></span><br><span class="line">    def clear(self):</span><br><span class="line">        self.first_node.next &#x3D; None</span><br><span class="line">        self.length &#x3D; 1</span><br><span class="line"></span><br><span class="line">    def count(self, value):</span><br><span class="line">        counter &#x3D; 0</span><br><span class="line">        node &#x3D; self.first_node.next</span><br><span class="line">        while True:</span><br><span class="line">            if node is not None:</span><br><span class="line">                if node.value &#x3D;&#x3D; value:</span><br><span class="line">                    counter +&#x3D; 1</span><br><span class="line">                node &#x3D; node.next</span><br><span class="line">            else:</span><br><span class="line">                break</span><br><span class="line">        return counter</span><br><span class="line"></span><br><span class="line">    def remove(self,value):</span><br><span class="line">        pre_node &#x3D; self.first_node</span><br><span class="line">        current_node &#x3D; pre_node.next</span><br><span class="line">        while True:</span><br><span class="line">            if current_node is None:</span><br><span class="line">                raise ValueError(&quot;&#123;&#125; not in &#123;&#125;&quot;.format(value,self.__class__.__name__))</span><br><span class="line">            if current_node.value &#x3D;&#x3D; value:</span><br><span class="line">                pre_node.next &#x3D; current_node.next</span><br><span class="line">                return</span><br><span class="line">            pre_node &#x3D; pre_node.next</span><br><span class="line">            current_node &#x3D; current_node.next</span><br><span class="line"></span><br><span class="line">    def index(self, value):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        找出value所在的第一个节点</span><br><span class="line">        :param value:</span><br><span class="line">        :return:</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        counter &#x3D; 0</span><br><span class="line">        node &#x3D; self.first_node.next</span><br><span class="line">        while True:</span><br><span class="line">            if node is not None:</span><br><span class="line">                if node.value &#x3D;&#x3D; value:</span><br><span class="line">                    return counter</span><br><span class="line">                else:</span><br><span class="line">                    counter +&#x3D; 1</span><br><span class="line">                    node &#x3D; node.next</span><br><span class="line">            else:</span><br><span class="line">                raise ValueError(&quot;&#123;&#125; is not in list&quot;.format(value))</span><br><span class="line"></span><br><span class="line">    def insert(self, index, value):</span><br><span class="line">        counter &#x3D; 0</span><br><span class="line">        pre_node &#x3D; self.first_node</span><br><span class="line">        while True:</span><br><span class="line">            if pre_node is None:</span><br><span class="line">                self.append(value)</span><br><span class="line">                break</span><br><span class="line">            if counter &#x3D;&#x3D; index:</span><br><span class="line">                next_node &#x3D; pre_node.next</span><br><span class="line">                new_node &#x3D; Node(value, None)</span><br><span class="line">                pre_node.next &#x3D; new_node</span><br><span class="line">                new_node.next &#x3D; next_node</span><br><span class="line">                self.length +&#x3D; 1</span><br><span class="line">                break</span><br><span class="line">            else:</span><br><span class="line">                counter +&#x3D; 1</span><br><span class="line">                pre_node &#x3D; pre_node.next</span><br><span class="line"></span><br><span class="line">    def __str__(self):</span><br><span class="line">        string &#x3D; &quot;[&quot;</span><br><span class="line">        node &#x3D; self.first_node.next</span><br><span class="line">        if node is not None:</span><br><span class="line">            v &#x3D; node.value</span><br><span class="line">            string +&#x3D; str(v)</span><br><span class="line">            node &#x3D; node.next</span><br><span class="line">            while node is not None:</span><br><span class="line">                string +&#x3D; &quot;, &quot; + str(node.value)</span><br><span class="line">                node &#x3D; node.next</span><br><span class="line">        string +&#x3D; &quot;]&quot;</span><br><span class="line"></span><br><span class="line">        return string</span><br><span class="line"></span><br><span class="line">    def reverse(self):</span><br><span class="line">        counter &#x3D; 0</span><br><span class="line">        while self.length-2 &gt; counter:</span><br><span class="line">            node &#x3D; self.first_node.next</span><br><span class="line">            if node is None:</span><br><span class="line">                return</span><br><span class="line">            self.insert(self.length-1-counter,node.value)</span><br><span class="line">            counter +&#x3D; 1</span><br><span class="line">            self.pop(0)</span><br><span class="line">    # timsort</span><br><span class="line">    # &lt;__main__.MyListV2 object at 0x103aa1bd0&gt;</span><br><span class="line">    # def __str__(self):</span><br><span class="line">    #     global __name__</span><br><span class="line">    #     string &#x3D; &quot;&lt;&quot;</span><br><span class="line">    #     string +&#x3D; __name__</span><br><span class="line">    #     string +&#x3D; &quot;.MyList&quot;</span><br><span class="line">    #     string +&#x3D; &#39;  object at &#123;0:x&#125;&#39;.format(id(self))</span><br><span class="line">    #     string +&#x3D; &quot;&gt;&quot;</span><br><span class="line">    #     return string</span><br><span class="line">    def __getitem__(self, item):</span><br><span class="line">        if item &#x3D;&#x3D; -1:</span><br><span class="line">            item &#x3D; self.length - 2</span><br><span class="line">        node &#x3D; self.get(item)</span><br><span class="line">        return node.value</span><br><span class="line"></span><br><span class="line">    def __delitem__(self, *args, **kwargs):  # real signature unknown</span><br><span class="line">        &quot;&quot;&quot; Delete self[key]. &quot;&quot;&quot;</span><br><span class="line">        self.pop(args[0])</span><br><span class="line"></span><br><span class="line">    def __gt__(self, other):  #other表示另一个对象，self表示本次的对象   __gt__(&gt;)  __at__(&lt;)</span><br><span class="line">        if self.length &gt; other.length:</span><br><span class="line">            return True</span><br><span class="line">        else:</span><br><span class="line">            return False</span><br><span class="line">    def __add__(self, other):</span><br><span class="line"></span><br><span class="line">        len1 &#x3D; len(self)</span><br><span class="line">        len2 &#x3D; len(other)</span><br><span class="line">        l3 &#x3D; MyList()</span><br><span class="line">        for i in range(len1):</span><br><span class="line">            l3.append(self.get(i))</span><br><span class="line"></span><br><span class="line">        for j in range(len2):</span><br><span class="line">            l3.append(other.get(j))</span><br><span class="line"></span><br><span class="line">        return l3</span><br><span class="line"></span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line">l1 &#x3D; MyList(1,2,3,4,5,6)</span><br><span class="line">print(l1.get(2))</span><br><span class="line">l2 &#x3D; MyList(1,2,3,4)</span><br><span class="line">print(l1+l2)</span><br><span class="line"></span><br><span class="line"># l.reverse()</span><br><span class="line"># #l1.remove(77)</span><br><span class="line"># # l.insert(10,77)</span><br><span class="line"># # l.clear()</span><br><span class="line"># #</span><br><span class="line"># # l &#x3D; [9,2,9,4,9,2,7,8,9]</span><br><span class="line"># # print(l.index(9))</span><br><span class="line"># # print(l1.index(9))</span><br><span class="line">#</span><br><span class="line"># # print(l1)</span><br><span class="line"># print(l)</span><br><span class="line"># print(len(l))</span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line"># class MyListV2(MyList):</span><br><span class="line">#     def sort(self):</span><br><span class="line">#         pass</span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line"># class MyListV3(MyListV2):</span><br><span class="line">#     def reverse(self):</span><br><span class="line">#         pass</span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line"># l &#x3D; MyListV2(6, 7, 8, 9, 10)</span><br><span class="line">#</span><br><span class="line"># l.append(9)</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python异常类</tag>
+        <tag>python手写list</tag>
       </tags>
   </entry>
   <entry>
