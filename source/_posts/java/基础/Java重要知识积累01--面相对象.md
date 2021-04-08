@@ -9,8 +9,11 @@ date: 2019-07-01 18:18:19
 password:
 ---
 
+![](https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/first_foots/02.jpeg)
 
 ## 类和对象
+
+<!--more-->
 
 ### 面向对象和面向过程编程思想
 
