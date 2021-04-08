@@ -3,7 +3,12 @@
   <entry>
     <title>Java重要知识积累02--从数据结构到Java常用集合</title>
     <url>/jwangcloud/3265662706/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="从数据结构到Java常用集合"><a href="#从数据结构到Java常用集合" class="headerlink" title="从数据结构到Java常用集合"></a>从数据结构到Java常用集合</h1><p>​    常用的数据结构可根据数据访问的特点分为<strong>线性结构</strong>和<strong>非线性结构</strong>。线性结构包括常见的链表、栈、队列等，非线性结构包括<strong>树</strong>、<strong>图</strong>等。数据结构种类繁多，本篇内容将通过图解的方式对常用的数据结构以及在java中的实现进行介绍</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/first_foots/01.jpeg"></p>
+<h1 id="从数据结构到Java常用集合"><a href="#从数据结构到Java常用集合" class="headerlink" title="从数据结构到Java常用集合"></a>从数据结构到Java常用集合</h1><ul>
+<li>常用的数据结构可根据数据访问的特点分为<strong>线性结构</strong>和<strong>非线性结构</strong>。线性结构包括常见的链表、栈、队列等，非线性结构包括<strong>树</strong>、<strong>图</strong>等。数据结构种类繁多，本篇内容将通过图解的方式对常用的数据结构以及在java中的实现进行介绍</li>
+</ul>
+<span id="more"></span>
+
 <p><strong>数据结构组织图</strong></p>
 <p><img data-src="https://img-blog.csdnimg.cn/20200526095818285.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JlZXdvcmtzaG9w,size_16,color_FFFFFF,t_70" alt="å¨è¿éæå¥å¾çæè¿°"> </p>
 <p><strong>Java集合组织图</strong></p>
@@ -742,7 +747,10 @@
   <entry>
     <title>Java重要知识积累01--面相对象</title>
     <url>/jwangcloud/1572511114/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="类和对象"><a href="#类和对象" class="headerlink" title="类和对象"></a>类和对象</h2><h3 id="面向对象和面向过程编程思想"><a href="#面向对象和面向过程编程思想" class="headerlink" title="面向对象和面向过程编程思想"></a>面向对象和面向过程编程思想</h3><h4 id="面向过程编程思想"><a href="#面向过程编程思想" class="headerlink" title="面向过程编程思想"></a>面向过程编程思想</h4><ul>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/first_foots/02.jpeg"></p>
+<h2 id="类和对象"><a href="#类和对象" class="headerlink" title="类和对象"></a>类和对象</h2><span id="more"></span>
+
+<h3 id="面向对象和面向过程编程思想"><a href="#面向对象和面向过程编程思想" class="headerlink" title="面向对象和面向过程编程思想"></a>面向对象和面向过程编程思想</h3><h4 id="面向过程编程思想"><a href="#面向过程编程思想" class="headerlink" title="面向过程编程思想"></a>面向过程编程思想</h4><ul>
 <li><strong>强调的是过程,必须清楚每一个步骤,然后按照步骤一步一步去实现</strong></li>
 </ul>
 <h4 id="面向对象编程思想"><a href="#面向对象编程思想" class="headerlink" title="面向对象编程思想"></a>面向对象编程思想</h4><ul>
@@ -980,6 +988,94 @@
       </tags>
   </entry>
   <entry>
+    <title>Linux操作系统01--Linux入门</title>
+    <url>/jwangcloud/1737435959/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/Linux.jpeg"></p>
+<h3 id="Linux版本之间的区别"><a href="#Linux版本之间的区别" class="headerlink" title="Linux版本之间的区别"></a>Linux版本之间的区别</h3><span id="more"></span>
+
+
+<pre><code>             redhat  RHEL CentOs 
+                     Fedora               --&gt; 稳定版本
+             Debian  Ubuntu
+     Linux           Mint Linux   knopix  --&gt; 最新版本
+             SlackWare  SUSE   SLEs
+                               openSuse
+             其它发行家族 
+</code></pre>
+<h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><pre><code>top : 查看电脑当前状态，比如CPU的使用率，物理内存（Physcmem）,可看作一个
+任务管理器（使用q键退出）
+date：日期。其中取的时区为CST 代表 中国上海
+cal ：日历
+echo : 将字符串输出到屏幕  &gt; ：输出重定向  &gt;&gt; : 输出追加重定向
+echo &#39;hello&#39; &gt; tmp.txt : 将字符串输出重定向，若当前目录下没有该文件，
+则会新建该文件并将字符串输出到文件，若存在该文件，则会覆盖该文件中的内容
+echo &#39;hello&#39; &gt;&gt; tmp.txt : 与上述一样，但存在该文件时会在该文件内容后
+追加字符串
+2&gt; : 标准错误截获，将错误提示输出到文件中
+unix时间戳（timestamp）: 以格林威治时间为准，计算机开始时间1970开始
+Tab键：命令自动补全，多个相同命令则按两下，会将全部相似的命令显示在屏幕上
+</code></pre>
+<h3 id="文件夹操作"><a href="#文件夹操作" class="headerlink" title="文件夹操作"></a>文件夹操作</h3><pre><code>cd  进入目标文件夹中
+cd .  当前目录
+cd ..  返回上一个文件夹下
+ls  查看当前所在文件夹下面所拥有的文件夹清单
+pwd 查看当前所在文件夹路径，属于绝对路径
+mkdir 创建文件夹
+rm -r -f 删除文件夹（不可恢复）
+/ 文件路径分隔符  \ 转义字符
+～ 用户根目录  ./ 当前目录
+ls -la 可显示隐藏文件  隐藏文件的创建为在名字前+“.”,例如：.match
+less 文件名  查看文件内信息  more可查看部分文件内信息
+cp 文件夹1 文件夹2  考本文件夹1到文件夹2（需要是文件夹全名）与文件操作一样
+</code></pre>
+<h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><pre><code>cp -r   : 文件复制
+cp -r &#123;文件1，文件2&#125; 目标文件夹   ： 拷贝多个文件到一个文件夹中
+rm -rf  : 删除任何相关的文件或文件夹 删除多个使用 空格隔开或者通配符
+touch   : 新建文件（使用通配符可创建多个）
+mkdir -p : 可以创建一个新文件夹下创建新文件
+&gt; text.txt : 创建空文件
+</code></pre>
+]]></content>
+      <categories>
+        <category>Linux操作系统</category>
+      </categories>
+      <tags>
+        <tag>Linux入门</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux操作系统02--Linux权限</title>
+    <url>/jwangcloud/4264740339/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/Linux.jpeg"></p>
+<h2 id="进制计算"><a href="#进制计算" class="headerlink" title="进制计算"></a>进制计算</h2><span id="more"></span>    
+
+<pre><code>二进制 ： 以111（2） 为例：1*2^0 + 1*2^1 + 1*2^2 =7 
+十六进制：以16为底：0～9 A～F
+三十六进制：以32为低：0-9 A-Z 除开 i o s z
+</code></pre>
+<h2 id="Linux权限"><a href="#Linux权限" class="headerlink" title="Linux权限"></a>Linux权限</h2><ol>
+<li>例：使用ls -lh 文件属性字段显示信息如下<pre><code> d  rwx  r_x  r_x  d(文件夹) r(可读) w(可写) x(可执行) 
+   111  101  101
+    7    5    5
+    u    g    o
+  
+</code></pre>
+整个信息段表示：文件属性字段 文件硬链接数/目录子文件数 文件拥有者 文件拥有者所在组 文件大小（以字节为单位） 文件创建时间 文件名（–&gt;符号为指向目标文件夹）</li>
+<li> 修改权限：chmod 权限的十进制 文件名 （chmod 755 1.txt）权限最高为777<br>修改文件夹权限：chmod -R</li>
+<li>修改某一个权限：chmod u-x 文件名 （u-x 为 user 用户去掉可执行，还可以为u+x、u-wx、g+rx）</li>
+</ol>
+<h2 id="编码表"><a href="#编码表" class="headerlink" title="编码表"></a>编码表</h2><p>最早的字符编码表：Ascil码（不能存汉字）</p>
+<p>中文编码：gbk（简体） big5(繁体)</p>
+<p>世界性文字编码：unicode32  通过加工–通用编码：utf-8(可变长)、utf-16(即固定又可变)、utf-32(固定)</p>
+]]></content>
+      <categories>
+        <category>Linux操作系统</category>
+      </categories>
+      <tags>
+        <tag>Linux权限</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux操作系统03--vim操作、ssh</title>
     <url>/jwangcloud/2793636500/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/Linux.jpeg"></p>
@@ -1068,94 +1164,6 @@
       <tags>
         <tag>vim</tag>
         <tag>ssh</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux操作系统01--Linux入门</title>
-    <url>/jwangcloud/1737435959/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/Linux.jpeg"></p>
-<h3 id="Linux版本之间的区别"><a href="#Linux版本之间的区别" class="headerlink" title="Linux版本之间的区别"></a>Linux版本之间的区别</h3><span id="more"></span>
-
-
-<pre><code>             redhat  RHEL CentOs 
-                     Fedora               --&gt; 稳定版本
-             Debian  Ubuntu
-     Linux           Mint Linux   knopix  --&gt; 最新版本
-             SlackWare  SUSE   SLEs
-                               openSuse
-             其它发行家族 
-</code></pre>
-<h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><pre><code>top : 查看电脑当前状态，比如CPU的使用率，物理内存（Physcmem）,可看作一个
-任务管理器（使用q键退出）
-date：日期。其中取的时区为CST 代表 中国上海
-cal ：日历
-echo : 将字符串输出到屏幕  &gt; ：输出重定向  &gt;&gt; : 输出追加重定向
-echo &#39;hello&#39; &gt; tmp.txt : 将字符串输出重定向，若当前目录下没有该文件，
-则会新建该文件并将字符串输出到文件，若存在该文件，则会覆盖该文件中的内容
-echo &#39;hello&#39; &gt;&gt; tmp.txt : 与上述一样，但存在该文件时会在该文件内容后
-追加字符串
-2&gt; : 标准错误截获，将错误提示输出到文件中
-unix时间戳（timestamp）: 以格林威治时间为准，计算机开始时间1970开始
-Tab键：命令自动补全，多个相同命令则按两下，会将全部相似的命令显示在屏幕上
-</code></pre>
-<h3 id="文件夹操作"><a href="#文件夹操作" class="headerlink" title="文件夹操作"></a>文件夹操作</h3><pre><code>cd  进入目标文件夹中
-cd .  当前目录
-cd ..  返回上一个文件夹下
-ls  查看当前所在文件夹下面所拥有的文件夹清单
-pwd 查看当前所在文件夹路径，属于绝对路径
-mkdir 创建文件夹
-rm -r -f 删除文件夹（不可恢复）
-/ 文件路径分隔符  \ 转义字符
-～ 用户根目录  ./ 当前目录
-ls -la 可显示隐藏文件  隐藏文件的创建为在名字前+“.”,例如：.match
-less 文件名  查看文件内信息  more可查看部分文件内信息
-cp 文件夹1 文件夹2  考本文件夹1到文件夹2（需要是文件夹全名）与文件操作一样
-</code></pre>
-<h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><pre><code>cp -r   : 文件复制
-cp -r &#123;文件1，文件2&#125; 目标文件夹   ： 拷贝多个文件到一个文件夹中
-rm -rf  : 删除任何相关的文件或文件夹 删除多个使用 空格隔开或者通配符
-touch   : 新建文件（使用通配符可创建多个）
-mkdir -p : 可以创建一个新文件夹下创建新文件
-&gt; text.txt : 创建空文件
-</code></pre>
-]]></content>
-      <categories>
-        <category>Linux操作系统</category>
-      </categories>
-      <tags>
-        <tag>Linux入门</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux操作系统02--Linux权限</title>
-    <url>/jwangcloud/4264740339/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/Linux.jpeg"></p>
-<h2 id="进制计算"><a href="#进制计算" class="headerlink" title="进制计算"></a>进制计算</h2><span id="more"></span>    
-
-<pre><code>二进制 ： 以111（2） 为例：1*2^0 + 1*2^1 + 1*2^2 =7 
-十六进制：以16为底：0～9 A～F
-三十六进制：以32为低：0-9 A-Z 除开 i o s z
-</code></pre>
-<h2 id="Linux权限"><a href="#Linux权限" class="headerlink" title="Linux权限"></a>Linux权限</h2><ol>
-<li>例：使用ls -lh 文件属性字段显示信息如下<pre><code> d  rwx  r_x  r_x  d(文件夹) r(可读) w(可写) x(可执行) 
-   111  101  101
-    7    5    5
-    u    g    o
-  
-</code></pre>
-整个信息段表示：文件属性字段 文件硬链接数/目录子文件数 文件拥有者 文件拥有者所在组 文件大小（以字节为单位） 文件创建时间 文件名（–&gt;符号为指向目标文件夹）</li>
-<li> 修改权限：chmod 权限的十进制 文件名 （chmod 755 1.txt）权限最高为777<br>修改文件夹权限：chmod -R</li>
-<li>修改某一个权限：chmod u-x 文件名 （u-x 为 user 用户去掉可执行，还可以为u+x、u-wx、g+rx）</li>
-</ol>
-<h2 id="编码表"><a href="#编码表" class="headerlink" title="编码表"></a>编码表</h2><p>最早的字符编码表：Ascil码（不能存汉字）</p>
-<p>中文编码：gbk（简体） big5(繁体)</p>
-<p>世界性文字编码：unicode32  通过加工–通用编码：utf-8(可变长)、utf-16(即固定又可变)、utf-32(固定)</p>
-]]></content>
-      <categories>
-        <category>Linux操作系统</category>
-      </categories>
-      <tags>
-        <tag>Linux权限</tag>
       </tags>
   </entry>
   <entry>
@@ -1307,48 +1315,6 @@ delete from..where
       </tags>
   </entry>
   <entry>
-    <title>mysql数据库04--存储过程、触发器、事件</title>
-    <url>/jwangcloud/898521826/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/mysql.jpeg"></p>
-<h2 id="mysql进阶"><a href="#mysql进阶" class="headerlink" title="mysql进阶"></a>mysql进阶</h2><span id="more"></span>
-
-<h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h3><p>1.存储函数（stored function）。返回一个计算结果，该结果可以用在表达式里。<br>2.存储过程（stored procedure）。不直接返回一个结果，但可以用来完成一般的运算或是生成一个结果集并传递回客户。<br>3.触发器（trigger）。与数据表相关联，当那个数据表被INSERT、DELETE或UPDATE语句修改时，触发器将自动执行。<br>4.事件（event）。根据时间表在预定时刻自动执行。</p>
-<h3 id="2-存储过程"><a href="#2-存储过程" class="headerlink" title="2.存储过程"></a>2.存储过程</h3><p>1.存储过程和存储函数的区别<br>    使用存储过程的情况主要有两种：<br>    （1）只需通过运算来实现某种效果或动作而无需返回一个值，<br>    （2）运算会返回多个结果集（函数做不到这一点）。这只是些指导性建议，不是硬性规定。<br>    存储函数要用CREATE FUNCTION语句来创建，存储过程要用CREATE PROCEDURE语句来创建，为了与数据表或数据列的名字有所区别，给参数起名字时将使用p_前缀。</p>
-<p>2.分隔符,由于mysql默认分隔符是 ; 如果我们使用了;表示存储过程已经结束,但是mysql默认语句也是;结束,如果我们想要在存储过程中多加几个sql语句怎么办？我们需要先修改分割符,然后写sql语句和存储过程然后恢复到默认的分隔符。</p>
-<p>3.delimiter命令把mysql程序的语句分隔符重定义为另一个字符或字符串，它必须是在存储例程的定义里没有出现过的。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">创建存储过程：</span><br><span class="line">delimiter $</span><br><span class="line">create procedure show_born()</span><br><span class="line">begin</span><br><span class="line">select 1;</span><br><span class="line">select 2;</span><br><span class="line">end$</span><br><span class="line">delimiter ;</span><br><span class="line">存储过程调用：</span><br><span class="line">call show_born</span><br><span class="line">存储过程参数传入：</span><br><span class="line">create procedure p1 (p_id INT) begin select p_id; end$</span><br><span class="line"></span><br><span class="line">创建存储函数：</span><br><span class="line">delimiter $</span><br><span class="line">create function show()</span><br><span class="line">begin</span><br><span class="line">select 1;</span><br><span class="line">select 2;</span><br><span class="line">end$</span><br><span class="line">delimiter ;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="3-触发器"><a href="#3-触发器" class="headerlink" title="3.触发器"></a>3.触发器</h3><p>1.触发器是与特定数据表相关联的存储过程，当相应的数据表被INSERT、DELETE或UPDATE语句修改时，触发器将自动执行。<br>触发器可以被设置成在这几种语句处理每个数据行之前或之后触发。触发器的定义包括一条将在触发器被触发时执行的语句。</p>
-<p>2.创建触发器</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">每次创建新值的时候,新的数据列test2都会变成999:</span><br><span class="line">create trigger test1_t before insert on test1 for each row begin set NEW.test2&#x3D;999; end$</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="4-事件"><a href="#4-事件" class="headerlink" title="4.事件"></a>4.事件</h3><p>1.我们可以把数据库操作安排在预定时间执行。事件是与一个时间表相关联的存储程序，时间表用来定义事件发生的时间、次数以及何时消失。事件非常适合用来执行各种无人值守的系统管理任务，如定期更新汇总报告、清理过期失效的数据、对日志数据表进行轮转等。</p>
-<p>2.默认条件下，事件不会执行，需要启动事件调度器：</p>
-<pre><code>把以下语句添加到一个选项文件中（服务器在启动时将读取）： [mysqld] event_scheduler=ON
-</code></pre>
-<p>3.查看事件调度器状态：show variables like ‘event_scheduler’</p>
-<p>4.创建事件：</p>
-<pre><code>create event e1 on schedule every 5 second do insert into test1 (test1)values(&#39;8888&#39;);
-
-do 定义语句部分
-</code></pre>
-<p>5.事件禁用和激活</p>
-<pre><code>事件禁用：
-    alter event e1 disable;
-事件激活：
-    alter event e1 enable;
-</code></pre>
-]]></content>
-      <categories>
-        <category>数据库</category>
-      </categories>
-      <tags>
-        <tag>mysql存储器</tag>
-        <tag>mysql触发器</tag>
-        <tag>mysql事件</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>mysql数据库05--索引、引擎</title>
     <url>/jwangcloud/1501163261/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/mysql.jpeg"></p>
@@ -1452,6 +1418,48 @@ Query的执行；
       <tags>
         <tag>mysql索引</tag>
         <tag>mysql引擎</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mysql数据库04--存储过程、触发器、事件</title>
+    <url>/jwangcloud/898521826/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/mysql.jpeg"></p>
+<h2 id="mysql进阶"><a href="#mysql进阶" class="headerlink" title="mysql进阶"></a>mysql进阶</h2><span id="more"></span>
+
+<h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h3><p>1.存储函数（stored function）。返回一个计算结果，该结果可以用在表达式里。<br>2.存储过程（stored procedure）。不直接返回一个结果，但可以用来完成一般的运算或是生成一个结果集并传递回客户。<br>3.触发器（trigger）。与数据表相关联，当那个数据表被INSERT、DELETE或UPDATE语句修改时，触发器将自动执行。<br>4.事件（event）。根据时间表在预定时刻自动执行。</p>
+<h3 id="2-存储过程"><a href="#2-存储过程" class="headerlink" title="2.存储过程"></a>2.存储过程</h3><p>1.存储过程和存储函数的区别<br>    使用存储过程的情况主要有两种：<br>    （1）只需通过运算来实现某种效果或动作而无需返回一个值，<br>    （2）运算会返回多个结果集（函数做不到这一点）。这只是些指导性建议，不是硬性规定。<br>    存储函数要用CREATE FUNCTION语句来创建，存储过程要用CREATE PROCEDURE语句来创建，为了与数据表或数据列的名字有所区别，给参数起名字时将使用p_前缀。</p>
+<p>2.分隔符,由于mysql默认分隔符是 ; 如果我们使用了;表示存储过程已经结束,但是mysql默认语句也是;结束,如果我们想要在存储过程中多加几个sql语句怎么办？我们需要先修改分割符,然后写sql语句和存储过程然后恢复到默认的分隔符。</p>
+<p>3.delimiter命令把mysql程序的语句分隔符重定义为另一个字符或字符串，它必须是在存储例程的定义里没有出现过的。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">创建存储过程：</span><br><span class="line">delimiter $</span><br><span class="line">create procedure show_born()</span><br><span class="line">begin</span><br><span class="line">select 1;</span><br><span class="line">select 2;</span><br><span class="line">end$</span><br><span class="line">delimiter ;</span><br><span class="line">存储过程调用：</span><br><span class="line">call show_born</span><br><span class="line">存储过程参数传入：</span><br><span class="line">create procedure p1 (p_id INT) begin select p_id; end$</span><br><span class="line"></span><br><span class="line">创建存储函数：</span><br><span class="line">delimiter $</span><br><span class="line">create function show()</span><br><span class="line">begin</span><br><span class="line">select 1;</span><br><span class="line">select 2;</span><br><span class="line">end$</span><br><span class="line">delimiter ;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-触发器"><a href="#3-触发器" class="headerlink" title="3.触发器"></a>3.触发器</h3><p>1.触发器是与特定数据表相关联的存储过程，当相应的数据表被INSERT、DELETE或UPDATE语句修改时，触发器将自动执行。<br>触发器可以被设置成在这几种语句处理每个数据行之前或之后触发。触发器的定义包括一条将在触发器被触发时执行的语句。</p>
+<p>2.创建触发器</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">每次创建新值的时候,新的数据列test2都会变成999:</span><br><span class="line">create trigger test1_t before insert on test1 for each row begin set NEW.test2&#x3D;999; end$</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-事件"><a href="#4-事件" class="headerlink" title="4.事件"></a>4.事件</h3><p>1.我们可以把数据库操作安排在预定时间执行。事件是与一个时间表相关联的存储程序，时间表用来定义事件发生的时间、次数以及何时消失。事件非常适合用来执行各种无人值守的系统管理任务，如定期更新汇总报告、清理过期失效的数据、对日志数据表进行轮转等。</p>
+<p>2.默认条件下，事件不会执行，需要启动事件调度器：</p>
+<pre><code>把以下语句添加到一个选项文件中（服务器在启动时将读取）： [mysqld] event_scheduler=ON
+</code></pre>
+<p>3.查看事件调度器状态：show variables like ‘event_scheduler’</p>
+<p>4.创建事件：</p>
+<pre><code>create event e1 on schedule every 5 second do insert into test1 (test1)values(&#39;8888&#39;);
+
+do 定义语句部分
+</code></pre>
+<p>5.事件禁用和激活</p>
+<pre><code>事件禁用：
+    alter event e1 disable;
+事件激活：
+    alter event e1 enable;
+</code></pre>
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>mysql存储器</tag>
+        <tag>mysql触发器</tag>
+        <tag>mysql事件</tag>
       </tags>
   </entry>
   <entry>
@@ -5224,84 +5232,6 @@ deleteview
       </tags>
   </entry>
   <entry>
-    <title>通用技术03--hexo博客搭建</title>
-    <url>/jwangcloud/3848869124/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/hexo.jpeg"></p>
-<meta name="referrer" content="no-referrer">
-
-<p>版权声明：本文为github博主「_xaoxuu」的原创文章，遵循 CC4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。</p>
-<p><a href="https://xaoxuu.com/blog/2017-07-05-hexo-blog/">原文链接: </a><a href="https://xaoxuu.com/blog/2017-07-05-hexo-blog/">https://xaoxuu.com/blog/2017-07-05-hexo-blog/</a></p>
-<h2 id="搭建基于hexo的独立博客"><a href="#搭建基于hexo的独立博客" class="headerlink" title="搭建基于hexo的独立博客"></a>搭建基于hexo的独立博客</h2><span id="more"></span>
-
-<h3 id="傻瓜式操作-仅限于macos系统"><a href="#傻瓜式操作-仅限于macos系统" class="headerlink" title="傻瓜式操作(仅限于macos系统)"></a>傻瓜式操作(仅限于macos系统)</h3><p>打开终端，cd 到你想创建博客的地方，执行这一行命令：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -O &#39;https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;xaoxuu&#x2F;hexo.sh&#x2F;master&#x2F;hexo.sh&#39; -# &amp;&amp; chmod 777 hexo.sh &amp;&amp; . hexo.sh -i init</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h3 id="详细操作"><a href="#详细操作" class="headerlink" title="详细操作"></a>详细操作</h3><h4 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h4><p>Hexo依赖Node.js和git。如果电脑上没有node环境可以去 Nodejs官网 下载。安装完成可以查看版本，在终端输入：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm -v    #出现版本号表示安装成功</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h4><p>macOS自带git，可以跳过此步骤。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Windows: Download &amp; install git.</span><br><span class="line">Mac: Install it with Homebrew, MacPorts or installer.</span><br><span class="line">Linux (Ubuntu, Debian): sudo apt-get install git-core</span><br><span class="line">Linux (Fedora, Red Hat, CentOS): sudo yum install git-core</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="安装Command-Line-Tools"><a href="#安装Command-Line-Tools" class="headerlink" title="安装Command Line Tools"></a>安装Command Line Tools</h4><p>macOS需要安装Command Line Tools，Windows可以跳过这一步骤。在终端输入：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">xcode-select --install</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<p>点击install 安装</p>
-<h4 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>安装如图：</p>
-<p>若出现下图,则需要以管理员身份运行：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo npm install hexo-cli -g</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-<h4 id="开始运行hexo"><a href="#开始运行hexo" class="headerlink" title="开始运行hexo"></a>开始运行hexo</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="选择主题"><a href="#选择主题" class="headerlink" title="选择主题"></a>选择主题</h4><p>执行完上面几条命令之后，在浏览器打开地址：<a href="http://localhost:4000/%E5%B0%B1%E4%BC%9A%E7%9C%8B%E5%88%B0hexo%E4%B8%BA%E4%BD%A0%E6%8F%90%E4%BE%9B%E7%9A%84%E9%BB%98%E8%AE%A4%E4%B8%BB%E9%A2%98%E3%80%82%E5%A6%82%E6%9E%9C%E4%BD%A0%E4%B8%8D%E5%96%9C%E6%AC%A2hexo%E8%87%AA%E5%B8%A6%E7%9A%84%E4%B8%BB%E9%A2%98%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%8E%BB">http://localhost:4000/就会看到hexo为你提供的默认主题。如果你不喜欢hexo自带的主题，可以去</a> hexo官网 找个喜欢的主题。下载主题源码到…/你的博客/themes/里面，根据主题的README文档提示，可能需要安装一些依赖包，或者对主题的_config.myl文件进行修改。如果你想使用本站的博客主题的话，只需要打开终端，cd到你博客所在的目录，执行以下这条命令：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo.sh i x</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>如果提示 command not found ，说明你的电脑上还没有使用过 hexo.sh 脚本，那么可以执行下面这一段命令下载脚本然后应用主题：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -O &#39;https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;xaoxuu&#x2F;hexo.sh&#x2F;master&#x2F;hexo.sh&#39; -# &amp;&amp; chmod 777 hexo.sh &amp;&amp; . hexo.sh -i i x</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h4 id="博客书写"><a href="#博客书写" class="headerlink" title="博客书写"></a>博客书写</h4><p>你可以按照 官方文档 的方法去创建一个具有初始化内容的md文件到…/你的博客/source/_posts/位置，当然也可以通过其他任意方式创建md文件，只要文件开头有如下格式的内容即可：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">layout:     post</span><br><span class="line">date:       2017-07-05</span><br><span class="line">title:      如何搭建基于Hexo的独立博客</span><br><span class="line">categories: [Dev, Cocoa]</span><br><span class="line">tags:</span><br><span class="line">    - Hexo</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">这是预览</span><br><span class="line"></span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line"></span><br><span class="line">这是正文</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="在文章中添加图片、音乐等"><a href="#在文章中添加图片、音乐等" class="headerlink" title="在文章中添加图片、音乐等"></a>在文章中添加图片、音乐等</h4><p>安装图片插件-路径选择你的博客文件夹 即_plot文件夹下</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-asset-image --save</span><br><span class="line">或者</span><br><span class="line">npm install https:&#x2F;&#x2F;github.com&#x2F;CodeFalling&#x2F;hexo-asset-image -- save</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在_config.yml配置文件中，修改为 post_asset_folder: true， 然后新建一篇文章</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo new post ceshi  #会生成一个附带的相同名字的文件夹放置图片，以及一个.md文件写内容</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>文章引用</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![图片名](图片完整名字：例如book.png) 即相对路径</span><br><span class="line"></span><br><span class="line">当然也可以使用cdn来存储图片，这样速度会相对来说快一点</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>音乐</p>
-<p>大家可以看网易云音乐的官网，播放音乐可以生成外链，直接拿来用就行了。iframe插件可以在代码中设置宽高等参数，auto为自动播放。flash不可以自己设置参数。看喜好，随便你。<br>其他音乐，把插件中的链接替换成要播放的链接就可以了</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#iframe插件</span><br><span class="line"></span><br><span class="line">&lt;iframe frameborder&#x3D;&quot;no&quot; border&#x3D;&quot;0&quot; marginwidth&#x3D;&quot;0&quot; marginheight&#x3D;&quot;0&quot; width&#x3D;330 height&#x3D;86 src&#x3D;&quot;&#x2F;&#x2F;music.163.com&#x2F;outchain&#x2F;player?type&#x3D;2&amp;id&#x3D;505820138&amp;auto&#x3D;0&amp;height&#x3D;66&quot;&gt;</span><br><span class="line">&lt;&#x2F;iframe&gt;</span><br><span class="line"></span><br><span class="line">#flash插件</span><br><span class="line"></span><br><span class="line">&lt;embed src&#x3D;&quot;&#x2F;&#x2F;music.163.com&#x2F;style&#x2F;swf&#x2F;widget.swf?sid&#x3D;40249713&amp;type&#x3D;2&amp;auto&#x3D;0&amp;width&#x3D;320&amp;height&#x3D;66&quot; width&#x3D;&quot;340&quot; height&#x3D;&quot;86&quot; allowNetworking&#x3D;&quot;all&quot;&gt;</span><br><span class="line">&lt;&#x2F;embed&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>链接</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[我的微博](http:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;123455)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>视频</p>
-<p>视频链接最好是打开就是视频的链接（支持youku，YouTube）<br>可以把视频上传到优酷，腾讯视频，生成外链再拿来用。（上传需要注册和实名认证）</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&lt;iframe</span><br><span class="line">height&#x3D;498 width&#x3D;510</span><br><span class="line">src&#x3D;&quot;http:&#x2F;&#x2F;player.youku.com&#x2F;embed&#x2F;XMzY0MzgxNDMyOA&#x3D;&#x3D;&quot;</span><br><span class="line">frameborder&#x3D;0 allowfullscreen&gt;</span><br><span class="line">&lt;&#x2F;iframe&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="发布博客"><a href="#发布博客" class="headerlink" title="发布博客"></a>发布博客</h4><p>博客发布到服务器才能被外网访问，如果你有服务器更好，可以支持一些有趣的功能，例如 hexo-admin 可以为你的博客增加后台管理功能，在其他地方只要登录管理员账号就可以在线写博文了。但是如果没有自己的服务器的，也可以将博客托管到 GitHub 、 Coding 等网站。他们的优缺点如下：</p>
-<p>GitHub<br>优点：功能最强大，最知名，偏技术性的博客力荐。<br>缺点：国内访问稍慢（以前是很慢，现在已经好多了，但是仍不及国内的服务快）；GitHub服务器屏蔽了百度爬虫，要想被百度收录，需要去百度站长平台手动提交。</p>
-<p>Coding<br>优点：国内访问速度很快，一键申请并配置好SSL证书，很容易被百度收录。<br>缺点：只能通过CNAME方式设置域名，也就意味着你不能同时使用域名邮箱等其他域名服务。</p>
-]]></content>
-      <categories>
-        <category>git</category>
-      </categories>
-      <tags>
-        <tag>hexo博客搭建</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>通用技术02--hexo</title>
     <url>/jwangcloud/2780304565/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/hexo.jpeg"></p>
@@ -5465,6 +5395,84 @@ deleteview
       </categories>
       <tags>
         <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>通用技术03--hexo博客搭建</title>
+    <url>/jwangcloud/3848869124/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/hexo.jpeg"></p>
+<meta name="referrer" content="no-referrer">
+
+<p>版权声明：本文为github博主「_xaoxuu」的原创文章，遵循 CC4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。</p>
+<p><a href="https://xaoxuu.com/blog/2017-07-05-hexo-blog/">原文链接: </a><a href="https://xaoxuu.com/blog/2017-07-05-hexo-blog/">https://xaoxuu.com/blog/2017-07-05-hexo-blog/</a></p>
+<h2 id="搭建基于hexo的独立博客"><a href="#搭建基于hexo的独立博客" class="headerlink" title="搭建基于hexo的独立博客"></a>搭建基于hexo的独立博客</h2><span id="more"></span>
+
+<h3 id="傻瓜式操作-仅限于macos系统"><a href="#傻瓜式操作-仅限于macos系统" class="headerlink" title="傻瓜式操作(仅限于macos系统)"></a>傻瓜式操作(仅限于macos系统)</h3><p>打开终端，cd 到你想创建博客的地方，执行这一行命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -O &#39;https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;xaoxuu&#x2F;hexo.sh&#x2F;master&#x2F;hexo.sh&#39; -# &amp;&amp; chmod 777 hexo.sh &amp;&amp; . hexo.sh -i init</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="详细操作"><a href="#详细操作" class="headerlink" title="详细操作"></a>详细操作</h3><h4 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h4><p>Hexo依赖Node.js和git。如果电脑上没有node环境可以去 Nodejs官网 下载。安装完成可以查看版本，在终端输入：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm -v    #出现版本号表示安装成功</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h4><p>macOS自带git，可以跳过此步骤。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Windows: Download &amp; install git.</span><br><span class="line">Mac: Install it with Homebrew, MacPorts or installer.</span><br><span class="line">Linux (Ubuntu, Debian): sudo apt-get install git-core</span><br><span class="line">Linux (Fedora, Red Hat, CentOS): sudo yum install git-core</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="安装Command-Line-Tools"><a href="#安装Command-Line-Tools" class="headerlink" title="安装Command Line Tools"></a>安装Command Line Tools</h4><p>macOS需要安装Command Line Tools，Windows可以跳过这一步骤。在终端输入：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">xcode-select --install</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>点击install 安装</p>
+<h4 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>安装如图：</p>
+<p>若出现下图,则需要以管理员身份运行：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo npm install hexo-cli -g</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+<h4 id="开始运行hexo"><a href="#开始运行hexo" class="headerlink" title="开始运行hexo"></a>开始运行hexo</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="选择主题"><a href="#选择主题" class="headerlink" title="选择主题"></a>选择主题</h4><p>执行完上面几条命令之后，在浏览器打开地址：<a href="http://localhost:4000/%E5%B0%B1%E4%BC%9A%E7%9C%8B%E5%88%B0hexo%E4%B8%BA%E4%BD%A0%E6%8F%90%E4%BE%9B%E7%9A%84%E9%BB%98%E8%AE%A4%E4%B8%BB%E9%A2%98%E3%80%82%E5%A6%82%E6%9E%9C%E4%BD%A0%E4%B8%8D%E5%96%9C%E6%AC%A2hexo%E8%87%AA%E5%B8%A6%E7%9A%84%E4%B8%BB%E9%A2%98%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%8E%BB">http://localhost:4000/就会看到hexo为你提供的默认主题。如果你不喜欢hexo自带的主题，可以去</a> hexo官网 找个喜欢的主题。下载主题源码到…/你的博客/themes/里面，根据主题的README文档提示，可能需要安装一些依赖包，或者对主题的_config.myl文件进行修改。如果你想使用本站的博客主题的话，只需要打开终端，cd到你博客所在的目录，执行以下这条命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo.sh i x</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>如果提示 command not found ，说明你的电脑上还没有使用过 hexo.sh 脚本，那么可以执行下面这一段命令下载脚本然后应用主题：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -O &#39;https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;xaoxuu&#x2F;hexo.sh&#x2F;master&#x2F;hexo.sh&#39; -# &amp;&amp; chmod 777 hexo.sh &amp;&amp; . hexo.sh -i i x</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="博客书写"><a href="#博客书写" class="headerlink" title="博客书写"></a>博客书写</h4><p>你可以按照 官方文档 的方法去创建一个具有初始化内容的md文件到…/你的博客/source/_posts/位置，当然也可以通过其他任意方式创建md文件，只要文件开头有如下格式的内容即可：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">layout:     post</span><br><span class="line">date:       2017-07-05</span><br><span class="line">title:      如何搭建基于Hexo的独立博客</span><br><span class="line">categories: [Dev, Cocoa]</span><br><span class="line">tags:</span><br><span class="line">    - Hexo</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">这是预览</span><br><span class="line"></span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line"></span><br><span class="line">这是正文</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="在文章中添加图片、音乐等"><a href="#在文章中添加图片、音乐等" class="headerlink" title="在文章中添加图片、音乐等"></a>在文章中添加图片、音乐等</h4><p>安装图片插件-路径选择你的博客文件夹 即_plot文件夹下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-asset-image --save</span><br><span class="line">或者</span><br><span class="line">npm install https:&#x2F;&#x2F;github.com&#x2F;CodeFalling&#x2F;hexo-asset-image -- save</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在_config.yml配置文件中，修改为 post_asset_folder: true， 然后新建一篇文章</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo new post ceshi  #会生成一个附带的相同名字的文件夹放置图片，以及一个.md文件写内容</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>文章引用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![图片名](图片完整名字：例如book.png) 即相对路径</span><br><span class="line"></span><br><span class="line">当然也可以使用cdn来存储图片，这样速度会相对来说快一点</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>音乐</p>
+<p>大家可以看网易云音乐的官网，播放音乐可以生成外链，直接拿来用就行了。iframe插件可以在代码中设置宽高等参数，auto为自动播放。flash不可以自己设置参数。看喜好，随便你。<br>其他音乐，把插件中的链接替换成要播放的链接就可以了</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#iframe插件</span><br><span class="line"></span><br><span class="line">&lt;iframe frameborder&#x3D;&quot;no&quot; border&#x3D;&quot;0&quot; marginwidth&#x3D;&quot;0&quot; marginheight&#x3D;&quot;0&quot; width&#x3D;330 height&#x3D;86 src&#x3D;&quot;&#x2F;&#x2F;music.163.com&#x2F;outchain&#x2F;player?type&#x3D;2&amp;id&#x3D;505820138&amp;auto&#x3D;0&amp;height&#x3D;66&quot;&gt;</span><br><span class="line">&lt;&#x2F;iframe&gt;</span><br><span class="line"></span><br><span class="line">#flash插件</span><br><span class="line"></span><br><span class="line">&lt;embed src&#x3D;&quot;&#x2F;&#x2F;music.163.com&#x2F;style&#x2F;swf&#x2F;widget.swf?sid&#x3D;40249713&amp;type&#x3D;2&amp;auto&#x3D;0&amp;width&#x3D;320&amp;height&#x3D;66&quot; width&#x3D;&quot;340&quot; height&#x3D;&quot;86&quot; allowNetworking&#x3D;&quot;all&quot;&gt;</span><br><span class="line">&lt;&#x2F;embed&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>链接</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[我的微博](http:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;123455)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>视频</p>
+<p>视频链接最好是打开就是视频的链接（支持youku，YouTube）<br>可以把视频上传到优酷，腾讯视频，生成外链再拿来用。（上传需要注册和实名认证）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&lt;iframe</span><br><span class="line">height&#x3D;498 width&#x3D;510</span><br><span class="line">src&#x3D;&quot;http:&#x2F;&#x2F;player.youku.com&#x2F;embed&#x2F;XMzY0MzgxNDMyOA&#x3D;&#x3D;&quot;</span><br><span class="line">frameborder&#x3D;0 allowfullscreen&gt;</span><br><span class="line">&lt;&#x2F;iframe&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="发布博客"><a href="#发布博客" class="headerlink" title="发布博客"></a>发布博客</h4><p>博客发布到服务器才能被外网访问，如果你有服务器更好，可以支持一些有趣的功能，例如 hexo-admin 可以为你的博客增加后台管理功能，在其他地方只要登录管理员账号就可以在线写博文了。但是如果没有自己的服务器的，也可以将博客托管到 GitHub 、 Coding 等网站。他们的优缺点如下：</p>
+<p>GitHub<br>优点：功能最强大，最知名，偏技术性的博客力荐。<br>缺点：国内访问稍慢（以前是很慢，现在已经好多了，但是仍不及国内的服务快）；GitHub服务器屏蔽了百度爬虫，要想被百度收录，需要去百度站长平台手动提交。</p>
+<p>Coding<br>优点：国内访问速度很快，一键申请并配置好SSL证书，很容易被百度收录。<br>缺点：只能通过CNAME方式设置域名，也就意味着你不能同时使用域名邮箱等其他域名服务。</p>
+]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>hexo博客搭建</tag>
       </tags>
   </entry>
   <entry>
@@ -6195,6 +6203,38 @@ model.predict()
       </tags>
   </entry>
   <entry>
+    <title>数据分析02--spark错误分析</title>
+    <url>/jwangcloud/3907582757/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/date.jpeg"></p>
+<h2 id="spark错误分析"><a href="#spark错误分析" class="headerlink" title="spark错误分析"></a>spark错误分析</h2><span id="more"></span>
+
+
+<p><a href="http://spark.apache.org/docs/2.4.4/">官方文档</a></p>
+<p>错误1</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1020104:sbin rimi$ .&#x2F;start-master.sh </span><br><span class="line">starting org.apache.spark.deploy.master.Master, logging to &#x2F;Users&#x2F;rimi&#x2F;Desktop&#x2F;spark-2.4.4-bin-hadoop2.7&#x2F;</span><br><span class="line">logs&#x2F;spark-rimi-org.apache.spark.deploy.master.Master-1-1020104.local.out</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>解决：本地ip未找到，添加</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#sudo vim &#x2F;etc&#x2F;hosts</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">127.0.0.1       localhost</span><br><span class="line">255.255.255.255 broadcasthost</span><br><span class="line">::1             localhost</span><br><span class="line">0.0.0.0 1020104.local   (这一个没有)</span><br></pre></td></tr></table></figure>
+
+<p>错误2</p>
+<blockquote>
+<p>spark 与 jdk 不兼容  </p>
+</blockquote>
+<p>解决：</p>
+<blockquote>
+<p>下载saprk2.7 或者更加稳定版本  jdk下载1.8  8u231</p>
+<p>重新配置jdk环境</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>数据分析</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>数据存储与处理01--hadoop</title>
     <url>/jwangcloud/1462761565/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/date.jpeg"></p>
@@ -6530,38 +6570,6 @@ model.predict()
       </tags>
   </entry>
   <entry>
-    <title>数据分析02--spark错误分析</title>
-    <url>/jwangcloud/3907582757/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/date.jpeg"></p>
-<h2 id="spark错误分析"><a href="#spark错误分析" class="headerlink" title="spark错误分析"></a>spark错误分析</h2><span id="more"></span>
-
-
-<p><a href="http://spark.apache.org/docs/2.4.4/">官方文档</a></p>
-<p>错误1</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1020104:sbin rimi$ .&#x2F;start-master.sh </span><br><span class="line">starting org.apache.spark.deploy.master.Master, logging to &#x2F;Users&#x2F;rimi&#x2F;Desktop&#x2F;spark-2.4.4-bin-hadoop2.7&#x2F;</span><br><span class="line">logs&#x2F;spark-rimi-org.apache.spark.deploy.master.Master-1-1020104.local.out</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>解决：本地ip未找到，添加</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#sudo vim &#x2F;etc&#x2F;hosts</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">127.0.0.1       localhost</span><br><span class="line">255.255.255.255 broadcasthost</span><br><span class="line">::1             localhost</span><br><span class="line">0.0.0.0 1020104.local   (这一个没有)</span><br></pre></td></tr></table></figure>
-
-<p>错误2</p>
-<blockquote>
-<p>spark 与 jdk 不兼容  </p>
-</blockquote>
-<p>解决：</p>
-<blockquote>
-<p>下载saprk2.7 或者更加稳定版本  jdk下载1.8  8u231</p>
-<p>重新配置jdk环境</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>大数据</category>
-      </categories>
-      <tags>
-        <tag>数据分析</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>计算机基础01--计算机硬件</title>
     <url>/jwangcloud/1575270746/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/computer.jpeg"></p>
@@ -6591,298 +6599,6 @@ model.predict()
       </categories>
       <tags>
         <tag>计算机硬件</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python扩展知识01--设计模式</title>
-    <url>/jwangcloud/1761882267/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/python01.jpeg"></p>
-<h3 id="python与设计模式"><a href="#python与设计模式" class="headerlink" title="python与设计模式"></a>python与设计模式</h3><span id="more"></span>
-
-<h4 id="1-定义："><a href="#1-定义：" class="headerlink" title="1.定义："></a>1.定义：</h4><blockquote>
-<p>设计模式是面对各种问题进行提炼和抽象而形成的解决方案。这些设计方案是前人不断试验，考虑了封装性、复用性、效率、可修改、可移植等各种因素的高度总结。它不限于一种特定的语言，它是一种解决问题的思想和方法。</p>
-</blockquote>
-<h4 id="2-分类"><a href="#2-分类" class="headerlink" title="2.分类"></a>2.分类</h4><p>设计模式可以分为三个大类：创建类设计模式、结构类设计模式、行为类设计模式。</p>
-<p>创建类设计模式可以分为</p>
-<blockquote>
-<p>单例模式、工厂模式、抽象工厂模式、原型模式、建造者模式；</p>
-</blockquote>
-<p>结构类设计模式可以分为</p>
-<blockquote>
-<p>装饰器模式、适配器模式、门面模式、组合模式、享元模式、桥梁模式；</p>
-</blockquote>
-<p>行为类设计模式可以细分为</p>
-<blockquote>
-<p>策略模式、责任链模式、命令模式、中介者模式、模板模式、迭代器模式、访问者模式、观察者模式、解释器模式、备忘录模式、状态模式。</p>
-</blockquote>
-<h4 id="3-设计模式与软件框架"><a href="#3-设计模式与软件框架" class="headerlink" title="3.设计模式与软件框架"></a>3.设计模式与软件框架</h4><p>设计模式和软件框架在软件设计中是两个不同的研究领域：</p>
-<blockquote>
-<p>A、设计模式如前边的定义所讲，它指的是针对一类问题的解决方法，一个设计模式可应用于不同的框架和被不同的语言所实现；而框架则是一个应用的体系结构，是一种或多种设计模式和代码的混合体；</p>
-</blockquote>
-<blockquote>
-<p>B、设计模式相较于框架更容易移植，并且可以用各种语言实现，而软件框架则受限于领域大环境。虽然设计模式和软件框架有很多不同，但在某些方面他们二者是统一的，即重视软件复用，提高开发效率。</p>
-</blockquote>
-<h4 id="4-软件架构和设计模式"><a href="#4-软件架构和设计模式" class="headerlink" title="4.软件架构和设计模式"></a>4.软件架构和设计模式</h4><p>软件架构可以由不同的框架和不同的设计模式，再加上特定的构件组合来实现；</p>
-<p>框架可以根据设计模式结合特定编程语言和环境来实现。</p>
-<p>设计模式就是解决单一问题的设计思路和解决方法。</p>
-<h3 id="python与设计模式–单例模式"><a href="#python与设计模式–单例模式" class="headerlink" title="python与设计模式–单例模式"></a>python与设计模式–单例模式</h3><h4 id="1-单例模式"><a href="#1-单例模式" class="headerlink" title="1.单例模式"></a>1.单例模式</h4><blockquote>
-<p>单例模式是所有设计模式中比较简单的一类，其定义如下：Ensure a class has only one instance, and provide a global point of access to it.（保证某一个类只有一个实例，而且在全局只有一个访问点）</p>
-</blockquote>
-<h4 id="2-实例"><a href="#2-实例" class="headerlink" title="2.实例"></a>2.实例</h4><ol>
-<li>模块：</li>
-</ol>
-<blockquote>
-<p>Python 的模块就是天然的单例模式，因为模块在第一次导入时，会生成 .pyc 文件，当第二次导入时，就会直接加载 .pyc<br>文件，而不会再次执行模块代码。因此，我们只需把相关的函数和数据定义在一个模块中，就可以获得一个单例对象了</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Singleton(object):</span><br><span class="line">    def foo(self):</span><br><span class="line">        pass</span><br><span class="line">singleton &#x3D; Singleton()</span><br><span class="line"></span><br><span class="line">from a import singleton</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>装饰器</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def Singleton(cls):</span><br><span class="line">    _instance &#x3D; &#123;&#125;</span><br><span class="line">    def _singleton(*args, **kargs):</span><br><span class="line">        if cls not in _instance:</span><br><span class="line">            _instance[cls] &#x3D; cls(*args, **kargs)</span><br><span class="line">        return _instance[cls]</span><br><span class="line">    return _singleton</span><br><span class="line"></span><br><span class="line">@Singleton</span><br><span class="line">class A(object):</span><br><span class="line">    a &#x3D; 1</span><br><span class="line">    def __init__(self, x&#x3D;0):</span><br><span class="line">        self.x &#x3D; x</span><br><span class="line"></span><br><span class="line">a1 &#x3D; A(2)</span><br><span class="line">a2 &#x3D; A(3)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>类(多线程)</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import time</span><br><span class="line">import threading</span><br><span class="line">class Singleton(object):</span><br><span class="line">    _instance_lock &#x3D; threading.Lock()</span><br><span class="line"></span><br><span class="line">    def __init__(self):</span><br><span class="line">        time.sleep(1)</span><br><span class="line"></span><br><span class="line">    @classmethod</span><br><span class="line">    def instance(cls, *args, **kwargs):</span><br><span class="line">        if not hasattr(Singleton, &quot;_instance&quot;):</span><br><span class="line">            with Singleton._instance_lock:</span><br><span class="line">                if not hasattr(Singleton, &quot;_instance&quot;):</span><br><span class="line">                    Singleton._instance &#x3D; Singleton(*args, **kwargs)</span><br><span class="line">        return Singleton._instance</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def task(arg):</span><br><span class="line">    obj &#x3D; Singleton.instance()</span><br><span class="line">    print(obj)</span><br><span class="line">for i in range(10):</span><br><span class="line">    t &#x3D; threading.Thread(target&#x3D;task,args&#x3D;[i,])</span><br><span class="line">    t.start()</span><br><span class="line">time.sleep(20)</span><br><span class="line">obj &#x3D; Singleton.instance()</span><br><span class="line">print(obj)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>基于__new__方法</li>
-</ol>
-<blockquote>
-<p>实例化一个对象时，是先执行了类的__new__方法，实例化对象；然后再执行类的__init__方法，对这个对象进行初始化，所有我们可以基于这个，实现单例模式</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import threading</span><br><span class="line">class Singleton(object):</span><br><span class="line">    _instance_lock &#x3D; threading.Lock()</span><br><span class="line"></span><br><span class="line">    def __init__(self):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    def __new__(cls, *args, **kwargs):</span><br><span class="line">        if not hasattr(Singleton, &quot;_instance&quot;):</span><br><span class="line">            with Singleton._instance_lock:</span><br><span class="line">                if not hasattr(Singleton, &quot;_instance&quot;):</span><br><span class="line">                    Singleton._instance &#x3D; object.__new__(cls)  </span><br><span class="line">        return Singleton._instance</span><br><span class="line"></span><br><span class="line">obj1 &#x3D; Singleton()</span><br><span class="line">obj2 &#x3D; Singleton()</span><br><span class="line">print(obj1,obj2)</span><br><span class="line"></span><br><span class="line">def task(arg):</span><br><span class="line">    obj &#x3D; Singleton()</span><br><span class="line">    print(obj)</span><br><span class="line"></span><br><span class="line">for i in range(10):</span><br><span class="line">    t &#x3D; threading.Thread(target&#x3D;task,args&#x3D;[i,])</span><br><span class="line">    t.start()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>元类metaclass</li>
-</ol>
-<blockquote>
-<p>1.类由type创建，创建类时，type的__init__方法自动执行，类()<br>  执行type的 __call__方法(类的__new__方法,类的__init__方法)</p>
-</blockquote>
-<blockquote>
-<p>2.对象由类创建，创建对象时，类的__init__方法自动执行，对象()执行类的 <strong>call</strong> 方法</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import threading</span><br><span class="line"></span><br><span class="line">class SingletonType(type):</span><br><span class="line">    _instance_lock &#x3D; threading.Lock()</span><br><span class="line">    def __call__(cls, *args, **kwargs):</span><br><span class="line">        if not hasattr(cls, &quot;_instance&quot;):</span><br><span class="line">            with SingletonType._instance_lock:</span><br><span class="line">                if not hasattr(cls, &quot;_instance&quot;):</span><br><span class="line">                    cls._instance &#x3D; super(SingletonType,cls).__call__(*args, **kwargs)</span><br><span class="line">        return cls._instance</span><br><span class="line"></span><br><span class="line">class Foo(metaclass&#x3D;SingletonType):</span><br><span class="line">    def __init__(self,name):</span><br><span class="line">        self.name &#x3D; name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">obj1 &#x3D; Foo(&#39;name&#39;)</span><br><span class="line">obj2 &#x3D; Foo(&#39;name&#39;)</span><br><span class="line">print(obj1,obj2)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="3-单例模式的优点："><a href="#3-单例模式的优点：" class="headerlink" title="3.单例模式的优点："></a>3.单例模式的优点：</h4><p>1、由于单例模式要求在全局内只有一个实例，因而可以节省比较多的内存空间；</p>
-<p>2、全局只有一个接入点，可以更好地进行数据同步控制，避免多重占用；</p>
-<p>3、单例可长驻内存，减少系统开销。</p>
-<p>单例模式的应用举例：</p>
-<pre><code>1、生成全局惟一的序列号；
-2、访问全局复用的惟一资源，如磁盘、总线等；
-3、单个对象占用的资源过多，如数据库等；
-4、系统全局统一管理，如Windows下的Task Manager；
-5、网站计数器。
-</code></pre>
-<h3 id="python设计模式–工厂模式"><a href="#python设计模式–工厂模式" class="headerlink" title="python设计模式–工厂模式"></a>python设计模式–工厂模式</h3><blockquote>
-<p>通过一个指定的“工厂”获得需要的“产品”，在设计模式中主要用于抽象对象的创建过程，让用户可以指定自己想要的对象而不必关心对象的实例化过程。这样做的好处是用户只需通过固定的接口而不是直接去调用类的实例化方法来获得一个对象的实例，隐藏了实例创建过程的复杂度，解耦了生产实例和使用实例的代码，降低了维护的复杂性。</p>
-</blockquote>
-<h4 id="1-简单工厂"><a href="#1-简单工厂" class="headerlink" title="1.简单工厂"></a>1.简单工厂</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#coding&#x3D;utf-8</span><br><span class="line">class Mercedes(object):</span><br><span class="line">    &quot;&quot;&quot;梅赛德斯</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def __repr__(self):</span><br><span class="line">        return &quot;Mercedes-Benz&quot;</span><br><span class="line"></span><br><span class="line">class BMW(object):</span><br><span class="line">    &quot;&quot;&quot;宝马</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def __repr__(self):</span><br><span class="line">        return &quot;BMW&quot;</span><br><span class="line">        </span><br><span class="line">假设我们有两个“产品”分别是Mercedes和BMW的汽车，如果没有“工厂”来生产它们，</span><br><span class="line">我们就要在代码中自己进行实例化，如：</span><br><span class="line"></span><br><span class="line">mercedes &#x3D; Mercedes()</span><br><span class="line">bmw &#x3D; BMW()</span><br><span class="line">但现实中，你可能会面对很多汽车产品，而且每个产品的构造参数还不一样，这样在创</span><br><span class="line">建实例时会遇到麻烦。这时就可以构造一个“简单工厂”把所有汽车实例化的过程封装在里面。</span><br><span class="line"></span><br><span class="line">class SimpleCarFactory(object):</span><br><span class="line">    &quot;&quot;&quot;简单工厂</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    @staticmethod</span><br><span class="line">    def product_car(name):</span><br><span class="line">        if name &#x3D;&#x3D; &#39;mb&#39;:</span><br><span class="line">            return Mercedes()</span><br><span class="line">        elif name &#x3D;&#x3D; &#39;bmw&#39;:</span><br><span class="line">            return BMW()</span><br><span class="line">SimpleCarFactory类后，就可以通过向固定的接口传入参数获得想要的对象实例</span><br><span class="line"></span><br><span class="line">c1 &#x3D; SimpleCarFactory.product_car(&#39;mb&#39;)</span><br><span class="line">c2 &#x3D; SimpleCarFactory.product_car(&#39;bmw&#39;)</span><br></pre></td></tr></table></figure>
-
-<h4 id="2-工厂方法"><a href="#2-工厂方法" class="headerlink" title="2.工厂方法"></a>2.工厂方法</h4><blockquote>
-<p>如果我们要新增一个“产品”，例如Audi的汽车，我们除了新增一个Audi类外还要修改SimpleCarFactory内的product_car方法。这样就违背了软件设计中的开闭原则[1]，即在扩展新的类时，尽量不要修改原有代码。所以我们在简单工厂的基础上把SimpleCarFactory抽象成不同的工厂，每个工厂对应生成自己的产品，这就是工厂方法。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#coding&#x3D;utf-8</span><br><span class="line">import abc</span><br><span class="line"></span><br><span class="line">class AbstractFactory(object):</span><br><span class="line">    &quot;&quot;&quot;抽象工厂</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    __metaclass__ &#x3D; abc.ABCMeta</span><br><span class="line"></span><br><span class="line">    @abc.abstractmethod</span><br><span class="line">    def product_car(self):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">class MercedesFactory(AbstractFactory):</span><br><span class="line">    &quot;&quot;&quot;梅赛德斯工厂</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def product_car(self):</span><br><span class="line">        return Mercedes()</span><br><span class="line"></span><br><span class="line">class BMWFactory(AbstractFactory):</span><br><span class="line">    &quot;&quot;&quot;宝马工厂</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def product_car(self):</span><br><span class="line">        return BMW()</span><br><span class="line">我们把工厂抽象出来用abc模块[2]实现了一个抽象的基类AbstractFactory，</span><br><span class="line">这样就可以通过特定的工厂来获得特定的产品实例了：</span><br><span class="line"></span><br><span class="line">c1 &#x3D; MercedesFactory().product_car()</span><br><span class="line">c2 &#x3D; BMWFactory().product_car()</span><br><span class="line"></span><br><span class="line">每个工厂负责生产自己的产品也避免了我们在新增产品时需要修改工厂的代码，</span><br><span class="line">而只要增加相应的工厂即可。如新增一个Audi产品，只需新增一个Audi类和AudiFactory类。</span><br></pre></td></tr></table></figure>
-
-<h4 id="3-抽象工厂"><a href="#3-抽象工厂" class="headerlink" title="3.抽象工厂"></a>3.抽象工厂</h4><blockquote>
-<p>如果我们要生产很多产品，就会发现我们同样需要写很多对应的工厂类。比如如果MercedesFactory和BMWFactory不仅生产小汽车，还要生产SUV，那我们用工厂方法就要再多构造两个生产SUV的工厂类。所以为了解决这个问题，我们就要再更进一步的抽象工厂类，让一个工厂可以生产同一类的多个产品，这就是抽象工厂</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import abc</span><br><span class="line"></span><br><span class="line"># 两种小汽车</span><br><span class="line">class Mercedes_C63(object):</span><br><span class="line">    &quot;&quot;&quot;梅赛德斯 C63</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def __repr__(self):</span><br><span class="line">        return &quot;Mercedes-Benz: C63&quot;</span><br><span class="line"></span><br><span class="line">class BMW_M3(object):</span><br><span class="line">    &quot;&quot;&quot;宝马 M3</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def __repr__(self):</span><br><span class="line">        return &quot;BMW: M3&quot;</span><br><span class="line"></span><br><span class="line">#　两种SUV</span><br><span class="line">class Mercedes_G63(object):</span><br><span class="line">    &quot;&quot;&quot;梅赛德斯 G63</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def __repr__(self):</span><br><span class="line">        return &quot;Mercedes-Benz: G63&quot;</span><br><span class="line"></span><br><span class="line">class BMW_X5(object):</span><br><span class="line">    &quot;&quot;&quot;宝马 X5</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def __repr__(self):</span><br><span class="line">        return &quot;BMW: X5&quot;</span><br><span class="line"></span><br><span class="line">class AbstractFactory(object):</span><br><span class="line">    &quot;&quot;&quot;抽象工厂</span><br><span class="line">    可以生产小汽车外，还可以生产SUV</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    __metaclass__ &#x3D; abc.ABCMeta</span><br><span class="line"></span><br><span class="line">    @abc.abstractmethod</span><br><span class="line">    def product_car(self):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">    @abc.abstractmethod</span><br><span class="line">    def product_suv(self):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">class MercedesFactory(AbstractFactory):</span><br><span class="line">    &quot;&quot;&quot;梅赛德斯工厂</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def product_car(self):</span><br><span class="line">        return Mercedes_C63()</span><br><span class="line"></span><br><span class="line">    def product_suv(self):</span><br><span class="line">        return Mercedes_G63()</span><br><span class="line"></span><br><span class="line">class BMWFactory(AbstractFactory):</span><br><span class="line">    &quot;&quot;&quot;宝马工厂</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def product_car(self):</span><br><span class="line">        return BMW_M3()</span><br><span class="line"></span><br><span class="line">    def product_suv(self):</span><br><span class="line">        return BMW_X5()</span><br><span class="line"></span><br><span class="line">让基类AbstractFactory同时可以生产汽车和SUV，然后令MercedesFactory和BMWFactory</span><br><span class="line">继承AbstractFactory并重写product_car和product_suv方法即可。</span><br><span class="line"></span><br><span class="line">c1 &#x3D; MercedesFactory().product_car()</span><br><span class="line">s1 &#x3D; MercedesFactory().product_suv()</span><br><span class="line">print(c1, s1)</span><br><span class="line">s2 &#x3D; BMWFactory().product_suv()</span><br><span class="line">c2 &#x3D; BMWFactory().product_car()</span><br><span class="line">print(c2, s2)</span><br></pre></td></tr></table></figure>
-
-
-<h4 id="4-抽象工厂模式与工厂方法模式区别"><a href="#4-抽象工厂模式与工厂方法模式区别" class="headerlink" title="4.抽象工厂模式与工厂方法模式区别"></a>4.抽象工厂模式与工厂方法模式区别</h4><ol>
-<li>抽象工厂中的一个工厂对象可以负责多个不同产品对象的创建 ，这样比工厂方法模式更为简单、有效率。</li>
-</ol>
-<p>工厂模式、抽象工厂模式的优点：</p>
-<blockquote>
-<p>1、工厂模式巨有非常好的封装性，代码结构清晰；在抽象工厂模式中，其结构还可以随着需要进行更深或者更浅的抽象层级调整，非常灵活；</p>
-</blockquote>
-<blockquote>
-<p>2、屏蔽产品类，使产品的被使用业务场景和产品的功能细节可以分而开发进行，是比较典型的解耦框架。</p>
-</blockquote>
-<ol start="2">
-<li>工厂模式、抽象工厂模式的使用场景： 1、当系统实例要求比较灵活和可扩展时，可以考虑工厂模式或者抽象工厂模式实现。比如，<pre><code> 在通信系统中，高层通信协议会很多样化，同时，上层协议依赖于下层协议，
- 那么就可以对应建立对应层级的抽象工厂，根据不同的“产品需求”去生产定制的实例。
-</code></pre>
-</li>
-</ol>
-<h3 id="python与设计模式–建造者模式"><a href="#python与设计模式–建造者模式" class="headerlink" title="python与设计模式–建造者模式"></a>python与设计模式–建造者模式</h3><blockquote>
-<p>建造者模式的定义如下：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。</p>
-</blockquote>
-<blockquote>
-<p>在建造者模式中，还可以加一个Director类，用以安排已有模块的构造步骤。对于在建造者中有比较严格的顺序要求时，该类会有比较大的用处。</p>
-</blockquote>
-<h4 id="快餐例："><a href="#快餐例：" class="headerlink" title="快餐例："></a>快餐例：</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">主餐</span><br><span class="line">class Burger():</span><br><span class="line">    name&#x3D;&quot;&quot;</span><br><span class="line">    price&#x3D;0.0</span><br><span class="line">    def getPrice(self):</span><br><span class="line">        return self.price</span><br><span class="line">    def setPrice(self,price):</span><br><span class="line">        self.price&#x3D;price</span><br><span class="line">    def getName(self):</span><br><span class="line">        return self.name</span><br><span class="line">class cheeseBurger(Burger):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name&#x3D;&quot;cheese burger&quot;</span><br><span class="line">        self.price&#x3D;10.0</span><br><span class="line">class spicyChickenBurger(Burger):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name&#x3D;&quot;spicy chicken burger&quot;</span><br><span class="line">        self.price&#x3D;15.0</span><br><span class="line">小食</span><br><span class="line">class Snack():</span><br><span class="line">    name &#x3D; &quot;&quot;</span><br><span class="line">    price &#x3D; 0.0</span><br><span class="line">    type &#x3D; &quot;SNACK&quot;</span><br><span class="line">    def getPrice(self):</span><br><span class="line">        return self.price</span><br><span class="line">    def setPrice(self, price):</span><br><span class="line">        self.price &#x3D; price</span><br><span class="line">    def getName(self):</span><br><span class="line">        return self.name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class chips(Snack):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name &#x3D; &quot;chips&quot;</span><br><span class="line">        self.price &#x3D; 6.0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class chickenWings(Snack):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name &#x3D; &quot;chicken wings&quot;</span><br><span class="line">        self.price &#x3D; 12.0</span><br><span class="line">饮料</span><br><span class="line">class Beverage():</span><br><span class="line">    name &#x3D; &quot;&quot;</span><br><span class="line">    price &#x3D; 0.0</span><br><span class="line">    type &#x3D; &quot;BEVERAGE&quot;</span><br><span class="line">    def getPrice(self):</span><br><span class="line">        return self.price</span><br><span class="line">    def setPrice(self, price):</span><br><span class="line">        self.price &#x3D; price</span><br><span class="line">    def getName(self):</span><br><span class="line">        return self.name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class coke(Beverage):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name &#x3D; &quot;coke&quot;</span><br><span class="line">        self.price &#x3D; 4.0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class milk(Beverage):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name &#x3D; &quot;milk&quot;</span><br><span class="line">        self.price &#x3D; 5.0</span><br><span class="line"></span><br><span class="line">一个订单类。假设，一个订单，包括一份主食，一份小食，一种饮料。（省去一些异常判断）</span><br><span class="line"></span><br><span class="line">class order():</span><br><span class="line">    burger&#x3D;&quot;&quot;</span><br><span class="line">    snack&#x3D;&quot;&quot;</span><br><span class="line">    beverage&#x3D;&quot;&quot;</span><br><span class="line">    def __init__(self,orderBuilder):</span><br><span class="line">        self.burger&#x3D;orderBuilder.bBurger</span><br><span class="line">        self.snack&#x3D;orderBuilder.bSnack</span><br><span class="line">        self.beverage&#x3D;orderBuilder.bBeverage</span><br><span class="line">    def show(self):</span><br><span class="line">        print &quot;Burger:%s&quot;%self.burger.getName()</span><br><span class="line">        print &quot;Snack:%s&quot;%self.snack.getName()</span><br><span class="line">        print &quot;Beverage:%s&quot;%self.beverage.getName()</span><br><span class="line"></span><br><span class="line">orderBuilder就是建造者模式中所谓的“建造者”了</span><br><span class="line"></span><br><span class="line">class orderBuilder():</span><br><span class="line">    bBurger&#x3D;&quot;&quot;</span><br><span class="line">    bSnack&#x3D;&quot;&quot;</span><br><span class="line">    bBeverage&#x3D;&quot;&quot;</span><br><span class="line">    def addBurger(self,xBurger):</span><br><span class="line">        self.bBurger&#x3D;xBurger</span><br><span class="line">    def addSnack(self,xSnack):</span><br><span class="line">        self.bSnack&#x3D;xSnack</span><br><span class="line">    def addBeverage(self,xBeverage):</span><br><span class="line">        self.bBeverage&#x3D;xBeverage</span><br><span class="line">    def build(self):</span><br><span class="line">        return order(self)</span><br><span class="line">        </span><br><span class="line">订单生成</span><br><span class="line"></span><br><span class="line">if  __name__&#x3D;&#x3D;&quot;__main__&quot;:</span><br><span class="line">    order_builder&#x3D;orderBuilder()</span><br><span class="line">    order_builder.addBurger(spicyChickenBurger())</span><br><span class="line">    order_builder.addSnack(chips())</span><br><span class="line">    order_builder.addBeverage(milk())</span><br><span class="line">    order_1&#x3D;order_builder.build()</span><br><span class="line">    order_1.show()</span><br><span class="line">    </span><br><span class="line">构造步骤</span><br><span class="line"></span><br><span class="line">class orderDirector():</span><br><span class="line">    order_builder&#x3D;&quot;&quot;</span><br><span class="line">    def __init__(self,order_builder):</span><br><span class="line">        self.order_builder&#x3D;order_builder</span><br><span class="line">    def createOrder(self,burger,snack,beverage):</span><br><span class="line">        self.order_builder.addBurger(burger)</span><br><span class="line">        self.order_builder.addSnack(snack)</span><br><span class="line">        self.order_builder.addBeverage(beverage)</span><br><span class="line">        return self.order_builder.build()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="3-优缺："><a href="#3-优缺：" class="headerlink" title="3.优缺："></a>3.优缺：</h4><pre><code>1、封装性好，用户可以不知道对象的内部构造和细节，就可以直接建造对象；
-2、系统扩展容易；
-3、建造者模式易于使用，非常灵活。在构造性的场景中很容易实现“流水线”；
-4、便于控制细节。
-</code></pre>
-<p>使用场景：</p>
-<blockquote>
-<p>1、 目标对象由组件构成的场景中，很适合建造者模式。例如，在一款赛车游戏中，车辆生成时，需要根据级别、环境等，选择轮胎、悬挂、骨架等部件，构造一辆“赛车”；</p>
-</blockquote>
-<blockquote>
-<p>2、 在具体的场景中，对象内部接口需要根据不同的参数而调用顺序有所不同时，可以使用建造者模式。例如：一个植物养殖器系统，对于某些不同的植物，浇水、施加肥料的顺序要求可能会不同，因而可以在Director中维护一个类似于队列的结构，在实例化时作为参数代入到具体建造者中。</p>
-</blockquote>
-<p>缺点：</p>
-<pre><code>1、“加工工艺”对用户不透明。（封装的两面性）
-</code></pre>
-<h3 id="python设计模式–原型模式"><a href="#python设计模式–原型模式" class="headerlink" title="python设计模式–原型模式"></a>python设计模式–原型模式</h3><h4 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h4><p>原型模式定义如下：用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象。<br>需要注意一点的是，进行clone操作后，新对象的构造函数没有被二次执行，新对象的内容是从内存里直接拷贝的。</p>
-<blockquote>
-<p>用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。</p>
-</blockquote>
-<p><img data-src="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/56e6c262b1510b59beba7552f07522ae.png" alt="原型模式"></p>
-<h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><blockquote>
-<p>从简历原型，生成新的简历</p>
-<p>简历类Resume提供的Clone()方法其实并不是真正的Clone，只是为已存在对象增加了一次引用。</p>
-<p>Python为对象提供的copy模块中的copy方法和deepcopy方法已经实现了原型模式，但由于例子的层次较浅，二者看不出区别。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import copy</span><br><span class="line">class WorkExp:</span><br><span class="line">    place&#x3D;&quot;&quot;</span><br><span class="line">    year&#x3D;0</span><br><span class="line"></span><br><span class="line">class Resume:</span><br><span class="line">    name &#x3D; &#39;&#39;</span><br><span class="line">    age &#x3D; 0</span><br><span class="line">    def __init__(self,n):</span><br><span class="line">        self.name &#x3D; n</span><br><span class="line">    def SetAge(self,a):</span><br><span class="line">        self.age &#x3D; a</span><br><span class="line">    def SetWorkExp(self,p,y):</span><br><span class="line">        self.place &#x3D; p</span><br><span class="line">        self.year &#x3D; y</span><br><span class="line">    def Display(self):</span><br><span class="line">        print self.age</span><br><span class="line">        print self.place</span><br><span class="line">        print self.year</span><br><span class="line">    def Clone(self):</span><br><span class="line">    #实际不是“克隆”，只是返回了自身</span><br><span class="line">        return self</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &quot;__main__&quot;:</span><br><span class="line">    a &#x3D; Resume(&quot;a&quot;)</span><br><span class="line">    b &#x3D; a.Clone()</span><br><span class="line">    c &#x3D; copy.copy(a)</span><br><span class="line">    d &#x3D; copy.deepcopy(a)</span><br><span class="line">    a.SetAge(7)</span><br><span class="line">    b.SetAge(12)</span><br><span class="line">    c.SetAge(15)</span><br><span class="line">    d.SetAge(18)</span><br><span class="line">    a.SetWorkExp(&quot;PrimarySchool&quot;,1996)</span><br><span class="line">    b.SetWorkExp(&quot;MidSchool&quot;,2001)</span><br><span class="line">    c.SetWorkExp(&quot;HighSchool&quot;,2004)</span><br><span class="line">    d.SetWorkExp(&quot;University&quot;,2007)</span><br><span class="line">    a.Display()</span><br><span class="line">    b.Display()</span><br><span class="line">    c.Display()</span><br><span class="line">    d.Display()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="原型模式的优缺点和使用场景"><a href="#原型模式的优缺点和使用场景" class="headerlink" title="原型模式的优缺点和使用场景"></a>原型模式的优缺点和使用场景</h4><ol>
-<li><p>优点：</p>
-<pre><code> 1、性能极佳，直接拷贝比在内存里直接新建实例节省不少的资源；
- 2、简化对象创建，同时避免了构造函数的约束，不受构造函数的限制直接复制对象，是优
- 点，也有隐患，这一点还是需要多留意一些。
-</code></pre>
-</li>
-<li><p>使用场景：</p>
-<pre><code> 1、对象在修改过后，需要复制多份的场景。如本例和其它一些涉及到复制、粘贴的场景；
- 2、需要优化资源的情况。如，需要在内存中创建非常多的实例，可以通过原型模式来减少
-     资源消耗。此时，原型模式与工厂
-     模式配合起来，不管在逻辑上还是结构上，都会达到不错的效果；
- 3、某些重复性的复杂工作不需要多次进行。如对于一个设备的访问权限，多个对象不用各
-     申请一遍权限，由一个设备申请后，通过原型模式将权限交给可信赖的对象，
-     既可以提升效率，又可以节约资源。
-</code></pre>
-</li>
-<li><p>原型模式的缺点</p>
-<pre><code> 1、深拷贝和浅拷贝的使用需要事先考虑周到；
- 2、某些编程语言中，拷贝会影响到静态变量和静态函数的使用。
- 
- 
-</code></pre>
-</li>
-</ol>
-<h3 id="Python与设计模式–代理模式"><a href="#Python与设计模式–代理模式" class="headerlink" title="Python与设计模式–代理模式"></a>Python与设计模式–代理模式</h3><p>代理模式是一种使用频率非常高的模式，在多个著名的开源软件和当前多个著名的互联网产品后台程序中都有所应用。下面我们用一个抽象化的简单例子，来说明代理模式。</p>
-<blockquote>
-<p>首先，构造一个网络服务器：</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#该服务器接受如下格式数据，addr代表地址，content代表接收的信息内容</span><br><span class="line">info_struct&#x3D;dict()</span><br><span class="line">info_struct[&quot;addr&quot;]&#x3D;10000</span><br><span class="line">info_struct[&quot;content&quot;]&#x3D;&quot;&quot;</span><br><span class="line">class Server:</span><br><span class="line">    content&#x3D;&quot;&quot;</span><br><span class="line">    def recv(self,info):</span><br><span class="line">        pass</span><br><span class="line">    def send(self,info):</span><br><span class="line">        pass</span><br><span class="line">    def show(self):</span><br><span class="line">        pass</span><br><span class="line">class infoServer(Server):</span><br><span class="line">    def recv(self,info):</span><br><span class="line">        self.content&#x3D;info</span><br><span class="line">        return &quot;recv OK!&quot;</span><br><span class="line">    def send(self,info):</span><br><span class="line">        pass</span><br><span class="line">    def show(self):</span><br><span class="line">        print &quot;SHOW:%s&quot;%self.content</span><br><span class="line">        </span><br></pre></td></tr></table></figure>
-
-<p>infoServer有接收和发送的功能，发送功能由于暂时用不到，保留。</p>
-<p>另外新加一个接口show，用来展示服务器接收的内容。</p>
-<p>接收的数据格式必须如info_struct所示，服务器仅接受info_struct的content字段。</p>
-<p>那么，如何给这个服务器设置一个白名单，使得只有白名单里的地址可以访问服务器呢？</p>
-<p>修改Server结构是个方法，但这显然不符合软件设计原则中的单一职责原则。</p>
-<blockquote>
-<p>在此基础之上，使用代理，是个不错的方法。代理配置如下：</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class serverProxy:</span><br><span class="line">    pass</span><br><span class="line">class infoServerProxy(serverProxy):</span><br><span class="line">    server&#x3D;&quot;&quot;</span><br><span class="line">    def __init__(self,server):</span><br><span class="line">        self.server&#x3D;server</span><br><span class="line">    def recv(self,info):</span><br><span class="line">        return self.server.recv(info)</span><br><span class="line">    def show(self):</span><br><span class="line">        self.server.show()</span><br><span class="line"></span><br><span class="line">class whiteInfoServerProxy(infoServerProxy):</span><br><span class="line">    white_list&#x3D;[]</span><br><span class="line">    def recv(self,info):</span><br><span class="line">        try:</span><br><span class="line">            assert type(info)&#x3D;&#x3D;dict</span><br><span class="line">        except:</span><br><span class="line">            return &quot;info structure is not correct&quot;</span><br><span class="line">        addr&#x3D;info.get(&quot;addr&quot;,0)</span><br><span class="line">        if not addr in self.white_list:</span><br><span class="line">            return &quot;Your address is not in the white list.&quot;</span><br><span class="line">        else:</span><br><span class="line">            content&#x3D;info.get(&quot;content&quot;,&quot;&quot;)</span><br><span class="line">            return self.server.recv(content)</span><br><span class="line">    def addWhite(self,addr):</span><br><span class="line">        self.white_list.append(addr)</span><br><span class="line">    def rmvWhite(self,addr):</span><br><span class="line">        self.white_list.remove(addr)</span><br><span class="line">    def clearWhite(self):</span><br><span class="line">        self.white_list&#x3D;[]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>代理中有一个server字段，控制代理的服务器对象，infoServerProxy充当Server的直接接口代理，而whiteInfoServerProxy直接继承了infoServerProxy对象，同时加入了white_list和对白名单的操作。</p>
-<blockquote>
-<p>这样，在场景中通过对白名单代理的访问，就可以实现服务器的白名单访问了。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if  __name__&#x3D;&#x3D;&quot;__main__&quot;:</span><br><span class="line">    info_struct &#x3D; dict()</span><br><span class="line">    info_struct[&quot;addr&quot;] &#x3D; 10010</span><br><span class="line">    info_struct[&quot;content&quot;] &#x3D; &quot;Hello World!&quot;</span><br><span class="line">    info_server &#x3D; infoServer()</span><br><span class="line">    info_server_proxy &#x3D; whiteInfoServerProxy(info_server)</span><br><span class="line">    print info_server_proxy.recv(info_struct)</span><br><span class="line">    info_server_proxy.show()</span><br><span class="line">    info_server_proxy.addWhite(10010)</span><br><span class="line">    print info_server_proxy.recv(info_struct)</span><br><span class="line">    info_server_proxy.show()</span><br><span class="line">		</span><br></pre></td></tr></table></figure>
-
-<h4 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h4><p>代理模式定义如下：为某对象提供一个代理，以控制对此对象的访问和控制。代理模式在使用过程中，应尽量对抽象主题类进行代理，而尽量不要对加过修饰和方法的子类代理。</p>
-<pre><code>为其他对象提供一种代理以控制对这个对象的访问。
-</code></pre>
-<blockquote>
-<p>如上例中，如果有一个xServer继承了Server，并新加了方法xMethod，xServer的代理应以Server为主题进行设计，而尽量不要以xServer为主题，以xServer为主题的代理可以从ServerProxy继承并添加对应的方法.</p>
-</blockquote>
-<p><img data-src="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/651b419d706989c57083ad35e71d1029.png" alt="代理模式"></p>
-<blockquote>
-<p>在JAVA中，讲到代理模式，不得不会提到动态代理。动态代理是实现AOP（面向切面编程）的重要实现手段。而在Python中，很少会提到动态代理，而AOP则会以另一种模式实现：装饰模式。有关AOP的相关内容，我们会在装饰模式这一节中进行说明。</p>
-</blockquote>
-<h4 id="代理模式的优缺点和应用场景"><a href="#代理模式的优缺点和应用场景" class="headerlink" title="代理模式的优缺点和应用场景"></a>代理模式的优缺点和应用场景</h4><ol>
-<li><p>优点:</p>
-<pre><code> 1、职责清晰：非常符合单一职责原则，主题对象实现真实业务逻辑，而非本职责
-     的事务，交由代理完成；
- 2、扩展性强：面对主题对象可能会有的改变，代理模式在不改变对外接口的情况
-     下，可以实现最大程度的扩展；
- 3、保证主题对象的处理逻辑：代理可以通过检查参数的方式，保证主题对象的处
- 理逻辑输入在理想范围内。
-</code></pre>
-</li>
-<li><p>应用场景：</p>
-<pre><code> 1、针对某特定对象进行功能和增强性扩展。如IP防火墙、远程访问代理等技术的应用；
- 2、对主题对象进行保护。如大流量代理，安全代理等；
- 3、减轻主题对象负载。如权限代理等。
-</code></pre>
-</li>
-<li><p>代理模式的缺点</p>
-<pre><code> 1、可能会降低整体业务的处理效率和速度。
- 
-</code></pre>
-</li>
-</ol>
-<h4 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h4><p>同模式特点描述：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Interface :</span><br><span class="line">    def Request(self):</span><br><span class="line">    return 0</span><br><span class="line"></span><br><span class="line">class RealSubject(Interface): </span><br><span class="line">    def Request(self):</span><br><span class="line">        print &quot;Real request.&quot;</span><br><span class="line"></span><br><span class="line">class Proxy(Interface):</span><br><span class="line">    def Request(self):</span><br><span class="line">        self.real &#x3D; RealSubject()</span><br><span class="line">        self.real.Request()</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &quot;__main__&quot;:</span><br><span class="line">    p &#x3D; Proxy()</span><br><span class="line">    p.Request()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h3 id="python与设计模式–装饰器模式"><a href="#python与设计模式–装饰器模式" class="headerlink" title="python与设计模式–装饰器模式"></a>python与设计模式–装饰器模式</h3><h4 id="快餐点餐系统（3）"><a href="#快餐点餐系统（3）" class="headerlink" title="快餐点餐系统（3）"></a>快餐点餐系统（3）</h4><blockquote>
-<p>又提到了那个快餐点餐系统，不过今天我们只以其中的一个类作为主角：饮料类。首先，回忆下饮料类：</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Beverage():</span><br><span class="line">    name &#x3D; &quot;&quot;</span><br><span class="line">    price &#x3D; 0.0</span><br><span class="line">    type &#x3D; &quot;BEVERAGE&quot;</span><br><span class="line">    def getPrice(self):</span><br><span class="line">        return self.price</span><br><span class="line">    def setPrice(self, price):</span><br><span class="line">        self.price &#x3D; price</span><br><span class="line">    def getName(self):</span><br><span class="line">        return self.name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class coke(Beverage):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name &#x3D; &quot;coke&quot;</span><br><span class="line">        self.price &#x3D; 4.0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class milk(Beverage):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name &#x3D; &quot;milk&quot;</span><br><span class="line">        self.price &#x3D; 5.0</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>除了基本配置，快餐店卖可乐时，可以选择加冰，如果加冰的话，要在原价上加0.3元；卖牛奶时，可以选择加糖，如果加糖的话，要原价上加0.5元。怎么解决这样的问题？可以选择装饰器模式来解决这一类的问题。首先，定义装饰器类：</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class drinkDecorator():</span><br><span class="line">    def getName(self):</span><br><span class="line">        pass</span><br><span class="line">    def getPrice(self):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">class iceDecorator(drinkDecorator):</span><br><span class="line">    def __init__(self,beverage):</span><br><span class="line">        self.beverage&#x3D;beverage</span><br><span class="line">    def getName(self):</span><br><span class="line">        return self.beverage.getName()+&quot; +ice&quot;</span><br><span class="line">    def getPrice(self):</span><br><span class="line">        return self.beverage.getPrice()+0.3</span><br><span class="line">    </span><br><span class="line">class sugarDecorator(drinkDecorator):</span><br><span class="line">    def __init__(self,beverage):</span><br><span class="line">        self.beverage&#x3D;beverage</span><br><span class="line">    def getName(self):</span><br><span class="line">        return self.beverage.getName()+&quot; +sugar&quot;</span><br><span class="line">    def getPrice(self):</span><br><span class="line">        return self.beverage.getPrice()+0.5</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>构建好装饰器后，在具体的业务场景中，就可以与饮料类进行关联。以可乐+冰为例，示例业务场景如下：</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if  __name__&#x3D;&#x3D;&quot;__main__&quot;:</span><br><span class="line">    coke_cola&#x3D;coke()</span><br><span class="line">    print &quot;Name:%s&quot;%coke_cola.getName()</span><br><span class="line">    print &quot;Price:%s&quot;%coke_cola.getPrice()</span><br><span class="line">    ice_coke&#x3D;iceDecorator(coke_cola)</span><br><span class="line">    print &quot;Name:%s&quot; % ice_coke.getName()</span><br><span class="line">    print &quot;Price:%s&quot; % ice_coke.getPrice()</span><br><span class="line">    </span><br><span class="line">打印结果如下：</span><br><span class="line">Name:coke</span><br><span class="line">Price:4.0</span><br><span class="line">Name:coke +ice</span><br><span class="line">Price:4.3</span><br></pre></td></tr></table></figure>
-
-<h4 id="装饰器模式"><a href="#装饰器模式" class="headerlink" title="装饰器模式"></a>装饰器模式</h4><p>装饰器模式定义如下：动态地给一个对象添加一些额外的职责。在增加功能方面，装饰器模式比生成子类更为灵活。</p>
-<p><img data-src="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/6c8cc57b36c5772c0bc489221c648819.png" alt="装饰器模式"></p>
-<p>装饰器模式和上一节说到的代理模式非常相似，可以认为，装饰器模式就是代理模式的一个特殊应用，两者的共同点是都具有相同的接口，不同点是侧重对主题类的过程的控制，而装饰模式则侧重对类功能的加强或减弱。</p>
-<blockquote>
-<p>动态地为对象增加额外的职责</p>
-</blockquote>
-<p>上一次说到，JAVA中的动态代理模式，是实现AOP的重要手段。而在Python中，AOP通过装饰器模式实现更为简洁和方便。</p>
-<p>先来解释一下什么是AOP。AOP即Aspect Oriented Programming，中文翻译为面向切面的编程，它的含义可以解释为：如果几个或更多个逻辑过程中（这类逻辑过程可能位于不同的对象，不同的接口当中），有重复的操作行为，就可以将这些行为提取出来（即形成切面），进行统一管理和维护。举例子说，系统中需要在各个地方打印日志，就可以将打印日志这一操作提取出来，作为切面进行统一维护。</p>
-<p>从编程思想的关系来看，可以认为AOP和OOP（面向对象的编程）是并列关系，二者是可以替换的，也可以结合起来用。</p>
-<blockquote>
-<p>实际上，在Python语言中，是天然支持装饰器的，如下例：</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def log(func):</span><br><span class="line">    def wrapper(*args, **kw):</span><br><span class="line">        print &#39;call %s():&#39; % func.__name__</span><br><span class="line">        return func(*args, **kw)</span><br><span class="line">    return wrapper</span><br><span class="line"></span><br><span class="line">@log</span><br><span class="line">def now():</span><br><span class="line">    print &#39;2016-12-04&#39;</span><br><span class="line">if  __name__&#x3D;&#x3D;&quot;__main__&quot;:</span><br><span class="line">    now()</span><br><span class="line">打印如下：</span><br><span class="line">call now():</span><br><span class="line">2016-12-04</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>log接口就是装饰器的定义，而Python的@语法部分则直接支持装饰器的使用。<br>如果要在快餐点餐系统中打印日志，该如何进行AOP改造呢？可以借助类的静态方法或者类方法来实现：</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class LogManager:</span><br><span class="line">    @staticmethod</span><br><span class="line">    def log(func):</span><br><span class="line">        def wrapper(*args):</span><br><span class="line">            print &quot;Visit Func %s&quot;%func.__name__</span><br><span class="line">            return func(*args)</span><br><span class="line">        return wrapper</span><br><span class="line">在需要打印日志的地方直接@LogManager.log，即可打印出访问的日志信息。</span><br><span class="line">如，在beverage类的函数前加上@LogManager.log，场景类保持不变，则打印结果如下：</span><br><span class="line">Visit Func getName</span><br><span class="line">Name:coke</span><br><span class="line">Visit Func getPrice</span><br><span class="line">Price:4.0</span><br><span class="line">Visit Func getName</span><br><span class="line">Name:coke +ice</span><br><span class="line">Visit Func getPrice</span><br><span class="line">Price:4.3</span><br></pre></td></tr></table></figure>
-<h4 id="装饰器模式的优点和应用场景"><a href="#装饰器模式的优点和应用场景" class="headerlink" title="装饰器模式的优点和应用场景"></a>装饰器模式的优点和应用场景</h4><ol>
-<li><p>优点：</p>
-<pre><code> 1、装饰器模式是继承方式的一个替代方案，可以轻量级的扩展被装饰对象的功能；
- 2、Python的装饰器模式是实现AOP的一种方式，便于相同操作位于不同调用位置
-     的统一管理。
-</code></pre>
-</li>
-<li><p>应用场景：</p>
-<pre><code> 1、需要扩展、增强或者减弱一个类的功能，如本例。
-</code></pre>
-</li>
-<li><p>装饰器模式的缺点</p>
-<pre><code>  1、多层装饰器的调试和维护有比较大的困难。
-</code></pre>
-</li>
-</ol>
-<h4 id="举例：展示一个人一件一件穿衣服的过程。"><a href="#举例：展示一个人一件一件穿衣服的过程。" class="headerlink" title="举例：展示一个人一件一件穿衣服的过程。"></a>举例：展示一个人一件一件穿衣服的过程。</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Person:</span><br><span class="line">    def __init__(self,tname):</span><br><span class="line">        self.name &#x3D; tname</span><br><span class="line">    def Show(self):</span><br><span class="line">       print &quot;dressed %s&quot; %(self.name)</span><br><span class="line"></span><br><span class="line">class Finery(Person):</span><br><span class="line">    componet &#x3D; None</span><br><span class="line">    def __init__(self):</span><br><span class="line">        pass</span><br><span class="line">    def Decorate(self,ct):</span><br><span class="line">        self.componet &#x3D; ct</span><br><span class="line">    def Show(self):</span><br><span class="line">    if(self.componet!&#x3D;None):</span><br><span class="line">        self.componet.Show()</span><br><span class="line"></span><br><span class="line">class TShirts(Finery):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        pass</span><br><span class="line">    def Show(self):</span><br><span class="line">        print &quot;Big T-shirt &quot;</span><br><span class="line">        self.componet.Show()</span><br><span class="line"></span><br><span class="line">class BigTrouser(Finery):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        pass</span><br><span class="line">    def Show(self):</span><br><span class="line">        print &quot;Big Trouser &quot;</span><br><span class="line">        self.componet.Show()</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &quot;__main__&quot;:</span><br><span class="line">    p &#x3D; Person(&quot;somebody&quot;)</span><br><span class="line">    bt &#x3D; BigTrouser()</span><br><span class="line">    ts &#x3D; TShirts()</span><br><span class="line">    bt.Decorate(p)</span><br><span class="line">    ts.Decorate(bt)</span><br><span class="line">    ts.Show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-]]></content>
-      <categories>
-        <category>python扩展</category>
-      </categories>
-      <tags>
-        <tag>python设计模式</tag>
       </tags>
   </entry>
   <entry>
@@ -7368,6 +7084,298 @@ null|    None
       </categories>
       <tags>
         <tag>pythonIO编程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python扩展知识01--设计模式</title>
+    <url>/jwangcloud/1761882267/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/python01.jpeg"></p>
+<h3 id="python与设计模式"><a href="#python与设计模式" class="headerlink" title="python与设计模式"></a>python与设计模式</h3><span id="more"></span>
+
+<h4 id="1-定义："><a href="#1-定义：" class="headerlink" title="1.定义："></a>1.定义：</h4><blockquote>
+<p>设计模式是面对各种问题进行提炼和抽象而形成的解决方案。这些设计方案是前人不断试验，考虑了封装性、复用性、效率、可修改、可移植等各种因素的高度总结。它不限于一种特定的语言，它是一种解决问题的思想和方法。</p>
+</blockquote>
+<h4 id="2-分类"><a href="#2-分类" class="headerlink" title="2.分类"></a>2.分类</h4><p>设计模式可以分为三个大类：创建类设计模式、结构类设计模式、行为类设计模式。</p>
+<p>创建类设计模式可以分为</p>
+<blockquote>
+<p>单例模式、工厂模式、抽象工厂模式、原型模式、建造者模式；</p>
+</blockquote>
+<p>结构类设计模式可以分为</p>
+<blockquote>
+<p>装饰器模式、适配器模式、门面模式、组合模式、享元模式、桥梁模式；</p>
+</blockquote>
+<p>行为类设计模式可以细分为</p>
+<blockquote>
+<p>策略模式、责任链模式、命令模式、中介者模式、模板模式、迭代器模式、访问者模式、观察者模式、解释器模式、备忘录模式、状态模式。</p>
+</blockquote>
+<h4 id="3-设计模式与软件框架"><a href="#3-设计模式与软件框架" class="headerlink" title="3.设计模式与软件框架"></a>3.设计模式与软件框架</h4><p>设计模式和软件框架在软件设计中是两个不同的研究领域：</p>
+<blockquote>
+<p>A、设计模式如前边的定义所讲，它指的是针对一类问题的解决方法，一个设计模式可应用于不同的框架和被不同的语言所实现；而框架则是一个应用的体系结构，是一种或多种设计模式和代码的混合体；</p>
+</blockquote>
+<blockquote>
+<p>B、设计模式相较于框架更容易移植，并且可以用各种语言实现，而软件框架则受限于领域大环境。虽然设计模式和软件框架有很多不同，但在某些方面他们二者是统一的，即重视软件复用，提高开发效率。</p>
+</blockquote>
+<h4 id="4-软件架构和设计模式"><a href="#4-软件架构和设计模式" class="headerlink" title="4.软件架构和设计模式"></a>4.软件架构和设计模式</h4><p>软件架构可以由不同的框架和不同的设计模式，再加上特定的构件组合来实现；</p>
+<p>框架可以根据设计模式结合特定编程语言和环境来实现。</p>
+<p>设计模式就是解决单一问题的设计思路和解决方法。</p>
+<h3 id="python与设计模式–单例模式"><a href="#python与设计模式–单例模式" class="headerlink" title="python与设计模式–单例模式"></a>python与设计模式–单例模式</h3><h4 id="1-单例模式"><a href="#1-单例模式" class="headerlink" title="1.单例模式"></a>1.单例模式</h4><blockquote>
+<p>单例模式是所有设计模式中比较简单的一类，其定义如下：Ensure a class has only one instance, and provide a global point of access to it.（保证某一个类只有一个实例，而且在全局只有一个访问点）</p>
+</blockquote>
+<h4 id="2-实例"><a href="#2-实例" class="headerlink" title="2.实例"></a>2.实例</h4><ol>
+<li>模块：</li>
+</ol>
+<blockquote>
+<p>Python 的模块就是天然的单例模式，因为模块在第一次导入时，会生成 .pyc 文件，当第二次导入时，就会直接加载 .pyc<br>文件，而不会再次执行模块代码。因此，我们只需把相关的函数和数据定义在一个模块中，就可以获得一个单例对象了</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Singleton(object):</span><br><span class="line">    def foo(self):</span><br><span class="line">        pass</span><br><span class="line">singleton &#x3D; Singleton()</span><br><span class="line"></span><br><span class="line">from a import singleton</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>装饰器</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def Singleton(cls):</span><br><span class="line">    _instance &#x3D; &#123;&#125;</span><br><span class="line">    def _singleton(*args, **kargs):</span><br><span class="line">        if cls not in _instance:</span><br><span class="line">            _instance[cls] &#x3D; cls(*args, **kargs)</span><br><span class="line">        return _instance[cls]</span><br><span class="line">    return _singleton</span><br><span class="line"></span><br><span class="line">@Singleton</span><br><span class="line">class A(object):</span><br><span class="line">    a &#x3D; 1</span><br><span class="line">    def __init__(self, x&#x3D;0):</span><br><span class="line">        self.x &#x3D; x</span><br><span class="line"></span><br><span class="line">a1 &#x3D; A(2)</span><br><span class="line">a2 &#x3D; A(3)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>类(多线程)</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import time</span><br><span class="line">import threading</span><br><span class="line">class Singleton(object):</span><br><span class="line">    _instance_lock &#x3D; threading.Lock()</span><br><span class="line"></span><br><span class="line">    def __init__(self):</span><br><span class="line">        time.sleep(1)</span><br><span class="line"></span><br><span class="line">    @classmethod</span><br><span class="line">    def instance(cls, *args, **kwargs):</span><br><span class="line">        if not hasattr(Singleton, &quot;_instance&quot;):</span><br><span class="line">            with Singleton._instance_lock:</span><br><span class="line">                if not hasattr(Singleton, &quot;_instance&quot;):</span><br><span class="line">                    Singleton._instance &#x3D; Singleton(*args, **kwargs)</span><br><span class="line">        return Singleton._instance</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def task(arg):</span><br><span class="line">    obj &#x3D; Singleton.instance()</span><br><span class="line">    print(obj)</span><br><span class="line">for i in range(10):</span><br><span class="line">    t &#x3D; threading.Thread(target&#x3D;task,args&#x3D;[i,])</span><br><span class="line">    t.start()</span><br><span class="line">time.sleep(20)</span><br><span class="line">obj &#x3D; Singleton.instance()</span><br><span class="line">print(obj)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>基于__new__方法</li>
+</ol>
+<blockquote>
+<p>实例化一个对象时，是先执行了类的__new__方法，实例化对象；然后再执行类的__init__方法，对这个对象进行初始化，所有我们可以基于这个，实现单例模式</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import threading</span><br><span class="line">class Singleton(object):</span><br><span class="line">    _instance_lock &#x3D; threading.Lock()</span><br><span class="line"></span><br><span class="line">    def __init__(self):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    def __new__(cls, *args, **kwargs):</span><br><span class="line">        if not hasattr(Singleton, &quot;_instance&quot;):</span><br><span class="line">            with Singleton._instance_lock:</span><br><span class="line">                if not hasattr(Singleton, &quot;_instance&quot;):</span><br><span class="line">                    Singleton._instance &#x3D; object.__new__(cls)  </span><br><span class="line">        return Singleton._instance</span><br><span class="line"></span><br><span class="line">obj1 &#x3D; Singleton()</span><br><span class="line">obj2 &#x3D; Singleton()</span><br><span class="line">print(obj1,obj2)</span><br><span class="line"></span><br><span class="line">def task(arg):</span><br><span class="line">    obj &#x3D; Singleton()</span><br><span class="line">    print(obj)</span><br><span class="line"></span><br><span class="line">for i in range(10):</span><br><span class="line">    t &#x3D; threading.Thread(target&#x3D;task,args&#x3D;[i,])</span><br><span class="line">    t.start()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>元类metaclass</li>
+</ol>
+<blockquote>
+<p>1.类由type创建，创建类时，type的__init__方法自动执行，类()<br>  执行type的 __call__方法(类的__new__方法,类的__init__方法)</p>
+</blockquote>
+<blockquote>
+<p>2.对象由类创建，创建对象时，类的__init__方法自动执行，对象()执行类的 <strong>call</strong> 方法</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import threading</span><br><span class="line"></span><br><span class="line">class SingletonType(type):</span><br><span class="line">    _instance_lock &#x3D; threading.Lock()</span><br><span class="line">    def __call__(cls, *args, **kwargs):</span><br><span class="line">        if not hasattr(cls, &quot;_instance&quot;):</span><br><span class="line">            with SingletonType._instance_lock:</span><br><span class="line">                if not hasattr(cls, &quot;_instance&quot;):</span><br><span class="line">                    cls._instance &#x3D; super(SingletonType,cls).__call__(*args, **kwargs)</span><br><span class="line">        return cls._instance</span><br><span class="line"></span><br><span class="line">class Foo(metaclass&#x3D;SingletonType):</span><br><span class="line">    def __init__(self,name):</span><br><span class="line">        self.name &#x3D; name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">obj1 &#x3D; Foo(&#39;name&#39;)</span><br><span class="line">obj2 &#x3D; Foo(&#39;name&#39;)</span><br><span class="line">print(obj1,obj2)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-单例模式的优点："><a href="#3-单例模式的优点：" class="headerlink" title="3.单例模式的优点："></a>3.单例模式的优点：</h4><p>1、由于单例模式要求在全局内只有一个实例，因而可以节省比较多的内存空间；</p>
+<p>2、全局只有一个接入点，可以更好地进行数据同步控制，避免多重占用；</p>
+<p>3、单例可长驻内存，减少系统开销。</p>
+<p>单例模式的应用举例：</p>
+<pre><code>1、生成全局惟一的序列号；
+2、访问全局复用的惟一资源，如磁盘、总线等；
+3、单个对象占用的资源过多，如数据库等；
+4、系统全局统一管理，如Windows下的Task Manager；
+5、网站计数器。
+</code></pre>
+<h3 id="python设计模式–工厂模式"><a href="#python设计模式–工厂模式" class="headerlink" title="python设计模式–工厂模式"></a>python设计模式–工厂模式</h3><blockquote>
+<p>通过一个指定的“工厂”获得需要的“产品”，在设计模式中主要用于抽象对象的创建过程，让用户可以指定自己想要的对象而不必关心对象的实例化过程。这样做的好处是用户只需通过固定的接口而不是直接去调用类的实例化方法来获得一个对象的实例，隐藏了实例创建过程的复杂度，解耦了生产实例和使用实例的代码，降低了维护的复杂性。</p>
+</blockquote>
+<h4 id="1-简单工厂"><a href="#1-简单工厂" class="headerlink" title="1.简单工厂"></a>1.简单工厂</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#coding&#x3D;utf-8</span><br><span class="line">class Mercedes(object):</span><br><span class="line">    &quot;&quot;&quot;梅赛德斯</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def __repr__(self):</span><br><span class="line">        return &quot;Mercedes-Benz&quot;</span><br><span class="line"></span><br><span class="line">class BMW(object):</span><br><span class="line">    &quot;&quot;&quot;宝马</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def __repr__(self):</span><br><span class="line">        return &quot;BMW&quot;</span><br><span class="line">        </span><br><span class="line">假设我们有两个“产品”分别是Mercedes和BMW的汽车，如果没有“工厂”来生产它们，</span><br><span class="line">我们就要在代码中自己进行实例化，如：</span><br><span class="line"></span><br><span class="line">mercedes &#x3D; Mercedes()</span><br><span class="line">bmw &#x3D; BMW()</span><br><span class="line">但现实中，你可能会面对很多汽车产品，而且每个产品的构造参数还不一样，这样在创</span><br><span class="line">建实例时会遇到麻烦。这时就可以构造一个“简单工厂”把所有汽车实例化的过程封装在里面。</span><br><span class="line"></span><br><span class="line">class SimpleCarFactory(object):</span><br><span class="line">    &quot;&quot;&quot;简单工厂</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    @staticmethod</span><br><span class="line">    def product_car(name):</span><br><span class="line">        if name &#x3D;&#x3D; &#39;mb&#39;:</span><br><span class="line">            return Mercedes()</span><br><span class="line">        elif name &#x3D;&#x3D; &#39;bmw&#39;:</span><br><span class="line">            return BMW()</span><br><span class="line">SimpleCarFactory类后，就可以通过向固定的接口传入参数获得想要的对象实例</span><br><span class="line"></span><br><span class="line">c1 &#x3D; SimpleCarFactory.product_car(&#39;mb&#39;)</span><br><span class="line">c2 &#x3D; SimpleCarFactory.product_car(&#39;bmw&#39;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-工厂方法"><a href="#2-工厂方法" class="headerlink" title="2.工厂方法"></a>2.工厂方法</h4><blockquote>
+<p>如果我们要新增一个“产品”，例如Audi的汽车，我们除了新增一个Audi类外还要修改SimpleCarFactory内的product_car方法。这样就违背了软件设计中的开闭原则[1]，即在扩展新的类时，尽量不要修改原有代码。所以我们在简单工厂的基础上把SimpleCarFactory抽象成不同的工厂，每个工厂对应生成自己的产品，这就是工厂方法。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#coding&#x3D;utf-8</span><br><span class="line">import abc</span><br><span class="line"></span><br><span class="line">class AbstractFactory(object):</span><br><span class="line">    &quot;&quot;&quot;抽象工厂</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    __metaclass__ &#x3D; abc.ABCMeta</span><br><span class="line"></span><br><span class="line">    @abc.abstractmethod</span><br><span class="line">    def product_car(self):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">class MercedesFactory(AbstractFactory):</span><br><span class="line">    &quot;&quot;&quot;梅赛德斯工厂</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def product_car(self):</span><br><span class="line">        return Mercedes()</span><br><span class="line"></span><br><span class="line">class BMWFactory(AbstractFactory):</span><br><span class="line">    &quot;&quot;&quot;宝马工厂</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def product_car(self):</span><br><span class="line">        return BMW()</span><br><span class="line">我们把工厂抽象出来用abc模块[2]实现了一个抽象的基类AbstractFactory，</span><br><span class="line">这样就可以通过特定的工厂来获得特定的产品实例了：</span><br><span class="line"></span><br><span class="line">c1 &#x3D; MercedesFactory().product_car()</span><br><span class="line">c2 &#x3D; BMWFactory().product_car()</span><br><span class="line"></span><br><span class="line">每个工厂负责生产自己的产品也避免了我们在新增产品时需要修改工厂的代码，</span><br><span class="line">而只要增加相应的工厂即可。如新增一个Audi产品，只需新增一个Audi类和AudiFactory类。</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-抽象工厂"><a href="#3-抽象工厂" class="headerlink" title="3.抽象工厂"></a>3.抽象工厂</h4><blockquote>
+<p>如果我们要生产很多产品，就会发现我们同样需要写很多对应的工厂类。比如如果MercedesFactory和BMWFactory不仅生产小汽车，还要生产SUV，那我们用工厂方法就要再多构造两个生产SUV的工厂类。所以为了解决这个问题，我们就要再更进一步的抽象工厂类，让一个工厂可以生产同一类的多个产品，这就是抽象工厂</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import abc</span><br><span class="line"></span><br><span class="line"># 两种小汽车</span><br><span class="line">class Mercedes_C63(object):</span><br><span class="line">    &quot;&quot;&quot;梅赛德斯 C63</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def __repr__(self):</span><br><span class="line">        return &quot;Mercedes-Benz: C63&quot;</span><br><span class="line"></span><br><span class="line">class BMW_M3(object):</span><br><span class="line">    &quot;&quot;&quot;宝马 M3</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def __repr__(self):</span><br><span class="line">        return &quot;BMW: M3&quot;</span><br><span class="line"></span><br><span class="line">#　两种SUV</span><br><span class="line">class Mercedes_G63(object):</span><br><span class="line">    &quot;&quot;&quot;梅赛德斯 G63</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def __repr__(self):</span><br><span class="line">        return &quot;Mercedes-Benz: G63&quot;</span><br><span class="line"></span><br><span class="line">class BMW_X5(object):</span><br><span class="line">    &quot;&quot;&quot;宝马 X5</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def __repr__(self):</span><br><span class="line">        return &quot;BMW: X5&quot;</span><br><span class="line"></span><br><span class="line">class AbstractFactory(object):</span><br><span class="line">    &quot;&quot;&quot;抽象工厂</span><br><span class="line">    可以生产小汽车外，还可以生产SUV</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    __metaclass__ &#x3D; abc.ABCMeta</span><br><span class="line"></span><br><span class="line">    @abc.abstractmethod</span><br><span class="line">    def product_car(self):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">    @abc.abstractmethod</span><br><span class="line">    def product_suv(self):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">class MercedesFactory(AbstractFactory):</span><br><span class="line">    &quot;&quot;&quot;梅赛德斯工厂</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def product_car(self):</span><br><span class="line">        return Mercedes_C63()</span><br><span class="line"></span><br><span class="line">    def product_suv(self):</span><br><span class="line">        return Mercedes_G63()</span><br><span class="line"></span><br><span class="line">class BMWFactory(AbstractFactory):</span><br><span class="line">    &quot;&quot;&quot;宝马工厂</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def product_car(self):</span><br><span class="line">        return BMW_M3()</span><br><span class="line"></span><br><span class="line">    def product_suv(self):</span><br><span class="line">        return BMW_X5()</span><br><span class="line"></span><br><span class="line">让基类AbstractFactory同时可以生产汽车和SUV，然后令MercedesFactory和BMWFactory</span><br><span class="line">继承AbstractFactory并重写product_car和product_suv方法即可。</span><br><span class="line"></span><br><span class="line">c1 &#x3D; MercedesFactory().product_car()</span><br><span class="line">s1 &#x3D; MercedesFactory().product_suv()</span><br><span class="line">print(c1, s1)</span><br><span class="line">s2 &#x3D; BMWFactory().product_suv()</span><br><span class="line">c2 &#x3D; BMWFactory().product_car()</span><br><span class="line">print(c2, s2)</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="4-抽象工厂模式与工厂方法模式区别"><a href="#4-抽象工厂模式与工厂方法模式区别" class="headerlink" title="4.抽象工厂模式与工厂方法模式区别"></a>4.抽象工厂模式与工厂方法模式区别</h4><ol>
+<li>抽象工厂中的一个工厂对象可以负责多个不同产品对象的创建 ，这样比工厂方法模式更为简单、有效率。</li>
+</ol>
+<p>工厂模式、抽象工厂模式的优点：</p>
+<blockquote>
+<p>1、工厂模式巨有非常好的封装性，代码结构清晰；在抽象工厂模式中，其结构还可以随着需要进行更深或者更浅的抽象层级调整，非常灵活；</p>
+</blockquote>
+<blockquote>
+<p>2、屏蔽产品类，使产品的被使用业务场景和产品的功能细节可以分而开发进行，是比较典型的解耦框架。</p>
+</blockquote>
+<ol start="2">
+<li>工厂模式、抽象工厂模式的使用场景： 1、当系统实例要求比较灵活和可扩展时，可以考虑工厂模式或者抽象工厂模式实现。比如，<pre><code> 在通信系统中，高层通信协议会很多样化，同时，上层协议依赖于下层协议，
+ 那么就可以对应建立对应层级的抽象工厂，根据不同的“产品需求”去生产定制的实例。
+</code></pre>
+</li>
+</ol>
+<h3 id="python与设计模式–建造者模式"><a href="#python与设计模式–建造者模式" class="headerlink" title="python与设计模式–建造者模式"></a>python与设计模式–建造者模式</h3><blockquote>
+<p>建造者模式的定义如下：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。</p>
+</blockquote>
+<blockquote>
+<p>在建造者模式中，还可以加一个Director类，用以安排已有模块的构造步骤。对于在建造者中有比较严格的顺序要求时，该类会有比较大的用处。</p>
+</blockquote>
+<h4 id="快餐例："><a href="#快餐例：" class="headerlink" title="快餐例："></a>快餐例：</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">主餐</span><br><span class="line">class Burger():</span><br><span class="line">    name&#x3D;&quot;&quot;</span><br><span class="line">    price&#x3D;0.0</span><br><span class="line">    def getPrice(self):</span><br><span class="line">        return self.price</span><br><span class="line">    def setPrice(self,price):</span><br><span class="line">        self.price&#x3D;price</span><br><span class="line">    def getName(self):</span><br><span class="line">        return self.name</span><br><span class="line">class cheeseBurger(Burger):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name&#x3D;&quot;cheese burger&quot;</span><br><span class="line">        self.price&#x3D;10.0</span><br><span class="line">class spicyChickenBurger(Burger):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name&#x3D;&quot;spicy chicken burger&quot;</span><br><span class="line">        self.price&#x3D;15.0</span><br><span class="line">小食</span><br><span class="line">class Snack():</span><br><span class="line">    name &#x3D; &quot;&quot;</span><br><span class="line">    price &#x3D; 0.0</span><br><span class="line">    type &#x3D; &quot;SNACK&quot;</span><br><span class="line">    def getPrice(self):</span><br><span class="line">        return self.price</span><br><span class="line">    def setPrice(self, price):</span><br><span class="line">        self.price &#x3D; price</span><br><span class="line">    def getName(self):</span><br><span class="line">        return self.name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class chips(Snack):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name &#x3D; &quot;chips&quot;</span><br><span class="line">        self.price &#x3D; 6.0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class chickenWings(Snack):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name &#x3D; &quot;chicken wings&quot;</span><br><span class="line">        self.price &#x3D; 12.0</span><br><span class="line">饮料</span><br><span class="line">class Beverage():</span><br><span class="line">    name &#x3D; &quot;&quot;</span><br><span class="line">    price &#x3D; 0.0</span><br><span class="line">    type &#x3D; &quot;BEVERAGE&quot;</span><br><span class="line">    def getPrice(self):</span><br><span class="line">        return self.price</span><br><span class="line">    def setPrice(self, price):</span><br><span class="line">        self.price &#x3D; price</span><br><span class="line">    def getName(self):</span><br><span class="line">        return self.name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class coke(Beverage):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name &#x3D; &quot;coke&quot;</span><br><span class="line">        self.price &#x3D; 4.0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class milk(Beverage):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name &#x3D; &quot;milk&quot;</span><br><span class="line">        self.price &#x3D; 5.0</span><br><span class="line"></span><br><span class="line">一个订单类。假设，一个订单，包括一份主食，一份小食，一种饮料。（省去一些异常判断）</span><br><span class="line"></span><br><span class="line">class order():</span><br><span class="line">    burger&#x3D;&quot;&quot;</span><br><span class="line">    snack&#x3D;&quot;&quot;</span><br><span class="line">    beverage&#x3D;&quot;&quot;</span><br><span class="line">    def __init__(self,orderBuilder):</span><br><span class="line">        self.burger&#x3D;orderBuilder.bBurger</span><br><span class="line">        self.snack&#x3D;orderBuilder.bSnack</span><br><span class="line">        self.beverage&#x3D;orderBuilder.bBeverage</span><br><span class="line">    def show(self):</span><br><span class="line">        print &quot;Burger:%s&quot;%self.burger.getName()</span><br><span class="line">        print &quot;Snack:%s&quot;%self.snack.getName()</span><br><span class="line">        print &quot;Beverage:%s&quot;%self.beverage.getName()</span><br><span class="line"></span><br><span class="line">orderBuilder就是建造者模式中所谓的“建造者”了</span><br><span class="line"></span><br><span class="line">class orderBuilder():</span><br><span class="line">    bBurger&#x3D;&quot;&quot;</span><br><span class="line">    bSnack&#x3D;&quot;&quot;</span><br><span class="line">    bBeverage&#x3D;&quot;&quot;</span><br><span class="line">    def addBurger(self,xBurger):</span><br><span class="line">        self.bBurger&#x3D;xBurger</span><br><span class="line">    def addSnack(self,xSnack):</span><br><span class="line">        self.bSnack&#x3D;xSnack</span><br><span class="line">    def addBeverage(self,xBeverage):</span><br><span class="line">        self.bBeverage&#x3D;xBeverage</span><br><span class="line">    def build(self):</span><br><span class="line">        return order(self)</span><br><span class="line">        </span><br><span class="line">订单生成</span><br><span class="line"></span><br><span class="line">if  __name__&#x3D;&#x3D;&quot;__main__&quot;:</span><br><span class="line">    order_builder&#x3D;orderBuilder()</span><br><span class="line">    order_builder.addBurger(spicyChickenBurger())</span><br><span class="line">    order_builder.addSnack(chips())</span><br><span class="line">    order_builder.addBeverage(milk())</span><br><span class="line">    order_1&#x3D;order_builder.build()</span><br><span class="line">    order_1.show()</span><br><span class="line">    </span><br><span class="line">构造步骤</span><br><span class="line"></span><br><span class="line">class orderDirector():</span><br><span class="line">    order_builder&#x3D;&quot;&quot;</span><br><span class="line">    def __init__(self,order_builder):</span><br><span class="line">        self.order_builder&#x3D;order_builder</span><br><span class="line">    def createOrder(self,burger,snack,beverage):</span><br><span class="line">        self.order_builder.addBurger(burger)</span><br><span class="line">        self.order_builder.addSnack(snack)</span><br><span class="line">        self.order_builder.addBeverage(beverage)</span><br><span class="line">        return self.order_builder.build()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-优缺："><a href="#3-优缺：" class="headerlink" title="3.优缺："></a>3.优缺：</h4><pre><code>1、封装性好，用户可以不知道对象的内部构造和细节，就可以直接建造对象；
+2、系统扩展容易；
+3、建造者模式易于使用，非常灵活。在构造性的场景中很容易实现“流水线”；
+4、便于控制细节。
+</code></pre>
+<p>使用场景：</p>
+<blockquote>
+<p>1、 目标对象由组件构成的场景中，很适合建造者模式。例如，在一款赛车游戏中，车辆生成时，需要根据级别、环境等，选择轮胎、悬挂、骨架等部件，构造一辆“赛车”；</p>
+</blockquote>
+<blockquote>
+<p>2、 在具体的场景中，对象内部接口需要根据不同的参数而调用顺序有所不同时，可以使用建造者模式。例如：一个植物养殖器系统，对于某些不同的植物，浇水、施加肥料的顺序要求可能会不同，因而可以在Director中维护一个类似于队列的结构，在实例化时作为参数代入到具体建造者中。</p>
+</blockquote>
+<p>缺点：</p>
+<pre><code>1、“加工工艺”对用户不透明。（封装的两面性）
+</code></pre>
+<h3 id="python设计模式–原型模式"><a href="#python设计模式–原型模式" class="headerlink" title="python设计模式–原型模式"></a>python设计模式–原型模式</h3><h4 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h4><p>原型模式定义如下：用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象。<br>需要注意一点的是，进行clone操作后，新对象的构造函数没有被二次执行，新对象的内容是从内存里直接拷贝的。</p>
+<blockquote>
+<p>用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。</p>
+</blockquote>
+<p><img data-src="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/56e6c262b1510b59beba7552f07522ae.png" alt="原型模式"></p>
+<h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><blockquote>
+<p>从简历原型，生成新的简历</p>
+<p>简历类Resume提供的Clone()方法其实并不是真正的Clone，只是为已存在对象增加了一次引用。</p>
+<p>Python为对象提供的copy模块中的copy方法和deepcopy方法已经实现了原型模式，但由于例子的层次较浅，二者看不出区别。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import copy</span><br><span class="line">class WorkExp:</span><br><span class="line">    place&#x3D;&quot;&quot;</span><br><span class="line">    year&#x3D;0</span><br><span class="line"></span><br><span class="line">class Resume:</span><br><span class="line">    name &#x3D; &#39;&#39;</span><br><span class="line">    age &#x3D; 0</span><br><span class="line">    def __init__(self,n):</span><br><span class="line">        self.name &#x3D; n</span><br><span class="line">    def SetAge(self,a):</span><br><span class="line">        self.age &#x3D; a</span><br><span class="line">    def SetWorkExp(self,p,y):</span><br><span class="line">        self.place &#x3D; p</span><br><span class="line">        self.year &#x3D; y</span><br><span class="line">    def Display(self):</span><br><span class="line">        print self.age</span><br><span class="line">        print self.place</span><br><span class="line">        print self.year</span><br><span class="line">    def Clone(self):</span><br><span class="line">    #实际不是“克隆”，只是返回了自身</span><br><span class="line">        return self</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &quot;__main__&quot;:</span><br><span class="line">    a &#x3D; Resume(&quot;a&quot;)</span><br><span class="line">    b &#x3D; a.Clone()</span><br><span class="line">    c &#x3D; copy.copy(a)</span><br><span class="line">    d &#x3D; copy.deepcopy(a)</span><br><span class="line">    a.SetAge(7)</span><br><span class="line">    b.SetAge(12)</span><br><span class="line">    c.SetAge(15)</span><br><span class="line">    d.SetAge(18)</span><br><span class="line">    a.SetWorkExp(&quot;PrimarySchool&quot;,1996)</span><br><span class="line">    b.SetWorkExp(&quot;MidSchool&quot;,2001)</span><br><span class="line">    c.SetWorkExp(&quot;HighSchool&quot;,2004)</span><br><span class="line">    d.SetWorkExp(&quot;University&quot;,2007)</span><br><span class="line">    a.Display()</span><br><span class="line">    b.Display()</span><br><span class="line">    c.Display()</span><br><span class="line">    d.Display()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="原型模式的优缺点和使用场景"><a href="#原型模式的优缺点和使用场景" class="headerlink" title="原型模式的优缺点和使用场景"></a>原型模式的优缺点和使用场景</h4><ol>
+<li><p>优点：</p>
+<pre><code> 1、性能极佳，直接拷贝比在内存里直接新建实例节省不少的资源；
+ 2、简化对象创建，同时避免了构造函数的约束，不受构造函数的限制直接复制对象，是优
+ 点，也有隐患，这一点还是需要多留意一些。
+</code></pre>
+</li>
+<li><p>使用场景：</p>
+<pre><code> 1、对象在修改过后，需要复制多份的场景。如本例和其它一些涉及到复制、粘贴的场景；
+ 2、需要优化资源的情况。如，需要在内存中创建非常多的实例，可以通过原型模式来减少
+     资源消耗。此时，原型模式与工厂
+     模式配合起来，不管在逻辑上还是结构上，都会达到不错的效果；
+ 3、某些重复性的复杂工作不需要多次进行。如对于一个设备的访问权限，多个对象不用各
+     申请一遍权限，由一个设备申请后，通过原型模式将权限交给可信赖的对象，
+     既可以提升效率，又可以节约资源。
+</code></pre>
+</li>
+<li><p>原型模式的缺点</p>
+<pre><code> 1、深拷贝和浅拷贝的使用需要事先考虑周到；
+ 2、某些编程语言中，拷贝会影响到静态变量和静态函数的使用。
+ 
+ 
+</code></pre>
+</li>
+</ol>
+<h3 id="Python与设计模式–代理模式"><a href="#Python与设计模式–代理模式" class="headerlink" title="Python与设计模式–代理模式"></a>Python与设计模式–代理模式</h3><p>代理模式是一种使用频率非常高的模式，在多个著名的开源软件和当前多个著名的互联网产品后台程序中都有所应用。下面我们用一个抽象化的简单例子，来说明代理模式。</p>
+<blockquote>
+<p>首先，构造一个网络服务器：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#该服务器接受如下格式数据，addr代表地址，content代表接收的信息内容</span><br><span class="line">info_struct&#x3D;dict()</span><br><span class="line">info_struct[&quot;addr&quot;]&#x3D;10000</span><br><span class="line">info_struct[&quot;content&quot;]&#x3D;&quot;&quot;</span><br><span class="line">class Server:</span><br><span class="line">    content&#x3D;&quot;&quot;</span><br><span class="line">    def recv(self,info):</span><br><span class="line">        pass</span><br><span class="line">    def send(self,info):</span><br><span class="line">        pass</span><br><span class="line">    def show(self):</span><br><span class="line">        pass</span><br><span class="line">class infoServer(Server):</span><br><span class="line">    def recv(self,info):</span><br><span class="line">        self.content&#x3D;info</span><br><span class="line">        return &quot;recv OK!&quot;</span><br><span class="line">    def send(self,info):</span><br><span class="line">        pass</span><br><span class="line">    def show(self):</span><br><span class="line">        print &quot;SHOW:%s&quot;%self.content</span><br><span class="line">        </span><br></pre></td></tr></table></figure>
+
+<p>infoServer有接收和发送的功能，发送功能由于暂时用不到，保留。</p>
+<p>另外新加一个接口show，用来展示服务器接收的内容。</p>
+<p>接收的数据格式必须如info_struct所示，服务器仅接受info_struct的content字段。</p>
+<p>那么，如何给这个服务器设置一个白名单，使得只有白名单里的地址可以访问服务器呢？</p>
+<p>修改Server结构是个方法，但这显然不符合软件设计原则中的单一职责原则。</p>
+<blockquote>
+<p>在此基础之上，使用代理，是个不错的方法。代理配置如下：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class serverProxy:</span><br><span class="line">    pass</span><br><span class="line">class infoServerProxy(serverProxy):</span><br><span class="line">    server&#x3D;&quot;&quot;</span><br><span class="line">    def __init__(self,server):</span><br><span class="line">        self.server&#x3D;server</span><br><span class="line">    def recv(self,info):</span><br><span class="line">        return self.server.recv(info)</span><br><span class="line">    def show(self):</span><br><span class="line">        self.server.show()</span><br><span class="line"></span><br><span class="line">class whiteInfoServerProxy(infoServerProxy):</span><br><span class="line">    white_list&#x3D;[]</span><br><span class="line">    def recv(self,info):</span><br><span class="line">        try:</span><br><span class="line">            assert type(info)&#x3D;&#x3D;dict</span><br><span class="line">        except:</span><br><span class="line">            return &quot;info structure is not correct&quot;</span><br><span class="line">        addr&#x3D;info.get(&quot;addr&quot;,0)</span><br><span class="line">        if not addr in self.white_list:</span><br><span class="line">            return &quot;Your address is not in the white list.&quot;</span><br><span class="line">        else:</span><br><span class="line">            content&#x3D;info.get(&quot;content&quot;,&quot;&quot;)</span><br><span class="line">            return self.server.recv(content)</span><br><span class="line">    def addWhite(self,addr):</span><br><span class="line">        self.white_list.append(addr)</span><br><span class="line">    def rmvWhite(self,addr):</span><br><span class="line">        self.white_list.remove(addr)</span><br><span class="line">    def clearWhite(self):</span><br><span class="line">        self.white_list&#x3D;[]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>代理中有一个server字段，控制代理的服务器对象，infoServerProxy充当Server的直接接口代理，而whiteInfoServerProxy直接继承了infoServerProxy对象，同时加入了white_list和对白名单的操作。</p>
+<blockquote>
+<p>这样，在场景中通过对白名单代理的访问，就可以实现服务器的白名单访问了。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if  __name__&#x3D;&#x3D;&quot;__main__&quot;:</span><br><span class="line">    info_struct &#x3D; dict()</span><br><span class="line">    info_struct[&quot;addr&quot;] &#x3D; 10010</span><br><span class="line">    info_struct[&quot;content&quot;] &#x3D; &quot;Hello World!&quot;</span><br><span class="line">    info_server &#x3D; infoServer()</span><br><span class="line">    info_server_proxy &#x3D; whiteInfoServerProxy(info_server)</span><br><span class="line">    print info_server_proxy.recv(info_struct)</span><br><span class="line">    info_server_proxy.show()</span><br><span class="line">    info_server_proxy.addWhite(10010)</span><br><span class="line">    print info_server_proxy.recv(info_struct)</span><br><span class="line">    info_server_proxy.show()</span><br><span class="line">		</span><br></pre></td></tr></table></figure>
+
+<h4 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h4><p>代理模式定义如下：为某对象提供一个代理，以控制对此对象的访问和控制。代理模式在使用过程中，应尽量对抽象主题类进行代理，而尽量不要对加过修饰和方法的子类代理。</p>
+<pre><code>为其他对象提供一种代理以控制对这个对象的访问。
+</code></pre>
+<blockquote>
+<p>如上例中，如果有一个xServer继承了Server，并新加了方法xMethod，xServer的代理应以Server为主题进行设计，而尽量不要以xServer为主题，以xServer为主题的代理可以从ServerProxy继承并添加对应的方法.</p>
+</blockquote>
+<p><img data-src="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/651b419d706989c57083ad35e71d1029.png" alt="代理模式"></p>
+<blockquote>
+<p>在JAVA中，讲到代理模式，不得不会提到动态代理。动态代理是实现AOP（面向切面编程）的重要实现手段。而在Python中，很少会提到动态代理，而AOP则会以另一种模式实现：装饰模式。有关AOP的相关内容，我们会在装饰模式这一节中进行说明。</p>
+</blockquote>
+<h4 id="代理模式的优缺点和应用场景"><a href="#代理模式的优缺点和应用场景" class="headerlink" title="代理模式的优缺点和应用场景"></a>代理模式的优缺点和应用场景</h4><ol>
+<li><p>优点:</p>
+<pre><code> 1、职责清晰：非常符合单一职责原则，主题对象实现真实业务逻辑，而非本职责
+     的事务，交由代理完成；
+ 2、扩展性强：面对主题对象可能会有的改变，代理模式在不改变对外接口的情况
+     下，可以实现最大程度的扩展；
+ 3、保证主题对象的处理逻辑：代理可以通过检查参数的方式，保证主题对象的处
+ 理逻辑输入在理想范围内。
+</code></pre>
+</li>
+<li><p>应用场景：</p>
+<pre><code> 1、针对某特定对象进行功能和增强性扩展。如IP防火墙、远程访问代理等技术的应用；
+ 2、对主题对象进行保护。如大流量代理，安全代理等；
+ 3、减轻主题对象负载。如权限代理等。
+</code></pre>
+</li>
+<li><p>代理模式的缺点</p>
+<pre><code> 1、可能会降低整体业务的处理效率和速度。
+ 
+</code></pre>
+</li>
+</ol>
+<h4 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h4><p>同模式特点描述：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Interface :</span><br><span class="line">    def Request(self):</span><br><span class="line">    return 0</span><br><span class="line"></span><br><span class="line">class RealSubject(Interface): </span><br><span class="line">    def Request(self):</span><br><span class="line">        print &quot;Real request.&quot;</span><br><span class="line"></span><br><span class="line">class Proxy(Interface):</span><br><span class="line">    def Request(self):</span><br><span class="line">        self.real &#x3D; RealSubject()</span><br><span class="line">        self.real.Request()</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &quot;__main__&quot;:</span><br><span class="line">    p &#x3D; Proxy()</span><br><span class="line">    p.Request()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="python与设计模式–装饰器模式"><a href="#python与设计模式–装饰器模式" class="headerlink" title="python与设计模式–装饰器模式"></a>python与设计模式–装饰器模式</h3><h4 id="快餐点餐系统（3）"><a href="#快餐点餐系统（3）" class="headerlink" title="快餐点餐系统（3）"></a>快餐点餐系统（3）</h4><blockquote>
+<p>又提到了那个快餐点餐系统，不过今天我们只以其中的一个类作为主角：饮料类。首先，回忆下饮料类：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Beverage():</span><br><span class="line">    name &#x3D; &quot;&quot;</span><br><span class="line">    price &#x3D; 0.0</span><br><span class="line">    type &#x3D; &quot;BEVERAGE&quot;</span><br><span class="line">    def getPrice(self):</span><br><span class="line">        return self.price</span><br><span class="line">    def setPrice(self, price):</span><br><span class="line">        self.price &#x3D; price</span><br><span class="line">    def getName(self):</span><br><span class="line">        return self.name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class coke(Beverage):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name &#x3D; &quot;coke&quot;</span><br><span class="line">        self.price &#x3D; 4.0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class milk(Beverage):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name &#x3D; &quot;milk&quot;</span><br><span class="line">        self.price &#x3D; 5.0</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>除了基本配置，快餐店卖可乐时，可以选择加冰，如果加冰的话，要在原价上加0.3元；卖牛奶时，可以选择加糖，如果加糖的话，要原价上加0.5元。怎么解决这样的问题？可以选择装饰器模式来解决这一类的问题。首先，定义装饰器类：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class drinkDecorator():</span><br><span class="line">    def getName(self):</span><br><span class="line">        pass</span><br><span class="line">    def getPrice(self):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">class iceDecorator(drinkDecorator):</span><br><span class="line">    def __init__(self,beverage):</span><br><span class="line">        self.beverage&#x3D;beverage</span><br><span class="line">    def getName(self):</span><br><span class="line">        return self.beverage.getName()+&quot; +ice&quot;</span><br><span class="line">    def getPrice(self):</span><br><span class="line">        return self.beverage.getPrice()+0.3</span><br><span class="line">    </span><br><span class="line">class sugarDecorator(drinkDecorator):</span><br><span class="line">    def __init__(self,beverage):</span><br><span class="line">        self.beverage&#x3D;beverage</span><br><span class="line">    def getName(self):</span><br><span class="line">        return self.beverage.getName()+&quot; +sugar&quot;</span><br><span class="line">    def getPrice(self):</span><br><span class="line">        return self.beverage.getPrice()+0.5</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>构建好装饰器后，在具体的业务场景中，就可以与饮料类进行关联。以可乐+冰为例，示例业务场景如下：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if  __name__&#x3D;&#x3D;&quot;__main__&quot;:</span><br><span class="line">    coke_cola&#x3D;coke()</span><br><span class="line">    print &quot;Name:%s&quot;%coke_cola.getName()</span><br><span class="line">    print &quot;Price:%s&quot;%coke_cola.getPrice()</span><br><span class="line">    ice_coke&#x3D;iceDecorator(coke_cola)</span><br><span class="line">    print &quot;Name:%s&quot; % ice_coke.getName()</span><br><span class="line">    print &quot;Price:%s&quot; % ice_coke.getPrice()</span><br><span class="line">    </span><br><span class="line">打印结果如下：</span><br><span class="line">Name:coke</span><br><span class="line">Price:4.0</span><br><span class="line">Name:coke +ice</span><br><span class="line">Price:4.3</span><br></pre></td></tr></table></figure>
+
+<h4 id="装饰器模式"><a href="#装饰器模式" class="headerlink" title="装饰器模式"></a>装饰器模式</h4><p>装饰器模式定义如下：动态地给一个对象添加一些额外的职责。在增加功能方面，装饰器模式比生成子类更为灵活。</p>
+<p><img data-src="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/6c8cc57b36c5772c0bc489221c648819.png" alt="装饰器模式"></p>
+<p>装饰器模式和上一节说到的代理模式非常相似，可以认为，装饰器模式就是代理模式的一个特殊应用，两者的共同点是都具有相同的接口，不同点是侧重对主题类的过程的控制，而装饰模式则侧重对类功能的加强或减弱。</p>
+<blockquote>
+<p>动态地为对象增加额外的职责</p>
+</blockquote>
+<p>上一次说到，JAVA中的动态代理模式，是实现AOP的重要手段。而在Python中，AOP通过装饰器模式实现更为简洁和方便。</p>
+<p>先来解释一下什么是AOP。AOP即Aspect Oriented Programming，中文翻译为面向切面的编程，它的含义可以解释为：如果几个或更多个逻辑过程中（这类逻辑过程可能位于不同的对象，不同的接口当中），有重复的操作行为，就可以将这些行为提取出来（即形成切面），进行统一管理和维护。举例子说，系统中需要在各个地方打印日志，就可以将打印日志这一操作提取出来，作为切面进行统一维护。</p>
+<p>从编程思想的关系来看，可以认为AOP和OOP（面向对象的编程）是并列关系，二者是可以替换的，也可以结合起来用。</p>
+<blockquote>
+<p>实际上，在Python语言中，是天然支持装饰器的，如下例：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def log(func):</span><br><span class="line">    def wrapper(*args, **kw):</span><br><span class="line">        print &#39;call %s():&#39; % func.__name__</span><br><span class="line">        return func(*args, **kw)</span><br><span class="line">    return wrapper</span><br><span class="line"></span><br><span class="line">@log</span><br><span class="line">def now():</span><br><span class="line">    print &#39;2016-12-04&#39;</span><br><span class="line">if  __name__&#x3D;&#x3D;&quot;__main__&quot;:</span><br><span class="line">    now()</span><br><span class="line">打印如下：</span><br><span class="line">call now():</span><br><span class="line">2016-12-04</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>log接口就是装饰器的定义，而Python的@语法部分则直接支持装饰器的使用。<br>如果要在快餐点餐系统中打印日志，该如何进行AOP改造呢？可以借助类的静态方法或者类方法来实现：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class LogManager:</span><br><span class="line">    @staticmethod</span><br><span class="line">    def log(func):</span><br><span class="line">        def wrapper(*args):</span><br><span class="line">            print &quot;Visit Func %s&quot;%func.__name__</span><br><span class="line">            return func(*args)</span><br><span class="line">        return wrapper</span><br><span class="line">在需要打印日志的地方直接@LogManager.log，即可打印出访问的日志信息。</span><br><span class="line">如，在beverage类的函数前加上@LogManager.log，场景类保持不变，则打印结果如下：</span><br><span class="line">Visit Func getName</span><br><span class="line">Name:coke</span><br><span class="line">Visit Func getPrice</span><br><span class="line">Price:4.0</span><br><span class="line">Visit Func getName</span><br><span class="line">Name:coke +ice</span><br><span class="line">Visit Func getPrice</span><br><span class="line">Price:4.3</span><br></pre></td></tr></table></figure>
+<h4 id="装饰器模式的优点和应用场景"><a href="#装饰器模式的优点和应用场景" class="headerlink" title="装饰器模式的优点和应用场景"></a>装饰器模式的优点和应用场景</h4><ol>
+<li><p>优点：</p>
+<pre><code> 1、装饰器模式是继承方式的一个替代方案，可以轻量级的扩展被装饰对象的功能；
+ 2、Python的装饰器模式是实现AOP的一种方式，便于相同操作位于不同调用位置
+     的统一管理。
+</code></pre>
+</li>
+<li><p>应用场景：</p>
+<pre><code> 1、需要扩展、增强或者减弱一个类的功能，如本例。
+</code></pre>
+</li>
+<li><p>装饰器模式的缺点</p>
+<pre><code>  1、多层装饰器的调试和维护有比较大的困难。
+</code></pre>
+</li>
+</ol>
+<h4 id="举例：展示一个人一件一件穿衣服的过程。"><a href="#举例：展示一个人一件一件穿衣服的过程。" class="headerlink" title="举例：展示一个人一件一件穿衣服的过程。"></a>举例：展示一个人一件一件穿衣服的过程。</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Person:</span><br><span class="line">    def __init__(self,tname):</span><br><span class="line">        self.name &#x3D; tname</span><br><span class="line">    def Show(self):</span><br><span class="line">       print &quot;dressed %s&quot; %(self.name)</span><br><span class="line"></span><br><span class="line">class Finery(Person):</span><br><span class="line">    componet &#x3D; None</span><br><span class="line">    def __init__(self):</span><br><span class="line">        pass</span><br><span class="line">    def Decorate(self,ct):</span><br><span class="line">        self.componet &#x3D; ct</span><br><span class="line">    def Show(self):</span><br><span class="line">    if(self.componet!&#x3D;None):</span><br><span class="line">        self.componet.Show()</span><br><span class="line"></span><br><span class="line">class TShirts(Finery):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        pass</span><br><span class="line">    def Show(self):</span><br><span class="line">        print &quot;Big T-shirt &quot;</span><br><span class="line">        self.componet.Show()</span><br><span class="line"></span><br><span class="line">class BigTrouser(Finery):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        pass</span><br><span class="line">    def Show(self):</span><br><span class="line">        print &quot;Big Trouser &quot;</span><br><span class="line">        self.componet.Show()</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &quot;__main__&quot;:</span><br><span class="line">    p &#x3D; Person(&quot;somebody&quot;)</span><br><span class="line">    bt &#x3D; BigTrouser()</span><br><span class="line">    ts &#x3D; TShirts()</span><br><span class="line">    bt.Decorate(p)</span><br><span class="line">    ts.Decorate(bt)</span><br><span class="line">    ts.Show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>python扩展</category>
+      </categories>
+      <tags>
+        <tag>python设计模式</tag>
       </tags>
   </entry>
   <entry>

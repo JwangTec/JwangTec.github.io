@@ -222,7 +222,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-08 17:19:44" itemprop="dateModified" datetime="2021-04-08T17:19:44+08:00">2021-04-08</time>
+                <time title="修改时间：2021-04-08 17:27:33" itemprop="dateModified" datetime="2021-04-08T17:27:33+08:00">2021-04-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -273,735 +273,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="从数据结构到Java常用集合"><a href="#从数据结构到Java常用集合" class="headerlink" title="从数据结构到Java常用集合"></a>从数据结构到Java常用集合</h1><p>​    常用的数据结构可根据数据访问的特点分为<strong>线性结构</strong>和<strong>非线性结构</strong>。线性结构包括常见的链表、栈、队列等，非线性结构包括<strong>树</strong>、<strong>图</strong>等。数据结构种类繁多，本篇内容将通过图解的方式对常用的数据结构以及在java中的实现进行介绍</p>
-<p><strong>数据结构组织图</strong></p>
-<p><img data-src="https://img-blog.csdnimg.cn/20200526095818285.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JlZXdvcmtzaG9w,size_16,color_FFFFFF,t_70" alt="å¨è¿éæå¥å¾çæè¿°"> </p>
-<p><strong>Java集合组织图</strong></p>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/999804-20170918091025493-1734810124.png" alt="img"> </p>
-<h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><p>​    数组可以说是最基本最常见的数据结构。数组一般用来存储相同类型的数据，可通过数组名和下标进行数据的访问和更新。数组中元素的存储是按照先后顺序进行的，同时，在内存中也是按照这个顺序进行连续存放。数组相邻元素之间的内存地址的间隔一般就是数组数据类型的大小。</p>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200811092114529.png" alt="image-20200811092114529"></p>
-<h2 id="ArrayList概述"><a href="#ArrayList概述" class="headerlink" title="ArrayList概述"></a>ArrayList概述</h2><ul>
-<li><p>ArrayList是可以动态增长和缩减的索引序列，它<strong>是基于数组实现</strong>的List类。</p>
-</li>
-<li><p>该类封装了一个动态再分配的Object[]数组，每一个类对象都有一个capacity属性，表示它们所封装的Object[]数组的长度，当向ArrayList中添加元素时，该属性值会自动增加。</p>
-</li>
-<li><p>ArrayList的用法和Vector向类似，但是Vector是一个较老的集合，具有很多缺点，不建议使用。</p>
-</li>
-<li><p>另外，ArrayList和Vector的区别是：ArrayList是线程不安全的，当多条线程访问同一个ArrayList集合时，程序需要手动保证该集合的同步性，而Vector则是线程安全的。</p>
-</li>
-<li><p>ArrayList和Collection的关系：</p>
-</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/999804-20171018145151287-1709338098.png" alt="img"></p>
-<h2 id="ArrayList的数据结构"><a href="#ArrayList的数据结构" class="headerlink" title="ArrayList的数据结构"></a>ArrayList的数据结构</h2><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/999804-20171018145259474-886553593.png" alt="img"></p>
-<ul>
-<li>底层的数据结构就是数组，数组元素类型为Object类型，即可以存放所有类型数据。我们对ArrayList类的实例的所有的操作底层都是基于数组的。</li>
-</ul>
-<h2 id="ArrayList源码分析"><a href="#ArrayList源码分析" class="headerlink" title="ArrayList源码分析"></a>ArrayList源码分析</h2><h3 id="继承结构和层次关系"><a href="#继承结构和层次关系" class="headerlink" title="继承结构和层次关系"></a>继承结构和层次关系</h3><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/999804-20171018145449709-655616177.png" alt="img"></p>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/999804-20171018145519068-1615466435.png" alt="img"></p>
-<ul>
-<li><p>为什么要先继承AbstractList，而让AbstractList先实现List<E>？而不是让ArrayList直接实现List<E>？</E></E></p>
-<ul>
-<li>这里是有一个思想，接口中全都是抽象的方法，而抽象类中可以有抽象方法，还可以有具体的实现方法，正是利用了这一点，让AbstractList实现接口中一些通用的方法，而具体的类，如ArrayList就继承这个AbstractList类，拿到一些通用的方法，然后自己在实现一些自己特有的方法，这样一来，让代码更简洁，就继承结构最底层的类中通用的方法都抽取出来，先一起实现了，减少重复代码。所以一般看到一个类上面还有一个抽象类，应该就是这个作用。</li>
-</ul>
-</li>
-</ul>
-<h3 id="类中的属性"><a href="#类中的属性" class="headerlink" title="类中的属性"></a>类中的属性</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayList</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractList</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">        <span class="keyword">implements</span> <span class="title">List</span>&lt;<span class="title">E</span>&gt;, <span class="title">RandomAccess</span>, <span class="title">Cloneable</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="comment">// 版本号</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">8683452581122892189L</span>;</span><br><span class="line">    <span class="comment">// 缺省容量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_CAPACITY = <span class="number">10</span>;</span><br><span class="line">    <span class="comment">// 空对象数组</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object[] EMPTY_ELEMENTDATA = &#123;&#125;;</span><br><span class="line">    <span class="comment">// 缺省空对象数组</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = &#123;&#125;;</span><br><span class="line">    <span class="comment">// 元素数组</span></span><br><span class="line">    <span class="keyword">transient</span> Object[] elementData;</span><br><span class="line">    <span class="comment">// 实际元素大小，默认为0</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> size;</span><br><span class="line">    <span class="comment">// 最大数组容量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAX_ARRAY_SIZE = Integer.MAX_VALUE - <span class="number">8</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h3><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/999804-20171018150642912-329826692.png" alt="img"></p>
-<h4 id="无参构造方法"><a href="#无参构造方法" class="headerlink" title="无参构造方法"></a>无参构造方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">*Constructs an empty list with an initial capacity of ten.　　</span></span><br><span class="line"><span class="comment">*这里就说明了默认会给10的大小，所以说一开始arrayList的容量是10.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">//ArrayList中储存数据的其实就是一个数组，这个数组就是elementData，</span></span><br><span class="line"><span class="comment">//在123行定义的 private transient Object[] elementData;</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ArrayList</span><span class="params">()</span> </span>&#123;　　</span><br><span class="line">    <span class="keyword">super</span>();        </span><br><span class="line">    <span class="comment">//调用父类中的无参构造方法，父类中的是个空的构造方法</span></span><br><span class="line">    <span class="keyword">this</span>.elementData = EMPTY_ELEMENTDATA;</span><br><span class="line">    <span class="comment">//EMPTY_ELEMENTDATA：是个空的Object[]， 将elementData初始化，</span></span><br><span class="line">    	 <span class="comment">//elementData也是个Object[]类型。空的Object[]会给默认大小10</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h4 id="有参构造函数一"><a href="#有参构造函数一" class="headerlink" title="有参构造函数一"></a>有参构造函数一</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ArrayList</span><span class="params">(<span class="keyword">int</span> initialCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(); <span class="comment">//父类中空的构造方法</span></span><br><span class="line">    <span class="keyword">if</span> (initialCapacity &lt; <span class="number">0</span>)    </span><br><span class="line">    <span class="comment">//判断如果自定义大小的容量小于0，则报下面这个非法数据异常</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;Illegal Capacity: &quot;</span>+</span><br><span class="line">                                           initialCapacity);</span><br><span class="line">    <span class="keyword">this</span>.elementData = <span class="keyword">new</span> Object[initialCapacity]; </span><br><span class="line">    <span class="comment">//将自定义的容量大小当成初始化elementData的大小</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>arrayList的构造方法就做一件事情，就是初始化一下储存数据的容器，其实本质上就是一个数组，在其中就叫elementData。</li>
-</ul>
-<h3 id="核心方法"><a href="#核心方法" class="headerlink" title="核心方法"></a>核心方法</h3><h4 id="add-方法"><a href="#add-方法" class="headerlink" title="add()方法"></a>add()方法</h4><p><img data-src="https://images2017.cnblogs.com/blog/999804/201710/999804-20171018162356787-2047160796.png" alt="img"></p>
-<h5 id="boolean-add-E-；-默认直接在末尾添加元素"><a href="#boolean-add-E-；-默认直接在末尾添加元素" class="headerlink" title="boolean add(E)；//默认直接在末尾添加元素"></a>boolean add(E)；//默认直接在末尾添加元素</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 把元素添加到集合的末尾</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//确定数组容量是否足够，size是数据个数，所以+1. </span></span><br><span class="line">    ensureCapacityInternal(size + <span class="number">1</span>); </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//在数组中正确的位置上添加元素e，并size++</span></span><br><span class="line">    elementData[size++] = e;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>ensureCapacityInternal(xxx);</strong>　确定内部容量的方法　　</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//用于确定数组容量</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ensureCapacityInternal</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//判断初始化elementdata是否为一个空数组</span></span><br><span class="line">    <span class="keyword">if</span> (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//如果是，相当于是空数组没有长度，则获取“默认的容量”和“传入参数”两者之间的最大值</span></span><br><span class="line">        minCapacity = Math.max(DEFAULT_CAPACITY, minCapacity);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//确认实际的容量，判断是否需要进行扩容操作</span></span><br><span class="line">    ensureExplicitCapacity(minCapacity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>ensureExplicitCapacity(xxx)；</strong></li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//判断是否需要扩容</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ensureExplicitCapacity</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//记录修改次数</span></span><br><span class="line">    modCount++;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//如果最小大小 减 数组长度 大于0 -&gt; 进行数组扩容</span></span><br><span class="line">    <span class="keyword">if</span> (minCapacity - elementData.length &gt; <span class="number">0</span>)</span><br><span class="line">        <span class="comment">//实际进入扩容机制</span></span><br><span class="line">        grow(minCapacity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>grow(xxx); arrayList核心的方法，能扩展数组大小的真正秘密。</strong></li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* ArrayList扩容的核心方法。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">grow</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">     <span class="comment">// oldCapacity为旧容量，newCapacity为新容量</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//将扩充前的elementData大小给oldCapacity</span></span><br><span class="line">    <span class="keyword">int</span> oldCapacity = elementData.length;</span><br><span class="line">	</span><br><span class="line">    <span class="comment">//将oldCapacity 右移一位，其效果相当于oldCapacity/2</span></span><br><span class="line">    <span class="comment">//newCapacity就是1.5倍的oldCapacity</span></span><br><span class="line">    <span class="keyword">int</span> newCapacity = oldCapacity + (oldCapacity &gt;&gt; <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">     <span class="comment">//检查新容量是否大于最小需要容量，若小于最小需要容量，那么就把最小需要容量当作数组的新容量</span></span><br><span class="line">    <span class="keyword">if</span> (newCapacity - minCapacity &lt; <span class="number">0</span>)</span><br><span class="line">        newCapacity = minCapacity;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 检查新容量是否超出了ArrayList所定义的最大容量，</span></span><br><span class="line"><span class="comment">     * 若超出了，则调用hugeCapacity()来比较minCapacity和 MAX_ARRAY_SIZE，</span></span><br><span class="line"><span class="comment">     * 如果minCapacity大于MAX_ARRAY_SIZE，则新容量则为Interger.MAX_VALUE，否则，新容量大小则为 MAX_ARRAY_SIZE。</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">if</span> (newCapacity - MAX_ARRAY_SIZE &gt; <span class="number">0</span>)</span><br><span class="line">        <span class="comment">//比较minCapacity和 MAX_ARRAY_SIZE</span></span><br><span class="line">        newCapacity = hugeCapacity(minCapacity);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//新的容量大小已经确定好了，就copy数组，改变容量大小</span></span><br><span class="line">    elementData = Arrays.copyOf(elementData, newCapacity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>hugeCapacity();</strong>  </li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这个就是上面用到的方法，很简单，就是用来赋最大值。</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">hugeCapacity</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (minCapacity &lt; <span class="number">0</span>) <span class="comment">// overflow</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> OutOfMemoryError();</span><br><span class="line">    <span class="comment">//如果minCapacity都大于MAX_ARRAY_SIZE，那么就Integer.MAX_VALUE返回，反之将MAX_ARRAY_SIZE返回</span></span><br><span class="line">    <span class="keyword">return</span> (minCapacity &gt; MAX_ARRAY_SIZE) ？Integer.MAX_VALUE:MAX_ARRAY_SIZE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="void-add-int，E-；在特定位置添加元素，也就是插入元素"><a href="#void-add-int，E-；在特定位置添加元素，也就是插入元素" class="headerlink" title="void add(int，E)；在特定位置添加元素，也就是插入元素"></a>void add(int，E)；在特定位置添加元素，也就是插入元素</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 在此列表中的指定位置插入指定的元素。 </span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*先调用 rangeCheckForAdd 对index进行界限检查；然后调用 ensureCapacityInternal 方法保证capacity足够大；</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*再将从index开始之后的所有成员后移一个位置；将element插入index位置；最后size加1。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> index, E element)</span> </span>&#123;</span><br><span class="line">    rangeCheckForAdd(index);</span><br><span class="line"></span><br><span class="line">    ensureCapacityInternal(size + <span class="number">1</span>);  <span class="comment">// Increments modCount!!</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//arraycopy()方法实现数组自己复制自己</span></span><br><span class="line">    System.arraycopy(elementData, index, elementData, index + <span class="number">1</span>,size - index);</span><br><span class="line">    elementData[index] = element;</span><br><span class="line">    size++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>rangeCheckForAdd(index)　　</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">rangeCheckForAdd</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (index &gt; size || index &lt; <span class="number">0</span>)   </span><br><span class="line">    <span class="comment">//插入的位置肯定不能大于size 和小于0</span></span><br><span class="line">	 <span class="comment">//如果是，就报这个越界异常</span></span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> IndexOutOfBoundsException(outOfBoundsMsg(index));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="remove-方法"><a href="#remove-方法" class="headerlink" title="remove()方法"></a>remove()方法</h4><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/999804-20171018154558896-1270971770.png" alt="img"><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/999804-20171018154624115-1149460965.png" alt="img"></p>
-<ul>
-<li>其中fastRemove(int)方法是private的，是提供给remove(Object)这个方法用的。</li>
-</ul>
-<h5 id="remove-int-：删除指定位置上的元素"><a href="#remove-int-：删除指定位置上的元素" class="headerlink" title="remove(int)：删除指定位置上的元素"></a><strong>remove(int)：</strong>删除指定位置上的元素</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> E <span class="title">remove</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    rangeCheck(index);<span class="comment">//检查index的合理性</span></span><br><span class="line"></span><br><span class="line">    modCount++;<span class="comment">//增加修改次数</span></span><br><span class="line">    E oldValue = elementData(index);<span class="comment">//通过索引直接找到该元素</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> numMoved = size - index - <span class="number">1</span>;<span class="comment">//计算要移动的位数。</span></span><br><span class="line">    <span class="keyword">if</span> (numMoved &gt; <span class="number">0</span>)</span><br><span class="line">        <span class="comment">//用来移动元素的。</span></span><br><span class="line">        System.arraycopy(elementData, index+<span class="number">1</span>, elementData, index,</span><br><span class="line">                         numMoved);</span><br><span class="line">    <span class="comment">//将--size上的位置赋值为null，让gc(垃圾回收机制)更快的回收它。</span></span><br><span class="line">    elementData[--size] = <span class="keyword">null</span>; <span class="comment">// clear to let GC do its work</span></span><br><span class="line">    <span class="comment">//返回删除的元素。</span></span><br><span class="line">    <span class="keyword">return</span> oldValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="remove-Object-：这个方法可以看出来，arrayList是可以存放null值得。"><a href="#remove-Object-：这个方法可以看出来，arrayList是可以存放null值得。" class="headerlink" title="remove(Object)：这个方法可以看出来，arrayList是可以存放null值得。"></a><strong>remove(Object)：</strong>这个方法可以看出来，arrayList是可以存放null值得。</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//通过元素来删除该元素，就依次遍历，如果有这个元素，就将该元素的索引传给fastRemobe(index)，使用这个方法来删除该元素，</span></span><br><span class="line"><span class="comment">//fastRemove(index)方法的内部跟remove(index)的实现几乎一样，这里最主要是知道arrayList可以存储null值</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">remove</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (o == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; size; index++)</span><br><span class="line">            <span class="keyword">if</span> (elementData[index] == <span class="keyword">null</span>) &#123;</span><br><span class="line">                fastRemove(index);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> index = <span class="number">0</span>; index &lt; size; index++)</span><br><span class="line">            <span class="keyword">if</span> (o.equals(elementData[index])) &#123;</span><br><span class="line">                fastRemove(index);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200811141939777.png" alt="image-20200811141939777"></p>
-<h5 id="clear-：将elementData中每个元素都赋值为null，等待垃圾回收将这个给回收掉，所以叫clear"><a href="#clear-：将elementData中每个元素都赋值为null，等待垃圾回收将这个给回收掉，所以叫clear" class="headerlink" title="clear()：将elementData中每个元素都赋值为null，等待垃圾回收将这个给回收掉，所以叫clear"></a>clear()：<strong>将elementData中每个元素都赋值为null，等待垃圾回收将这个给回收掉，所以叫clear</strong></h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    modCount++;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// clear to let GC do its work</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++)</span><br><span class="line">        elementData[i] = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    size = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>​      </p>
-<h4 id="set-方法"><a href="#set-方法" class="headerlink" title="set()方法"></a>set()方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> E <span class="title">set</span><span class="params">(<span class="keyword">int</span> index, E element)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 检验索引是否合法</span></span><br><span class="line">    rangeCheck(index);</span><br><span class="line">    <span class="comment">// 旧值</span></span><br><span class="line">    E oldValue = elementData(index);</span><br><span class="line">    <span class="comment">// 赋新值</span></span><br><span class="line">    elementData[index] = element;</span><br><span class="line">    <span class="comment">// 返回旧值</span></span><br><span class="line">    <span class="keyword">return</span> oldValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>设定指定下标索引的元素值</li>
-</ul>
-<h4 id="indexOf-方法"><a href="#indexOf-方法" class="headerlink" title="indexOf()方法"></a>indexOf()方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从首开始查找数组里面是否存在指定元素</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">indexOf</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (o == <span class="keyword">null</span>) &#123; <span class="comment">// 查找的元素为空</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) </span><br><span class="line">        <span class="comment">// 遍历数组，找到第一个为空的元素，返回下标</span></span><br><span class="line">            <span class="keyword">if</span> (elementData[i]==<span class="keyword">null</span>)</span><br><span class="line">                <span class="keyword">return</span> i;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; <span class="comment">// 查找的元素不为空</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) </span><br><span class="line">        <span class="comment">// 遍历数组，找到第一个和指定元素相等的元素，返回下标</span></span><br><span class="line">            <span class="keyword">if</span> (o.equals(elementData[i]))</span><br><span class="line">                <span class="keyword">return</span> i;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="comment">// 没有找到，返回空</span></span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>从头开始查找与指定元素相等的元素，注意，是可以查找null元素的，意味着ArrayList中可以存放null元素的。与此函数对应的lastIndexOf，表示从尾部开始查找。</li>
-</ul>
-<h4 id="get-方法"><a href="#get-方法" class="headerlink" title="get()方法"></a>get()方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> E <span class="title">get</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 检验索引是否合法</span></span><br><span class="line">    rangeCheck(index);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> elementData(index);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>get函数会检查索引值是否合法（只检查是否大于size，而没有检查是否小于0），值得注意的是，在get函数中存在element函数，element函数用于返回具体的元素，具体函数如下：</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">E <span class="title">elementData</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (E) elementData[index];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>返回的值都经过了向下转型（Object -&gt; E），这些是对我们应用程序屏蔽的小细节。</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
-<li>arrayList可以存放null。</li>
-<li>arrayList本质上就是一个elementData数组。</li>
-<li>arrayList区别于数组的地方在于能够自动扩展大小，其中关键的方法就是grow()方法。</li>
-<li>arrayList中removeAll(collection c)和clear()的区别就是removeAll可以删除批量指定的元素，而clear是全删除集合中的元素。</li>
-<li>arrayList由于本质是数组，所以它在数据的查询方面会很快，而在插入删除这些方面，性能下降很多，有移动很多数据才能达到应有的效果</li>
-<li>arrayList实现了RandomAccess，所以在遍历它的时候推荐使用for循环。</li>
-</ul>
-<h1 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h1><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200811143924271.png" alt="image-20200811143924271"></p>
-<h2 id="链表类型"><a href="#链表类型" class="headerlink" title="链表类型"></a><strong>链表类型</strong></h2><h3 id="单向链表："><a href="#单向链表：" class="headerlink" title="单向链表："></a>单向链表：</h3><ul>
-<li><p>element：用来存放元素</p>
-</li>
-<li><p>next：用来指向下一个节点元素</p>
-</li>
-<li><p>通过每个结点的指针指向下一个结点从而链接起来的结构，最后一个节点的next指向null。</p>
-</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/999804-20171018163705615-546509635.png" alt="img"></p>
-<h3 id="单向循环链表"><a href="#单向循环链表" class="headerlink" title="单向循环链表"></a>单向循环链表</h3><ul>
-<li><p>element、next 跟前面一样</p>
-</li>
-<li><p>在单向链表的最后一个节点的next会指向头节点，而不是指向null，这样存成一个环</p>
-</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/999804-20171018163849318-946854643.png" alt="img"></p>
-<h3 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h3><ul>
-<li><p>element：存放元素</p>
-</li>
-<li><p>pre：用来指向前一个元素</p>
-</li>
-<li><p>next：指向后一个元素</p>
-</li>
-<li><p>双向链表是包含两个指针的，pre指向前一个节点，next指向后一个节点，但是第一个节点head的pre指向null，最后一个节点的tail指向null。</p>
-</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/999804-20171018164025990-1035906814.png" alt="img"></p>
-<h3 id="双向循环链表"><a href="#双向循环链表" class="headerlink" title="双向循环链表"></a>双向循环链表</h3><ul>
-<li><p>element、pre、next 跟前面的一样</p>
-</li>
-<li><p>第一个节点的pre指向最后一个节点，最后一个节点的next指向第一个节点，也形成一个“环”。</p>
-</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/999804-20171018164246521-25397602.png" alt="img"></p>
-<h3 id="链表和数组对比"><a href="#链表和数组对比" class="headerlink" title="链表和数组对比"></a><strong>链表和数组对比</strong></h3><ul>
-<li>单链表和数组的区别进行了对比和总结。</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>数组</th>
-<th>链表</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>内存地址</td>
-<td>连续的内存空间</td>
-<td>非连续的内存空间</td>
-</tr>
-<tr>
-<td>数据长度</td>
-<td>长度固定，一般不可动态扩容</td>
-<td>长度可动态变化</td>
-</tr>
-<tr>
-<td>增删效率</td>
-<td>低，需要移动被修改元素之后的所有元素</td>
-<td>高，只需要修改指针指向</td>
-</tr>
-<tr>
-<td>查询效率</td>
-<td>高，可用过数组名和下标直接访问</td>
-<td>低，只能通过遍历节点依次查询</td>
-</tr>
-<tr>
-<td>数据访问方式</td>
-<td>随机访问</td>
-<td>顺序访问</td>
-</tr>
-</tbody></table>
-<h2 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h2><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/999804-20171018185451506-2136799134.png" alt="img"></p>
-<ul>
-<li>是一种可以在任何位置进行高效地插入和移除操作的<strong>有序序列</strong>，它是基于<strong>双向链表</strong>实现的。</li>
-<li>是一个继承于AbstractSequentialList的双向链表。它也可以被当作堆栈、队列或双端队列进行操作。</li>
-<li>实现 List 接口，能对它进行队列操作。</li>
-<li>实现 Deque 接口，即能将LinkedList当作双端队列使用。</li>
-<li>实现了Cloneable接口，即覆盖了函数clone()，能克隆。</li>
-<li>实现java.io.Serializable接口，这意味着LinkedList支持序列化，能通过序列化去传输。</li>
-<li>是非同步，线程不安全的。</li>
-</ul>
-<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/999804-20171018164511396-1020210450.png" alt="img"></p>
-<ul>
-<li>如上图所示，LinkedList底层使用的双向链表结构，有一个头结点和一个尾结点，双向链表意味着我们可以从头开始正向遍历，或者是从尾开始逆向遍历，并且可以针对头部和尾部进行相应的操作。</li>
-</ul>
-<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul>
-<li>异步，也就是非线程安全</li>
-<li>双向链表。由于实现了list和Deque接口，能够当作队列来使用。<ul>
-<li>链表：查询效率不高，但是插入和删除这种操作性能好。</li>
-</ul>
-</li>
-<li>是顺序存取结构</li>
-</ul>
-<h3 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h3><h4 id="类的属性"><a href="#类的属性" class="headerlink" title="类的属性"></a>类的属性</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 实际元素个数，链表长度</span></span><br><span class="line"><span class="keyword">transient</span> <span class="keyword">int</span> size = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 头结点</span></span><br><span class="line"><span class="keyword">transient</span> Node&lt;E&gt; first;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 尾结点</span></span><br><span class="line"><span class="keyword">transient</span> Node&lt;E&gt; last;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>LinkedList的属性非常简单，一个头结点、一个尾结点、一个表示链表中实际元素个数的变量。</li>
-</ul>
-<h4 id="构造方法-1"><a href="#构造方法-1" class="headerlink" title="构造方法"></a>构造方法</h4><ul>
-<li>空参构造函数</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">LinkedList</span><span class="params">()</span> </span>&#123; &#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>有参构造函数</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将集合c中的各个元素构建成LinkedList链表。</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">LinkedList</span><span class="params">(Collection&lt;? extends E&gt; c)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 调用无参构造函数</span></span><br><span class="line">    <span class="keyword">this</span>();</span><br><span class="line">    <span class="comment">// 添加集合中所有的元素</span></span><br><span class="line">    addAll(c);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="内部类（Node）"><a href="#内部类（Node）" class="headerlink" title="内部类（Node）"></a>内部类（Node）</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">    E item; <span class="comment">// 数据域（当前节点的值）</span></span><br><span class="line">    Node&lt;E&gt; next; <span class="comment">// 后继（指向当前一个节点的后一个节点）</span></span><br><span class="line">    Node&lt;E&gt; prev; <span class="comment">// 前驱（指向当前节点的前一个节点）</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构造函数，赋值前驱后继</span></span><br><span class="line">    Node(Node&lt;E&gt; prev, E element, Node&lt;E&gt; next) &#123;</span><br><span class="line">        <span class="keyword">this</span>.item = element;</span><br><span class="line">        <span class="keyword">this</span>.next = next;</span><br><span class="line">        <span class="keyword">this</span>.prev = prev;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>内部类Node就是实际的结点，用于存放实际元素的地方。　　　　　</li>
-</ul>
-<h4 id="add-方法-1"><a href="#add-方法-1" class="headerlink" title="add()方法"></a>add()方法</h4><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/999804-20171018180421865-139109156.png" alt="img"></p>
-<ul>
-<li>add(E)</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 添加到末尾</span></span><br><span class="line">    linkLast(e);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>LinkLast()</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Links e as last element.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">linkLast</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> Node&lt;E&gt; l = last;    </span><br><span class="line">    <span class="comment">//临时节点l(L的小写)保存last，也就是l指向了最后一个节点</span></span><br><span class="line">    <span class="keyword">final</span> Node&lt;E&gt; newNode = <span class="keyword">new</span> Node&lt;&gt;(l, e, <span class="keyword">null</span>);</span><br><span class="line">    <span class="comment">//将e封装为节点，并且e.prev指向了最后一个节点</span></span><br><span class="line">    last = newNode;</span><br><span class="line">    <span class="comment">//newNode成为了最后一个节点，所以last指向了它</span></span><br><span class="line">    <span class="keyword">if</span> (l == <span class="keyword">null</span>)    </span><br><span class="line">    <span class="comment">//判断是不是一开始链表中就什么都没有，如果没有，则newNode就成为了第一个节点，first和last都要指向它</span></span><br><span class="line">        first = newNode;</span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">    <span class="comment">//正常的在最后一个节点后追加，那么原先的最后一个节点的next就要指向现在真正的最后一个节点，原先的最后一个节点就变成了倒数第二个节点</span></span><br><span class="line">        l.next = newNode;</span><br><span class="line">    size++;<span class="comment">//添加一个节点，size自增</span></span><br><span class="line">    modCount++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>举例：</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; lists = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</span><br><span class="line">lists.add(<span class="string">&quot;e1&quot;</span>);</span><br><span class="line">lists.add(<span class="string">&quot;e2&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>一开始，first和last都为null，此时链表什么都没有，当第一次调用该方法后，first和last均指向了第一个新加的节点E1：</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200811160819443.png" alt="image-20200811160819443"></p>
-<ul>
-<li>第二次调用该方法，加入新节点E2。首先，将last引用赋值给l，接着new了一个新节点E2，并且E2的prve指向l，接着将新节点E2赋值为last</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200811161146898.png" alt="image-20200811161146898"></p>
-<ul>
-<li>接着判断l==null? 所以走的else语句，将l的next引用指向新节点E2</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200811161204522.png" alt="image-20200811161204522"></p>
-<ul>
-<li>最后，size+1，modCount+1，退出该方法，局部变量l销毁</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200811161244413.png" alt="image-20200811161244413"></p>
-<h5 id="remove-Object-o"><a href="#remove-Object-o" class="headerlink" title="remove(Object o)"></a>remove(Object o)</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//首先通过看上面的注释，我们可以知道，如果我们要移除的值在链表中存在多个一样的值</span></span><br><span class="line"><span class="comment">//那么我们会移除index最小的那个，也就是最先找到的那个值，如果不存在这个值，那么什么也不做</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">remove</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//这里可以看到，linkedList也能存储null</span></span><br><span class="line">    <span class="keyword">if</span> (o == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">//循环遍历链表，直到找到null值，然后使用unlink移除该值。下面的这个else中也一样</span></span><br><span class="line">        <span class="keyword">for</span> (Node&lt;E&gt; x = first; x != <span class="keyword">null</span>; x = x.next) &#123;</span><br><span class="line">            <span class="keyword">if</span> (x.item == <span class="keyword">null</span>) &#123;</span><br><span class="line">                unlink(x);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (Node&lt;E&gt; x = first; x != <span class="keyword">null</span>; x = x.next) &#123;</span><br><span class="line">            <span class="keyword">if</span> (o.equals(x.item)) &#123;</span><br><span class="line">                unlink(x);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>unlink(xxxx)</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Unlinks non-null node x.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">//不能传一个null值过，注意，看之前要注意之前的next、prev这些都是谁。</span></span><br><span class="line"><span class="function">E <span class="title">unlink</span><span class="params">(Node&lt;E&gt; x)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// assert x != null;</span></span><br><span class="line"><span class="comment">//拿到节点x的三个属性</span></span><br><span class="line">    <span class="keyword">final</span> E element = x.item;</span><br><span class="line">    <span class="keyword">final</span> Node&lt;E&gt; next = x.next;</span><br><span class="line">    <span class="keyword">final</span> Node&lt;E&gt; prev = x.prev;</span><br><span class="line"></span><br><span class="line"><span class="comment">//这里开始往下就进行移除该元素之后的操作，也就是把指向哪个节点搞定。</span></span><br><span class="line">    <span class="keyword">if</span> (prev == <span class="keyword">null</span>) &#123;</span><br><span class="line"><span class="comment">//说明移除的节点是头节点，则first头节点应该指向下一个节点</span></span><br><span class="line">        first = next;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"><span class="comment">//不是头节点，prev.next=next：有1、2、3，将1.next指向3</span></span><br><span class="line">        prev.next = next;</span><br><span class="line"><span class="comment">//然后解除x节点的前指向。</span></span><br><span class="line">        x.prev = <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (next == <span class="keyword">null</span>) &#123;</span><br><span class="line"><span class="comment">//说明移除的节点是尾节点</span></span><br><span class="line">        last = prev;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"><span class="comment">//不是尾节点，有1、2、3，将3.prev指向1. 然后将2.next=解除指向。</span></span><br><span class="line">        next.prev = prev;</span><br><span class="line">        x.next = <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//x的前后指向都为null了，也把item为null，让gc回收它</span></span><br><span class="line">    x.item = <span class="keyword">null</span>;</span><br><span class="line">    size--;    <span class="comment">//移除一个节点，size自减</span></span><br><span class="line">    modCount++;</span><br><span class="line">    <span class="keyword">return</span> element;    <span class="comment">//由于一开始已经保存了x的值到element，所以返回。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="get-index"><a href="#get-index" class="headerlink" title="get(index)"></a>get(index)</h5><ul>
-<li>get(index)查询元素的方法</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这里没有什么，重点还是在node(index)中</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> E <span class="title">get</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    checkElementIndex(index);</span><br><span class="line">    <span class="keyword">return</span> node(index).item;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>node(index)</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns the (non-null) Node at the specified element index.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">//这里查询使用的是先从中间分一半查找</span></span><br><span class="line"><span class="function">Node&lt;E&gt; <span class="title">node</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">     <span class="comment">// assert isElementIndex(index);</span></span><br><span class="line">     <span class="comment">//这个if中就是查询前半部分</span></span><br><span class="line">     <span class="keyword">if</span> (index &lt; (size &gt;&gt; <span class="number">1</span>)) &#123;</span><br><span class="line">        Node&lt;E&gt; x = first;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; index; i++)</span><br><span class="line">            x = x.next;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">//前半部分没找到，所以找后半部分</span></span><br><span class="line">        Node&lt;E&gt; x = last;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = size - <span class="number">1</span>; i &gt; index; i--)</span><br><span class="line">            x = x.prev;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="indexOf-Object-o"><a href="#indexOf-Object-o" class="headerlink" title="indexOf(Object o)"></a>indexOf(Object o)</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这个很简单，就是通过实体元素来查找到该元素在链表中的位置。跟remove中的代码类似，只是返回类型不一样。</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">indexOf</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (o == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (Node&lt;E&gt; x = first; x != <span class="keyword">null</span>; x = x.next) &#123;</span><br><span class="line">            <span class="keyword">if</span> (x.item == <span class="keyword">null</span>)</span><br><span class="line">                <span class="keyword">return</span> index;</span><br><span class="line">            index++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (Node&lt;E&gt; x = first; x != <span class="keyword">null</span>; x = x.next) &#123;</span><br><span class="line">            <span class="keyword">if</span> (o.equals(x.item))</span><br><span class="line">                <span class="keyword">return</span> index;</span><br><span class="line">            index++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h2><ul>
-<li>linkedList本质上是一个<strong>双向链表</strong>，通过一个Node内部类实现的这种链表结构。</li>
-<li>能存储null值</li>
-<li>跟arrayList相比较，就真正的知道了，LinkedList在删除和增加等操作上性能好，而ArrayList在查询的性能上好</li>
-<li>从源码中看，它不存在容量不足的情况</li>
-<li>linkedList不光能够向前迭代，还能像后迭代，并且在迭代的过程中，可以修改值、添加值、还能移除值。</li>
-<li>linkedList不光能当链表，还能当队列使用，这个就是因为实现了Deque接口。</li>
-</ul>
-<h1 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ul>
-<li><p>栈是一种比较简单的数据结构，常用一句话描述其特性，<strong>先进后出</strong>。栈本身是一个线性表，但是在这个表中只有一个口子允许数据的进出</p>
-</li>
-<li><p>栈的常用操作包括<strong>入栈push</strong>和<strong>出栈pop</strong>，对应于数据的压入和压出。还有访问栈顶数据、判断栈是否为空和判断栈的大小等。由于栈后进先出的特性，常可以作为数据操作的临时容器，对数据的顺序进行调控，与其它数据结构相结合可获得许多灵活的处理。</p>
-</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/20200526101351156.gif" alt="在这里插入图片描述"></p>
-<h2 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h2><ul>
-<li>Stack是栈。它的特性是：先进后出(FILO, First In Last Out)。java工具包中的Stack是继承于Vector(矢量队列)的，由于Vector是通过数组实现的，这就意味着，Stack也是通过数组实现的，而非链表。当然，我们也可以将LinkedList当作栈来使用。Stack的继承关系</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200620035809710.png" alt="image-20200620035809710"></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> java.util;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Stack</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">Vector</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1224463164541339165L</span>;</span><br><span class="line"><span class="comment">// 构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Stack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// push函数：将元素存入栈顶</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> E <span class="title">push</span><span class="params">(E item)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 将元素存入栈顶。</span></span><br><span class="line">    <span class="comment">// addElement()的实现在Vector.java中</span></span><br><span class="line">    addElement(item);</span><br><span class="line">    <span class="keyword">return</span> item;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// pop函数：返回栈顶元素，并将其从栈中删除</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> E <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    E   obj;</span><br><span class="line">    <span class="keyword">int</span>  len = size();</span><br><span class="line">    obj = peek();</span><br><span class="line">    <span class="comment">// 删除栈顶元素，removeElementAt()的实现在Vector.java中</span></span><br><span class="line">    removeElementAt(len - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// peek函数：返回栈顶元素，不执行删除操作</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> E <span class="title">peek</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span>  len = size();</span><br><span class="line">    <span class="keyword">if</span> (len == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> EmptyStackException();</span><br><span class="line">    <span class="comment">// 返回栈顶元素，elementAt()具体实现在Vector.java中</span></span><br><span class="line">    <span class="keyword">return</span> elementAt(len - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 栈是否为空</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">empty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> size() == <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查找“元素o”在栈中的位置：由栈底向栈顶方向数</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">search</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 获取元素索引，elementAt()具体实现在Vector.java中</span></span><br><span class="line">    <span class="keyword">int</span> i = lastIndexOf(o);</span><br><span class="line">    <span class="keyword">if</span> (i &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> size() - i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h1><ul>
-<li>队列是栈的兄弟结构，与栈的后进先出相对应，队列是一种先进先出的数据结构。顾名思义，队列的数据存储是如同排队一般，先存入的数据先被压出。常与栈一同配合，可发挥最大的实力。</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/20200526101424265.gif" alt="在这里插入图片描述"></p>
-<h1 id="树"><a href="#树" class="headerlink" title="树"></a>树</h1><h2 id="树的基本概念"><a href="#树的基本概念" class="headerlink" title="树的基本概念"></a>树的基本概念</h2><ul>
-<li><p>树是数据结构中非常重要的一个存在。在Java中对树进行了大量的使用，如TreeMap、HashMap等。并且如MySQL、MongoDB也都使用到了树。</p>
-</li>
-<li><p>树是由N个节点组成的，每个节点中都会进行数据的存储。当N=0时，被称为空树。在任何一颗树中，有且只有一个根节点，在根节点下可以继续进行扩展，形成互不相交的集合。其中每个集合本身又可以理解为是一颗树，他们则被称为子树。</p>
-</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200811181101295.png" alt="image-20200811181101295"></p>
-<table>
-<thead>
-<tr>
-<th>节点</th>
-<th>树中的元素</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>节点的度</td>
-<td>节点拥有子树的个数，二叉树的度不能大于2</td>
-</tr>
-<tr>
-<td>高度</td>
-<td>叶子节点的高度为1，叶子节点的父节点高度为2，依次类推。</td>
-</tr>
-<tr>
-<td>根节点</td>
-<td>树的顶部节点。</td>
-</tr>
-<tr>
-<td>子节点</td>
-<td>父节点的下层节点。</td>
-</tr>
-<tr>
-<td>叶子节点</td>
-<td>没有子节点的节点，也被称为终端节点、度为0的节点。</td>
-</tr>
-</tbody></table>
-<ul>
-<li>树的种类也非常的多：二叉树、平衡二叉树、红黑树、B树、B+树、哈夫曼树、B*树等等。</li>
-</ul>
-<h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><ul>
-<li>二叉树的特点是树的每个节点最多只能有两个子节点。其中一棵树叫做根的左子树，另一颗叫根的右子树。</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200811190601991.png" alt="image-20200811190601991"></p>
-<ul>
-<li>如果节点数量超过两个，则不能叫做二叉树，而叫做多路树。</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200811190425678.png" alt="image-20200811190425678"></p>
-<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
-<li>每个节点最多有两颗子树，所以二叉树中不存在度(该结点孩子的个数)大于2的节点。</li>
-<li>左子树和右子树是有顺序的。</li>
-<li>即使树中某节点只有一颗子树， 也要区分它是左子树还是右子树。</li>
-</ul>
-<h3 id="特殊的二叉树"><a href="#特殊的二叉树" class="headerlink" title="特殊的二叉树"></a>特殊的二叉树</h3><h4 id="满二叉树"><a href="#满二叉树" class="headerlink" title="满二叉树"></a>满二叉树</h4><ul>
-<li><p>在一棵二叉树中。如果所有分支结点都存在<strong>左子树和右子树</strong>，并且<strong>所有叶子都在同一层上</strong>，这样的二叉树称为满二叉树。其特点如下：</p>
-<ul>
-<li>假设深度为k，且含有2^k-1个结点的树。</li>
-<li>叶子只能出现在最下一层。出现在其它层就不可能达成平衡。</li>
-<li>非叶子结点的度一定是2。</li>
-<li>在同样深度的二叉树中，满二叉树的结点个数最多，叶子数最多。</li>
-</ul>
-</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200811192235886.png" alt="image-20200811192235886"></p>
-<h4 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h4><ul>
-<li><p>完全二叉树是一颗特殊的二叉树。假设一个二叉树的高度为h，如果说它是一颗完全二叉树的话，需要满足以下规则：</p>
-<ul>
-<li>叶子结点只能出现在最下层和次下层。</li>
-<li>最下层的叶子结点集中在树的左部。</li>
-<li>倒数第二层若存在叶子结点，一定在右部连续位置。</li>
-<li>如果结点度为1，则该结点只有左孩子，即没有右子树。</li>
-</ul>
-</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200811193944229.png" alt="image-20200811193944229"></p>
-<h4 id="斜树"><a href="#斜树" class="headerlink" title="斜树"></a>斜树</h4><ul>
-<li>所有的节点都之后左子树的二叉树叫做左斜树，同理还存在右斜树。一旦产生这种情况，相当于树结构退化为了链表，查找一个节点的时间复杂度为O(n)，查询效率严重降低。</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200811230829771.png" alt="image-20200811230829771"></p>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200811230952490.png" alt="image-20200811230952490"></p>
-<h3 id="存储结构"><a href="#存储结构" class="headerlink" title="存储结构"></a>存储结构</h3><ul>
-<li>二叉树的顺序存储结构就是使用一维数组存储二叉树中的结点，并且结点的存储位置，就是数组的下标索引。</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200811232239278.png" alt="image-20200811232239278"></p>
-<ul>
-<li>当二叉树为完全二叉树时，结点数刚好填满数组。</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200811232514640.png" alt="image-20200811232514640"></p>
-<ul>
-<li>当不为完全二叉树时，采用顺序存储又是什么样子呢？</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200811232851079.png" alt="image-20200811232851079"></p>
-<ul>
-<li>其中，∧表示数组中此位置没有存储结点。此时可以发现，顺序存储结构中已经出现了空间浪费的情况。</li>
-</ul>
-<p>在极端的右斜树极端情况对应的顺序存储结构。</p>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200811233033805.png" alt="image-20200811233033805"></p>
-<ul>
-<li>可以看出，对于这种右斜树极端情况，采用顺序存储的方式是十分浪费空间的。因此，顺序存储一般适用于完全二叉树。</li>
-</ul>
-<h3 id="二叉树遍历"><a href="#二叉树遍历" class="headerlink" title="二叉树遍历"></a>二叉树遍历</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p><strong>二叉树的遍历</strong>是指从二叉树的根结点出发，按照某种次序依次访问二叉树中的所有结点，使得每个结点被访问一次，且仅被访问一次。<br>二叉树的访问次序可以分为四种：</p>
-<ul>
-<li>前序遍历</li>
-<li>中序遍历</li>
-<li>后序遍历</li>
-<li>层序遍历</li>
-</ul>
-<h4 id="前序遍历"><a href="#前序遍历" class="headerlink" title="前序遍历"></a>前序遍历</h4><ul>
-<li>从根结点出发，当<strong>第一次</strong>到达结点时就输出结点数据，按照<strong>先向左再向右的方向</strong>访问。简单理解就是：父节点-&gt;左子树-&gt;右子树</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200811235242745.png" alt="image-20200811235242745"></p>
-<h4 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h4><ul>
-<li>从根结点出发，当<strong>第二次到达结点</strong>时则输出结点数据，按照先向左再向右的方向访问。简单理解就是：左子树-&gt;父节点-&gt;右子树</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812000716284.png" alt="image-20200812000716284"></p>
-<ul>
-<li><p>流程如下：</p>
-<ul>
-<li>从根节点触发，则第一次到达结点A，不输出A，继续向左访问，第一次到达结点B，不输出B，继续到达D、H，都不进行输出。</li>
-<li>到达H，H左子树为空，则返回到H，此时是第二次访问H，则输出H。</li>
-</ul>
-</li>
-</ul>
-<h4 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h4><p>​    从根结点出发，当第三次到达结点时则输出输出，按照先向左后向右的方式访问。简单理解就是：左子树 -&gt; 右子树 -&gt;父节点</p>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812001640297.png" alt="image-20200812001640297"></p>
-<h4 id="层次遍历"><a href="#层次遍历" class="headerlink" title="层次遍历"></a>层次遍历</h4><ul>
-<li>按照树的层次自上而下的遍历二叉树。最终结果为：<strong>ABCDEFGHIJ</strong></li>
-</ul>
-<h2 id="二叉搜索树"><a href="#二叉搜索树" class="headerlink" title="二叉搜索树"></a>二叉搜索树</h2><h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><ul>
-<li><p>二叉搜索树，也被称为二叉查找树、二叉排序树。对于基础二叉树来说，数据查找、数据变动的效率都是非常低效的。因此才产生了二叉搜索树。</p>
-</li>
-<li><p>其定义规则如下：</p>
-<ul>
-<li>若左子树不为空，则左子树上的各个结点的值，均<strong>小于</strong>它的父节点的值。</li>
-<li>若右子树不为空，则右子树上的各个结点的值，均<strong>大于</strong>它的父节点的值。</li>
-<li>没有值相等的结点。</li>
-<li>左右子树也分别为二叉搜索树。</li>
-<li>不一定是一颗完全二叉树，因此，二叉搜索树不能用数组来存储。</li>
-</ul>
-</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812004718795.png" alt="image-20200812004718795"></p>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812004836213.png" alt="image-20200812004836213"></p>
-<h3 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h3><ul>
-<li><p>流程：</p>
-<ul>
-<li>（1）如果树是空的，则查找结束，无匹配。</li>
-<li>（2）如果被查找的值和节点的值相等，查找成功。</li>
-<li>（3）如果被查找的值小于节点的值，递归查找左子树。</li>
-<li>（4）如果被查找的值大于节点的值，递归查找右子树。</li>
-</ul>
-</li>
-</ul>
-<h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><ul>
-<li>图解：</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812005834866.png" alt="image-20200812005834866"></p>
-<hr>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812005900285.png" alt="image-20200812005900285"></p>
-<hr>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812005932267.png" alt="image-20200812005932267"></p>
-<hr>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812010233539.png" alt="image-20200812010233539"></p>
-<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><h4 id="删除节点为叶子节点"><a href="#删除节点为叶子节点" class="headerlink" title="删除节点为叶子节点"></a>删除节点为叶子节点</h4><ul>
-<li>该方式最简单，只需找到对应节点，直接删除即可。</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812010738152.png" alt="image-20200812010738152"></p>
-<h4 id="删除的节点只有左子树"><a href="#删除的节点只有左子树" class="headerlink" title="删除的节点只有左子树"></a>删除的节点只有左子树</h4><ul>
-<li>需要将节点的左子树替代被删除节点的位置。</li>
-</ul>
-<p> <img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812010956148.png" alt="image-20200812010956148"></p>
-<hr>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812011121765.png" alt="image-20200812011121765"></p>
-<h4 id="删除的节点只有右子树"><a href="#删除的节点只有右子树" class="headerlink" title="删除的节点只有右子树"></a>删除的节点只有右子树</h4><ul>
-<li>需要将右子树替代被删除节点的位置。与左子树思想一致。</li>
-</ul>
-<h4 id="删除的节点拥有左右子树"><a href="#删除的节点拥有左右子树" class="headerlink" title="删除的节点拥有左右子树"></a>删除的节点拥有左右子树</h4><ul>
-<li><p>此情况操作起来最为复杂。操作流程如下：</p>
-<ul>
-<li>（1）遍历待删除节点的左子树，找到其左子树中的最大节点。</li>
-<li>（2）将最大节点代替被删除节点。</li>
-<li>（3）删除左子树中的最大节点。</li>
-</ul>
-</li>
-<li><p>同理，也可以选取右子树中的最小值取代它并删除原结点。</p>
-</li>
-</ul>
-<h2 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h2><h3 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h3><ul>
-<li>二叉搜索树一定程度上可以提高搜索效率，但是当有序序列为{1,2,3,4,5,6}时，此时构造的二叉搜索树为右斜树。可以发现二叉树已经退化为了单链表，搜索效率降低为O(n)。</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812121026874.png" alt="image-20200812121026874"></p>
-<ul>
-<li>在此二叉搜索树中查找元素6需要查找6次。二叉搜索树的查找效率取决于树的高度，因此树的高度越低，其查询效率就会越高。同样的序列，更改存储方式，查找元素6时只需要比较三次，查询效率提升一倍。</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812121258289.png" alt="image-20200812121258289"></p>
-<ul>
-<li>可以看出当节点数目一定，保持树的左右两端保持平衡，树的查找效率最高。这种<strong>左右子树的高度相差不超过1的树为平衡二叉树</strong>。 </li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812121843134.png" alt="image-20200812121843134"></p>
-<h3 id="平衡因子"><a href="#平衡因子" class="headerlink" title="平衡因子"></a>平衡因子</h3><p>​    <strong>定义：</strong>某节点的左子树与右子树的高度(深度)差即为该节点的平衡因子（BF,Balance Factor），平衡二叉树中不存在平衡因子大于1的节点。在一棵平衡二叉树中，节点的平衡因子只能取-1、1或者0。</p>
-<h3 id="左旋与右旋"><a href="#左旋与右旋" class="headerlink" title="左旋与右旋"></a>左旋与右旋</h3><h4 id="左旋"><a href="#左旋" class="headerlink" title="左旋"></a>左旋</h4><ul>
-<li>如图所示的平衡二叉树</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812144003778.png" alt="image-20200812144003778"></p>
-<ul>
-<li>如在此平衡二叉树插入节点62，树结构变为：</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812144025384.png" alt="image-20200812144025384"></p>
-<ul>
-<li>左旋流程：</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812144139196.png" alt="image-20200812144139196"></p>
-<hr>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812144238932.png" alt="image-20200812144238932"></p>
-<hr>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812144307930.png" alt="image-20200812144307930"></p>
-<hr>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812144409076.png" alt="image-20200812144409076"></p>
-<h4 id="右旋"><a href="#右旋" class="headerlink" title="右旋"></a>右旋</h4><ul>
-<li><p>右旋操作与左旋类似，操作流程为：</p>
-<ul>
-<li>（1）原根节点的左孩子代表此节点</li>
-<li>（2）原根节点的左孩子的右子树变为节点的左子树。</li>
-<li>（3）原根节点作为左孩子节点的右子树。</li>
-</ul>
-</li>
-<li><p>过程如下：</p>
-</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812144551327.png" alt="image-20200812144551327"></p>
-<hr>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812144614420.png" alt="image-20200812144614420"></p>
-<hr>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812144931963.png" alt="image-20200812144931963"></p>
-<hr>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812145020443.png" alt="image-20200812145020443"></p>
-<h3 id="插入-1"><a href="#插入-1" class="headerlink" title="插入"></a>插入</h3><ul>
-<li>假设一颗 AVL 树的某个节点为A，有时会使 A 的左右子树高度差大于 1，从而破坏了原有 AVL 树的平衡性。平衡二叉树插入节点的情况分为以下2种：</li>
-</ul>
-<h4 id="A的左孩子的左子树插入节点"><a href="#A的左孩子的左子树插入节点" class="headerlink" title="A的左孩子的左子树插入节点"></a><strong>A的左孩子的左子树插入节点</strong></h4><ul>
-<li>假设现在有这样的一颗平衡二叉树：</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812145217565.png" alt="image-20200812145217565"></p>
-<ul>
-<li>节点A的左孩子为B，B的左子树为D，无论在节点D的左子树或者右子树中插入F均会导致节点A失衡。因此需要对节点A进行旋转操作。A的平衡因子为2，值为正，因此对A进行右旋操作。</li>
-</ul>
-<p>过程如下：</p>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812145401573.png" alt="image-20200812145401573"></p>
-<hr>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812145421078.png" alt="image-20200812145421078"></p>
-<hr>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812145436943.png" alt="image-20200812145436943"></p>
-<h4 id="A的右孩子的右子树插入节点"><a href="#A的右孩子的右子树插入节点" class="headerlink" title="A的右孩子的右子树插入节点"></a><strong>A的右孩子的右子树插入节点</strong></h4><ul>
-<li>插入节点F后，节点A的平衡因子为-2，对节点A进行左旋操作。</li>
-</ul>
-<h3 id="删除-1"><a href="#删除-1" class="headerlink" title="删除"></a>删除</h3><ul>
-<li>平衡二叉树的节点删除与二叉搜索树删除方法一致，但是需要在节点删除后判断树是否仍然保持平衡，若出现失衡情况，需要进行调整。</li>
-</ul>
-<h2 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h2><h3 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h3><ul>
-<li><p><strong>红黑树</strong>是树的数据结构中最为重要的一种。Java的容器TreeSet、TreeMap均使用红黑树实现。JDK1.8中HashMap中也加入了红黑树。每个节点都带有颜色属性，颜色为<strong>红色</strong>或<strong>黑色</strong>。除了二叉查找树一般要求以外，对于任何有效的红黑树还增加了如下的额外要求:</p>
-</li>
-<li><p>1）节点要么是黑色要么是红色。</p>
-</li>
-<li><p>2）根结点一定是黑色的。</p>
-</li>
-<li><p>3）每个叶子节点都带有两个空(NIL)的黑色节点。</p>
-</li>
-<li><p>4）每个红色节点的两个子节点一定是黑色，因此不会存在两个连续的红色节点，红色节点的父节点一定是黑色节点。</p>
-</li>
-<li><p>5）从任一节点到它所能到达的叶子节点的所有路径都包含相同数目的黑色节点。从而达到黑色平衡。（平衡二叉树是一个完美平衡的树，红黑树是非完美平衡树，但是一个完美的黑色平衡二叉查找树）。</p>
-</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812152853784.png" alt="image-20200812152853784"></p>
-<h3 id="节点名称"><a href="#节点名称" class="headerlink" title="节点名称"></a>节点名称</h3><pre><code>**父节点——P(Parent)**
-**祖父节点——G(GrandParent)**
-**叔叔节点——U(Uncle)**
-**当前节点——C(Current)**
-**兄弟节点——B(Brother)**
-**左孩子——L(Left)**
-**右孩子——R(Right)**
-</code></pre>
-<h2 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h2><ul>
-<li><p>大部分数据库的索引都采用树的结构存储，这是因为树的查询效率相对较高，且保持有序。<br>​- 对于二叉搜索树的时间复杂度是**O(logN)**，在算法以及逻辑上来分析，二叉搜索树的查找速度以及数据比较次数都是较小的。但是我们不得不考虑一个新的问题。数据量是远大于内存大小的，那我们在查找数据时并不能将全部数据同时加载至内存。既然不能全部加载至内存中就只能逐步的去加载磁盘中某个页，简而言之就是逐一的去加载磁盘，加数据分块的加载至内存进行查找与比较。</p>
-</li>
-<li><p>如图所示，在树中查找10，树的每个节点代表一个磁盘页，相当于每次访问一个新节点代表一次磁盘IO。</p>
-</li>
-</ul>
-<ul>
-<li>通过查找过程可以看出，磁盘IO次数与树的高度相关，在最坏情况下，磁盘IO次数等于树的高度。由于磁盘IO过程是相对耗时效率较低的，因此，在设计数据存储结构时需要降低树的高度，即将一棵“瘦高”的树变得“矮胖”。</li>
-<li>当数据数目相同，在保持有序前提下，降低树高度，只需将节点中存储的key值增加，即二叉搜索树中每个节点只有一个数据元素，而在<strong>B树中每个节点可以有多个数据元素</strong>。</li>
-</ul>
-<h3 id="定义-3"><a href="#定义-3" class="headerlink" title="定义"></a>定义</h3><ul>
-<li><p>B树也成B-树。它是一颗多路平衡查找树（所有的叶子节点拥有相同的高度）。当描述一颗B树时需要指定它的<strong>阶数</strong>，阶数表示一个节点最多有多少个孩子节点，一般用字母m表示。当m取2时，就是一颗二叉查找树。</p>
-</li>
-<li><p>要定义一颗m阶的B树，需要遵循以下五条原则：</p>
-<ul>
-<li>1）根节点最少可以只有一个元素，且至少要有两个子节点。</li>
-<li>2）每个节点最多有m-1个元素。</li>
-<li>3）非根节点至少有(m/2)-1个元素。m/2要进行向上取整，如m/2=1.5=2。</li>
-<li>4）每个结点中的元素都按照从小到大的顺序排列，每个元素的左子树中的所有元素都小于它，而右子树中的所有元素都大于它。</li>
-<li>5）所有叶子节点都位于同一层，相当于根节点到每个叶子节点的长度相同。</li>
-</ul>
-</li>
-</ul>
-<h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><ul>
-<li>B树的查找其实是对二叉搜索树查找的扩展， 与二叉搜索树不同的地方是，B-树中每个节点有不止一棵子树。在B-树中查找某个结点时，需要先判断要查找的结点在哪棵子树上，然后在结点中逐个查找目标结点。B树的查找过程相对简单，与二叉搜索树类似，因此不再赘述。</li>
-</ul>
-<h4 id="插入-2"><a href="#插入-2" class="headerlink" title="插入"></a>插入</h4><ul>
-<li><p>B树的插入操作是指在树种插入一条新记录，即（key, value）的键值对。如果B树中已存在需要插入的键值对，则用需要插入的value替换旧的value。若B树不存在这个key，则一定是在叶子结点中进行插入操作。</p>
-</li>
-<li><p>插入流程如下：</p>
-<ul>
-<li>1）根据要插入的key的值，对B树执行查找操作，查找到待插入数据的当前节点位置。</li>
-<li>2）判断<strong>当前节点key的个数是否小于等于m-1</strong>，若满足，则直接插入数据。</li>
-<li>3）若不满足，以<strong>节点中间的key</strong>为中心分裂成<strong>左右两部分</strong>，然后将这个<strong>中间的key插入到父节点中</strong>，这个key的左子树指向分裂后的左半部分，这个key的右子树指向分裂后的右半部分，然后将当前节点指向父节点，继续执行第三步。</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>下面以5阶B树为例，介绍B树的插入操作，在5阶B树中，结点最多有4个key，最少有2个key。</li>
-</ul>
-<p>1：<strong>插入38，此时为空树，直接插入，并作为根节点。继续插入22、76、40，符合情形（2），直接插入。</strong></p>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812193205493.png" alt="image-20200812193205493"></p>
-<p>2：<strong>插入51，符合情形（3），执行分裂。</strong></p>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812193415970.png" alt="image-20200812193415970"></p>
-<p>3：<strong>按照相同的步骤继续插入13、21</strong></p>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812193649389.png" alt="image-20200812193649389"></p>
-<p>4：<strong>插入39，符合情形（3），导致节点分裂。选择中值22作为父节点，并将22节点上移，与40节点进行合并。</strong></p>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812193754228.png" alt="image-20200812193754228"></p>
-<p>5：<strong>按照同样的插入规则，继续向树中插入key为30、27、33、36、35、34、24、29的数据。</strong></p>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812210944524.png" alt="image-20200812210944524"></p>
-<p>6：<strong>继续插入key为26的数据，插入之后需要执行节点分裂。</strong></p>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812211108009.png" alt="image-20200812211108009"></p>
-<p>7：<strong>将key为27的数据节点上移至父节点</strong></p>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812211157198.png" alt="image-20200812211157198"></p>
-<p>8：<strong>此时父节点已经有4个key，插入key27的数据后需要执行节点分裂，树的高度加1。</strong></p>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812211227694.png" alt="image-20200812211227694"></p>
-<p>9：<strong>再依次插入14，23，28，29，31，32。</strong></p>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812211332462.png" alt="image-20200812211332462"></p>
-<h4 id="删除-2"><a href="#删除-2" class="headerlink" title="删除"></a>删除</h4><p>1：<strong>首先删除21，符合情形（2）直接删除。</strong></p>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812212450909.png" alt="image-20200812212450909"></p>
-<p>2：<strong>继续删除27，符合情形（1），使用后继节点28替代27，并删除28。</strong></p>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812212701762.png" alt="image-20200812212701762"></p>
-<p>3：<strong>删除28后，节点中只有29一个key，因此需要按照情形（3）调整。29左兄弟节点有三个节点，将28下移，兄弟节点中26上移。</strong></p>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812213149187.png" alt="image-20200812213149187"></p>
-<p>4：<strong>继续删除32。</strong></p>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812213457870.png" alt="image-20200812213457870"></p>
-<p>5：<strong>删除32后，需要按照情形（3）进行调整。</strong></p>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812213606267.png" alt="image-20200812213606267"></p>
-<p>6：<strong>当前节点的兄弟节点只有2个key，则将父节点下移，将当前节点与一个兄弟节点合并，调整完毕。</strong></p>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812213719819.png" alt="image-20200812213719819"></p>
-<p>7：<strong>继续删除39节点。</strong></p>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812213922242.png" alt="image-20200812213922242"></p>
-<p>8：<strong>删除39节点后，需要按照情形（4）进行调整。</strong></p>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812213959770.png" alt="image-20200812213959770"></p>
-<p>9：<strong>调整过后，当前节点变为只有key40的节点，需要按照情形（3）进行调整。执行节点合并，合并操作包含根节点，导致合并之后，树的高度减1。</strong></p>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812214145220.png" alt="image-20200812214145220"></p>
-<h2 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h2><ul>
-<li><strong>B+树</strong>是在B树基础进一步优化得到的一种数据结构。B+树相比于B树具有更高的查询效率。</li>
-</ul>
-<h3 id="定义-4"><a href="#定义-4" class="headerlink" title="定义"></a>定义</h3><ul>
-<li><p>1）B+树包含2种类型的结点：内部结点（也称索引结点）和叶子结点。</p>
-</li>
-<li><p>2）根结点本身即可以是内部结点，也可以是叶子结点。根结点的关键字个数最少可以只有1个。</p>
-</li>
-<li><p>3）B+树与B树最大的不同是内部结点不保存数据，只用于索引，所有数据（或者说记录）都保存在叶子结点中。</p>
-</li>
-<li><p>4） m阶B+树表示了<strong>内部结点最多有m-1个关键字</strong>，阶数m同时限制了<strong>叶子结点最多存储m-1个数据</strong>。</p>
-</li>
-<li><p>5）内部结点中的key都按照从小到大的顺序排列，对于内部结点中的一个key，左树中的所有key都小于它，右子树中的key都大于等于它。叶子结点中的数据也按照key的大小排列。</p>
-</li>
-<li><p>6）<strong>每个叶子结点都存有相邻叶子结点的指针</strong>，叶子结点本身依关键字的大小自小而大顺序链接。</p>
-</li>
-</ul>
-<ul>
-<li>如图所示的B+树中，灰色节点代表索引节点，索引节点中只有key，而不含数据data。橙色节点代表叶子节点，叶子节点中既有key值又有数据data。叶子节点采用单链表的方式链接。</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/image-20200812215025439.png" alt="image-20200812215025439"></p>
-<h3 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h3><ul>
-<li><p>1）索引节点的key值均会出现在叶子节点中。</p>
-</li>
-<li><p>2）索引节点中的key值在叶子节点中或者为最大值或者为最小值。</p>
-</li>
-<li><p>3）叶子节点使用单链表的形式链接起来。</p>
-</li>
-</ul>
-<h3 id="性能分析"><a href="#性能分析" class="headerlink" title="性能分析"></a>性能分析</h3><ul>
-<li><strong>查找性能</strong><ul>
-<li>1）在相同数量的待查数据下，B+树查找过程中需要调用的磁盘IO操作要少于普通B-树。由于B+树所在的磁盘存储背景下，因此B+树的查找性能要好于B-树。 </li>
-<li>2）B+树的查找效率更加稳定，因为所有叶子结点都处于同一层中，而且查找所有关键字都必须走完从根结点到叶子结点的全部历程。因此同一颗B+树中，任何关键字的查找比较次数都是一样的。而B树的查找是不稳定的。 
- </li>
-</ul>
-</li>
-<li><strong>插入性能</strong><ul>
-<li>B+树的插入过程与B树类似，性能也基本一致。</li>
-</ul>
-</li>
-<li><strong>删除性能</strong><ul>
-<li>删除性能与B树也基本一致。</li>
-</ul>
-</li>
-</ul>
-<h2 id="相关问题"><a href="#相关问题" class="headerlink" title="相关问题"></a>相关问题</h2><h3 id="hashmap为什么使用红黑树而不用别的树"><a href="#hashmap为什么使用红黑树而不用别的树" class="headerlink" title="hashmap为什么使用红黑树而不用别的树"></a>hashmap为什么使用红黑树而不用别的树</h3><p>​    红黑树是一个比较特殊的树，跟他能产生对比的是平衡二叉树。但是平衡二叉树的严格平衡牺牲了插入、删除操作的性能，来保证了查询的高效。 而红黑树则采用了折中策略，即不牺牲太大的插入删除性能，同时又保证稳定高效的查找效率。</p>
-<h3 id="为什么MongoDB索引使用B树，而MySQL使用B-树"><a href="#为什么MongoDB索引使用B树，而MySQL使用B-树" class="headerlink" title="为什么MongoDB索引使用B树，而MySQL使用B+树"></a>为什么MongoDB索引使用B树，而MySQL使用B+树</h3><p>​    MongoDB是一个非关系型数据库，对于遍历数据的需求很低，更多的是在做一些单一记录查询。而对于MySQL这种关系型数据库来说，进行遍历关联查询的需求就会很高。</p>
-<p>​    结合B树与B+树的特点来说，B树的查询效率不固定，最好的情况是O（1），所以在做单一数据查询时，B树的平均性能会更好。但如果要对B树进行遍历的话，由于各个节点间没有指针相连，所以性能会很低。</p>
-<p>​    而B+树最大的特点是数据只会出现在叶子节点，因此对于单条数据查询，其一定会进入到叶子节点上，因此平均性能没有B树好。但B+树的叶子节点有指针相连，在进行遍历时，其效率会明显优于B树。</p>
-<h1 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h1><p>​- 堆通常是一个可以被看做一棵树的数组对象。堆的具体实现一般不通过指针域，而是通过构建一个一维数组与二叉树的父子结点进行对应，因此堆总是一颗完全二叉树。</p>
-<ul>
-<li><p>对于任意一个父节点的序号n来说（这里n从0算），它的子节点的序号一定是2n+1，2n+2，因此可以直接用数组来表示一个堆。</p>
-</li>
-<li><p>不仅如此，堆还有一个性质：堆中某个节点的值总是不大于或不小于其父节点的值。将根节点最大的堆叫做最大堆或<strong>大根堆</strong>，根节点最小的堆叫做最小堆或<strong>小根堆</strong>。</p>
-</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/database/assets/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2JlZXdvcmtzaG9w,size_16,color_FFFFFF,t_7015" alt="在这里插入图片描述"></p>
-<ul>
-<li>堆常用来实现优先队列，与排序有关，比如堆排序、topK问题等。由于堆的根节点是序列中最大或者最小值，因而可以在建堆以及重建堆的过程中，筛选出数据序列中的极值，从而达到排序或者挑选topK值的目的。</li>
-</ul>
-<h2 id="案例PriorityBlockingQueue中二叉堆的使用"><a href="#案例PriorityBlockingQueue中二叉堆的使用" class="headerlink" title="案例PriorityBlockingQueue中二叉堆的使用"></a>案例PriorityBlockingQueue中二叉堆的使用</h2><h3 id="put过程"><a href="#put过程" class="headerlink" title="put过程"></a>put过程</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">        offer(e); <span class="comment">// never need to block</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">offer</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (e == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">        <span class="keyword">final</span> ReentrantLock lock = <span class="keyword">this</span>.lock;</span><br><span class="line">        lock.lock();<span class="comment">//加锁</span></span><br><span class="line">        <span class="keyword">int</span> n, cap;</span><br><span class="line">        Object[] array;</span><br><span class="line">     	<span class="comment">//如果元素个数大于等于数组长度，开始扩容</span></span><br><span class="line">        <span class="keyword">while</span> ((n = size) &gt;= (cap = (array = queue).length))</span><br><span class="line">            tryGrow(array, cap);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//一开始构建队列的时候传入comparator</span></span><br><span class="line">            Comparator&lt;? <span class="keyword">super</span> E&gt; cmp = comparator;</span><br><span class="line">            <span class="keyword">if</span> (cmp == <span class="keyword">null</span>)</span><br><span class="line">                <span class="comment">//使用元素自带的comparator进行比较，并排序</span></span><br><span class="line">                siftUpComparable(n, e, array);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="comment">//使用comparator进行比较，并排序</span></span><br><span class="line">                siftUpUsingComparator(n, e, array, cmp);</span><br><span class="line">            size = n + <span class="number">1</span>;<span class="comment">//增加元素个数</span></span><br><span class="line">            notEmpty.signal();<span class="comment">//唤醒take线程</span></span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();<span class="comment">//解锁</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//新元素堆内上浮实现</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">siftUpComparable</span><span class="params">(<span class="keyword">int</span> k, T x, Object[] array)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//尝试转化插入对象为Comparable实例</span></span><br><span class="line">        Comparable&lt;? <span class="keyword">super</span> T&gt; key = (Comparable&lt;? <span class="keyword">super</span> T&gt;) x; </span><br><span class="line">        <span class="keyword">while</span> (k &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 新元素x的数组下标为k，对应的父节点的下标为(k-1)/2</span></span><br><span class="line">            <span class="keyword">int</span> parent = (k - <span class="number">1</span>) &gt;&gt;&gt; <span class="number">1</span>; </span><br><span class="line">            Object e = array[parent];</span><br><span class="line">            <span class="comment">//如果子节点已经比父节点还要大，不需要再跟上层节点比较，新元素上浮结束</span></span><br><span class="line">            <span class="keyword">if</span> (key.compareTo((T) e) &gt;= <span class="number">0</span>) </span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="comment">//如果子节点已经比父节点小，父节点下沉，新元素上浮一次</span></span><br><span class="line">            array[k] = e; </span><br><span class="line">            k = parent; <span class="comment">//新元素上浮后继续与新的父节点比较大小，直到k=0或者新的父节点小于新元素</span></span><br><span class="line">        &#125;</span><br><span class="line">        array[k] = key;<span class="comment">//新元素在堆中插入正确的位置。</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">tryGrow</span><span class="params">(Object[] array, <span class="keyword">int</span> oldCap)</span> </span>&#123;</span><br><span class="line">     	<span class="comment">//扩容期间需要解锁，能够让其他线程继续执行</span></span><br><span class="line">        lock.unlock(); <span class="comment">// must release and then re-acquire main lock</span></span><br><span class="line">        Object[] newArray = <span class="keyword">null</span>;<span class="comment">//新数组</span></span><br><span class="line">     	<span class="comment">//cas标识，如果为0，表示当前没有线程对数组扩容</span></span><br><span class="line">        <span class="keyword">if</span> (allocationSpinLock == <span class="number">0</span> &amp;&amp;</span><br><span class="line">            <span class="comment">//cas方式设置值0-&gt;1</span></span><br><span class="line">            UNSAFE.compareAndSwapInt(<span class="keyword">this</span>, allocationSpinLockOffset,</span><br><span class="line">                                     <span class="number">0</span>, <span class="number">1</span>)) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">//开始扩容</span></span><br><span class="line">                <span class="comment">//计算新的数组长度</span></span><br><span class="line">                <span class="keyword">int</span> newCap = oldCap + ((oldCap &lt; <span class="number">64</span>) ?</span><br><span class="line">                                       (oldCap + <span class="number">2</span>) : <span class="comment">// grow faster if small</span></span><br><span class="line">                                       (oldCap &gt;&gt; <span class="number">1</span>));</span><br><span class="line">                <span class="comment">//计算容量不能超过最大大小</span></span><br><span class="line">                <span class="keyword">if</span> (newCap - MAX_ARRAY_SIZE &gt; <span class="number">0</span>) &#123;    <span class="comment">// possible overflow</span></span><br><span class="line">                    <span class="keyword">int</span> minCap = oldCap + <span class="number">1</span>;</span><br><span class="line">                    <span class="keyword">if</span> (minCap &lt; <span class="number">0</span> || minCap &gt; MAX_ARRAY_SIZE)</span><br><span class="line">                        <span class="keyword">throw</span> <span class="keyword">new</span> OutOfMemoryError();</span><br><span class="line">                    newCap = MAX_ARRAY_SIZE;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (newCap &gt; oldCap &amp;&amp; queue == array)</span><br><span class="line">                    newArray = <span class="keyword">new</span> Object[newCap];<span class="comment">//创建新的数组用来保存元素</span></span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                allocationSpinLock = <span class="number">0</span>;<span class="comment">//重置标识，表示扩容完毕</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (newArray == <span class="keyword">null</span>) <span class="comment">// back off if another thread is allocating</span></span><br><span class="line">            Thread.yield();</span><br><span class="line">        lock.lock();<span class="comment">//重新加锁</span></span><br><span class="line">     	<span class="comment">//如果数组还是原来的数组</span></span><br><span class="line">        <span class="keyword">if</span> (newArray != <span class="keyword">null</span> &amp;&amp; queue == array) &#123;</span><br><span class="line">            queue = newArray;<span class="comment">//设置为新数组</span></span><br><span class="line">            System.arraycopy(array, <span class="number">0</span>, newArray, <span class="number">0</span>, oldCap);<span class="comment">//转移元素到新数组</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="take过程"><a href="#take过程" class="headerlink" title="take过程"></a>take过程</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> E <span class="title">take</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> ReentrantLock lock = <span class="keyword">this</span>.lock;</span><br><span class="line">        lock.lockInterruptibly();<span class="comment">//加锁</span></span><br><span class="line">        E result;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">while</span> ( (result = dequeue()) == <span class="keyword">null</span>)</span><br><span class="line">                notEmpty.await();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> E <span class="title">dequeue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = size - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;<span class="comment">//队列为空</span></span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            Object[] array = queue;</span><br><span class="line">            E result = (E) array[<span class="number">0</span>];<span class="comment">//取出第一个,二叉堆中第一个最小</span></span><br><span class="line">            E x = (E) array[n];</span><br><span class="line">            array[n] = <span class="keyword">null</span>;<span class="comment">//设置为空</span></span><br><span class="line">            Comparator&lt;? <span class="keyword">super</span> E&gt; cmp = comparator;</span><br><span class="line">            <span class="keyword">if</span> (cmp == <span class="keyword">null</span>)</span><br><span class="line">                siftDownComparable(<span class="number">0</span>, x, array, n);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                siftDownUsingComparator(<span class="number">0</span>, x, array, n, cmp);</span><br><span class="line">            size = n;</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//空元素堆内下沉实现</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">siftDownComparable</span><span class="params">(<span class="keyword">int</span> k, T x, Object[] array, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            Comparable&lt;? <span class="keyword">super</span> T&gt; key = (Comparable&lt;? <span class="keyword">super</span> T&gt;) x;</span><br><span class="line">            <span class="keyword">int</span> half = n &gt;&gt;&gt; <span class="number">1</span>; <span class="comment">// loop while a non-leaf  half最后一个有子节点的父节点下标</span></span><br><span class="line">            <span class="keyword">while</span> (k &lt; half) &#123; </span><br><span class="line">                <span class="keyword">int</span> child = (k &lt;&lt; <span class="number">1</span>) + <span class="number">1</span>; <span class="comment">// assume left child is least</span></span><br><span class="line">                Object c = array[child];</span><br><span class="line">                <span class="keyword">int</span> right = child + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">if</span> (right &lt; n</span><br><span class="line">                        &amp;&amp; ((Comparable&lt;? <span class="keyword">super</span> T&gt;) c)</span><br><span class="line">                                .compareTo((T) array[right]) &gt; <span class="number">0</span>)</span><br><span class="line">                    c = array[child = right];  <span class="comment">//比较出左右子节点更小的那个子节点</span></span><br><span class="line">                <span class="keyword">if</span> (key.compareTo((T) c) &lt;= <span class="number">0</span>) <span class="comment">//如果左右子节点的最小值大于数组末尾的值，那么数组末尾的值直接放到父节点，空节点下沉结束</span></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                array[k] = c; <span class="comment">// 如果子节点最小值小于数据末尾的值，子节点上浮到父空节点</span></span><br><span class="line">                k = child; <span class="comment">//空节点下滑到最小子节点的位置</span></span><br><span class="line">            &#125;</span><br><span class="line">            array[k] = key; <span class="comment">// 最后空节点填充数组最后的值</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
+          <p><img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/first_foots/01.jpeg"></p>
+<h1 id="从数据结构到Java常用集合"><a href="#从数据结构到Java常用集合" class="headerlink" title="从数据结构到Java常用集合"></a>从数据结构到Java常用集合</h1><ul>
+<li>常用的数据结构可根据数据访问的特点分为<strong>线性结构</strong>和<strong>非线性结构</strong>。线性结构包括常见的链表、栈、队列等，非线性结构包括<strong>树</strong>、<strong>图</strong>等。数据结构种类繁多，本篇内容将通过图解的方式对常用的数据结构以及在java中的实现进行介绍</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jwangcloud/3265662706/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1056,7 +339,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-06 18:26:09" itemprop="dateModified" datetime="2021-04-06T18:26:09+08:00">2021-04-06</time>
+                <time title="修改时间：2021-04-08 17:26:38" itemprop="dateModified" datetime="2021-04-08T17:26:38+08:00">2021-04-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1107,346 +390,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="类和对象"><a href="#类和对象" class="headerlink" title="类和对象"></a>类和对象</h2><h3 id="面向对象和面向过程编程思想"><a href="#面向对象和面向过程编程思想" class="headerlink" title="面向对象和面向过程编程思想"></a>面向对象和面向过程编程思想</h3><h4 id="面向过程编程思想"><a href="#面向过程编程思想" class="headerlink" title="面向过程编程思想"></a>面向过程编程思想</h4><ul>
-<li><strong>强调的是过程,必须清楚每一个步骤,然后按照步骤一步一步去实现</strong></li>
-</ul>
-<h4 id="面向对象编程思想"><a href="#面向对象编程思想" class="headerlink" title="面向对象编程思想"></a>面向对象编程思想</h4><ul>
-<li><strong>强调的是对象, 通过调用对象的行为来实现功能，而不是自己一步一步的去操作实现。</strong></li>
-</ul>
-<h4 id="举例对比2种编程思想"><a href="#举例对比2种编程思想" class="headerlink" title="举例对比2种编程思想"></a>举例对比2种编程思想</h4><ul>
-<li>java程序:  需求:打印数组中所有的元素,打印格式为: [元素1，元素2，元素3，元素，…，元素n]</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">method01</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1.面向过程来实现该需求</span></span><br><span class="line">    <span class="comment">// 1.1 定义一个数组,并且初始化数组中的元素</span></span><br><span class="line">    <span class="keyword">int</span>[] arr = &#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 1.2 按照指定格式去打印</span></span><br><span class="line">    <span class="comment">// 1.2.1 先打印一个左中括号 &quot;[&quot;</span></span><br><span class="line">    System.out.print(<span class="string">&quot;[&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 1.2.2 循环遍历元素</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">        <span class="comment">// 1.2.3 判断遍历的元素是否是最后一个元素</span></span><br><span class="line">        <span class="keyword">int</span> e = arr[i];</span><br><span class="line">        <span class="keyword">if</span> (i == arr.length - <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="comment">// 1.2.5 如果是最后一个元素,那么打印格式就是 &quot;元素]&quot;</span></span><br><span class="line">            System.out.print(e+<span class="string">&quot;]&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 1.2.4 如果不是最后一个元素,那么打印格式就是 &quot;元素, &quot;</span></span><br><span class="line">            System.out.print(e+<span class="string">&quot;, &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2.面向对象来实现该需求</span></span><br><span class="line">    <span class="comment">// Arrays数组的工具类,toString()方法,可以帮助我们按照该指定格式打印数组</span></span><br><span class="line">    System.out.println(Arrays.toString(arr));<span class="comment">// [10, 20, 30, 40, 50]</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h3 id="类的概述"><a href="#类的概述" class="headerlink" title="类的概述"></a>类的概述</h3><ul>
-<li>类是用来描述一类具有<strong>共同属性和行为事物的统称</strong>。所以其实类在客观世界里是不存在的，<strong>是抽象的</strong>，只是用来描述数据信息的。</li>
-</ul>
-<h4 id="类的组成"><a href="#类的组成" class="headerlink" title="类的组成"></a>类的组成</h4><ul>
-<li>属性：就是该事物的状态信息。</li>
-<li>行为：就是该事物能够做什么。</li>
-</ul>
-<h5 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h5><ul>
-<li>手机类<ul>
-<li>属性：品牌、价格—-成员变量</li>
-<li>行为：打电话、发短信—-成员方法</li>
-</ul>
-</li>
-</ul>
-<h3 id="对象的概述"><a href="#对象的概述" class="headerlink" title="对象的概述"></a>对象的概述</h3><ul>
-<li>对象是类的一个实例，<strong>具体存在的，看得见摸得着的</strong>，并且具备该类事物的属性和行为<ul>
-<li>对象的属性:对象的属性具有特定的值</li>
-<li>对象的行为:对象可以操作的行为</li>
-</ul>
-</li>
-<li>手机类: 描述手机<ul>
-<li>对象:袁芳老师的手机</li>
-</ul>
-</li>
-</ul>
-<h3 id="类和对象的关系"><a href="#类和对象的关系" class="headerlink" title="类和对象的关系"></a>类和对象的关系</h3><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/OA/img/1_%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%85%B3%E7%B3%BB.png" alt="1584029135069"></p>
-<h3 id="类的定义【应用】"><a href="#类的定义【应用】" class="headerlink" title="类的定义【应用】"></a>类的定义【应用】</h3><p>类的组成是由属性和行为两部分组成</p>
-<ul>
-<li>属性：该类事物的状态信息,在类中通过成员变量来体现（类中方法外的变量）</li>
-<li>行为：该类事物有什么功能,在类中通过成员方法来体现（和前面的方法相比去掉static关键字即可）</li>
-</ul>
-<h4 id="类的定义格式"><a href="#类的定义格式" class="headerlink" title="类的定义格式"></a>类的定义格式</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> 类名 </span>&#123;<span class="comment">// 定义一个类</span></span><br><span class="line">	<span class="comment">// 类里面:属性(成员变量),行为(成员方法)</span></span><br><span class="line">    <span class="comment">// 定义成员变量</span></span><br><span class="line">    数据类型 变量名<span class="number">1</span>;</span><br><span class="line">    数据类型 变量名<span class="number">2</span>;</span><br><span class="line">    ...</span><br><span class="line">        </span><br><span class="line">    <span class="comment">// 定义成员方法</span></span><br><span class="line">    方法;  去掉<span class="keyword">static</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="对象的创建和使用"><a href="#对象的创建和使用" class="headerlink" title="对象的创建和使用"></a>对象的创建和使用</h3><h4 id="对象的创建"><a href="#对象的创建" class="headerlink" title="对象的创建"></a>对象的创建</h4><ul>
-<li>创建对象的格式：<ul>
-<li><code>类名 对象名 = new 类名();</code></li>
-<li>类其实就是对象的数据类型,类是引用数据类型<ul>
-<li>例: Phone p1 = new Phone ();   创建了一个手机对象(Phone类的对象)</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="对象的使用"><a href="#对象的使用" class="headerlink" title="对象的使用"></a>对象的使用</h4><ul>
-<li>调用成员的格式：<ul>
-<li>访问成员变量<ul>
-<li>获取成员变量的值: 对象名.成员变量名</li>
-<li>给成员变量赋值: 对象名.成员变量名=值;</li>
-</ul>
-</li>
-<li>访问成员方法<ul>
-<li>对象名.成员方法名(实参);</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="成员变量是有默认值"><a href="#成员变量是有默认值" class="headerlink" title="成员变量是有默认值"></a>成员变量是有默认值</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">整数类型    默认值         <span class="number">0</span></span><br><span class="line">小数类型    默认值         <span class="number">0.0</span></span><br><span class="line">字符类型    默认值         不可见字符 <span class="string">&#x27;\u0000&#x27;</span></span><br><span class="line">布尔类型    默认值         <span class="keyword">false</span></span><br><span class="line">引用数据类型 默认值        <span class="keyword">null</span></span><br></pre></td></tr></table></figure>
-
-
-<h3 id="对象内存图相关使用的测试类"><a href="#对象内存图相关使用的测试类" class="headerlink" title="对象内存图相关使用的测试类"></a>对象内存图相关使用的测试类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 属性: 姓名,年龄</span></span><br><span class="line">    String name;<span class="comment">// 姓名</span></span><br><span class="line">    <span class="keyword">int</span> age;<span class="comment">// 年龄</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 行为:学习功能</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">study</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;正在努力学Java...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="单个对象内存图"><a href="#单个对象内存图" class="headerlink" title="单个对象内存图"></a>单个对象内存图</h3><ul>
-<li>只要创建对象,就会在堆区开辟一块空间</li>
-<li>只要调用方法,就会在栈区开辟一块空间,用来执行该方法</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/OA/img/2_%E5%8D%95%E4%B8%AA%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E5%9B%BE.png" alt="1584072556325"></p>
-<h3 id="多个对象内存图"><a href="#多个对象内存图" class="headerlink" title="多个对象内存图"></a>多个对象内存图</h3><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/OA/img/image-20200607105906300.png" alt="image-20200607105906300"></p>
-<ul>
-<li>多个对象在堆内存中，都有不同的内存划分，成员变量存储在各自的内存区域中，成员方法多个对象共用的一份</li>
-<li>凡是new就会重新在堆区开辟一块新空间</li>
-<li>对象和对象之间的关系是相互独立的</li>
-</ul>
-<h3 id="多个变量指向相同对象内存图"><a href="#多个变量指向相同对象内存图" class="headerlink" title="多个变量指向相同对象内存图"></a>多个变量指向相同对象内存图</h3><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/OA/img/4_%E5%A4%9A%E4%B8%AA%E5%8F%98%E9%87%8F%E6%8C%87%E5%90%91%E7%9B%B8%E5%90%8C%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%9B%BE.png" alt="1584081535183"></p>
-<ul>
-<li>当多个对象的引用指向同一个内存空间（变量所记录的地址值是一样的）</li>
-<li>只要有任何一个对象修改了内存中的数据，随后，无论使用哪一个对象进行数据获取，都是修改后的数据。</li>
-</ul>
-<h3 id="成员变量和局部变量的区别"><a href="#成员变量和局部变量的区别" class="headerlink" title="成员变量和局部变量的区别"></a>成员变量和局部变量的区别</h3><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/OA/img/1582716017361.png" alt="1582716017361"></p>
-<ul>
-<li>类中位置不同：成员变量（类中方法外）局部变量（方法内部或方法声明上）</li>
-<li>内存中位置不同：成员变量（堆内存）局部变量（栈内存）</li>
-<li>生命周期不同：成员变量（随着对象的存在而存在，随着对象的消失而消失）局部变量（随着方法的调用而存在，随着方法的调用完毕而消失）</li>
-<li>初始化值不同：成员变量（有默认初始化值）局部变量（没有默认初始化值，必须先定义，赋值才能使用）</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/OA/img/5_%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%92%8C%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E7%9A%84%E5%8C%BA%E5%88%AB.png" alt="1584082793302"></p>
-<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><h3 id="private关键字"><a href="#private关键字" class="headerlink" title="private关键字"></a>private关键字</h3><ul>
-<li>概述: private是一个权限修饰符，代表最小权限。</li>
-<li>特点:<ul>
-<li>可以修饰成员变量和成员方法。</li>
-<li>被private修饰后的成员变量和成员方法，只在本类中才能访问。</li>
-</ul>
-</li>
-</ul>
-<h4 id="private的使用格式"><a href="#private的使用格式" class="headerlink" title="private的使用格式"></a>private的使用格式</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// private关键字修饰成员变量</span></span><br><span class="line"><span class="keyword">private</span> 数据类型 变量名 ；</span><br><span class="line"></span><br><span class="line"><span class="comment">// private关键字修饰成员方法</span></span><br><span class="line"><span class="keyword">private</span> 返回值类型 方法名(参数列表)&#123;</span><br><span class="line">    代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 成员变量</span></span><br><span class="line">    String name;<span class="comment">// 姓名</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;<span class="comment">// 年龄</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(name);</span><br><span class="line">        System.out.println(age);<span class="comment">// 可以访问</span></span><br><span class="line">        study();<span class="comment">// 可以访问</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">study</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;正在努力学Java&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Student stu = <span class="keyword">new</span> Student();</span><br><span class="line">        System.out.println(stu.name);</span><br><span class="line">        <span class="comment">//System.out.println(stu.age);// 编译报错,没有访问权限</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//stu.study();// 编译报错,没有访问权限</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 间接访问</span></span><br><span class="line">        stu.show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="对属性封装的步骤"><a href="#对属性封装的步骤" class="headerlink" title="对属性封装的步骤"></a>对属性封装的步骤</h3><h4 id="为什么要对属性进行封装"><a href="#为什么要对属性进行封装" class="headerlink" title="为什么要对属性进行封装"></a>为什么要对属性进行封装</h4><ul>
-<li>通过对象名直接访问成员变量的方式来对属性赋值,会存在数据安全隐患,应该怎么解决呢?</li>
-<li>解决方式: 不让外界直接访问成员变量(也就是要对属性进行封装)</li>
-</ul>
-<h4 id="对属性封装的步骤-1"><a href="#对属性封装的步骤-1" class="headerlink" title="对属性封装的步骤"></a>对属性封装的步骤</h4><ol>
-<li>使用private修饰成员变量</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">   <span class="comment">// 类的属性 ---&gt; 成员变量</span></span><br><span class="line">   <span class="comment">// 姓名(name)</span></span><br><span class="line">   <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 年龄(age)</span></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 类的行为 ---&gt; 成员方法</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">       System.out.println(<span class="string">&quot;姓名:&quot;</span>+name+<span class="string">&quot;,年龄:&quot;</span>+age);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>对需要访问的成员变量,提供对应的<code>getXxx</code>方法(获取属性的值) 、<code>setXxx</code> 方法(给属性赋值)。</li>
-</ol>
-<h3 id="set和get方法"><a href="#set和get方法" class="headerlink" title="set和get方法"></a>set和get方法</h3><ul>
-<li><p>由于属性使用了private关键字修饰,在其他类中无法直接访问,所以得提供公共的访问方法,我们把这张方法叫做set和get方法</p>
-<ul>
-<li>get方法:  提供“get变量名()”方法，用于获取成员变量的值，方法用public修饰</li>
-</ul>
-<ul>
-<li>set方法: 提供“set变量名(参数)”方法，用于设置成员变量的值，方法用public修饰</li>
-</ul>
-</li>
-</ul>
-<h4 id="set和get方法的书写"><a href="#set和get方法的书写" class="headerlink" title="set和get方法的书写"></a>set和get方法的书写</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</span><br><span class="line">    age = a;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> age;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">set方法的书写规律:</span><br><span class="line">    <span class="number">1.</span>set方法一定是一个公共的方法(<span class="keyword">public</span>)</span><br><span class="line">        <span class="number">2.</span>set方法一定没有返回值(<span class="keyword">void</span>)</span><br><span class="line">        <span class="number">3.</span>set方法的方法名一定是set+属性名,并且属性名首字母大写</span><br><span class="line">        <span class="number">4.</span>set方法一定有参数</span><br><span class="line">        <span class="number">5.</span>set方法一定会给属性赋值</span><br><span class="line"></span><br><span class="line">get方法的书写规律:</span><br><span class="line">    <span class="number">1.</span>get方法一定是一个公共的方法(<span class="keyword">public</span>)</span><br><span class="line">        <span class="number">2.</span>get方法一定有返回值,并且返回值类型与获取的属性类型一致</span><br><span class="line">        <span class="number">3.</span>get方法的方法名一定是get+属性名,并且属性名首字母大写</span><br><span class="line">        <span class="number">4.</span>get方法一定没有参数</span><br><span class="line">        <span class="number">5.</span>get方法一定会返回属性的值</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="this关键字"><a href="#this关键字" class="headerlink" title="this关键字"></a>this关键字</h3><ul>
-<li><code>setXxx</code> 方法中的形参名字并不符合见名知意的规定，那么如果修改与成员变量名一致，是否就见名知意了呢？</li>
-</ul>
-<ul>
-<li>经过修改和测试，我们发现新的问题，成员变量赋值失败了。也就是说，在修改了<code>setXxx()</code> 的形参变量名后，方法并没有给成员变量赋值！这是由于形参变量名与成员变量名重名，导致成员变量名被隐藏，方法中的变量名，无法访问到成员变量，从而赋值失败。所以，我们只能使用this关键字，来解决这个重名问题。</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/OA/img/5_%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%92%8C%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E5%90%8C%E5%90%8D%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90.png" alt="1584082793302"></p>
-<h4 id="this的含义和使用"><a href="#this的含义和使用" class="headerlink" title="this的含义和使用"></a>this的含义和使用</h4><ul>
-<li><p>this含义: this代表当前调用方法的引用，哪个对象调用this所在的方法，this就代表哪一个对象</p>
-</li>
-<li><p>this关键字其主要作用是区分同名的局部变量和成员变量</p>
-<ul>
-<li>方法的形参如果与成员变量同名，不带this修饰的变量指的是形参，而不是成员变量</li>
-<li>方法的形参没有与成员变量同名，不带this修饰的变量指的是成员变量</li>
-</ul>
-</li>
-<li><p>this的使用格式:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.成员变量名</span><br></pre></td></tr></table></figure></li>
-<li><p>使用 <code>this</code> 修饰方法中的变量，解决成员变量被隐藏的问题</p>
-</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/OA/img/6_this%E5%85%B3%E9%94%AE%E5%AD%97.png"></p>
-<blockquote>
-<p>小贴士：方法中只有一个变量名时，默认也是使用 <code>this</code> 修饰，可以省略不写。</p>
-</blockquote>
-<h3 id="this内存原理"><a href="#this内存原理" class="headerlink" title="this内存原理"></a>this内存原理</h3><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/OA/img/image-20200601121319604.png"></p>
-<h3 id="封装概述"><a href="#封装概述" class="headerlink" title="封装概述"></a>封装概述</h3><ul>
-<li>是面向对象三大特征之一（封装，继承，多态）</li>
-<li>是面向对象编程语言对客观世界的模拟，客观世界里成员变量都是<strong>隐藏</strong>在对象内部的，外界是无法直接操作的</li>
-</ul>
-<h4 id="封装原则"><a href="#封装原则" class="headerlink" title="封装原则"></a>封装原则</h4><ul>
-<li>将类的某些信息隐藏在类内部，不允许外部程序直接访问，而是通过该类提供的方法来实现对隐藏信息的操作和访问</li>
-<li>例如:成员变量使用private修饰，提供对应的getXxx()/setXxx()方法</li>
-</ul>
-<h4 id="封装好处"><a href="#封装好处" class="headerlink" title="封装好处"></a>封装好处</h4><ul>
-<li>通过方法来控制成员变量的操作，提高了代码的安全性</li>
-<li>把代码用方法进行封装，提高了代码的复用性</li>
-</ul>
-<h2 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h2><h3 id="构造方法概述"><a href="#构造方法概述" class="headerlink" title="构造方法概述"></a>构造方法概述</h3><ul>
-<li>构造方法是一种特殊的方法,主要是完成对象的创建和对象数据的初始化</li>
-</ul>
-<h4 id="构造方法的定义"><a href="#构造方法的定义" class="headerlink" title="构造方法的定义"></a>构造方法的定义</h4><ul>
-<li><p>格式</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 空参构造方法</span></span><br><span class="line">修饰符 类名()&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 有参构造方法</span></span><br><span class="line">修饰符 类名(参数列表)&#123;</span><br><span class="line">	<span class="comment">// 方法体</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-<li><p>特点:</p>
-<ul>
-<li>构造方法的写法上，方法名与它所在的类名相同</li>
-<li>构造方法没有返回值，所以不需要返回值类型，甚至不需要void</li>
-</ul>
-</li>
-<li><p>示例代码：</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 属性</span></span><br><span class="line">    String name;</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构造方法:</span></span><br><span class="line">    <span class="comment">// 空参构造方法</span></span><br><span class="line">    <span class="comment">// 创建对象,属性为默认值</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">()</span></span>&#123;<span class="comment">//空参构造</span></span><br><span class="line">        System.out.println(<span class="string">&quot;空参构造方法执行了...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 有参构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name,<span class="keyword">int</span> age)</span></span>&#123;<span class="comment">// 满参构造方法</span></span><br><span class="line">        <span class="comment">// 给属性赋值</span></span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name)</span></span>&#123;<span class="comment">// 有参构造方法</span></span><br><span class="line">        <span class="comment">// 给属性赋值</span></span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;姓名:&quot;</span>+name+<span class="string">&quot;,年龄:&quot;</span>+age);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    测试类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo1Student</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 使用构造方法</span></span><br><span class="line">        <span class="comment">// 创建Student对象:  类名 对象名 = new 类名();</span></span><br><span class="line">        <span class="comment">// 调用空参构造方法创建对象,对象的属性为默认值</span></span><br><span class="line">        Student stu1 = <span class="keyword">new</span> Student();<span class="comment">// 等于号的右边其实就是调用空参构造方法</span></span><br><span class="line">        stu1.show();<span class="comment">// 姓名:null,年龄:0</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 调用满参构造方法创建对象,对象的属性会被赋值</span></span><br><span class="line">        Student stu2 = <span class="keyword">new</span> Student(<span class="string">&quot;冰冰&quot;</span>,<span class="number">18</span>);</span><br><span class="line">        stu2.show();<span class="comment">// 姓名:冰冰,年龄:18</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 调用有参构造方法创建对象,对象的部分属性会被赋值</span></span><br><span class="line">        Student stu3 = <span class="keyword">new</span> Student(<span class="string">&quot;小泽老师&quot;</span>);</span><br><span class="line">        stu3.show();<span class="comment">// // 姓名:小泽老师,年龄:0</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="构造方法的注意事项"><a href="#构造方法的注意事项" class="headerlink" title="构造方法的注意事项"></a>构造方法的注意事项</h3><ul>
-<li><p>构造方法的创建</p>
-<ul>
-<li>如果没有定义构造方法，系统将给出一个默认的无参数构造方法</li>
-<li>如果定义了构造方法，系统将不再提供默认的构造方法</li>
-</ul>
-</li>
-<li><p>构造方法可以重载，既可以定义参数，也可以不定义参数。</p>
-</li>
-<li><p>示例代码</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    学生类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name,<span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(name + <span class="string">&quot;,&quot;</span> + age);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    测试类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//创建对象</span></span><br><span class="line">        Student s1 = <span class="keyword">new</span> Student();</span><br><span class="line">        s1.show();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//public Student(String name)</span></span><br><span class="line">        Student s2 = <span class="keyword">new</span> Student(<span class="string">&quot;林青霞&quot;</span>);</span><br><span class="line">        s2.show();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//public Student(int age)</span></span><br><span class="line">        Student s3 = <span class="keyword">new</span> Student(<span class="number">30</span>);</span><br><span class="line">        s3.show();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//public Student(String name,int age)</span></span><br><span class="line">        Student s4 = <span class="keyword">new</span> Student(<span class="string">&quot;林青霞&quot;</span>,<span class="number">30</span>);</span><br><span class="line">        s4.show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="标准类制作"><a href="#标准类制作" class="headerlink" title="标准类制作"></a>标准类制作</h3><h4 id="标准类的组成"><a href="#标准类的组成" class="headerlink" title="标准类的组成"></a>标准类的组成</h4><p><code>JavaBean</code> 是 Java语言编写类的一种标准规范。符合<code>JavaBean</code> 的类，要求类必须是公共的，属性使用private修饰,并且具有无参数的构造方法，提供用来操作成员变量的<code>set</code> 和<code>get</code> 方法。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassName</span></span>&#123;</span><br><span class="line">  <span class="comment">//成员变量  private</span></span><br><span class="line">  <span class="comment">//构造方法</span></span><br><span class="line">  <span class="comment">//无参构造方法【必须】</span></span><br><span class="line">  <span class="comment">//满参构造方法【建议】</span></span><br><span class="line">  <span class="comment">//getXxx()</span></span><br><span class="line">  <span class="comment">//setXxx()</span></span><br><span class="line">  <span class="comment">//成员方法	</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><ul>
-<li><p>什么是API</p>
-<p>​    API (Application Programming Interface) ：应用程序编程接口。Java API是一本程序员的<code>字典</code> ，是JDK中提供给我们使用的类的<strong>说明文档</strong>。这些类将底层的代码实现封装了起来，我们不需要关心这些类是如何实现的，只需要学习这些类如何使用即可。所以我们可以通过查询API的方式，来学习Java提供的类，并得知如何使用它们。</p>
-<ul>
-<li>API其实就是jdk中核心类库的说明文档</li>
-<li>对于jdk中的核心类库只需要知道如何使用,无须关心他是如何实现的</li>
-</ul>
-</li>
-</ul>
-<h3 id="API的使用步骤"><a href="#API的使用步骤" class="headerlink" title="API的使用步骤"></a>API的使用步骤</h3><ol>
-<li>打开API帮助文档。</li>
-<li>点击显示，找到索引，看到输入框。</li>
-<li>你要找谁？在输入框里输入，然后回车。</li>
-<li>看包。java.lang下的类不需要导包，其他需要。  </li>
-<li>看类的解释和说明。</li>
-<li>看构造方法。</li>
-<li>看成员方法。</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/jwangcloud/2793636500/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="jwangtec">
-      <meta itemprop="description" content="小脑袋，大智慧">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jwangcloud">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/jwangcloud/2793636500/" class="post-title-link" itemprop="url">Linux操作系统03--vim操作、ssh</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-05-08 18:18:19" itemprop="dateCreated datePublished" datetime="2019-05-08T18:18:19+08:00">2019-05-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-29 21:03:17" itemprop="dateModified" datetime="2021-03-29T21:03:17+08:00">2021-03-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">Linux操作系统</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/jwangcloud/2793636500/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/jwangcloud/2793636500/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.6k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/Linux.jpeg"></p>
-<h2 id="翻墙基础知识"><a href="#翻墙基础知识" class="headerlink" title="翻墙基础知识"></a>翻墙基础知识</h2>
+          <p><img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/first_foots/02.jpeg"></p>
+<h2 id="类和对象"><a href="#类和对象" class="headerlink" title="类和对象"></a>类和对象</h2>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/jwangcloud/2793636500/#more" rel="contents">
+              <a class="btn" href="/jwangcloud/1572511114/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1705,6 +653,121 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/jwangcloud/2793636500/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="jwangtec">
+      <meta itemprop="description" content="小脑袋，大智慧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jwangcloud">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/jwangcloud/2793636500/" class="post-title-link" itemprop="url">Linux操作系统03--vim操作、ssh</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-08 18:18:19" itemprop="dateCreated datePublished" datetime="2019-05-08T18:18:19+08:00">2019-05-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-29 21:03:17" itemprop="dateModified" datetime="2021-03-29T21:03:17+08:00">2021-03-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">Linux操作系统</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/jwangcloud/2793636500/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/jwangcloud/2793636500/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/Linux.jpeg"></p>
+<h2 id="翻墙基础知识"><a href="#翻墙基础知识" class="headerlink" title="翻墙基础知识"></a>翻墙基础知识</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jwangcloud/2793636500/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/jwangcloud/1196357161/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1820,121 +883,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/jwangcloud/898521826/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="jwangtec">
-      <meta itemprop="description" content="小脑袋，大智慧">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jwangcloud">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/jwangcloud/898521826/" class="post-title-link" itemprop="url">mysql数据库04--存储过程、触发器、事件</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-05-07 18:18:19" itemprop="dateCreated datePublished" datetime="2019-05-07T18:18:19+08:00">2019-05-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-29 21:03:17" itemprop="dateModified" datetime="2021-03-29T21:03:17+08:00">2021-03-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/jwangcloud/898521826/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/jwangcloud/898521826/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/mysql.jpeg"></p>
-<h2 id="mysql进阶"><a href="#mysql进阶" class="headerlink" title="mysql进阶"></a>mysql进阶</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/jwangcloud/898521826/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/jwangcloud/1501163261/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2022,6 +970,121 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/jwangcloud/1501163261/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/jwangcloud/898521826/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="jwangtec">
+      <meta itemprop="description" content="小脑袋，大智慧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jwangcloud">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/jwangcloud/898521826/" class="post-title-link" itemprop="url">mysql数据库04--存储过程、触发器、事件</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-07 18:18:19" itemprop="dateCreated datePublished" datetime="2019-05-07T18:18:19+08:00">2019-05-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-29 21:03:17" itemprop="dateModified" datetime="2021-03-29T21:03:17+08:00">2021-03-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/jwangcloud/898521826/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/jwangcloud/898521826/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/mysql.jpeg"></p>
+<h2 id="mysql进阶"><a href="#mysql进阶" class="headerlink" title="mysql进阶"></a>mysql进阶</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/jwangcloud/898521826/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
