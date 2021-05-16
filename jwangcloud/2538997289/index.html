@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Elasticsearch 安装">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搜索和数据分析引擎--Elasticsearch">
+<meta property="og:url" content="http://example.com/jwangcloud/2538997289/index.html">
+<meta property="og:site_name" content="jwangcloud">
+<meta property="og:description" content="Elasticsearch 安装">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/ES.jpeg">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1559425749415.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1609080027289.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1584928112187.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1559427846075.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1559427892947.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1559533771948.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1554423078755.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1554423578891.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1554423779455.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1554501163624.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1554501381459.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564603562118.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564603680699.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564603974567.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564604795013.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564604217330.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564606854935.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564607209527.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564605593912.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564605676871.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564605923564.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564606466826.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564607758341.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564608161056.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564608377202.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564608891037.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564609793695.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564609964569.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564610088455.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564610272233.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1578022792956.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1560825278495.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1560825119409.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1609080628068.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1560828547924.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1559428874655.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1560829447414.png">
+<meta property="article:published_time" content="2019-05-06T10:18:19.000Z">
+<meta property="article:modified_time" content="2021-05-16T10:08:50.035Z">
+<meta property="article:author" content="jwangtec">
+<meta property="article:tag" content="搜索和数据分析">
+<meta property="article:tag" content="IK分词器">
+<meta property="article:tag" content="kibana">
+<meta property="article:tag" content="DSL语句">
+<meta property="article:tag" content="SpringData Elasticsearch">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/ES.jpeg">
+
+<link rel="canonical" href="http://example.com/jwangcloud/2538997289/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>搜索和数据分析引擎--Elasticsearch | jwangcloud</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">jwangcloud</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/JwangTec" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/jwangcloud/2538997289/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="jwangtec">
+      <meta itemprop="description" content="小脑袋，大智慧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jwangcloud">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          搜索和数据分析引擎--Elasticsearch
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-06 18:18:19" itemprop="dateCreated datePublished" datetime="2019-05-06T18:18:19+08:00">2019-05-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-16 18:08:50" itemprop="dateModified" datetime="2021-05-16T18:08:50+08:00">2021-05-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/jwangcloud/2538997289/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/jwangcloud/2538997289/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>25k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>22 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/ES.jpeg"></p>
+<h2 id="Elasticsearch-安装"><a href="#Elasticsearch-安装" class="headerlink" title="Elasticsearch 安装"></a>Elasticsearch 安装</h2><span id="more"></span>
+
+<p>docker安装elasticsearch</p>
+<p>(1)docker镜像下载</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">docker</span> <span class="string">pull elasticsearch:5.6.8</span></span><br></pre></td></tr></table></figure>
+
+
+<p>(2)安装es容器</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">docker</span> <span class="string">run -di --name=jwang_elasticsearch -p 9200:9200 -p 9300:9300 elasticsearch:5.6.8</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li> 9200端口(Web管理平台端口)  9300(服务默认端口)</li>
+</ul>
+<p>浏览器输入地址访问：<code>http://192.168.211.132:9200/</code></p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1559425749415.png" alt="1559425749415"></p>
+<p>(3)开启远程连接</p>
+<p>上面完成安装后，es并不能正常使用，elasticsearch从5版本以后默认不开启远程连接，程序直接连接会报如下错误：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">failed to load elasticsearch nodes : org.elasticsearch.client.transport.NoNodeAvailableException: None of the configured nodes are available: [&#123;#transport#-1&#125;&#123;5ttLpMhkRjKLkvoY7ltUWg&#125;&#123;192.168.211.132&#125;&#123;192.168.211.132:9300&#125;]</span><br></pre></td></tr></table></figure>
+
+<p>我们需要修改es配置开启远程链接：</p>
+<p>copy elasticsearch.yml文件到宿主机，修改之后在copy回去</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp jwang_elasticsearch:/usr/share/elasticsearch/config/elasticsearch.yml ./</span><br></pre></td></tr></table></figure>
+
+<p>修改elasticsearch.yml文件 vim elasticsearch.yml</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1609080027289.png" alt="1609080027289"></p>
+<p>copy回docker容器中：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp ./elasticsearch.yml jwang_elasticsearch:/usr/share/elasticsearch/config/</span><br></pre></td></tr></table></figure>
+
+
+
+<p>(4)系统参数配置</p>
+<p>重启后发现重启启动失败了，这时什么原因呢？这与我们刚才修改的配置有关，因为elasticsearch在启动的时候会进行一些检查，比如最多打开的文件的个数以及虚拟内存区域数量等等，如果你放开了此配置，意味着需要打开更多的文件以及虚拟内存，所以我们还需要系统调优 </p>
+<p>修改vi /etc/security/limits.conf ，追加内容 (nofile是单个进程允许打开的最大文件个数 soft nofile 是软限制 hard nofile是硬限制 )</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">*</span> <span class="string">soft nofile 65536</span></span><br><span class="line"><span class="meta">*</span> <span class="string">hard nofile 65536</span></span><br></pre></td></tr></table></figure>
+
+<p>修改vi /etc/sysctl.conf，追加内容 (限制一个进程可以拥有的VMA(虚拟内存区域)的数量 )</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">vm.max_map_count</span>=<span class="string">655360</span></span><br></pre></td></tr></table></figure>
+
+<p>执行下面命令 修改内核参数马上生效</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sysctl</span> <span class="string">-p</span></span><br></pre></td></tr></table></figure>
+
+<p>重新启动虚拟机，再次启动容器，发现已经可以启动并远程访问 </p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">reboot</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>(5)创建es-head插件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker pull docker.io/mobz/elasticsearch-head:5</span><br><span class="line"></span><br><span class="line">docker run -di --name=es-head -p 9100:9100 docker.io/mobz/elasticsearch-head:5</span><br></pre></td></tr></table></figure>
+
+
+
+<p>(6)跨域配置</p>
+<p>修改elasticsearch/config下的配置文件：elasticsearch.yml，增加以下三句命令，并重启:</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">http.cors.enabled</span>: <span class="string">true</span></span><br><span class="line"><span class="meta">http.cors.allow-origin</span>: <span class="string">&quot;*&quot;</span></span><br><span class="line"><span class="meta">network.host</span>: <span class="string">192.168.211.132</span></span><br></pre></td></tr></table></figure>
+
+<p>其中：<br>http.cors.enabled: true：此步为允许elasticsearch跨域访问，默认是false。<br>http.cors.allow-origin: “<em>“：表示跨域访问允许的域名地址（</em>表示任意）。</p>
+<p>重启</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">docker</span> <span class="string">restart jwang_elasticsearch</span></span><br></pre></td></tr></table></figure>
+
+<p>小提示：如果想让容器开启重启，可以执行下面命令</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">docker</span> <span class="string">update --restart=always 容器名称或者容器id</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1584928112187.png" alt="1584928112187"></p>
+<h2 id="IK分词器安装"><a href="#IK分词器安装" class="headerlink" title="IK分词器安装"></a>IK分词器安装</h2><p>(1)安装ik分词器</p>
+<p>IK分词器下载地址<a target="_blank" rel="noopener" href="https://github.com/medcl/elasticsearch-analysis-ik/releases">https://github.com/medcl/elasticsearch-analysis-ik/releases</a></p>
+<p>将ik分词器上传到服务器上，然后解压，并改名字为ik</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">unzip</span> <span class="string">elasticsearch-analysis-ik-5.6.8.zip</span></span><br><span class="line"><span class="attr">mv</span> <span class="string">elasticsearch ik</span></span><br></pre></td></tr></table></figure>
+
+<p>将ik目录拷贝到docker容器的plugins目录下</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">docker</span> <span class="string">cp ./ik jwang_elasticsearch:/usr/share/elasticsearch/plugins</span></span><br></pre></td></tr></table></figure>
+
+<p>重启容器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart jwang_elasticsearch</span><br></pre></td></tr></table></figure>
+
+<p>(2)IK分词器测试</p>
+<p>访问：<code>http://192.168.211.132:9200/_analyze?analyzer=ik_smart&amp;pretty=true&amp;text=我是程序员</code></p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1559427846075.png" alt="1559427846075"></p>
+<p>访问：<code>http://192.168.211.132:9200/_analyze?analyzer=ik_max_word&amp;pretty=true&amp;text=我是程序员</code></p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1559427892947.png" alt="1559427892947"></p>
+<h2 id="Kibana使用-掌握DSL语句"><a href="#Kibana使用-掌握DSL语句" class="headerlink" title="Kibana使用-掌握DSL语句"></a>Kibana使用-掌握DSL语句</h2><p>我们上面使用的是elasticsearch-head插件实现数据查找的，但是elasticsearch-head的功能比较单一，我们这里需要一个更专业的工具实现对日志的实时分析，也就是我们接下来要讲的kibana。</p>
+<p>Kibana 是一款开源的数据分析和可视化平台，它是 Elastic Stack 成员之一，设计用于和 Elasticsearch 协作。您可以使用 Kibana 对 Elasticsearch 索引中的数据进行搜索、查看、交互操作。您可以很方便的利用图表、表格及地图对数据进行多元化的分析和呈现。</p>
+<p>Kibana 可以使大数据通俗易懂。它很简单，基于浏览器的界面便于您快速创建和分享动态数据仪表板来追踪 Elasticsearch 的实时数据变化。</p>
+<p>搭建 Kibana 非常简单。您可以分分钟完成 Kibana 的安装并开始探索 Elasticsearch 的索引数据 — 没有代码、不需要额外的基础设施。</p>
+<h3 id="Kibana下载安装"><a href="#Kibana下载安装" class="headerlink" title="Kibana下载安装"></a>Kibana下载安装</h3><p>我们项目中不再使用linux，直接使用Docker，所有这里就不演示在windows的下载安装了。</p>
+<p>(1)镜像下载</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">docker</span> <span class="string">pull docker.io/kibana:5.6.8</span></span><br></pre></td></tr></table></figure>
+
+
+<p>(2)安装kibana容器</p>
+<p>执行如下命令，开始安装kibana容器</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">docker</span> <span class="string">run -it -d -e ELASTICSEARCH_URL=http://192.168.211.132:9200 --name kibana --restart=always -p 5601:5601 kibana:5.6.8</span></span><br></pre></td></tr></table></figure>
+
+<p>ELASTICSEARCH_URL=<a href="http://192.168.211.132:9200：是指链接的ES地址">http://192.168.211.132:9200：是指链接的ES地址</a></p>
+<p>restart=always:每次服务都会重启，也就是开启启动</p>
+<p>5601:5601:端口号</p>
+<p>(3)访问测试</p>
+<p>访问<code>http://192.168.211.132:5601</code>如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1559533771948.png" alt="1559533771948"></p>
+<h3 id="Kibana使用"><a href="#Kibana使用" class="headerlink" title="Kibana使用"></a>Kibana使用</h3><h4 id="配置索引"><a href="#配置索引" class="headerlink" title="配置索引"></a>配置索引</h4><p>要使用Kibana，您必须至少配置一个索引。索引用于标识Elasticsearch索引以运行搜索和分析。它们还用于配置字段。 </p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1554423078755.png" alt="1554423078755"></p>
+<p>我们修改索引名称的匹配方式即可，下面2个选项不用勾选。点击create，会展示出当前配置的索引的域信息，如下图：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1554423578891.png" alt="1554423578891"></p>
+<p>域的每个标题选项分别代表如下意思：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1554423779455.png" alt="1554423779455"></p>
+<h4 id="数据搜索"><a href="#数据搜索" class="headerlink" title="数据搜索"></a>数据搜索</h4><p>Discover为数据搜索部分，可以对日志信息进行搜索操作。</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1554501163624.png" alt="1554501163624"></p>
+<p>可以使用Discover实现数据搜索过滤和搜索条件显示以及关键词搜索，如下图：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1554501381459.png" alt="1554501381459"></p>
+<h4 id="DSL语句使用"><a href="#DSL语句使用" class="headerlink" title="DSL语句使用"></a>DSL语句使用</h4><h5 id="Query-DSL结构化查询介绍"><a href="#Query-DSL结构化查询介绍" class="headerlink" title="Query DSL结构化查询介绍"></a>Query DSL结构化查询介绍</h5><p>Query DSL是一个Java开源框架用于构建类型安全的SQL查询语句。采用API代替传统的拼接字符串来构造查询语句。目前Querydsl支持的平台包括JPA,JDO，SQL，Java Collections，RDF，Lucene，Hibernate Search。elasticsearch提供了一整套基于JSON的查询DSL语言来定义查询。<br>Query DSL当作是一系列的抽象的查询表达式树(AST)特定查询能够包含其它的查询，(如 bool ), 有些查询能够包含过滤器(如 constant_score), 还有的可以同时包含查询和过滤器 (如 filtered). 都能够从ES支持查询集合里面选择任意一个查询或者是从过滤器集合里面挑选出任意一个过滤器, 这样的话，我们就可以构造出任意复杂（maybe 非常有趣）的查询了。</p>
+<h5 id="索引操作"><a href="#索引操作" class="headerlink" title="索引操作"></a>索引操作</h5><p>(1)查询所有索引</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">GET</span> <span class="string">/_cat/indices?v</span></span><br></pre></td></tr></table></figure>
+
+<p>结果如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564603562118.png" alt="1564603562118"></p>
+<p>(2)删除某个索引</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">DELETE</span> <span class="string">/skuinfo</span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564603680699.png" alt="1564603680699"></p>
+<p>(3)新增索引</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">PUT</span> <span class="string">/user</span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564603974567.png" alt="1564603974567"></p>
+<p>(4)创建映射</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">PUT</span> <span class="string">/user/userinfo/_mapping</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;properties&quot;</span>: <span class="string">&#123;</span></span><br><span class="line">    <span class="meta">&quot;name&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">      <span class="meta">&quot;type&quot;</span>: <span class="string">&quot;text&quot;,</span></span><br><span class="line">      <span class="meta">&quot;analyzer&quot;</span>: <span class="string">&quot;ik_smart&quot;,</span></span><br><span class="line">      <span class="meta">&quot;search_analyzer&quot;</span>: <span class="string">&quot;ik_smart&quot;,</span></span><br><span class="line">      <span class="meta">&quot;store&quot;</span>: <span class="string">false</span></span><br><span class="line">    <span class="attr">&#125;,</span></span><br><span class="line">    <span class="meta">&quot;city&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">      <span class="meta">&quot;type&quot;</span>: <span class="string">&quot;text&quot;,</span></span><br><span class="line">      <span class="meta">&quot;analyzer&quot;</span>: <span class="string">&quot;ik_smart&quot;,</span></span><br><span class="line">      <span class="meta">&quot;search_analyzer&quot;</span>: <span class="string">&quot;ik_smart&quot;,</span></span><br><span class="line">      <span class="meta">&quot;store&quot;</span>: <span class="string">false</span></span><br><span class="line">    <span class="attr">&#125;,</span></span><br><span class="line">    <span class="meta">&quot;age&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">      <span class="meta">&quot;type&quot;</span>: <span class="string">&quot;long&quot;,</span></span><br><span class="line">      <span class="meta">&quot;store&quot;</span>: <span class="string">false</span></span><br><span class="line">    <span class="attr">&#125;,</span></span><br><span class="line">    <span class="meta">&quot;description&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">      <span class="meta">&quot;type&quot;</span>: <span class="string">&quot;text&quot;,</span></span><br><span class="line">      <span class="meta">&quot;analyzer&quot;</span>: <span class="string">&quot;ik_smart&quot;,</span></span><br><span class="line">      <span class="meta">&quot;search_analyzer&quot;</span>: <span class="string">&quot;ik_smart&quot;,</span></span><br><span class="line">      <span class="meta">&quot;store&quot;</span>: <span class="string">false</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line">  <span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564604795013.png" alt="1564604795013"></p>
+<p>(5)新增文档数据</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">PUT</span> <span class="string">/user/userinfo/1</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;name&quot;</span>:<span class="string">&quot;李四&quot;,</span></span><br><span class="line">  <span class="meta">&quot;age&quot;</span>:<span class="string">22,</span></span><br><span class="line">  <span class="meta">&quot;city&quot;</span>:<span class="string">&quot;深圳&quot;,</span></span><br><span class="line">  <span class="meta">&quot;description&quot;</span>:<span class="string">&quot;李四来自湖北武汉！&quot;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564604217330.png" alt="1564604217330"></p>
+<p>(6)修改数据</p>
+<p><strong>a.替换操作</strong></p>
+<p>更新数据可以使用之前的增加操作,这种操作会将整个数据替换掉，代码如下：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#更新数据,id=4</span></span><br><span class="line"><span class="attr">PUT</span> <span class="string">/user/userinfo/4</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;name&quot;</span>:<span class="string">&quot;张三丰&quot;,</span></span><br><span class="line">  <span class="meta">&quot;description&quot;</span>:<span class="string">&quot;在武汉读书，家在武汉！在深圳工作！&quot;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564606854935.png" alt="1564606854935"></p>
+<p>使用GET命令查看：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#根据ID查询</span></span><br><span class="line"><span class="attr">GET</span> <span class="string">/user/userinfo/4</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>b.更新操作</strong></p>
+<p>我们先使用下面命令恢复数据：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#恢复文档数据 id=4</span></span><br><span class="line"><span class="attr">PUT</span> <span class="string">/user/userinfo/4</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;name&quot;</span>:<span class="string">&quot;张三丰&quot;,</span></span><br><span class="line">  <span class="meta">&quot;age&quot;</span>:<span class="string">66,</span></span><br><span class="line">  <span class="meta">&quot;city&quot;</span>:<span class="string">&quot;武汉&quot;,</span></span><br><span class="line">  <span class="meta">&quot;description&quot;</span>:<span class="string">&quot;在武汉读书，家在武汉！&quot;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>使用POST更新某个列的数据</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#使用POST更新某个域的数据</span></span><br><span class="line"><span class="attr">POST</span> <span class="string">/user/userinfo/4/_update</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;doc&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">    <span class="meta">&quot;name&quot;</span>:<span class="string">&quot;张三丰&quot;,</span></span><br><span class="line">    <span class="meta">&quot;description&quot;</span>:<span class="string">&quot;在武汉读书，家在武汉！在深圳工作！&quot;</span></span><br><span class="line">  <span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564607209527.png" alt="1564607209527"></p>
+<p>使用GET命令查看：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#根据ID查询</span></span><br><span class="line"><span class="attr">GET</span> <span class="string">/user/userinfo/4</span></span><br></pre></td></tr></table></figure>
+
+
+<p>(7)删除Document</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#删除数据</span></span><br><span class="line"><span class="attr">DELETE</span> <span class="string">user/userinfo/7</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="数据查询"><a href="#数据查询" class="headerlink" title="数据查询"></a>数据查询</h5><p>(1)查询所有数据</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查询所有</span></span><br><span class="line"><span class="attr">GET</span> <span class="string">/user/_search</span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564605593912.png" alt="1564605593912"></p>
+<p>(2)根据ID查询</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#根据ID查询</span></span><br><span class="line"><span class="attr">GET</span> <span class="string">/user/userinfo/2</span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564605676871.png" alt="1564605676871"></p>
+<p>(3)Sort排序</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#搜索排序</span></span><br><span class="line"><span class="attr">GET</span> <span class="string">/user/_search</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;query&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">    <span class="meta">&quot;match_all&quot;</span>: <span class="string">&#123;&#125;</span></span><br><span class="line">  <span class="attr">&#125;,</span></span><br><span class="line">  <span class="meta">&quot;sort&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">    <span class="meta">&quot;age&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">      <span class="meta">&quot;order&quot;</span>:<span class="string">&quot;desc&quot;</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line">  <span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564605923564.png" alt="1564605923564"></p>
+<p>(4)分页</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#分页实现</span></span><br><span class="line"><span class="attr">GET</span> <span class="string">/user/_search</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;query&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">    <span class="meta">&quot;match_all&quot;</span>: <span class="string">&#123;&#125;</span></span><br><span class="line">  <span class="attr">&#125;,</span></span><br><span class="line">  <span class="meta">&quot;sort&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">    <span class="meta">&quot;age&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">      <span class="meta">&quot;order&quot;</span>:<span class="string">&quot;desc&quot;</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line">  <span class="attr">&#125;,</span></span><br><span class="line">  <span class="meta">&quot;from&quot;</span>: <span class="string">0,</span></span><br><span class="line">  <span class="meta">&quot;size&quot;</span>: <span class="string">2</span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>解释：</p>
+<p>from:从下N的记录开始查询</p>
+<p>size:每页显示条数</p>
+<p>效果如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564606466826.png" alt="1564606466826"></p>
+<h5 id="过滤查询"><a href="#过滤查询" class="headerlink" title="过滤查询"></a>过滤查询</h5><p>(1)term过滤</p>
+<p>term主要用于分词精确匹配，如字符串、数值、日期等（不适合情况：1.列中除英文字符外有其它值 2.字符串值中有冒号或中文 3.系统自带属性如_version） </p>
+<p>如下案例：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#过滤查询-term</span><br><span class="line">GET _search</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;query&quot;</span>:&#123;</span><br><span class="line">    <span class="attr">&quot;term&quot;</span>:&#123;</span><br><span class="line">      <span class="attr">&quot;city&quot;</span>:<span class="string">&quot;武汉&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564607758341.png" alt="1564607758341"></p>
+<p>(2)terms 过滤</p>
+<p>terms 跟 term 有点类似，但 terms 允许指定多个匹配条件。 如果某个字段指定了多个值，那么文档需要一起去做匹配 。</p>
+<p>案例如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#过滤查询-terms 允许多个Term</span><br><span class="line">GET _search</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;query&quot;</span>:&#123;</span><br><span class="line">    <span class="attr">&quot;terms&quot;</span>:&#123;</span><br><span class="line">      <span class="attr">&quot;city&quot;</span>:</span><br><span class="line">        [</span><br><span class="line">          <span class="string">&quot;武汉&quot;</span>,</span><br><span class="line">          <span class="string">&quot;广州&quot;</span></span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>果如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564608161056.png" alt="1564608161056"></p>
+<p>(3) range 过滤</p>
+<p>range过滤允许我们按照指定范围查找一批数据。例如我们查询年龄范围</p>
+<p>案例如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#过滤-range 范围过滤</span><br><span class="line">#gt表示&gt; gte表示=&gt;</span><br><span class="line">#lt表示&lt; lte表示&lt;=</span><br><span class="line">GET _search</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;query&quot;</span>:&#123;</span><br><span class="line">    <span class="attr">&quot;range&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;age&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;gte&quot;</span>: <span class="number">30</span>,</span><br><span class="line">        <span class="attr">&quot;lte&quot;</span>: <span class="number">57</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上图效果如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564608377202.png" alt="1564608377202"></p>
+<p>(4)exists过滤</p>
+<p>exists 过滤可以用于查找拥有某个域的数据 </p>
+<p>案例如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#过滤搜索 exists：是指包含某个域的数据检索</span><br><span class="line">GET _search</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;query&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;exists&quot;</span>:&#123;</span><br><span class="line">      <span class="attr">&quot;field&quot;</span>:<span class="string">&quot;address&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564608891037.png" alt="1564608891037"></p>
+<p>(5) bool 过滤</p>
+<p>bool 过滤可以用来合并多个过滤条件查询结果的布尔逻辑，它包含一下操作符：</p>
+<ul>
+<li>must : 多个查询条件的完全匹配,相当于 and。</li>
+<li>must_not : 多个查询条件的相反匹配，相当于 not。</li>
+<li>should : 至少有一个查询条件匹配, 相当于 or。</li>
+</ul>
+<p>这些参数可以分别继承一个过滤条件或者一个过滤条件的数组：</p>
+<p>案例如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">#过滤搜索 bool </span><br><span class="line">#must : 多个查询条件的完全匹配,相当于 and。</span><br><span class="line">#must_not : 多个查询条件的相反匹配，相当于 not。</span><br><span class="line">#should : 至少有一个查询条件匹配, 相当于 or。</span><br><span class="line">GET _search</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;query&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;bool&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;must&quot;</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">&quot;term&quot;</span>: &#123;</span><br><span class="line">            <span class="attr">&quot;city&quot;</span>: &#123;</span><br><span class="line">              <span class="attr">&quot;value&quot;</span>: <span class="string">&quot;深圳&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">&quot;range&quot;</span>:&#123;</span><br><span class="line">            <span class="attr">&quot;age&quot;</span>:&#123;</span><br><span class="line">              <span class="attr">&quot;gte&quot;</span>:<span class="number">20</span>,</span><br><span class="line">              <span class="attr">&quot;lte&quot;</span>:<span class="number">99</span></span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564609793695.png" alt="1564609793695"></p>
+<p>(6) match_all 查询</p>
+<p>可以查询到所有文档，是没有查询条件下的默认语句。 </p>
+<p>案例如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#查询所有 match_all</span><br><span class="line">GET _search</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;query&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;match_all&quot;</span>: &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>(7) match 查询</p>
+<p>match查询是一个标准查询，不管你需要全文本查询还是精确查询基本上都要用到它。</p>
+<p>如果你使用 match 查询一个全文本字段，它会在真正查询之前用分析器先分析match一下查询字符：</p>
+<p>案例如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#字符串匹配</span><br><span class="line">GET _search</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;query&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;match&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;description&quot;</span>: <span class="string">&quot;武汉&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564609964569.png" alt="1564609964569"></p>
+<p>(8)prefix 查询</p>
+<p>以什么字符开头的，可以更简单地用 prefix ,例如查询所有以张开始的用户描述</p>
+<p>案例如下：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#前缀匹配 prefix</span></span><br><span class="line"><span class="attr">GET</span> <span class="string">_search</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;query&quot;</span>: <span class="string">&#123;</span></span><br><span class="line">    <span class="meta">&quot;prefix&quot;</span>: <span class="string">&#123;</span></span><br><span class="line">      <span class="meta">&quot;name&quot;</span>: <span class="string">&#123;</span></span><br><span class="line">        <span class="meta">&quot;value&quot;</span>: <span class="string">&quot;赵&quot;</span></span><br><span class="line">      <span class="attr">&#125;</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line">  <span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564610088455.png" alt="1564610088455"></p>
+<p>(9)multi_match 查询</p>
+<p>multi_match查询允许你做match查询的基础上同时搜索多个字段，在多个字段中同时查一个 </p>
+<p>案例如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#多个域匹配搜索</span><br><span class="line">GET _search</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;query&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;multi_match&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;query&quot;</span>: <span class="string">&quot;深圳&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;fields&quot;</span>: [</span><br><span class="line">        <span class="string">&quot;city&quot;</span>,</span><br><span class="line">        <span class="string">&quot;description&quot;</span></span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1564610272233.png" alt="1564610272233"></p>
+<h5 id="高亮查询"><a href="#高亮查询" class="headerlink" title="高亮查询"></a>高亮查询</h5><p>执行查询的DSL语句：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">GET</span> <span class="string">user/_search</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;query&quot;:</span> &#123;</span><br><span class="line">    <span class="attr">&quot;match&quot;:</span> &#123;</span><br><span class="line">      <span class="attr">&quot;description&quot;:</span> <span class="string">&quot;武汉&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;highlight&quot;:</span> &#123;</span><br><span class="line">    <span class="attr">&quot;pre_tags&quot;:</span> <span class="string">&quot;&lt;span style=&#x27;color:red&#x27;&gt;&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;post_tags&quot;:</span> <span class="string">&quot;&lt;/span&gt;&quot;</span>, </span><br><span class="line">    <span class="attr">&quot;fields&quot;:</span> &#123;</span><br><span class="line">      <span class="attr">&quot;description&quot;:</span> &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>查询结果：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1578022792956.png" alt="1578022792956"></p>
+<h3 id="完整DSL语句代码"><a href="#完整DSL语句代码" class="headerlink" title="完整DSL语句代码"></a>完整DSL语句代码</h3><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看所有索引</span></span><br><span class="line"><span class="attr">GET</span> <span class="string">/_cat/indices?v</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#删除某个索引</span></span><br><span class="line"><span class="attr">DELETE</span> <span class="string">/skuinfo</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#新增索引</span></span><br><span class="line"><span class="attr">PUT</span> <span class="string">/user</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#创建映射</span></span><br><span class="line"><span class="attr">PUT</span> <span class="string">/user/userinfo/_mapping</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;properties&quot;</span>: <span class="string">&#123;</span></span><br><span class="line">    <span class="meta">&quot;name&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">      <span class="meta">&quot;type&quot;</span>: <span class="string">&quot;text&quot;,</span></span><br><span class="line">      <span class="meta">&quot;analyzer&quot;</span>: <span class="string">&quot;ik_smart&quot;,</span></span><br><span class="line">      <span class="meta">&quot;search_analyzer&quot;</span>: <span class="string">&quot;ik_smart&quot;,</span></span><br><span class="line">      <span class="meta">&quot;store&quot;</span>: <span class="string">false</span></span><br><span class="line">    <span class="attr">&#125;,</span></span><br><span class="line">    <span class="meta">&quot;city&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">      <span class="meta">&quot;type&quot;</span>: <span class="string">&quot;text&quot;,</span></span><br><span class="line">      <span class="meta">&quot;analyzer&quot;</span>: <span class="string">&quot;ik_smart&quot;,</span></span><br><span class="line">      <span class="meta">&quot;search_analyzer&quot;</span>: <span class="string">&quot;ik_smart&quot;,</span></span><br><span class="line">      <span class="meta">&quot;store&quot;</span>: <span class="string">false</span></span><br><span class="line">    <span class="attr">&#125;,</span></span><br><span class="line">    <span class="meta">&quot;age&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">      <span class="meta">&quot;type&quot;</span>: <span class="string">&quot;long&quot;,</span></span><br><span class="line">      <span class="meta">&quot;store&quot;</span>: <span class="string">false</span></span><br><span class="line">    <span class="attr">&#125;,</span></span><br><span class="line">    <span class="meta">&quot;description&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">      <span class="meta">&quot;type&quot;</span>: <span class="string">&quot;text&quot;,</span></span><br><span class="line">      <span class="meta">&quot;analyzer&quot;</span>: <span class="string">&quot;ik_smart&quot;,</span></span><br><span class="line">      <span class="meta">&quot;search_analyzer&quot;</span>: <span class="string">&quot;ik_smart&quot;,</span></span><br><span class="line">      <span class="meta">&quot;store&quot;</span>: <span class="string">false</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line">  <span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#新增文档数据 id=1</span></span><br><span class="line"><span class="attr">PUT</span> <span class="string">/user/userinfo/1</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;name&quot;</span>:<span class="string">&quot;李四&quot;,</span></span><br><span class="line">  <span class="meta">&quot;age&quot;</span>:<span class="string">22,</span></span><br><span class="line">  <span class="meta">&quot;city&quot;</span>:<span class="string">&quot;深圳&quot;,</span></span><br><span class="line">  <span class="meta">&quot;description&quot;</span>:<span class="string">&quot;李四来自湖北武汉！&quot;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#新增文档数据 id=2</span></span><br><span class="line"><span class="attr">PUT</span> <span class="string">/user/userinfo/2</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;name&quot;</span>:<span class="string">&quot;王五&quot;,</span></span><br><span class="line">  <span class="meta">&quot;age&quot;</span>:<span class="string">35,</span></span><br><span class="line">  <span class="meta">&quot;city&quot;</span>:<span class="string">&quot;深圳&quot;,</span></span><br><span class="line">  <span class="meta">&quot;description&quot;</span>:<span class="string">&quot;王五家住在深圳！&quot;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#新增文档数据 id=3</span></span><br><span class="line"><span class="attr">PUT</span> <span class="string">/user/userinfo/3</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;name&quot;</span>:<span class="string">&quot;张三&quot;,</span></span><br><span class="line">  <span class="meta">&quot;age&quot;</span>:<span class="string">19,</span></span><br><span class="line">  <span class="meta">&quot;city&quot;</span>:<span class="string">&quot;深圳&quot;,</span></span><br><span class="line">  <span class="meta">&quot;description&quot;</span>:<span class="string">&quot;在深圳打工，来自湖北武汉&quot;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#新增文档数据 id=4</span></span><br><span class="line"><span class="attr">PUT</span> <span class="string">/user/userinfo/4</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;name&quot;</span>:<span class="string">&quot;张三丰&quot;,</span></span><br><span class="line">  <span class="meta">&quot;age&quot;</span>:<span class="string">66,</span></span><br><span class="line">  <span class="meta">&quot;city&quot;</span>:<span class="string">&quot;武汉&quot;,</span></span><br><span class="line">  <span class="meta">&quot;description&quot;</span>:<span class="string">&quot;在武汉读书，家在武汉！&quot;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#新增文档数据 id=5</span></span><br><span class="line"><span class="attr">PUT</span> <span class="string">/user/userinfo/5</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;name&quot;</span>:<span class="string">&quot;赵子龙&quot;,</span></span><br><span class="line">  <span class="meta">&quot;age&quot;</span>:<span class="string">77,</span></span><br><span class="line">  <span class="meta">&quot;city&quot;</span>:<span class="string">&quot;广州&quot;,</span></span><br><span class="line">  <span class="meta">&quot;description&quot;</span>:<span class="string">&quot;赵子龙来自深圳宝安，但是在广州工作！&quot;,</span></span><br><span class="line">  <span class="meta">&quot;address&quot;</span>:<span class="string">&quot;广东省茂名市&quot;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#新增文档数据 id=6</span></span><br><span class="line"><span class="attr">PUT</span> <span class="string">/user/userinfo/6</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;name&quot;</span>:<span class="string">&quot;赵毅&quot;,</span></span><br><span class="line">  <span class="meta">&quot;age&quot;</span>:<span class="string">55,</span></span><br><span class="line">  <span class="meta">&quot;city&quot;</span>:<span class="string">&quot;广州&quot;,</span></span><br><span class="line">  <span class="meta">&quot;description&quot;</span>:<span class="string">&quot;赵毅来自广州白云区，从事电子商务8年！&quot;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#新增文档数据 id=7</span></span><br><span class="line"><span class="attr">PUT</span> <span class="string">/user/userinfo/7</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;name&quot;</span>:<span class="string">&quot;赵哈哈&quot;,</span></span><br><span class="line">  <span class="meta">&quot;age&quot;</span>:<span class="string">57,</span></span><br><span class="line">  <span class="meta">&quot;city&quot;</span>:<span class="string">&quot;武汉&quot;,</span></span><br><span class="line">  <span class="meta">&quot;description&quot;</span>:<span class="string">&quot;武汉赵哈哈，在深圳打工已有半年了，月薪7500！&quot;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#更新数据,id=4</span></span><br><span class="line"><span class="attr">PUT</span> <span class="string">/user/userinfo/4</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;name&quot;</span>:<span class="string">&quot;张三丰&quot;,</span></span><br><span class="line">  <span class="meta">&quot;description&quot;</span>:<span class="string">&quot;在武汉读书，家在武汉！在深圳工作！&quot;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#根据ID查询</span></span><br><span class="line"><span class="attr">GET</span> <span class="string">/user/userinfo/4</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#恢复文档数据 id=4</span></span><br><span class="line"><span class="attr">PUT</span> <span class="string">/user/userinfo/4</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;name&quot;</span>:<span class="string">&quot;张三丰&quot;,</span></span><br><span class="line">  <span class="meta">&quot;age&quot;</span>:<span class="string">66,</span></span><br><span class="line">  <span class="meta">&quot;city&quot;</span>:<span class="string">&quot;武汉&quot;,</span></span><br><span class="line">  <span class="meta">&quot;description&quot;</span>:<span class="string">&quot;在武汉读书，家在武汉！&quot;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#使用POST更新某个域的数据</span></span><br><span class="line"><span class="attr">POST</span> <span class="string">/user/userinfo/4/_update</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;doc&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">    <span class="meta">&quot;name&quot;</span>:<span class="string">&quot;张三丰&quot;,</span></span><br><span class="line">    <span class="meta">&quot;description&quot;</span>:<span class="string">&quot;在武汉读书，家在武汉！在深圳工作！&quot;</span></span><br><span class="line">  <span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#根据ID查询</span></span><br><span class="line"><span class="attr">GET</span> <span class="string">/user/userinfo/4</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#删除数据</span></span><br><span class="line"><span class="attr">DELETE</span> <span class="string">user/userinfo/4</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#查询所有</span></span><br><span class="line"><span class="attr">GET</span> <span class="string">/user/_search</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#根据ID查询</span></span><br><span class="line"><span class="attr">GET</span> <span class="string">/user/userinfo/2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#搜索排序</span></span><br><span class="line"><span class="attr">GET</span> <span class="string">/user/_search</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;query&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">    <span class="meta">&quot;match_all&quot;</span>: <span class="string">&#123;&#125;</span></span><br><span class="line">  <span class="attr">&#125;,</span></span><br><span class="line">  <span class="meta">&quot;sort&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">    <span class="meta">&quot;age&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">      <span class="meta">&quot;order&quot;</span>:<span class="string">&quot;desc&quot;</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line">  <span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#分页实现</span></span><br><span class="line"><span class="attr">GET</span> <span class="string">/user/_search</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;query&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">    <span class="meta">&quot;match_all&quot;</span>: <span class="string">&#123;&#125;</span></span><br><span class="line">  <span class="attr">&#125;,</span></span><br><span class="line">  <span class="meta">&quot;sort&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">    <span class="meta">&quot;age&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">      <span class="meta">&quot;order&quot;</span>:<span class="string">&quot;desc&quot;</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line">  <span class="attr">&#125;,</span></span><br><span class="line">  <span class="meta">&quot;from&quot;</span>: <span class="string">0,</span></span><br><span class="line">  <span class="meta">&quot;size&quot;</span>: <span class="string">2</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#过滤查询-term</span></span><br><span class="line"><span class="attr">GET</span> <span class="string">_search</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;query&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">    <span class="meta">&quot;term&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">      <span class="meta">&quot;city&quot;</span>:<span class="string">&quot;武汉&quot;</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line">  <span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#过滤查询-terms 允许多个Term</span></span><br><span class="line"><span class="attr">GET</span> <span class="string">_search</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;query&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">    <span class="meta">&quot;terms&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">      <span class="meta">&quot;city&quot;</span>:<span class="string"></span></span><br><span class="line">        <span class="attr">[</span></span><br><span class="line">          <span class="attr">&quot;武汉&quot;,</span></span><br><span class="line">          <span class="attr">&quot;广州&quot;</span></span><br><span class="line">        <span class="attr">]</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line">  <span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#过滤-range 范围过滤</span></span><br><span class="line"><span class="comment">#gt表示&gt; gte表示=&gt;</span></span><br><span class="line"><span class="comment">#lt表示&lt; lte表示&lt;=</span></span><br><span class="line"><span class="attr">GET</span> <span class="string">_search</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;query&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">    <span class="meta">&quot;range&quot;</span>: <span class="string">&#123;</span></span><br><span class="line">      <span class="meta">&quot;age&quot;</span>: <span class="string">&#123;</span></span><br><span class="line">        <span class="meta">&quot;gte&quot;</span>: <span class="string">30,</span></span><br><span class="line">        <span class="meta">&quot;lte&quot;</span>: <span class="string">57</span></span><br><span class="line">      <span class="attr">&#125;</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line">  <span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#过滤搜索 exists：是指包含某个域的数据检索</span></span><br><span class="line"><span class="attr">GET</span> <span class="string">_search</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;query&quot;</span>: <span class="string">&#123;</span></span><br><span class="line">    <span class="meta">&quot;exists&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">      <span class="meta">&quot;field&quot;</span>:<span class="string">&quot;address&quot;</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line">  <span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#过滤搜索 bool </span></span><br><span class="line"><span class="comment">#must : 多个查询条件的完全匹配,相当于 and。</span></span><br><span class="line"><span class="comment">#must_not : 多个查询条件的相反匹配，相当于 not。</span></span><br><span class="line"><span class="comment">#should : 至少有一个查询条件匹配, 相当于 or。</span></span><br><span class="line"><span class="attr">GET</span> <span class="string">_search</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;query&quot;</span>: <span class="string">&#123;</span></span><br><span class="line">    <span class="meta">&quot;bool&quot;</span>: <span class="string">&#123;</span></span><br><span class="line">      <span class="meta">&quot;must&quot;</span>: <span class="string">[</span></span><br><span class="line">        <span class="attr">&#123;</span></span><br><span class="line">          <span class="meta">&quot;term&quot;</span>: <span class="string">&#123;</span></span><br><span class="line">            <span class="meta">&quot;city&quot;</span>: <span class="string">&#123;</span></span><br><span class="line">              <span class="meta">&quot;value&quot;</span>: <span class="string">&quot;深圳&quot;</span></span><br><span class="line">            <span class="attr">&#125;</span></span><br><span class="line">          <span class="attr">&#125;</span></span><br><span class="line">        <span class="attr">&#125;,</span></span><br><span class="line">        <span class="attr">&#123;</span></span><br><span class="line">          <span class="meta">&quot;range&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">            <span class="meta">&quot;age&quot;</span>:<span class="string">&#123;</span></span><br><span class="line">              <span class="meta">&quot;gte&quot;</span>:<span class="string">20,</span></span><br><span class="line">              <span class="meta">&quot;lte&quot;</span>:<span class="string">99</span></span><br><span class="line">            <span class="attr">&#125;</span></span><br><span class="line">          <span class="attr">&#125;</span></span><br><span class="line">        <span class="attr">&#125;</span></span><br><span class="line">      <span class="attr">]</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line">  <span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#查询所有 match_all</span></span><br><span class="line"><span class="attr">GET</span> <span class="string">_search</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;query&quot;</span>: <span class="string">&#123;</span></span><br><span class="line">    <span class="meta">&quot;match_all&quot;</span>: <span class="string">&#123;&#125;</span></span><br><span class="line">  <span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#字符串匹配</span></span><br><span class="line"><span class="attr">GET</span> <span class="string">_search</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;query&quot;</span>: <span class="string">&#123;</span></span><br><span class="line">    <span class="meta">&quot;match&quot;</span>: <span class="string">&#123;</span></span><br><span class="line">      <span class="meta">&quot;description&quot;</span>: <span class="string">&quot;武汉&quot;</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line">  <span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#前缀匹配 prefix</span></span><br><span class="line"><span class="attr">GET</span> <span class="string">_search</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;query&quot;</span>: <span class="string">&#123;</span></span><br><span class="line">    <span class="meta">&quot;prefix&quot;</span>: <span class="string">&#123;</span></span><br><span class="line">      <span class="meta">&quot;name&quot;</span>: <span class="string">&#123;</span></span><br><span class="line">        <span class="meta">&quot;value&quot;</span>: <span class="string">&quot;赵&quot;</span></span><br><span class="line">      <span class="attr">&#125;</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line">  <span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#多个域匹配搜索</span></span><br><span class="line"><span class="attr">GET</span> <span class="string">_search</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line">  <span class="meta">&quot;query&quot;</span>: <span class="string">&#123;</span></span><br><span class="line">    <span class="meta">&quot;multi_match&quot;</span>: <span class="string">&#123;</span></span><br><span class="line">      <span class="meta">&quot;query&quot;</span>: <span class="string">&quot;深圳&quot;,</span></span><br><span class="line">      <span class="meta">&quot;fields&quot;</span>: <span class="string">[</span></span><br><span class="line">        <span class="attr">&quot;city&quot;,</span></span><br><span class="line">        <span class="attr">&quot;description&quot;</span></span><br><span class="line">      <span class="attr">]</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line">  <span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="数据导入ES"><a href="#数据导入ES" class="headerlink" title="数据导入ES"></a>数据导入ES</h2><h3 id="SpringData-Elasticsearch介绍"><a href="#SpringData-Elasticsearch介绍" class="headerlink" title="SpringData Elasticsearch介绍"></a>SpringData Elasticsearch介绍</h3><h4 id="SpringData介绍"><a href="#SpringData介绍" class="headerlink" title="SpringData介绍"></a>SpringData介绍</h4><p>Spring Data是一个用于简化数据库访问，并支持云服务的开源框架。其主要目标是使得对数据的访问变得方便快捷，并支持map-reduce框架和云计算数据服务。 Spring Data可以极大的简化JPA的写法，可以在几乎不用写实现的情况下，实现对数据的访问和操作。除了CRUD外，还包括如分页、排序等一些常用的功能。</p>
+<p>Spring Data的官网：<a target="_blank" rel="noopener" href="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/">http://projects.spring.io/spring-data/</a></p>
+<h4 id="SpringData-ES介绍"><a href="#SpringData-ES介绍" class="headerlink" title="SpringData ES介绍"></a>SpringData ES介绍</h4><p>Spring Data ElasticSearch 基于 spring data API 简化 elasticSearch操作，将原始操作elasticSearch的客户端API 进行封装 。Spring Data为Elasticsearch项目提供集成搜索引擎。Spring Data Elasticsearch POJO的关键功能区域为中心的模型与Elastichsearch交互文档和轻松地编写一个存储库数据访问层。 官方网站：<a target="_blank" rel="noopener" href="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/">http://projects.spring.io/spring-data-elasticsearch/ </a></p>
+<h3 id="搜索工程搭建"><a href="#搜索工程搭建" class="headerlink" title="搜索工程搭建"></a>搜索工程搭建</h3><p>创建搜索微服务工程，jwang-service-search,该工程主要提供搜索服务以及索引数据的更新操作。</p>
+<p>(1)API工程搭建</p>
+<p>首先创建search的API工程,在jwang-service-api中创建jwang-service-search-api，如下图：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1560825278495.png" alt="1560825278495"></p>
+<p>pom.xml如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jwang-service-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.jwang<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jwang-service-search-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--goods API依赖--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.jwang<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jwang-service-goods-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--SpringDataES依赖--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-elasticsearch<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>(2)搜索微服务搭建</p>
+<p>在jwang-service中搭建jwang-service-search微服务，并进行相关配置。</p>
+<p><strong>pom.xml配置</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jwang-service<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.jwang<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jwang-service-search<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--依赖search api--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.jwang<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jwang-service-search-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>application.yml配置</strong></p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">port</span>: <span class="string">18085</span></span><br><span class="line"><span class="attr">spring</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">application</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">name</span>: <span class="string">search</span></span><br><span class="line">  <span class="attr">data</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">elasticsearch</span>:<span class="string"></span></span><br><span class="line">      <span class="meta">cluster-name</span>: <span class="string">my-application</span></span><br><span class="line">      <span class="meta">cluster-nodes</span>: <span class="string">192.168.211.132:9300</span></span><br><span class="line"><span class="attr">eureka</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">client</span>:<span class="string"></span></span><br><span class="line">    <span class="meta">service-url</span>:<span class="string"></span></span><br><span class="line">      <span class="attr">defaultZone</span>: <span class="string">http://127.0.0.1:7001/eureka</span></span><br><span class="line">  <span class="attr">instance</span>:<span class="string"></span></span><br><span class="line">    <span class="meta">prefer-ip-address</span>: <span class="string">true</span></span><br><span class="line"><span class="attr">feign</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">hystrix</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">enabled</span>: <span class="string">true</span></span><br><span class="line"><span class="comment">#超时配置</span></span><br><span class="line"><span class="attr">ribbon</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">ReadTimeout</span>: <span class="string">300000</span></span><br><span class="line"></span><br><span class="line"><span class="attr">hystrix</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">command</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">default</span>:<span class="string"></span></span><br><span class="line">      <span class="attr">execution</span>:<span class="string"></span></span><br><span class="line">        <span class="attr">isolation</span>:<span class="string"></span></span><br><span class="line">          <span class="attr">thread</span>:<span class="string"></span></span><br><span class="line">            <span class="attr">timeoutInMilliseconds</span>: <span class="string">10000</span></span><br></pre></td></tr></table></figure>
+
+<p>配置说明：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">connection-timeout</span>:<span class="string">服务连接超时时间</span></span><br><span class="line"><span class="attr">socket-connect：HTTP请求超时时间</span></span><br><span class="line"><span class="meta">ribbon.ReadTimeout</span>: <span class="string">Feign请求读取数据超时时间</span></span><br><span class="line"><span class="attr">timeoutInMilliseconds：feign连接超时时间</span></span><br><span class="line"><span class="attr">cluster-name：Elasticsearch的集群节点名称，这里需要和Elasticsearch集群节点名称保持一致</span></span><br><span class="line"><span class="attr">cluster-nodes：Elasticsearch节点通信地址</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>(3)启动类</p>
+<p>创建com.jwang.SearchApplication作为搜索微服务工程的启动类，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication(exclude=&#123;DataSourceAutoConfiguration.class&#125;)</span></span><br><span class="line"><span class="meta">@EnableEurekaClient</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SearchApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">        * Springboot整合Elasticsearch 在项目启动前设置一下的属性，防止报错</span></span><br><span class="line"><span class="comment">        * 解决netty冲突后初始化client时还会抛出异常</span></span><br><span class="line"><span class="comment">        * availableProcessors is already set to [12], rejecting [12]</span></span><br><span class="line"><span class="comment">        ***/</span></span><br><span class="line">        <span class="comment">//System.setProperty(&quot;es.set.netty.runtime.available.processors&quot;, &quot;false&quot;);</span></span><br><span class="line">        SpringApplication.run(SearchApplication.class,args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>分别创建对应的包，dao、service、controller，如下图：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1560825119409.png" alt="1560825119409"></p>
+<h3 id="数据导入"><a href="#数据导入" class="headerlink" title="数据导入"></a>数据导入</h3><p>现在需要将数据从数据库中查询出来，然后将数据导入到ES中。</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1609080628068.png" alt="1609080628068"></p>
+<p>数据导入流程如下：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">1.先将数据从数据库表中查询出来，将其导入到es服务器中</span></span><br><span class="line">	<span class="meta">1.1</span> <span class="string">商品微服务查询出商品sku表的数据</span></span><br><span class="line">	<span class="meta">1.2</span> <span class="string">搜索微服务通过feign调用商品微服务 获取到数据集（sku的列表数据）</span></span><br><span class="line">	<span class="meta">1.3</span> <span class="string">通过spring data elasticsearch api 将其导入到es服务器中（过程就是建立倒排索引结构，存储数据到文档区域中）</span></span><br><span class="line"><span class="attr">2.实现搜索功能</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="文档映射Bean创建"><a href="#文档映射Bean创建" class="headerlink" title="文档映射Bean创建"></a>文档映射Bean创建</h4><p>搜索商品的时候，会根据如下属性搜索数据,并且不是所有的属性都需要分词搜索，我们创建JavaBean，将JavaBean数据存入到ES中要以搜索条件和搜索展示结果为依据，部分关键搜索条件分析如下：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">1.可能会根据商品名称搜素，而且可以搜索商品名称中的任意一个词语，所以需要分词</span></span><br><span class="line"><span class="attr">2.可能会根据商品分类搜索，商品分类不需要分词</span></span><br><span class="line"><span class="attr">3.可能会根据商品品牌搜索，商品品牌不需要分词</span></span><br><span class="line"><span class="attr">4.可能会根据商品商家搜索，商品商家不需要分词</span></span><br><span class="line"><span class="attr">5.可能根据规格进行搜索，规格时一个键值对结构，用Map</span></span><br></pre></td></tr></table></figure>
+
+<p>根据上面的分析，我们可以在jwang-service-search-api工程中创建com.jwang.search.pojo.SkuInfo，如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Document(indexName = &quot;skuinfo&quot;,type = &quot;docs&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SkuInfo</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="comment">//商品id，同时也是商品编号</span></span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//SKU名称</span></span><br><span class="line">    <span class="meta">@Field(type = FieldType.Text, analyzer = &quot;ik_smart&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//商品价格，单位为：元</span></span><br><span class="line">    <span class="meta">@Field(type = FieldType.Double)</span></span><br><span class="line">    <span class="keyword">private</span> Long price;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//库存数量</span></span><br><span class="line">    <span class="keyword">private</span> Integer num;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//商品图片</span></span><br><span class="line">    <span class="keyword">private</span> String image;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//商品状态，1-正常，2-下架，3-删除</span></span><br><span class="line">    <span class="keyword">private</span> String status;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建时间</span></span><br><span class="line">    <span class="keyword">private</span> Date createTime;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//更新时间</span></span><br><span class="line">    <span class="keyword">private</span> Date updateTime;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//是否默认</span></span><br><span class="line">    <span class="keyword">private</span> String isDefault;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//SPUID</span></span><br><span class="line">    <span class="keyword">private</span> Long spuId;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//类目ID</span></span><br><span class="line">    <span class="keyword">private</span> Long categoryId;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//类目名称</span></span><br><span class="line">    <span class="meta">@Field(type = FieldType.Keyword)</span></span><br><span class="line">    <span class="keyword">private</span> String categoryName;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//品牌名称</span></span><br><span class="line">    <span class="meta">@Field(type = FieldType.Keyword)</span></span><br><span class="line">    <span class="keyword">private</span> String brandName;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//规格</span></span><br><span class="line">    <span class="keyword">private</span> String spec;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//规格参数</span></span><br><span class="line">    <span class="keyword">private</span> Map&lt;String,Object&gt; specMap;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//...略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>解释：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Field的数据类型</span></span><br><span class="line"><span class="attr">Keyword</span>  <span class="string">表示字符串 关键字类型 ，一定是不分词的	</span></span><br><span class="line"><span class="attr">Text</span> 	<span class="string">表示字符串 文本类型 可以分词 也可以指定不分词</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="搜索审核通过Sku"><a href="#搜索审核通过Sku" class="headerlink" title="搜索审核通过Sku"></a>搜索审核通过Sku</h4><p>修改jwang-service-goods微服务，添加搜索审核通过的Sku，供search微服务调用。下面都是针对goods微服务的操作。</p>
+<p>修改SkuService接口，添加根据状态查询Sku方法，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 根据状态查询SKU列表</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">List&lt;Sku&gt; <span class="title">findByStatus</span><span class="params">(String status)</span></span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>修改SkuServiceImpl，添加根据状态查询Sku实现方法，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/***</span></span><br><span class="line"><span class="comment"> * 根据状态查询SKU列表</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Sku&gt; <span class="title">findByStatus</span><span class="params">(String status)</span> </span>&#123;</span><br><span class="line">    Sku sku = <span class="keyword">new</span> Sku();</span><br><span class="line">    sku.setStatus(status);</span><br><span class="line">    <span class="keyword">return</span> skuMapper.select(sku);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>修改com.jwang.goods.controller.SkuController，添加根据审核状态查询Sku方法，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/***</span></span><br><span class="line"><span class="comment"> * 根据审核状态查询Sku</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> status</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/status/&#123;status&#125;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> Result&lt;List&lt;Sku&gt;&gt; findByStatus(<span class="meta">@PathVariable</span> String status)&#123;</span><br><span class="line">    List&lt;Sku&gt; list = skuService.findByStatus(status);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Result&lt;List&lt;Sku&gt;&gt;(<span class="keyword">true</span>,StatusCode.OK,<span class="string">&quot;查询成功&quot;</span>,list);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="Sku导入ES实现"><a href="#Sku导入ES实现" class="headerlink" title="Sku导入ES实现"></a>Sku导入ES实现</h4><p>(1) Feign配置</p>
+<p>修改jwang-service-goods-api工程，在com.jwang.goods.feign.SkuFeign上添加方法</p>
+<p>加入依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.jwang<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jwang-common<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FeignClient(name=&quot;goods&quot;,path=&quot;/sku&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SkuFeign</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/***</span></span><br><span class="line"><span class="comment">     * 根据审核状态查询Sku</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> status</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/status/&#123;status&#125;&quot;)</span></span><br><span class="line">    Result&lt;List&lt;Sku&gt;&gt; findByStatus(<span class="meta">@PathVariable(name=&quot;status&quot;)</span> String status);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PathVariable(name</span>=<span class="string">&quot;status&quot;) 一定要声明</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>(2) Dao创建</p>
+<p>修改jwang-service-search工程，创建com.jwang.search.dao.SkuEsMapper,该接口主要用于索引数据操作，主要使用它来实现将数据导入到ES索引库中，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SkuEsMapper</span> <span class="keyword">extends</span> <span class="title">ElasticsearchRepository</span>&lt;<span class="title">SkuInfo</span>,<span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>(3) 服务层创建</p>
+<p>修改jwang-service-search工程，创建com.jwang.search.service.SkuService,代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SkuService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/***</span></span><br><span class="line"><span class="comment">     * 导入SKU数据</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">importSku</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>修改jwang-service-search工程，创建com.jwang.search.service.impl.SkuServiceImpl,实现Sku数据导入到ES中，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SkuServiceImpl</span> <span class="keyword">implements</span> <span class="title">SkuService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> SkuFeign skuFeign;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> SkuEsMapper skuEsMapper;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 导入sku数据到es</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">importSku</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//调用jwang-service-goods微服务</span></span><br><span class="line">        Result&lt;List&lt;Sku&gt;&gt; skuListResult = skuFeign.findByStatus(<span class="string">&quot;1&quot;</span>);</span><br><span class="line">        <span class="comment">//将数据转成search.Sku</span></span><br><span class="line">        List&lt;SkuInfo&gt; skuInfos=  JSON.parseArray(JSON.toJSONString(skuListResult.getData()),SkuInfo.class);</span><br><span class="line">        <span class="keyword">for</span>(SkuInfo skuInfo:skuInfos)&#123;</span><br><span class="line">            Map&lt;String, Object&gt; specMap= JSON.parseObject(skuInfo.getSpec()) ;</span><br><span class="line">            skuInfo.setSpecMap(specMap);</span><br><span class="line">        &#125;</span><br><span class="line">        skuEsMapper.saveAll(skuInfos);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>(4)控制层配置</p>
+<p>修改jwang-service-search工程，在com.jwang.search.controller.SkuController类中添加如下方法调用上述导入方法，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;/search&quot;)</span></span><br><span class="line"><span class="meta">@CrossOrigin</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SkuController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> SkuService skuService;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 导入数据</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/import&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Result <span class="title">importToES</span><span class="params">()</span></span>&#123;</span><br><span class="line">        skuService.importSku();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Result(<span class="keyword">true</span>, StatusCode.OK,<span class="string">&quot;导入数据到索引库中成功！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>(5)修改启动类</p>
+<p>启动类中需要开启Feign客户端，并且需要添加ES包扫描，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication(exclude=&#123;DataSourceAutoConfiguration.class&#125;)</span></span><br><span class="line"><span class="meta">@EnableEurekaClient</span></span><br><span class="line"><span class="meta">@EnableFeignClients(basePackages = &quot;com.jwang.goods.feign&quot;)</span></span><br><span class="line"><span class="comment">//@EnableElasticsearchRepositories(basePackages = &quot;com.jwang.search.dao&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SearchApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">        * Springboot整合Elasticsearch 在项目启动前设置一下的属性，防止报错</span></span><br><span class="line"><span class="comment">        * 解决netty冲突后初始化client时还会抛出异常</span></span><br><span class="line"><span class="comment">        * java.lang.IllegalStateException: availableProcessors is already set to [12], rejecting [12]</span></span><br><span class="line"><span class="comment">        ***/</span></span><br><span class="line">        System.setProperty(<span class="string">&quot;es.set.netty.runtime.available.processors&quot;</span>, <span class="string">&quot;false&quot;</span>);</span><br><span class="line">        SpringApplication.run(SearchApplication.class,args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>(6)测试</p>
+<p>调用<a target="_blank" rel="noopener" href="http://localhost:18085/search/import%E8%BF%9B%E8%A1%8C%E6%B5%8B%E8%AF%95">http://localhost:18085/search/import进行测试</a></p>
+<p>打开es-head可以看到如下数据：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1560828547924.png" alt="1560828547924"></p>
+<h2 id="关键字搜索"><a href="#关键字搜索" class="headerlink" title="关键字搜索"></a>关键字搜索</h2><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1559428874655.png" alt="1559428874655"></p>
+<p>我们先使用SpringDataElasticsearch实现一个简单的搜索功能，先实现根据关键字搜索，从上面搜索图片可以看得到，每次搜索的时候，除了关键字外，还有可能有品牌、分类、规格等，后台接收搜索条件使用Map接收比较合适。</p>
+<h3 id="服务层实现"><a href="#服务层实现" class="headerlink" title="服务层实现"></a>服务层实现</h3><p>修改search服务的com.jwang.search.service.SkuService,添加搜索方法，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/***</span></span><br><span class="line"><span class="comment"> * 搜索</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> searchMap</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">Map <span class="title">search</span><span class="params">(Map&lt;String, String&gt; searchMap)</span></span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>修改search服务的com.jwang.search.service.impl.SkuServiceImpl,添加搜索实现方法,代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> ElasticsearchTemplate esTemplate;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> Map <span class="title">search</span><span class="params">(Map&lt;String, String&gt; searchMap)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//1.获取关键字的值</span></span><br><span class="line">    String keywords = searchMap.get(<span class="string">&quot;keywords&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (StringUtils.isEmpty(keywords)) &#123;</span><br><span class="line">        keywords = <span class="string">&quot;华为&quot;</span>;<span class="comment">//赋值给一个默认的值</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//2.创建查询对象 的构建对象</span></span><br><span class="line">    NativeSearchQueryBuilder nativeSearchQueryBuilder = <span class="keyword">new</span> NativeSearchQueryBuilder();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//3.设置查询的条件</span></span><br><span class="line"></span><br><span class="line">    nativeSearchQueryBuilder.withQuery(QueryBuilders.matchQuery(<span class="string">&quot;name&quot;</span>, keywords));</span><br><span class="line"></span><br><span class="line">    <span class="comment">//4.构建查询对象</span></span><br><span class="line">    NativeSearchQuery query = nativeSearchQueryBuilder.build();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//5.执行查询</span></span><br><span class="line">    AggregatedPage&lt;SkuInfo&gt; skuPage = esTemplate.queryForPage(query, SkuInfo.class);</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//6.返回结果</span></span><br><span class="line">    Map resultMap = <span class="keyword">new</span> HashMap&lt;&gt;();    </span><br><span class="line">    resultMap.put(<span class="string">&quot;rows&quot;</span>, skuPage.getContent());</span><br><span class="line">    resultMap.put(<span class="string">&quot;total&quot;</span>, skuPage.getTotalElements());</span><br><span class="line">    resultMap.put(<span class="string">&quot;totalPages&quot;</span>, skuPage.getTotalPages());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> resultMap;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="控制层实现"><a href="#控制层实现" class="headerlink" title="控制层实现"></a>控制层实现</h3><p>修改com.jwang.search.controller.SkuController，在控制层调用Service层即可，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 搜索</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> searchMap</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@PostMapping</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Map&lt;String,Object&gt; <span class="title">search</span><span class="params">(<span class="meta">@RequestBody(required = false)</span> Map&lt;String,String&gt; searchMap)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(searchMap==<span class="keyword">null</span>)&#123;</span><br><span class="line">        searchMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>  skuService.search(searchMap);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>使用Postman工具，输入<a target="_blank" rel="noopener" href="http://localhost:18085/search">http://localhost:18085/search</a></p>
+<p>选中POST提交</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/search/images/1560829447414.png" alt="1560829447414"></p>
+
+    </div>
+
+    
+    
+    
+
+    
+    <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束 <i class="fa fa-heart"></i> 感谢阅读-------------</div>
+
+    
+      
+
+        <div class="reward-container">
+  <div><p style="font-size:14px; color:#34495e; margin:0 0 5px 0;">赞赏一下吧～ 还可以关注公众号订阅最新内容</p></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/WechatIMG18.png" alt="jwangtec 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>jwangtec
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/jwangcloud/2538997289/" title="搜索和数据分析引擎--Elasticsearch">http://example.com/jwangcloud/2538997289/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%90%9C%E7%B4%A2%E5%92%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" rel="tag"><i class="fa fa-tag"></i> 搜索和数据分析</a>
+              <a href="/tags/IK%E5%88%86%E8%AF%8D%E5%99%A8/" rel="tag"><i class="fa fa-tag"></i> IK分词器</a>
+              <a href="/tags/kibana/" rel="tag"><i class="fa fa-tag"></i> kibana</a>
+              <a href="/tags/DSL%E8%AF%AD%E5%8F%A5/" rel="tag"><i class="fa fa-tag"></i> DSL语句</a>
+              <a href="/tags/SpringData-Elasticsearch/" rel="tag"><i class="fa fa-tag"></i> SpringData Elasticsearch</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/jwangcloud/864966898/" rel="prev" title="mysql数据库03--事务">
+      <i class="fa fa-chevron-left"></i> mysql数据库03--事务
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/jwangcloud/1749468513/" rel="next" title="mysql数据库01--基础语句">
+      mysql数据库01--基础语句 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Elasticsearch-%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">Elasticsearch 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IK%E5%88%86%E8%AF%8D%E5%99%A8%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">IK分词器安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kibana%E4%BD%BF%E7%94%A8-%E6%8E%8C%E6%8F%A1DSL%E8%AF%AD%E5%8F%A5"><span class="nav-number">3.</span> <span class="nav-text">Kibana使用-掌握DSL语句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kibana%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85"><span class="nav-number">3.1.</span> <span class="nav-text">Kibana下载安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kibana%E4%BD%BF%E7%94%A8"><span class="nav-number">3.2.</span> <span class="nav-text">Kibana使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%B4%A2%E5%BC%95"><span class="nav-number">3.2.1.</span> <span class="nav-text">配置索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%90%9C%E7%B4%A2"><span class="nav-number">3.2.2.</span> <span class="nav-text">数据搜索</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DSL%E8%AF%AD%E5%8F%A5%E4%BD%BF%E7%94%A8"><span class="nav-number">3.2.3.</span> <span class="nav-text">DSL语句使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Query-DSL%E7%BB%93%E6%9E%84%E5%8C%96%E6%9F%A5%E8%AF%A2%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.2.3.1.</span> <span class="nav-text">Query DSL结构化查询介绍</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E6%93%8D%E4%BD%9C"><span class="nav-number">3.2.3.2.</span> <span class="nav-text">索引操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2"><span class="nav-number">3.2.3.3.</span> <span class="nav-text">数据查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%87%E6%BB%A4%E6%9F%A5%E8%AF%A2"><span class="nav-number">3.2.3.4.</span> <span class="nav-text">过滤查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%AB%98%E4%BA%AE%E6%9F%A5%E8%AF%A2"><span class="nav-number">3.2.3.5.</span> <span class="nav-text">高亮查询</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4DSL%E8%AF%AD%E5%8F%A5%E4%BB%A3%E7%A0%81"><span class="nav-number">3.3.</span> <span class="nav-text">完整DSL语句代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5ES"><span class="nav-number">4.</span> <span class="nav-text">数据导入ES</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SpringData-Elasticsearch%E4%BB%8B%E7%BB%8D"><span class="nav-number">4.1.</span> <span class="nav-text">SpringData Elasticsearch介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SpringData%E4%BB%8B%E7%BB%8D"><span class="nav-number">4.1.1.</span> <span class="nav-text">SpringData介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SpringData-ES%E4%BB%8B%E7%BB%8D"><span class="nav-number">4.1.2.</span> <span class="nav-text">SpringData ES介绍</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E5%B7%A5%E7%A8%8B%E6%90%AD%E5%BB%BA"><span class="nav-number">4.2.</span> <span class="nav-text">搜索工程搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5"><span class="nav-number">4.3.</span> <span class="nav-text">数据导入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%87%E6%A1%A3%E6%98%A0%E5%B0%84Bean%E5%88%9B%E5%BB%BA"><span class="nav-number">4.3.1.</span> <span class="nav-text">文档映射Bean创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E5%AE%A1%E6%A0%B8%E9%80%9A%E8%BF%87Sku"><span class="nav-number">4.3.2.</span> <span class="nav-text">搜索审核通过Sku</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sku%E5%AF%BC%E5%85%A5ES%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.3.3.</span> <span class="nav-text">Sku导入ES实现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97%E6%90%9C%E7%B4%A2"><span class="nav-number">5.</span> <span class="nav-text">关键字搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%B1%82%E5%AE%9E%E7%8E%B0"><span class="nav-number">5.1.</span> <span class="nav-text">服务层实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E5%B1%82%E5%AE%9E%E7%8E%B0"><span class="nav-number">5.2.</span> <span class="nav-text">控制层实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">5.3.</span> <span class="nav-text">测试</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="jwangtec"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">jwangtec</p>
+  <div class="site-description" itemprop="description">小脑袋，大智慧</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">76</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jwangtec" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jwangtec" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.jianshu.com/u/684433bc744b" title="简书 → https:&#x2F;&#x2F;www.jianshu.com&#x2F;u&#x2F;684433bc744b" rel="noopener" target="_blank"><i class="fa fa-heartbeat fa-fw"></i>简书</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/qq_34536604" title="csdn → https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_34536604" rel="noopener" target="_blank"><i class="fa fa-crosshairs fa-fw"></i>csdn</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://juejin.im/user/5e5c685e6fb9a07cd443bedai" title="掘金 → https:&#x2F;&#x2F;juejin.im&#x2F;user&#x2F;5e5c685e6fb9a07cd443bedai" rel="noopener" target="_blank"><i class="fa fa-spinner fa-fw"></i>掘金</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://app.gitbook.com/@79896867/spaces" title="gitbook → https:&#x2F;&#x2F;app.gitbook.com&#x2F;@79896867&#x2F;spaces" rel="noopener" target="_blank"><i class="fa fa-git fa-fw"></i>gitbook</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/jwangtec@163.com" title="E-Mail → jwangtec@163.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.runoob.com/manual/jdk11api/index.html" title="https:&#x2F;&#x2F;www.runoob.com&#x2F;manual&#x2F;jdk11api&#x2F;index.html" rel="noopener" target="_blank">Java11开发文档</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://spring.io/projects/spring-cloud-azure" title="https:&#x2F;&#x2F;spring.io&#x2F;projects&#x2F;spring-cloud-azure" rel="noopener" target="_blank">Spring cloud</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://ife.baidu.com/" title="http:&#x2F;&#x2F;ife.baidu.com&#x2F;" rel="noopener" target="_blank">百度前端技术学院</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://learn666-gif.github.io/Jwang/4cff2ea4.html" title="https:&#x2F;&#x2F;learn666-gif.github.io&#x2F;Jwang&#x2F;4cff2ea4.html" rel="noopener" target="_blank">JAVA体系构建</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jwangtec</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">457k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">6:56</span>
+</div>
+
+
+<!-- 网站运行时间的设置 -->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>  努力创造未来
+<script>
+        var now = new Date();
+        function createtime() {
+            var grt= new Date("01/05/2018 00:00:00");//此处修改你的建站时间或者网站上线时间
+            now.setTime(now.getTime()+250);
+            days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+            hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+            if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+            mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+            seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+            snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+            document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+            document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()",250);
+</script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : '2UzmUUcYke4dpzoJtJNAzAPL-gzGzoHsz',
+      appKey     : 'rdlKv9Hl6K9hnMEp9A1NCRMB',
+      placeholder: "留下邮箱，有回复时你将收到提醒，邮箱不会被公开。",
+      avatar     : 'wavatar',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

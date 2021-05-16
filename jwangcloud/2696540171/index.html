@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="概述 变更频率低的数据，如何提升访问速度？  121.数据做成静态页[商品详情页]2.做缓存[Redis]">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何提升变更频率低的数据访问速度--lua脚本语言">
+<meta property="og:url" content="http://example.com/jwangcloud/2696540171/index.html">
+<meta property="og:site_name" content="jwangcloud">
+<meta property="og:description" content="概述 变更频率低的数据，如何提升访问速度？  121.数据做成静态页[商品详情页]2.做缓存[Redis]">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/first_foots/01.jpeg">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560736222654.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560738068753.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560739143890.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1564436327870.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1564436436450.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1564436763084.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1564437016055.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1564437356737.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1564437466576.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1564437629211.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1564438640878.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560739975500.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560740292872.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560759977349.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560741056485.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560762051330.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1564422636804.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560741401873.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560760965394.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560761133343.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560761192634.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560774438337.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560775302161.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560775527156.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560775792418.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560776119165.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560776155042.png">
+<meta property="og:image" content="http://example.com/jwangcloud/2696540171/images/1608961342987.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560779033144.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560813843260.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560814415655.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560814236901.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560814792482.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1597302724010.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560815769342.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560816240753.png">
+<meta property="article:published_time" content="2019-07-06T10:18:19.000Z">
+<meta property="article:modified_time" content="2021-05-16T10:02:27.499Z">
+<meta property="article:author" content="jwangtec">
+<meta property="article:tag" content="Java扩展">
+<meta property="article:tag" content="lua">
+<meta property="article:tag" content="canal">
+<meta property="article:tag" content="OpenResty">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/first_foots/01.jpeg">
+
+<link rel="canonical" href="http://example.com/jwangcloud/2696540171/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>如何提升变更频率低的数据访问速度--lua脚本语言 | jwangcloud</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">jwangcloud</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/JwangTec" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/jwangcloud/2696540171/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="jwangtec">
+      <meta itemprop="description" content="小脑袋，大智慧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jwangcloud">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          如何提升变更频率低的数据访问速度--lua脚本语言
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-07-06 18:18:19" itemprop="dateCreated datePublished" datetime="2019-07-06T18:18:19+08:00">2019-07-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-16 18:02:27" itemprop="dateModified" datetime="2021-05-16T18:02:27+08:00">2021-05-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java%E6%89%A9%E5%B1%95/" itemprop="url" rel="index"><span itemprop="name">Java扩展</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/jwangcloud/2696540171/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/jwangcloud/2696540171/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>20k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>18 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/first_foots/01.jpeg"></p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ul>
+<li>变更频率低的数据，如何提升访问速度？</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.数据做成静态页[商品详情页]</span><br><span class="line">2.做缓存[Redis]</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<ul>
+<li>基本的思路如下：</li>
+</ul>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560736222654.png" alt="1560736222654"></p>
+<p>如上图此种方式 简单，直接通过数据库查询数据展示给用户即可，但是通常情况下，首页（门户系统的流量一般非常的高）不适合直接通过mysql数据库直接访问的方式来获取展示。</p>
+<p>如下思路：</p>
+<p>1.首先访问nginx ，我们可以采用缓存的方式，先从nginx本地缓存中获取，获取到直接响应</p>
+<p>2.如果没有获取到，再次访问redis，我们可以从redis中获取数据，如果有 则返回，并缓存到nginx中</p>
+<p>3.如果没有获取到,再次访问mysql,我们从mysql中获取数据，再将数据存储到redis中，返回。</p>
+<p>而这里面，我们都可以使用LUA脚本嵌入到程序中执行这些查询相关的业务。</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560738068753.png" alt="1560738068753"></p>
+<h2 id="Lua"><a href="#Lua" class="headerlink" title="Lua"></a>Lua</h2><h3 id="lua是什么"><a href="#lua是什么" class="headerlink" title="lua是什么"></a>lua是什么</h3><p>Lua [1]  是一个小巧的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%84%9A%E6%9C%AC%E8%AF%AD%E8%A8%80">脚本语言</a>。用标准C语言编写并以源代码形式开放， 其设计目的是为了嵌入应用程序中，从而为应用程序提供灵活的扩展和定制功能。</p>
+<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul>
+<li>支持面向过程(procedure-oriented)编程和函数式编程(functional programming)；</li>
+<li>自动内存管理；只提供了一种通用类型的表（table），用它可以实现数组，哈希表，集合，对象；</li>
+<li>语言内置模式匹配；闭包(closure)；函数也可以看做一个值；提供多线程（协同进程，并非操作系统所支持的线程）支持；</li>
+<li>通过闭包和table可以很方便地支持面向对象编程所需要的一些关键机制，比如数据抽象，虚函数，继承和重载等。</li>
+</ul>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><ul>
+<li>游戏开发</li>
+<li>独立应用脚本</li>
+<li>Web 应用脚本</li>
+<li>扩展和数据库插件如：MySQL Proxy 和 MySQL WorkBench</li>
+<li>安全系统，如入侵检测系统</li>
+<li>redis中嵌套调用实现类似事务的功能</li>
+<li>web容器中应用处理一些过滤 缓存等等的逻辑，例如nginx。</li>
+</ul>
+<h3 id="lua的安装"><a href="#lua的安装" class="headerlink" title="lua的安装"></a>lua的安装</h3><p>安装步骤,在linux系统中执行下面的命令。</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">curl</span> <span class="string">-R -O http://www.lua.org/ftp/lua-5.3.5.tar.gz</span></span><br><span class="line"><span class="attr">tar</span> <span class="string">zxf lua-5.3.5.tar.gz</span></span><br><span class="line"><span class="attr">cd</span> <span class="string">lua-5.3.5</span></span><br><span class="line"><span class="attr">make</span> <span class="string">linux test</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：此时安装，有可能会出现如下错误：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560739143890.png" alt="1560739143890"></p>
+<p>此时需要安装lua相关依赖库的支持，执行如下命令即可：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">yum</span> <span class="string">install libtermcap-devel ncurses-devel libevent-devel readline-devel</span></span><br></pre></td></tr></table></figure>
+
+<p>此时再执行lua测试看lua是否安装成功</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">[root@localhost</span> <span class="string">~]# lua</span></span><br><span class="line"><span class="attr">Lua</span> <span class="string">5.1.4  Copyright (C) 1994-2008 Lua.org, PUC-Rio</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="入门程序"><a href="#入门程序" class="headerlink" title="入门程序"></a>入门程序</h3><p>创建hello.lua文件，内容为</p>
+<p>编辑文件hello.lua</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi hello.lua</span><br></pre></td></tr></table></figure>
+
+<p>在文件中输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(&quot;hello&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>保存并退出。</p>
+<p>执行命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lua hello.lua</span><br></pre></td></tr></table></figure>
+
+<p>输出为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello</span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1564436327870.png" alt="1564436327870"></p>
+<h3 id="LUA的基本语法"><a href="#LUA的基本语法" class="headerlink" title="LUA的基本语法"></a>LUA的基本语法</h3><p>lua有交互式编程和脚本式编程。</p>
+<p>交互式编程就是直接输入语法，就能执行。</p>
+<p>脚本式编程需要编写脚本，然后再执行命令 执行脚本才可以。</p>
+<p>一般采用脚本式编程。（例如：编写一个hello.lua的文件，输入文件内容，并执行lua hell.lua即可）</p>
+<p>(1)交互式编程</p>
+<p>Lua 提供了交互式编程模式。我们可以在命令行中输入程序并立即查看效果。</p>
+<p>Lua 交互式编程模式可以通过命令 lua -i 或 lua 来启用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lua -i</span><br></pre></td></tr></table></figure>
+
+<p>如下图：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1564436436450.png" alt="1564436436450"></p>
+<p>(2)脚本式编程</p>
+<p>我们可以将 Lua 程序代码保持到一个以 lua 结尾的文件，并执行，该模式称为脚本式编程，例如上面入门程序中将lua语法写到hello.lua文件中。</p>
+<h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><p>一行注释：两个减号是单行注释:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--</span><br></pre></td></tr></table></figure>
+
+<p>多行注释：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--[[</span></span><br><span class="line"><span class="comment"> 多行注释</span></span><br><span class="line"><span class="comment"> 多行注释</span></span><br><span class="line"><span class="comment"> --]]</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="定义变量"><a href="#定义变量" class="headerlink" title="定义变量"></a>定义变量</h4><p>全局变量，默认的情况下，定义一个变量都是全局变量，</p>
+<p>如果要用局部变量 需要声明为local.例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 全局变量赋值</span></span><br><span class="line">a=<span class="number">1</span></span><br><span class="line"><span class="comment">-- 局部变量赋值</span></span><br><span class="line"><span class="keyword">local</span> b=<span class="number">2</span> </span><br></pre></td></tr></table></figure>
+
+<p>如果变量没有初始化：则 它的值为nil 这和java中的null不同。</p>
+<p>如下图案例：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1564436763084.png" alt="1564436763084"></p>
+<h4 id="Lua中的数据类型"><a href="#Lua中的数据类型" class="headerlink" title="Lua中的数据类型"></a>Lua中的数据类型</h4><p>Lua 是动态类型语言，变量不要类型定义,只需要为变量赋值。 值可以存储在变量中，作为参数传递或结果返回。</p>
+<p>Lua 中有 8 个基本类型分别为：nil、boolean、number、string、userdata、function、thread 和 table。</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>nil</td>
+<td>这个最简单，只有值nil属于该类，表示一个无效值（在条件表达式中相当于false）。</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>包含两个值：false和true。</td>
+</tr>
+<tr>
+<td>number</td>
+<td>表示双精度类型的实浮点数</td>
+</tr>
+<tr>
+<td>string</td>
+<td>字符串由一对双引号或单引号来表示</td>
+</tr>
+<tr>
+<td>function</td>
+<td>由 C 或 Lua 编写的函数</td>
+</tr>
+<tr>
+<td>userdata</td>
+<td>表示任意存储在变量中的C数据结构</td>
+</tr>
+<tr>
+<td>thread</td>
+<td>表示执行的独立线路，用于执行协同程序</td>
+</tr>
+<tr>
+<td>table</td>
+<td>Lua 中的表（table）其实是一个”关联数组”（associative arrays），数组的索引可以是数字、字符串或表类型。在 Lua 里，table 的创建是通过”构造表达式”来完成，最简单构造表达式是{}，用来创建一个空表。</td>
+</tr>
+</tbody></table>
+<p>实例：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">print(type(&quot;Hello</span> <span class="string">world&quot;))      --&gt; string</span></span><br><span class="line"><span class="meta">print(type(10.4*3))</span>             <span class="string">--&gt; number</span></span><br><span class="line"><span class="meta">print(type(print))</span>              <span class="string">--&gt; function</span></span><br><span class="line"><span class="meta">print(type(type))</span>               <span class="string">--&gt; function</span></span><br><span class="line"><span class="meta">print(type(true))</span>               <span class="string">--&gt; boolean</span></span><br><span class="line"><span class="meta">print(type(nil))</span>                <span class="string">--&gt; nil</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h4><p>(1)if语句</p>
+<p>Lua <strong>if 语句</strong> 由一个布尔表达式作为条件判断，其后紧跟其他语句组成。</p>
+<p>语法：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">if(布尔表达式)</span></span><br><span class="line"><span class="attr">then</span></span><br><span class="line">   <span class="meta">--[</span> <span class="string">在布尔表达式为 true 时执行的语句 --]</span></span><br><span class="line"><span class="attr">end</span></span><br></pre></td></tr></table></figure>
+
+<p>实例：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1564437016055.png" alt="1564437016055"></p>
+<p>(2)if..else语句</p>
+<p>Lua if 语句可以与 else 语句搭配使用, 在 if 条件表达式为 false 时执行 else 语句代码块。</p>
+<p>语法：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">if(布尔表达式)</span></span><br><span class="line"><span class="attr">then</span></span><br><span class="line">   <span class="meta">--[</span> <span class="string">布尔表达式为 true 时执行该语句块 --]</span></span><br><span class="line"><span class="attr">else</span></span><br><span class="line">   <span class="meta">--[</span> <span class="string">布尔表达式为 false 时执行该语句块 --]</span></span><br><span class="line"><span class="attr">end</span></span><br></pre></td></tr></table></figure>
+
+<p>实例：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1564437356737.png" alt="1564437356737"></p>
+<h4 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h4><p>学员完成</p>
+<p>(1)while循环[==满足条件就循环==]</p>
+<p>Lua 编程语言中 while 循环语句在判断条件为 true 时会重复执行循环体语句。<br>语法：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">while(condition)</span></span><br><span class="line"><span class="attr">do</span></span><br><span class="line">   <span class="attr">statements</span></span><br><span class="line"><span class="attr">end</span></span><br></pre></td></tr></table></figure>
+
+<p>实例：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">a</span>=<span class="string">10</span></span><br><span class="line"><span class="meta">while(</span> <span class="string">a &lt; 20 )</span></span><br><span class="line"><span class="attr">do</span></span><br><span class="line">   <span class="meta">print(&quot;a</span> <span class="string">的值为:&quot;, a)</span></span><br><span class="line">   <span class="attr">a</span> = <span class="string">a+1</span></span><br><span class="line"><span class="attr">end</span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1564437466576.png" alt="1564437466576"></p>
+<p>(2)for循环</p>
+<p>Lua 编程语言中 for 循环语句可以重复执行指定语句，重复次数可在 for 语句中控制。</p>
+<p>语法：  1-&gt;10  1:exp1  10:exp2  2:exp3:递增的数量   </p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">for</span> <span class="string">var=exp1,exp2,exp3 </span></span><br><span class="line"><span class="attr">do</span>  <span class="string"></span></span><br><span class="line">    <span class="meta">&lt;执行体&gt;</span>  <span class="string"></span></span><br><span class="line"><span class="attr">end</span>  <span class="string"></span></span><br></pre></td></tr></table></figure>
+
+<p>var 从 exp1 变化到 exp2，每次变化以 exp3 为步长递增 var，并执行一次 **”执行体”**。exp3 是可选的，如果不指定，默认为1。</p>
+<p>例子：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">for</span> <span class="string">i=1,9,2</span></span><br><span class="line"><span class="attr">do</span></span><br><span class="line">   <span class="attr">print(i)</span></span><br><span class="line"><span class="attr">end</span></span><br></pre></td></tr></table></figure>
+
+<p><code>for i=1,9,2</code>:i=1从1开始循环，9循环数据到9结束，2每次递增2</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1564437629211.png" alt="1564437629211"></p>
+<p>(3)repeat…until语句[==满足条件结束==]</p>
+<p>Lua 编程语言中 repeat…until 循环语句不同于 for 和 while循环，for 和 while 循环的条件语句在当前循环执行开始时判断，而 repeat…until 循环的条件语句在当前循环结束后判断。</p>
+<p>语法：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">repeat</span></span><br><span class="line">   <span class="attr">statements</span></span><br><span class="line"><span class="meta">until(</span> <span class="string">condition )</span></span><br></pre></td></tr></table></figure>
+
+<p>案例：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1564438640878.png" alt="1564438640878"></p>
+<h4 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h4><p>lua中也可以定义函数，类似于java中的方法。例如：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--[[ 函数返回两个值的最大值 --]]</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">max</span><span class="params">(num1, num2)</span></span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">if</span> (num1 &gt; num2) <span class="keyword">then</span></span><br><span class="line">      result = num1;</span><br><span class="line">   <span class="keyword">else</span></span><br><span class="line">      result = num2;</span><br><span class="line">   <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> result; </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">-- 调用函数</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;两值比较最大值为 &quot;</span>,<span class="built_in">max</span>(<span class="number">10</span>,<span class="number">4</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;两值比较最大值为 &quot;</span>,<span class="built_in">max</span>(<span class="number">5</span>,<span class="number">6</span>))</span><br></pre></td></tr></table></figure>
+
+<p>执行之后的结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">两值比较最大值为     10</span><br><span class="line">两值比较最大值为     6</span><br></pre></td></tr></table></figure>
+
+
+
+<p>..:表示拼接</p>
+<h4 id="表"><a href="#表" class="headerlink" title="表"></a>表</h4><p>table 是 Lua 的一种数据结构用来帮助我们创建不同的数据类型，如：数组、字典等。</p>
+<p>Lua也是通过table来解决模块（module）、包（package）和对象（Object）的。</p>
+<p>案例：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">--</span> <span class="string">初始化表</span></span><br><span class="line"><span class="attr">mytable</span> = <span class="string">&#123;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">--</span> <span class="string">指定值</span></span><br><span class="line"><span class="meta">mytable[1]</span>= <span class="string">&quot;Lua&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">--</span> <span class="string">移除引用</span></span><br><span class="line"><span class="attr">mytable</span> = <span class="string">nil</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h4><p>(1)模块定义</p>
+<p>模块类似于一个封装库，从 Lua 5.1 开始，Lua 加入了标准的模块管理机制，可以把一些公用的代码放在一个文件里，以 API 接口的形式在其他地方调用，有利于代码的重用和降低代码耦合度。</p>
+<p>创建一个文件叫module.lua，在module.lua中创建一个独立的模块，代码如下：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">--</span> <span class="string">文件名为 module.lua</span></span><br><span class="line"><span class="meta">--</span> <span class="string">定义一个名为 module 的模块</span></span><br><span class="line"><span class="attr">module</span> = <span class="string">&#123;&#125;</span></span><br><span class="line"> </span><br><span class="line"><span class="meta">--</span> <span class="string">定义一个常量</span></span><br><span class="line"><span class="meta">module.constant</span> = <span class="string">&quot;这是一个常量&quot;</span></span><br><span class="line"> </span><br><span class="line"><span class="meta">--</span> <span class="string">定义一个函数</span></span><br><span class="line"><span class="attr">function</span> <span class="string">module.func1()</span></span><br><span class="line">    <span class="attr">print(&quot;这是一个公有函数&quot;)</span></span><br><span class="line"><span class="attr">end</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">local</span> <span class="string">function func2()</span></span><br><span class="line">    <span class="attr">print(&quot;这是一个私有函数！&quot;)</span></span><br><span class="line"><span class="attr">end</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">function</span> <span class="string">module.func3()</span></span><br><span class="line">    <span class="attr">func2()</span></span><br><span class="line"><span class="attr">end</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">return</span> <span class="string">module</span></span><br></pre></td></tr></table></figure>
+
+<p>由上可知，模块的结构就是一个 table 的结构，因此可以像操作调用 table 里的元素那样来操作调用模块里的常量或函数。</p>
+<p>上面的 func2 声明为程序块的局部变量，即表示一个私有函数，因此是不能从外部访问模块里的这个私有函数，必须通过模块里的公有函数来调用.</p>
+<p>(2)require 函数</p>
+<p>require 用于 引入其他的模块，类似于java中的类要引用别的类的效果。</p>
+<p>用法：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">require(&quot;&lt;模块名&gt;&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">require</span> <span class="string">&quot;&lt;模块名&gt;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>两种都可以。</p>
+<p>我们可以将上面定义的module模块引入使用,创建一个test_module.lua文件，代码如下：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">--</span> <span class="string">test_module.lua 文件</span></span><br><span class="line"><span class="meta">--</span> <span class="string">module 模块为上文提到到 module.lua</span></span><br><span class="line"><span class="attr">require(&quot;module&quot;)</span></span><br><span class="line"></span><br><span class="line"><span class="attr">print(module.constant)</span></span><br><span class="line"></span><br><span class="line"><span class="attr">module.func3()</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="OpenResty介绍"><a href="#OpenResty介绍" class="headerlink" title="OpenResty介绍"></a>OpenResty介绍</h2><p>OpenResty(又称：ngx_openresty) 是一个基于 nginx的可伸缩的 Web 平台</p>
+<p>OpenResty 简单理解成 就相当于封装了nginx,并且集成了LUA脚本，开发人员只需要简单的其提供了模块就可以实现相关的逻辑，而不再像之前，还需要在nginx中自己编写lua的脚本，再进行调用了。</p>
+<h3 id="安装openresty"><a href="#安装openresty" class="headerlink" title="安装openresty"></a>安装openresty</h3><p>linux安装openresty:</p>
+<p>1.添加仓库执行命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install yum-utils</span><br><span class="line">yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo</span><br></pre></td></tr></table></figure>
+
+<p>2.执行安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install openresty</span><br></pre></td></tr></table></figure>
+
+<p>3.安装成功后 会在默认的目录如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;openresty</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="安装nginx"><a href="#安装nginx" class="headerlink" title="安装nginx"></a>安装nginx</h3><p>默认已经安装好了nginx,在目录：/usr/local/openresty/nginx 下。</p>
+<p>修改/usr/local/openresty/nginx/conf/nginx.conf,将配置文件使用的根设置为root,目的就是将来要使用lua脚本的时候 ，直接可以加载在root下的lua脚本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;local&#x2F;openresty&#x2F;nginx&#x2F;conf</span><br><span class="line">vi nginx.conf</span><br></pre></td></tr></table></figure>
+
+<p>修改代码如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560739975500.png" alt="1560739975500"></p>
+<h3 id="测试访问"><a href="#测试访问" class="headerlink" title="测试访问"></a>测试访问</h3><p>重启下centos虚拟机，然后访问测试Nginx</p>
+<p>访问地址：<code>http://192.168.211.132/</code></p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560740292872.png" alt="1560740292872"></p>
+<h2 id="广告缓存的载入与读取"><a href="#广告缓存的载入与读取" class="headerlink" title="广告缓存的载入与读取"></a>广告缓存的载入与读取</h2><h3 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h3><p>需要在页面上显示广告的信息。</p>
+<h3 id="Lua-Nginx配置"><a href="#Lua-Nginx配置" class="headerlink" title="Lua+Nginx配置"></a>Lua+Nginx配置</h3><p>(1)实现思路-查询数据放入redis中</p>
+<p>实现思路：</p>
+<p>定义请求：用于查询数据库中的数据更新到redis中。</p>
+<p>a.连接mysql ，按照广告分类ID读取广告列表，转换为json字符串。</p>
+<p>b.连接redis，将广告列表json字符串存入redis 。</p>
+<p>定义请求：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">请求：</span><br><span class="line">	&#x2F;update_content</span><br><span class="line">参数：</span><br><span class="line">	id  --指定广告分类的id</span><br><span class="line">返回值：</span><br><span class="line">	json</span><br></pre></td></tr></table></figure>
+
+<p>请求地址：<code>&lt;http://192.168.211.132/update_content?id=1&gt;</code></p>
+<p>创建/root/lua目录，在该目录下创建update_content.lua： 目的就是连接mysql  查询数据 并存储到redis中。</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560759977349.png" alt="1560759977349"></p>
+<p>上图代码如下：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">ngx.header.content_type=<span class="string">&quot;application/json;charset=utf8&quot;</span></span><br><span class="line"><span class="keyword">local</span> cjson = <span class="built_in">require</span>(<span class="string">&quot;cjson&quot;</span>)</span><br><span class="line"><span class="keyword">local</span> mysql = <span class="built_in">require</span>(<span class="string">&quot;resty.mysql&quot;</span>)</span><br><span class="line"><span class="keyword">local</span> uri_args = ngx.req.get_uri_args()</span><br><span class="line"><span class="keyword">local</span> id = uri_args[<span class="string">&quot;id&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> db = mysql:new()</span><br><span class="line">db:set_timeout(<span class="number">1000</span>)</span><br><span class="line"><span class="keyword">local</span> props = &#123;</span><br><span class="line">    host = <span class="string">&quot;192.168.211.132&quot;</span>,</span><br><span class="line">    port = <span class="number">3306</span>,</span><br><span class="line">    database = <span class="string">&quot;wang_content&quot;</span>,</span><br><span class="line">    user = <span class="string">&quot;root&quot;</span>,</span><br><span class="line">    password = <span class="string">&quot;123456&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> res = db:connect(props)</span><br><span class="line"><span class="keyword">local</span> select_sql = <span class="string">&quot;select url,pic from tb_content where status =&#x27;1&#x27; and category_id=&quot;</span>..id..<span class="string">&quot; order by sort_order&quot;</span></span><br><span class="line">res = db:query(select_sql)</span><br><span class="line">db:<span class="built_in">close</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> redis = <span class="built_in">require</span>(<span class="string">&quot;resty.redis&quot;</span>)</span><br><span class="line"><span class="keyword">local</span> red = redis:new()</span><br><span class="line">red:set_timeout(<span class="number">2000</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">local</span> ip =<span class="string">&quot;192.168.211.132&quot;</span></span><br><span class="line"><span class="keyword">local</span> port = <span class="number">6379</span></span><br><span class="line">red:connect(ip,port)</span><br><span class="line">red:set(<span class="string">&quot;content_&quot;</span>..id,cjson.encode(res))</span><br><span class="line">red:<span class="built_in">close</span>()</span><br><span class="line"></span><br><span class="line">ngx.say(<span class="string">&quot;&#123;flag:true&#125;&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>修改/usr/local/openresty/nginx/conf/nginx.conf文件： 添加头信息，和 location信息</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560741056485.png" alt="1560741056485"></p>
+<p>代码如下：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span>       <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span>  localhost;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">location</span> /update_content &#123;</span><br><span class="line">        <span class="attribute">content_by_lua_file</span> /root/lua/update_content.lua;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>定义lua缓存命名空间，修改nginx.conf，添加如下代码即可：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560762051330.png" alt="1560762051330"></p>
+<p>代码如下：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">lua_shared_dict</span> <span class="string">dis_cache 128m;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>请求<code>&lt;http://192.168.211.132/update_content?id=1&gt;</code>可以实现缓存的添加</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1564422636804.png" alt="1564422636804"></p>
+<p>(2)实现思路-从redis中获取数据</p>
+<p>实现思路：</p>
+<p>定义请求，用户根据广告分类的ID 获取广告的列表。通过lua脚本直接从redis中获取数据即可。</p>
+<p>定义请求：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">请求:&#x2F;read_content</span><br><span class="line">参数：id</span><br><span class="line">返回值：json</span><br></pre></td></tr></table></figure>
+
+<p>在/root/lua目录下创建read_content.lua:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--设置响应头类型</span></span><br><span class="line">ngx.header.content_type=<span class="string">&quot;application/json;charset=utf8&quot;</span></span><br><span class="line"><span class="comment">--获取请求中的参数ID</span></span><br><span class="line"><span class="keyword">local</span> uri_args = ngx.req.get_uri_args();</span><br><span class="line"><span class="keyword">local</span> id = uri_args[<span class="string">&quot;id&quot;</span>];</span><br><span class="line"><span class="comment">--引入redis库</span></span><br><span class="line"><span class="keyword">local</span> redis = <span class="built_in">require</span>(<span class="string">&quot;resty.redis&quot;</span>);</span><br><span class="line"><span class="comment">--创建redis对象</span></span><br><span class="line"><span class="keyword">local</span> red = redis:new()</span><br><span class="line"><span class="comment">--设置超时时间</span></span><br><span class="line">red:set_timeout(<span class="number">2000</span>)</span><br><span class="line"><span class="comment">--连接</span></span><br><span class="line"><span class="keyword">local</span> ok, err = red:connect(<span class="string">&quot;192.168.211.132&quot;</span>, <span class="number">6379</span>)</span><br><span class="line"><span class="comment">--获取key的值</span></span><br><span class="line"><span class="keyword">local</span> rescontent=red:get(<span class="string">&quot;content_&quot;</span>..id)</span><br><span class="line"><span class="comment">--输出到返回响应中</span></span><br><span class="line">ngx.say(rescontent)</span><br><span class="line"><span class="comment">--关闭连接</span></span><br><span class="line">red:<span class="built_in">close</span>()</span><br></pre></td></tr></table></figure>
+
+<p>在/usr/local/openresty/nginx/conf/nginx.conf中配置如下：</p>
+<p>如图：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560741401873.png" alt="1560741401873"></p>
+<p>代码：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> /read_content &#123;</span><br><span class="line">     <span class="attribute">content_by_lua_file</span> /root/lua/read_content.lua;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>(3)加入openresty本地缓存</p>
+<p>如上的方式没有问题，但是如果请求都到redis，redis压力也很大，所以我们一般采用多级缓存的方式来减少下游系统的服务压力。参考基本思路图的实现。</p>
+<p>先查询openresty本地缓存 如果 没有</p>
+<p>再查询redis中的数据，如果没有</p>
+<p>再查询mysql中的数据，但凡有数据 则返回即可。</p>
+<p>修改read_content.lua文件，代码如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560760965394.png" alt="1560760965394"></p>
+<p>上图代码如下：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">ngx.header.content_type=<span class="string">&quot;application/json;charset=utf8&quot;</span></span><br><span class="line"><span class="keyword">local</span> uri_args = ngx.req.get_uri_args();</span><br><span class="line"><span class="keyword">local</span> id = uri_args[<span class="string">&quot;id&quot;</span>];</span><br><span class="line"><span class="comment">--获取本地缓存</span></span><br><span class="line"><span class="keyword">local</span> cache_ngx = ngx.shared.dis_cache;</span><br><span class="line"><span class="comment">--根据ID 获取本地缓存数据</span></span><br><span class="line"><span class="keyword">local</span> contentCache = cache_ngx:get(<span class="string">&#x27;content_cache_&#x27;</span>..id);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> contentCache == <span class="string">&quot;&quot;</span> <span class="keyword">or</span> contentCache == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">    <span class="keyword">local</span> redis = <span class="built_in">require</span>(<span class="string">&quot;resty.redis&quot;</span>);</span><br><span class="line">    <span class="keyword">local</span> red = redis:new()</span><br><span class="line">    red:set_timeout(<span class="number">2000</span>)</span><br><span class="line">    red:connect(<span class="string">&quot;192.168.211.132&quot;</span>, <span class="number">6379</span>)</span><br><span class="line">    <span class="keyword">local</span> rescontent=red:get(<span class="string">&quot;content_&quot;</span>..id);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ngx.null == rescontent <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">local</span> cjson = <span class="built_in">require</span>(<span class="string">&quot;cjson&quot;</span>);</span><br><span class="line">        <span class="keyword">local</span> mysql = <span class="built_in">require</span>(<span class="string">&quot;resty.mysql&quot;</span>);</span><br><span class="line">        <span class="keyword">local</span> db = mysql:new();</span><br><span class="line">        db:set_timeout(<span class="number">2000</span>)</span><br><span class="line">        <span class="keyword">local</span> props = &#123;</span><br><span class="line">            host = <span class="string">&quot;192.168.211.132&quot;</span>,</span><br><span class="line">            port = <span class="number">3306</span>,</span><br><span class="line">            database = <span class="string">&quot;wang_content&quot;</span>,</span><br><span class="line">            user = <span class="string">&quot;root&quot;</span>,</span><br><span class="line">            password = <span class="string">&quot;123456&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">local</span> res = db:connect(props);</span><br><span class="line">        <span class="keyword">local</span> select_sql = <span class="string">&quot;select url,pic from tb_content where status =&#x27;1&#x27; and category_id=&quot;</span>..id..<span class="string">&quot; order by sort_order&quot;</span>;</span><br><span class="line">        res = db:query(select_sql);</span><br><span class="line">        <span class="keyword">local</span> responsejson = cjson.encode(res);</span><br><span class="line">        red:set(<span class="string">&quot;content_&quot;</span>..id,responsejson);</span><br><span class="line">        ngx.say(responsejson);</span><br><span class="line">        db:<span class="built_in">close</span>()</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        cache_ngx:set(<span class="string">&#x27;content_cache_&#x27;</span>..id, rescontent, <span class="number">10</span>*<span class="number">60</span>);</span><br><span class="line">        ngx.say(rescontent)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    red:<span class="built_in">close</span>()</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    ngx.say(contentCache)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>测试地址：<code>http://192.168.211.132/update_content?id=1</code></p>
+<p>此时会将分类ID=1的所有广告查询出来，并存入到Redis缓存。</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560761133343.png" alt="1560761133343"></p>
+<p>测试地址：<code>http://192.168.211.132/read_content?id=1</code></p>
+<p>此时会获取分类ID=1的所有广告信息。</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560761192634.png" alt="1560761192634"></p>
+<h2 id="nginx限流"><a href="#nginx限流" class="headerlink" title="nginx限流"></a>nginx限流</h2><p>一般情况下，首页的并发量是比较大的，即使 有了多级缓存，当用户不停的刷新页面的时候，也是没有必要的，另外如果有恶意的请求 大量达到，也会对系统造成影响。</p>
+<p>而限流就是保护措施之一。</p>
+<h3 id="nginx的限流"><a href="#nginx的限流" class="headerlink" title="nginx的限流"></a>nginx的限流</h3><p>nginx提供两种限流的方式：</p>
+<ul>
+<li><p>一是控制速率</p>
+</li>
+<li><p>二是控制并发连接数</p>
+</li>
+</ul>
+<h4 id="控制速率"><a href="#控制速率" class="headerlink" title="控制速率"></a>控制速率</h4><p>控制速率的方式之一就是采用漏桶算法。</p>
+<p>(1)漏桶算法实现控制速率限流</p>
+<p>漏桶(Leaky Bucket)算法思路很简单,水(请求)先进入到漏桶里,漏桶以一定的速度出水(接口有响应速率),当水流入速度过大会直接溢出(访问频率超过接口响应速率),然后就拒绝请求,可以看出漏桶算法能强行限制数据的传输速率.示意图如下:</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560774438337.png" alt="1560774438337"></p>
+<p>(2)nginx的配置</p>
+<p>配置示意图如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560775302161.png" alt="1560775302161"></p>
+<p>修改/usr/local/openresty/nginx/conf/nginx.conf:</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">user</span>  root root;</span><br><span class="line"><span class="attribute">worker_processes</span>  <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="section">events</span> &#123;</span><br><span class="line">    <span class="attribute">worker_connections</span>  <span class="number">1024</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    <span class="attribute">include</span>       mime.types;</span><br><span class="line">    <span class="attribute">default_type</span>  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    <span class="comment">#cache</span></span><br><span class="line">    <span class="attribute">lua_shared_dict</span> dis_cache <span class="number">128m</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">#限流设置</span></span><br><span class="line">    <span class="attribute">limit_req_zone</span> $binary_remote_addr zone=contentRateLimit:<span class="number">10m</span> rate=2r/s;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">sendfile</span>        <span class="literal">on</span>;</span><br><span class="line">    <span class="comment">#tcp_nopush     on;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#keepalive_timeout  0;</span></span><br><span class="line">    <span class="attribute">keepalive_timeout</span>  <span class="number">65</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">#gzip  on;</span></span><br><span class="line"></span><br><span class="line">    <span class="section">server</span> &#123;</span><br><span class="line">        <span class="attribute">listen</span>       <span class="number">80</span>;</span><br><span class="line">        <span class="attribute">server_name</span>  localhost;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">location</span> /update_content &#123;</span><br><span class="line">            <span class="attribute">content_by_lua_file</span> /root/lua/update_content.lua;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">location</span> /read_content &#123;</span><br><span class="line">            <span class="comment">#使用限流配置</span></span><br><span class="line">            <span class="attribute">limit_req</span> zone=contentRateLimit;</span><br><span class="line">            <span class="attribute">content_by_lua_file</span> /root/lua/read_content.lua;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>配置说明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">binary_remote_addr 是一种key，表示基于 remote_addr(客户端IP) 来做限流，binary_ 的目的是压缩内存占用量。</span><br><span class="line">zone：定义共享内存区来存储访问信息， contentRateLimit:10m 表示一个大小为10M，名字为contentRateLimit的内存区域。1M能存储16000 IP地址的访问信息，10M可以存储16W IP地址访问信息。</span><br><span class="line">rate 用于设置最大访问速率，rate&#x3D;10r&#x2F;s 表示每秒最多处理10个请求。Nginx 实际上以毫秒为粒度来跟踪请求信息，因此 10r&#x2F;s 实际上是限制：每100毫秒处理一个请求。这意味着，自上一个请求处理完后，若后续100毫秒内又有请求到达，将拒绝处理该请求.我们这里设置成2 方便测试。</span><br></pre></td></tr></table></figure>
+
+<p>测试：</p>
+<p>重新加载配置文件</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">cd</span> <span class="string">/usr/local/openresty/nginx/sbin</span></span><br><span class="line"></span><br><span class="line"><span class="meta">./nginx</span> <span class="string">-s reload</span></span><br></pre></td></tr></table></figure>
+
+<p>访问页面：<code>http://192.168.211.132/read_content?id=1</code> ,连续刷新会直接报错。</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560775527156.png" alt="1560775527156"></p>
+<p>(3)处理突发流量</p>
+<p>上面例子限制 2r/s，如果有时正常流量突然增大，超出的请求将被拒绝，无法处理突发流量，可以结合 <strong>burst</strong> 参数使用来解决该问题。</p>
+<p>例如，如下配置表示：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560775792418.png" alt="1560775792418"></p>
+<p>上图代码如下：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span>       <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span>  localhost;</span><br><span class="line">    <span class="attribute">location</span> /update_content &#123;</span><br><span class="line">        <span class="attribute">content_by_lua_file</span> /root/lua/update_content.lua;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="attribute">location</span> /read_content &#123;</span><br><span class="line">        <span class="attribute">limit_req</span> zone=contentRateLimit burst=<span class="number">4</span>;</span><br><span class="line">        <span class="attribute">content_by_lua_file</span> /root/lua/read_content.lua;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>burst 译为突发、爆发，表示在超过设定的处理速率后能额外处理的请求数,当 rate=10r/s 时，将1s拆成10份，即每100ms可处理1个请求。</p>
+<p>此处，**burst=4 **，若同时有4个请求到达，Nginx 会处理第一个请求，剩余3个请求将放入队列，然后每隔500ms从队列中获取一个请求进行处理。若请求数大于4，将拒绝处理多余的请求，直接返回503.</p>
+<p>不过，单独使用 burst 参数并不实用。假设 burst=50 ，rate依然为10r/s，排队中的50个请求虽然每100ms会处理一个，但第50个请求却需要等待 50 * 100ms即 5s，这么长的处理时间自然难以接受。</p>
+<p>因此，burst 往往结合 nodelay 一起使用。</p>
+<p>例如：如下配置：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span>       <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span>  localhost;</span><br><span class="line">    <span class="attribute">location</span> /update_content &#123;</span><br><span class="line">        <span class="attribute">content_by_lua_file</span> /root/lua/update_content.lua;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="attribute">location</span> /read_content &#123;</span><br><span class="line">        <span class="attribute">limit_req</span> zone=contentRateLimit burst=<span class="number">4</span> nodelay;</span><br><span class="line">        <span class="attribute">content_by_lua_file</span> /root/lua/read_content.lua;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如上表示：</p>
+<p>平均每秒允许不超过2个请求，突发不超过4个请求，并且处理突发4个请求的时候，没有延迟，等到完成之后，按照正常的速率处理。</p>
+<p>如上两种配置结合就达到了速率稳定，但突然流量也能正常处理的效果。完整配置代码如下：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">user</span>  root root;</span><br><span class="line"><span class="attribute">worker_processes</span>  <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="section">events</span> &#123;</span><br><span class="line">    <span class="attribute">worker_connections</span>  <span class="number">1024</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    <span class="attribute">include</span>       mime.types;</span><br><span class="line">    <span class="attribute">default_type</span>  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    <span class="comment">#cache</span></span><br><span class="line">    <span class="attribute">lua_shared_dict</span> dis_cache <span class="number">128m</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">#限流设置</span></span><br><span class="line">    <span class="attribute">limit_req_zone</span> $binary_remote_addr zone=contentRateLimit:<span class="number">10m</span> rate=2r/s;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">sendfile</span>        <span class="literal">on</span>;</span><br><span class="line">    <span class="comment">#tcp_nopush     on;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#keepalive_timeout  0;</span></span><br><span class="line">    <span class="attribute">keepalive_timeout</span>  <span class="number">65</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">#gzip  on;</span></span><br><span class="line"></span><br><span class="line">    <span class="section">server</span> &#123;</span><br><span class="line">        <span class="attribute">listen</span>       <span class="number">80</span>;</span><br><span class="line">        <span class="attribute">server_name</span>  localhost;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">location</span> /update_content &#123;</span><br><span class="line">            <span class="attribute">content_by_lua_file</span> /root/lua/update_content.lua;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">location</span> /read_content &#123;</span><br><span class="line">            <span class="attribute">limit_req</span> zone=contentRateLimit burst=<span class="number">4</span> nodelay;</span><br><span class="line">            <span class="attribute">content_by_lua_file</span> /root/lua/read_content.lua;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>测试：如下图 在1秒钟之内可以刷新4次，正常处理。</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560776119165.png" alt="1560776119165"></p>
+<p>但是超过之后，连续刷新5次，抛出异常。</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560776155042.png" alt="1560776155042"></p>
+<h4 id="控制并发量（连接数）"><a href="#控制并发量（连接数）" class="headerlink" title="控制并发量（连接数）"></a>控制并发量（连接数）</h4><p>ngx_http_limit_conn_module  提供了限制连接数的能力。主要是利用limit_conn_zone和limit_conn两个指令。</p>
+<p>利用连接数限制 某一个用户的ip连接的数量来控制流量。</p>
+<p>注意：并非所有连接都被计算在内 只有当服务器正在处理请求并且已经读取了整个请求头时，才会计算有效连接。此处忽略测试。</p>
+<p>配置语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Syntax:	limit_conn zone number;</span><br><span class="line">Default: —;</span><br><span class="line">Context: http, server, location;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>(1)配置限制固定连接数</p>
+<p>如下，配置如下： </p>
+<p><img data-src="images/1608961342987.png" alt="1608961342987"></p>
+<p>goods微服务BrandController中添加如下代码：进行测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/test&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Result <span class="title">testConne</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Result(<span class="keyword">true</span>,StatusCode.OK,<span class="string">&quot;ok&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>上图配置如下：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    <span class="attribute">include</span>       mime.types;</span><br><span class="line">    <span class="attribute">default_type</span>  application/octet-stream;</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line">    <span class="attribute">sendfile</span>        <span class="literal">on</span>;</span><br><span class="line">    <span class="comment"># 设置nginx缓存 空间 为128M 缓存对象名称为dis_cache</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">lua_shared_dict</span> dis_cache <span class="number">128m</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">limit_req_zone</span> $binary_remote_addr zone=contentRateLimit:<span class="number">10m</span> rate=1r/s;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">limit_conn_zone</span> $binary_remote_addr zone=addr:<span class="number">10m</span>;</span><br><span class="line">        </span><br><span class="line">    <span class="section">server</span> &#123;</span><br><span class="line">       <span class="attribute">listen</span>       <span class="number">80</span>;</span><br><span class="line">       <span class="attribute">server_name</span>  localhost;</span><br><span class="line"></span><br><span class="line">       <span class="comment"># nginx接收请求 （content_by_lua_file 指定lua脚本）转发给lua脚本来处理</span></span><br><span class="line">       <span class="comment"># content_by_lua_file 指定的lua脚本就是要处理该请求的业务逻辑的文件</span></span><br><span class="line">       <span class="attribute">location</span> /update_content&#123;</span><br><span class="line">            <span class="attribute">content_by_lua_file</span> /root/lua/update_content.lua;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="comment"># 处理 多级缓存获取广告数据</span></span><br><span class="line">       <span class="attribute">location</span> /read_content&#123;</span><br><span class="line">	    <span class="attribute">limit_req</span> zone=contentRateLimit burst=<span class="number">4</span> nodelay;</span><br><span class="line">            <span class="attribute">content_by_lua_file</span> /root/lua/read_content.lua;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="attribute">location</span> /brand/test&#123;</span><br><span class="line">	    <span class="comment">#/brand/test的请求，访问本地service-goods微服务</span></span><br><span class="line">	    <span class="comment"># 2 表示同一个ip地址 只能最多有效的链接数量为2</span></span><br><span class="line">            <span class="attribute">limit_conn</span> addr <span class="number">2</span>;</span><br><span class="line">	    <span class="attribute">proxy_pass</span> http://192.168.211.1:18081;</span><br><span class="line">       &#125;</span><br><span class="line">          </span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>表示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">limit_conn_zone $binary_remote_addr zone&#x3D;addr:10m;  表示限制根据用户的IP地址来显示，设置存储地址为的内存大小10M</span><br><span class="line"></span><br><span class="line">limit_conn addr 2;   表示 同一个地址只允许连接2次。</span><br></pre></td></tr></table></figure>
+
+<p>测试：</p>
+<p>此时开3个线程，测试的时候会发生异常，开2个就不会有异常</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560779033144.png" alt="1560779033144"></p>
+<p>(2)限制每个客户端IP与服务器的连接数，同时限制与虚拟服务器的连接总数。(了解)</p>
+<p>如下配置： </p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">limit_conn_zone</span> $binary_remote_addr zone=perip:<span class="number">10m</span>;</span><br><span class="line"><span class="attribute">limit_conn_zone</span> $server_name zone=perserver:<span class="number">10m</span>; </span><br><span class="line"><span class="section">server</span> &#123;  </span><br><span class="line">    <span class="attribute">listen</span>       <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span>  localhost;</span><br><span class="line">    <span class="attribute">charset</span> utf-<span class="number">8</span>;</span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">limit_conn</span> perip <span class="number">10</span>;<span class="comment">#单个客户端ip与服务器的连接数．</span></span><br><span class="line">        limit_conn perserver 100; ＃限制与服务器的总连接数</span><br><span class="line">        <span class="attribute">root</span>   html;</span><br><span class="line">        <span class="attribute">index</span>  index.html index.htm;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="canal同步广告"><a href="#canal同步广告" class="headerlink" title="canal同步广告"></a>canal同步广告</h2><p>canal可以用来监控数据库数据的变化，从而获得新增数据，或者修改的数据。</p>
+<p>canal是应阿里巴巴存在杭州和美国的双机房部署，存在跨机房同步的业务需求而提出的。</p>
+<p>阿里系公司开始逐步的尝试基于数据库的日志解析，获取增量变更进行同步，由此衍生出了增量订阅&amp;消费的业务。</p>
+<h3 id="Canal工作原理"><a href="#Canal工作原理" class="headerlink" title="Canal工作原理"></a>Canal工作原理</h3><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560813843260.png" alt="1560813843260"></p>
+<p>原理相对比较简单：</p>
+<ol>
+<li>canal模拟mysql slave的交互协议，伪装自己为mysql slave，向mysql master发送dump协议</li>
+<li>mysql master收到dump请求，开始推送binary log给slave(也就是canal)</li>
+<li>canal解析binary log对象(原始为byte流)</li>
+</ol>
+<p>canal需要使用到mysql，我们需要先安装mysql，但canal是基于mysql的主从模式实现的，所以必须先开启binlog.</p>
+<h3 id="开启binlog模式"><a href="#开启binlog模式" class="headerlink" title="开启binlog模式"></a>开启binlog模式</h3><p>先使用docker 创建mysql容器</p>
+<p>(1) 连接到mysql中,并修改/etc/mysql/mysql.conf.d/mysqld.cnf  需要开启主 从模式，开启binlog模式。</p>
+<p>执行如下命令，编辑mysql配置文件</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560814415655.png" alt="1560814415655"></p>
+<p>命令行如下：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">docker</span> <span class="string">exec -it mysql /bin/bash</span></span><br><span class="line"><span class="attr">cd</span> <span class="string">/etc/mysql/mysql.conf.d</span></span><br><span class="line"><span class="attr">vi</span> <span class="string">mysqld.cnf</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>修改mysqld.cnf配置文件，添加如下配置：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560814236901.png" alt="1560814236901"></p>
+<p>上图配置如下：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">log-bin</span>=<span class="string">/var/lib/mysql/mysql-bin</span></span><br><span class="line"><span class="meta">server-id</span>=<span class="string">12345</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>(2) 创建账号 用于测试使用,</p>
+<p>使用root账号创建用户并授予权限</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">create</span> <span class="string">user canal@&#x27;%&#x27; IDENTIFIED by &#x27;canal&#x27;;</span></span><br><span class="line"><span class="attr">GRANT</span> <span class="string">SELECT, REPLICATION SLAVE, REPLICATION CLIENT,SUPER ON *.* TO &#x27;canal&#x27;@&#x27;%&#x27;;</span></span><br><span class="line"><span class="attr">FLUSH</span> <span class="string">PRIVILEGES;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>(3)重启mysql容器</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">docker</span> <span class="string">restart mysql</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="canal容器安装"><a href="#canal容器安装" class="headerlink" title="canal容器安装"></a>canal容器安装</h3><p>下载镜像：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">docker</span> <span class="string">pull docker.io/canal/canal-server</span></span><br></pre></td></tr></table></figure>
+
+<p>容器安装</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">docker</span> <span class="string">run -p 11111:11111 --name canal -d docker.io/canal/canal-server</span></span><br></pre></td></tr></table></figure>
+
+<p>进入容器,修改核心配置canal.properties 和instance.properties，canal.properties 是canal自身的配置，instance.properties是需要同步数据的数据库连接配置。</p>
+<p>执行代码如下:</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">docker</span> <span class="string">exec -it canal /bin/bash</span></span><br><span class="line"><span class="attr">cd</span> <span class="string">canal-server/conf/</span></span><br><span class="line"><span class="attr">vi</span> <span class="string">canal.properties</span></span><br><span class="line"><span class="attr">cd</span> <span class="string">example/</span></span><br><span class="line"><span class="attr">vi</span> <span class="string">instance.properties</span></span><br></pre></td></tr></table></figure>
+
+<p>修改canal.properties的id，不能和mysql的server-id重复，如下图：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560814792482.png" alt="1560814792482"></p>
+<p>修改instance.properties,配置数据库连接地址:</p>
+<p> <img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1597302724010.png" alt="1597302724010"></p>
+<p>这里的<code>canal.instance.filter.regex</code>有多种配置，如下：</p>
+<p>可以参考地址如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:&#x2F;&#x2F;github.com&#x2F;alibaba&#x2F;canal&#x2F;wiki&#x2F;AdminGuide</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mysql</span> <span class="string">数据解析关注的表，Perl正则表达式.</span></span><br><span class="line"><span class="meta">多个正则之间以逗号(,)分隔，转义符需要双斜杠(\\)</span> <span class="string"></span></span><br><span class="line"><span class="attr">常见例子：</span></span><br><span class="line"><span class="meta">1.</span>  <span class="string">所有表：.*   or  .*\\..*</span></span><br><span class="line"><span class="meta">2.</span>  <span class="string">canal schema下所有表： canal\\..*</span></span><br><span class="line"><span class="meta">3.</span>  <span class="string">canal下的以canal打头的表：canal\\.canal.*</span></span><br><span class="line"><span class="meta">4.</span>  <span class="string">canal schema下的一张表：canal.test1</span></span><br><span class="line"><span class="meta">5.</span>  <span class="string">多个规则组合使用：canal\\..*,mysql.test1,mysql.test2 (逗号分隔)</span></span><br><span class="line"><span class="meta">注意：此过滤条件只针对row模式的数据有效(ps.</span> <span class="string">mixed/statement因为不解析sql，所以无法准确提取tableName进行过滤)</span></span><br></pre></td></tr></table></figure>
+
+<p>配置完成后，设置开机启动，并记得重启canal。</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">docker</span> <span class="string">update --restart=always canal</span></span><br><span class="line"><span class="attr">docker</span> <span class="string">restart canal</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="canal微服务搭建"><a href="#canal微服务搭建" class="headerlink" title="canal微服务搭建"></a>canal微服务搭建</h3><p> 当用户执行 数据库的操作的时候，binlog 日志会被canal捕获到，并解析出数据。我们就可以将解析出来的数据进行同步到redis中即可。</p>
+<p>思路：创建一个独立的程序，并监控canal服务器，获取binlog日志，解析数据，将数据更新到redis中。这样广告的数据就更新了。</p>
+<p>(1)安装辅助jar包</p>
+<p>在<code>canal\spring-boot-starter-canal-master</code>中有一个工程<code>starter-canal</code>，它主要提供了SpringBoot环境下<code>canal</code>的支持，我们需要先安装该工程，在<code>starter-canal</code>目录下执行<code>mvn install</code>，如下图：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560815769342.png" alt="1560815769342"></p>
+<p>(2)canal微服务工程搭建</p>
+<p>在wang-service下创建wang-service-canal工程，并引入相关配置。</p>
+<p>pom.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>wang-service<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.wang<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>wang-service-canal<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!--canal依赖--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.xpand<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>starter-canal<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>application.yml配置</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">port</span>: <span class="string">18083</span></span><br><span class="line"><span class="attr">spring</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">application</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">name</span>: <span class="string">canal</span></span><br><span class="line"><span class="attr">eureka</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">client</span>:<span class="string"></span></span><br><span class="line">    <span class="meta">service-url</span>:<span class="string"></span></span><br><span class="line">      <span class="attr">defaultZone</span>: <span class="string">http://127.0.0.1:7001/eureka</span></span><br><span class="line">  <span class="attr">instance</span>:<span class="string"></span></span><br><span class="line">    <span class="meta">prefer-ip-address</span>: <span class="string">true</span></span><br><span class="line"><span class="attr">feign</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">hystrix</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">enabled</span>: <span class="string">true</span></span><br><span class="line"><span class="attr">ribbon</span>:<span class="string"></span></span><br><span class="line">  <span class="meta">eager-load</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">enabled</span>: <span class="string">true</span></span><br><span class="line">  <span class="attr">ReadTimeout</span>: <span class="string">100000     </span></span><br><span class="line"><span class="comment">#canal配置</span></span><br><span class="line"><span class="attr">canal</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">client</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">instances</span>:<span class="string"></span></span><br><span class="line">      <span class="attr">example</span>:<span class="string"></span></span><br><span class="line">        <span class="attr">host</span>: <span class="string">192.168.211.132</span></span><br><span class="line">        <span class="attr">port</span>: <span class="string">11111</span></span><br></pre></td></tr></table></figure>
+
+<p>解释：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ribbon:</span><br><span class="line">  eager-load:</span><br><span class="line">    enabled: true # 开启饥饿加载</span><br><span class="line">  ReadTimeout: 100000  #设置超时时间</span><br></pre></td></tr></table></figure>
+
+
+
+<p>(3)监听创建</p>
+<p>创建一个CanalDataEventListener类，实现对表增删改操作的监听，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.canal.listener;</span><br><span class="line"><span class="keyword">import</span> com.alibaba.otter.canal.protocol.CanalEntry;</span><br><span class="line"><span class="keyword">import</span> com.xpand.starter.canal.annotation.*;</span><br><span class="line"><span class="meta">@CanalEventListener</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CanalDataEventListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/***</span></span><br><span class="line"><span class="comment">     * 增加数据监听</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> eventType</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> rowData</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@InsertListenPoint</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEventInsert</span><span class="params">(CanalEntry.EventType eventType, CanalEntry.RowData rowData)</span> </span>&#123;</span><br><span class="line">        rowData.getAfterColumnsList().forEach((c) -&gt; System.out.println(<span class="string">&quot;By--Annotation: &quot;</span> + c.getName() + <span class="string">&quot; ::   &quot;</span> + c.getValue()));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/***</span></span><br><span class="line"><span class="comment">     * 修改数据监听</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> rowData</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@UpdateListenPoint</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEventUpdate</span><span class="params">(CanalEntry.RowData rowData)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;UpdateListenPoint&quot;</span>);</span><br><span class="line">        rowData.getAfterColumnsList().forEach((c) -&gt; System.out.println(<span class="string">&quot;By--Annotation: &quot;</span> + c.getName() + <span class="string">&quot; ::   &quot;</span> + c.getValue()));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/***</span></span><br><span class="line"><span class="comment">     * 删除数据监听</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> eventType</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@DeleteListenPoint</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEventDelete</span><span class="params">(CanalEntry.EventType eventType)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;DeleteListenPoint&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/***</span></span><br><span class="line"><span class="comment">     * 自定义数据修改监听</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> eventType</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> rowData</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@ListenPoint(destination = &quot;example&quot;, schema = &quot;wang_content&quot;, table = &#123;&quot;tb_content_category&quot;, &quot;tb_content&quot;&#125;, eventType = CanalEntry.EventType.UPDATE)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEventCustomUpdate</span><span class="params">(CanalEntry.EventType eventType, CanalEntry.RowData rowData)</span> </span>&#123;</span><br><span class="line">        System.err.println(<span class="string">&quot;DeleteListenPoint&quot;</span>);</span><br><span class="line">        rowData.getAfterColumnsList().forEach((c) -&gt; System.out.println(<span class="string">&quot;By--Annotation: &quot;</span> + c.getName() + <span class="string">&quot; ::   &quot;</span> + c.getValue()));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>(4)启动类创建</p>
+<p>创建启动类，代码如下：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication(exclude</span>=<span class="string">&#123;DataSourceAutoConfiguration.class&#125;)</span></span><br><span class="line"><span class="attr">@EnableEurekaClient</span></span><br><span class="line"><span class="attr">@EnableCanalClient</span></span><br><span class="line"><span class="attr">public</span> <span class="string">class CanalApplication &#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">public</span> <span class="string">static void main(String[] args) &#123;</span></span><br><span class="line">        <span class="attr">SpringApplication.run(CanalApplication.class,args);</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>(5)测试</p>
+<p>启动canal微服务，然后修改任意数据库的表数据，canal微服务后台输出如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/lua/images/1560816240753.png" alt="1560816240753"></p>
+
+    </div>
+
+    
+    
+    
+
+    
+    <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束 <i class="fa fa-heart"></i> 感谢阅读-------------</div>
+
+    
+      
+
+        <div class="reward-container">
+  <div><p style="font-size:14px; color:#34495e; margin:0 0 5px 0;">赞赏一下吧～ 还可以关注公众号订阅最新内容</p></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/WechatIMG18.png" alt="jwangtec 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>jwangtec
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/jwangcloud/2696540171/" title="如何提升变更频率低的数据访问速度--lua脚本语言">http://example.com/jwangcloud/2696540171/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Java%E6%89%A9%E5%B1%95/" rel="tag"><i class="fa fa-tag"></i> Java扩展</a>
+              <a href="/tags/lua/" rel="tag"><i class="fa fa-tag"></i> lua</a>
+              <a href="/tags/canal/" rel="tag"><i class="fa fa-tag"></i> canal</a>
+              <a href="/tags/OpenResty/" rel="tag"><i class="fa fa-tag"></i> OpenResty</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/jwangcloud/2482136458/" rel="prev" title="Java重要框架04--静态页面生成框架Thymeleaf">
+      <i class="fa fa-chevron-left"></i> Java重要框架04--静态页面生成框架Thymeleaf
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lua"><span class="nav-number">2.</span> <span class="nav-text">Lua</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#lua%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">2.1.</span> <span class="nav-text">lua是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E6%80%A7"><span class="nav-number">2.2.</span> <span class="nav-text">特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">2.3.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lua%E7%9A%84%E5%AE%89%E8%A3%85"><span class="nav-number">2.4.</span> <span class="nav-text">lua的安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A5%E9%97%A8%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.5.</span> <span class="nav-text">入门程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LUA%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="nav-number">2.6.</span> <span class="nav-text">LUA的基本语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E9%87%8A"><span class="nav-number">2.6.1.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F"><span class="nav-number">2.6.2.</span> <span class="nav-text">定义变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Lua%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.6.3.</span> <span class="nav-text">Lua中的数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-number">2.6.4.</span> <span class="nav-text">流程控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF"><span class="nav-number">2.6.5.</span> <span class="nav-text">循环</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0"><span class="nav-number">2.6.6.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%A8"><span class="nav-number">2.6.7.</span> <span class="nav-text">表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97"><span class="nav-number">2.6.8.</span> <span class="nav-text">模块</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenResty%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.</span> <span class="nav-text">OpenResty介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85openresty"><span class="nav-number">3.1.</span> <span class="nav-text">安装openresty</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85nginx"><span class="nav-number">3.2.</span> <span class="nav-text">安装nginx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E8%AE%BF%E9%97%AE"><span class="nav-number">3.3.</span> <span class="nav-text">测试访问</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%BF%E5%91%8A%E7%BC%93%E5%AD%98%E7%9A%84%E8%BD%BD%E5%85%A5%E4%B8%8E%E8%AF%BB%E5%8F%96"><span class="nav-number">4.</span> <span class="nav-text">广告缓存的载入与读取</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="nav-number">4.1.</span> <span class="nav-text">需求分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lua-Nginx%E9%85%8D%E7%BD%AE"><span class="nav-number">4.2.</span> <span class="nav-text">Lua+Nginx配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nginx%E9%99%90%E6%B5%81"><span class="nav-number">5.</span> <span class="nav-text">nginx限流</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx%E7%9A%84%E9%99%90%E6%B5%81"><span class="nav-number">5.1.</span> <span class="nav-text">nginx的限流</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E9%80%9F%E7%8E%87"><span class="nav-number">5.1.1.</span> <span class="nav-text">控制速率</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E5%B9%B6%E5%8F%91%E9%87%8F%EF%BC%88%E8%BF%9E%E6%8E%A5%E6%95%B0%EF%BC%89"><span class="nav-number">5.1.2.</span> <span class="nav-text">控制并发量（连接数）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#canal%E5%90%8C%E6%AD%A5%E5%B9%BF%E5%91%8A"><span class="nav-number">6.</span> <span class="nav-text">canal同步广告</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Canal%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">6.1.</span> <span class="nav-text">Canal工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%90%AFbinlog%E6%A8%A1%E5%BC%8F"><span class="nav-number">6.2.</span> <span class="nav-text">开启binlog模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#canal%E5%AE%B9%E5%99%A8%E5%AE%89%E8%A3%85"><span class="nav-number">6.3.</span> <span class="nav-text">canal容器安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#canal%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA"><span class="nav-number">6.4.</span> <span class="nav-text">canal微服务搭建</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="jwangtec"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">jwangtec</p>
+  <div class="site-description" itemprop="description">小脑袋，大智慧</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">76</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jwangtec" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jwangtec" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.jianshu.com/u/684433bc744b" title="简书 → https:&#x2F;&#x2F;www.jianshu.com&#x2F;u&#x2F;684433bc744b" rel="noopener" target="_blank"><i class="fa fa-heartbeat fa-fw"></i>简书</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/qq_34536604" title="csdn → https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_34536604" rel="noopener" target="_blank"><i class="fa fa-crosshairs fa-fw"></i>csdn</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://juejin.im/user/5e5c685e6fb9a07cd443bedai" title="掘金 → https:&#x2F;&#x2F;juejin.im&#x2F;user&#x2F;5e5c685e6fb9a07cd443bedai" rel="noopener" target="_blank"><i class="fa fa-spinner fa-fw"></i>掘金</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://app.gitbook.com/@79896867/spaces" title="gitbook → https:&#x2F;&#x2F;app.gitbook.com&#x2F;@79896867&#x2F;spaces" rel="noopener" target="_blank"><i class="fa fa-git fa-fw"></i>gitbook</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/jwangtec@163.com" title="E-Mail → jwangtec@163.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.runoob.com/manual/jdk11api/index.html" title="https:&#x2F;&#x2F;www.runoob.com&#x2F;manual&#x2F;jdk11api&#x2F;index.html" rel="noopener" target="_blank">Java11开发文档</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://spring.io/projects/spring-cloud-azure" title="https:&#x2F;&#x2F;spring.io&#x2F;projects&#x2F;spring-cloud-azure" rel="noopener" target="_blank">Spring cloud</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://ife.baidu.com/" title="http:&#x2F;&#x2F;ife.baidu.com&#x2F;" rel="noopener" target="_blank">百度前端技术学院</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://learn666-gif.github.io/Jwang/4cff2ea4.html" title="https:&#x2F;&#x2F;learn666-gif.github.io&#x2F;Jwang&#x2F;4cff2ea4.html" rel="noopener" target="_blank">JAVA体系构建</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jwangtec</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">457k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">6:56</span>
+</div>
+
+
+<!-- 网站运行时间的设置 -->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>  努力创造未来
+<script>
+        var now = new Date();
+        function createtime() {
+            var grt= new Date("01/05/2018 00:00:00");//此处修改你的建站时间或者网站上线时间
+            now.setTime(now.getTime()+250);
+            days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+            hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+            if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+            mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+            seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+            snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+            document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+            document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()",250);
+</script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : '2UzmUUcYke4dpzoJtJNAzAPL-gzGzoHsz',
+      appKey     : 'rdlKv9Hl6K9hnMEp9A1NCRMB',
+      placeholder: "留下邮箱，有回复时你将收到提醒，邮箱不会被公开。",
+      avatar     : 'wavatar',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
