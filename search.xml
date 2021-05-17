@@ -2250,6 +2250,198 @@
       </tags>
   </entry>
   <entry>
+    <title>Java重要知识积累03--String和StringBuilder和ArrayList</title>
+    <url>/jwangcloud/3937920951/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/first_foots/01.jpeg"></p>
+<span id="more"></span>
+
+<h2 id="String类的常用方法"><a href="#String类的常用方法" class="headerlink" title="String类的常用方法"></a>String类的常用方法</h2><p>String 类代表字符串，Java 程序中的所有字符串文字（例如“abc”）都被实现为此类的实例。也就是说，Java 程序中所有的双引号字符串，都是 String 类的对象。String 类在 java.lang 包下，所以使用的时候不需要导包！</p>
+<h3 id="String类的构造方法"><a href="#String类的构造方法" class="headerlink" title="String类的构造方法"></a>String类的构造方法</h3><ul>
+<li>常用的构造方法</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public   String()</td>
+<td>创建一个空白字符串对象，不含有任何内容</td>
+</tr>
+<tr>
+<td>public   String(char[] chs)</td>
+<td>根据字符数组的内容，来创建字符串对象</td>
+</tr>
+<tr>
+<td>public   String(byte[] bys)</td>
+<td>根据字节数组的内容，来创建字符串对象</td>
+</tr>
+<tr>
+<td>String s =   “abc”;</td>
+<td>直接赋值的方式创建字符串对象，内容就是abc</td>
+</tr>
+</tbody></table>
+<h3 id="使用String类的构造方法"><a href="#使用String类的构造方法" class="headerlink" title="使用String类的构造方法"></a>使用String类的构造方法</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>：pengzhilin</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2020/9/9 8:44</span></span><br><span class="line"><span class="comment"> * 构造方法通过new来调用</span></span><br><span class="line"><span class="comment"> * 成员方法:</span></span><br><span class="line"><span class="comment"> *      非静态成员方法:通过对象名来调用</span></span><br><span class="line"><span class="comment"> *      静态成员方法:通过类名来调用</span></span><br><span class="line"><span class="comment"> * 方法:</span></span><br><span class="line"><span class="comment"> *      无返回值:直接调用</span></span><br><span class="line"><span class="comment"> *      有返回值:</span></span><br><span class="line"><span class="comment"> *          直接调用</span></span><br><span class="line"><span class="comment"> *          赋值调用</span></span><br><span class="line"><span class="comment"> *          输出调用</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">            public   String() 创建一个空白字符串对象，不含有任何内容</span></span><br><span class="line"><span class="comment">            public   String(char[] chs) 根据字符数组的内容，来创建字符串对象</span></span><br><span class="line"><span class="comment">            public   String(char[] value, int offset, int count) 根据指定字符数组范围的内容，来创建字符串对象</span></span><br><span class="line"><span class="comment">            public   String(byte[] bys) 根据字节数组的内容，来创建字符串对象</span></span><br><span class="line"><span class="comment">            public   String(byte[] bytes, int offset, int length)根据指定字节数组范围的内容，来创建字符串对象</span></span><br><span class="line"><span class="comment">            String s =   “abc”;直接赋值的方式创建字符串对象，内容就是abc</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="comment">// 创建空白字符串对象</span></span><br><span class="line">        String str1 = <span class="keyword">new</span> String();<span class="comment">// str1字符串内容: &quot;&quot;</span></span><br><span class="line">        System.out.println(<span class="string">&quot;=&quot;</span>+str1+<span class="string">&quot;=&quot;</span>);<span class="comment">// ==</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 根据字符数组的内容，来创建字符串对象</span></span><br><span class="line">        <span class="keyword">char</span>[] chs = &#123;<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>,<span class="string">&#x27;d&#x27;</span>&#125;;</span><br><span class="line">        String str2 = <span class="keyword">new</span> String(chs);<span class="comment">// str2字符串内容:&quot;abcd&quot;</span></span><br><span class="line">        System.out.println(str2);<span class="comment">// abcd</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 根据指定字符数组范围的内容，来创建字符串对象</span></span><br><span class="line">        String str3 = <span class="keyword">new</span> String(chs, <span class="number">0</span>, <span class="number">3</span>);<span class="comment">// str3字符串内容:&quot;abc&quot;</span></span><br><span class="line">        System.out.println(str3);<span class="comment">// abc</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 根据字节数组的内容，来创建字符串对象</span></span><br><span class="line">        <span class="keyword">byte</span>[] bys = &#123;<span class="number">97</span>,<span class="number">98</span>,<span class="number">99</span>,<span class="number">100</span>,<span class="number">101</span>,<span class="number">102</span>&#125;;</span><br><span class="line">        String str4 = <span class="keyword">new</span> String(bys);<span class="comment">// str4字符串内容:&quot;abcdef&quot;</span></span><br><span class="line">        System.out.println(str4);<span class="comment">// abcdef</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 根据指定字节数组范围的内容，来创建字符串对象</span></span><br><span class="line">        String str5 = <span class="keyword">new</span> String(bys, <span class="number">2</span>, <span class="number">3</span>);<span class="comment">// str5字符串内容:&quot;cde&quot;</span></span><br><span class="line">        System.out.println(str5);<span class="comment">// cde</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 直接赋值的方式创建字符串对象</span></span><br><span class="line">        String str6 = <span class="string">&quot;abc&quot;</span>;<span class="comment">// str6字符串内容:&quot;abc&quot;</span></span><br><span class="line">        System.out.println(str6);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="创建字符串对象两种方式的区别"><a href="#创建字符串对象两种方式的区别" class="headerlink" title="创建字符串对象两种方式的区别"></a>创建字符串对象两种方式的区别</h3><h4 id="通过构造方法创建"><a href="#通过构造方法创建" class="headerlink" title="通过构造方法创建"></a>通过构造方法创建</h4><ul>
+<li>通过 new 创建的字符串对象，每一次 new 都会申请一个内存空间，虽然字符串内容相同，但是地址值不同</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span>[] chs = &#123;<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line">String s1 = <span class="keyword">new</span> String(chs);<span class="comment">// s1字符串的内容: abc</span></span><br><span class="line">String s2 = <span class="keyword">new</span> String(chs);<span class="comment">// s2字符串的内容: abc</span></span><br><span class="line"><span class="comment">// 上面的代码中,JVM首先会先创建一个字符数组,然后每一次new的时候都会有一个新的地址,只不过s1和s2参考的字符串内容是相同的</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="直接赋值方式创建"><a href="#直接赋值方式创建" class="headerlink" title="直接赋值方式创建"></a>直接赋值方式创建</h4><ul>
+<li>以“”方式给出的字符串，只要字符序列相同(顺序和大小写)，无论在程序代码中出现几次，JVM 都只会建立一个 String 对象，并在字符串池中维护  </li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s3 = <span class="string">&quot;abc&quot;</span>;</span><br><span class="line">String s4 = <span class="string">&quot;abc&quot;</span>;</span><br><span class="line"><span class="comment">// 上面的代码中,针对第一行代码,JVM会建立一个String对象放在字符串池中,并给s3参考;第二行代码,则让s4直接参考字符串池中String对象,也就是说他们本质上是同一个对象</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="绘制内存图"><a href="#绘制内存图" class="headerlink" title="绘制内存图"></a>绘制内存图</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">char</span>[] chs = &#123;<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line">        String s1 = <span class="keyword">new</span> String(chs);<span class="comment">// s1字符串的内容: abc</span></span><br><span class="line">        String s2 = <span class="keyword">new</span> String(chs);<span class="comment">// s2字符串的内容: abc</span></span><br><span class="line">        System.out.println(s1 == s2);<span class="comment">// 比较s1和s2的地址值 false</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 直接赋值方式创建</span></span><br><span class="line">        String str1 = <span class="string">&quot;abc&quot;</span>;<span class="comment">// str1字符串的内容: abc</span></span><br><span class="line">        String str2 = <span class="string">&quot;abc&quot;</span>;<span class="comment">// str2字符串的内容: abc</span></span><br><span class="line">        System.out.println(str1 == str2);<span class="comment">// 比较str1和str2的地址值 true</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/string/img/1582730449429.png" alt="1582730449429"></p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/string/img/1584169790187.png" alt="1584169790187"></p>
+<ul>
+<li>通过new创建的字符串对象,每一次都会新开辟空间</li>
+<li>通过””方式直接创建的字符串对象,是常量,在常量池中,只有一份</li>
+</ul>
+<h3 id="String类的特点"><a href="#String类的特点" class="headerlink" title="String类的特点"></a>String类的特点</h3><ul>
+<li><p>String类的字符串不可变，它们的值在创建后不能被更改</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s1 = <span class="string">&quot;abc&quot;</span>;</span><br><span class="line">s1 += <span class="string">&quot;d&quot;</span>;</span><br><span class="line">System.out.println(s1); <span class="comment">// &quot;abcd&quot; </span></span><br><span class="line"><span class="comment">// 内存中有&quot;abc&quot;，&quot;abcd&quot;,&quot;d&quot;,3个对象，s1从指向&quot;abc&quot;，改变指向，指向了&quot;abcd&quot;。</span></span><br></pre></td></tr></table></figure></li>
+<li><p>虽然 String 的值是不可变的，但是它们可以被共享</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s1 = <span class="string">&quot;abc&quot;</span>;</span><br><span class="line">String s2 = <span class="string">&quot;abc&quot;</span>;</span><br><span class="line"><span class="comment">// 内存中只有一个&quot;abc&quot;对象被创建，同时被s1和s2共享。</span></span><br></pre></td></tr></table></figure></li>
+<li><p>字符串效果上相当于字符数组( char[] )</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">例如： </span><br><span class="line">String str = <span class="string">&quot;abc&quot;</span>;</span><br><span class="line"></span><br><span class="line">相当于： </span><br><span class="line"><span class="keyword">char</span>[] data = &#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>&#125;;     </span><br><span class="line">String str = <span class="keyword">new</span> String(data);</span><br><span class="line"><span class="comment">// String底层是靠字符数组实现的,jdk9底层是字节数组。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">byte</span>[] bys = &#123;<span class="number">97</span>,<span class="number">98</span>,<span class="number">99</span>&#125;;</span><br><span class="line">String str = <span class="keyword">new</span> String(bys);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="字符串的比较"><a href="#字符串的比较" class="headerlink" title="字符串的比较"></a>字符串的比较</h3><ul>
+<li>比较字符串内容是否相等,区分大小写,需要使用String类的equals方法,<strong>千万不要用 == 比较</strong></li>
+<li>如果比较字符串内容是否相等,不区分大小写,需要使用String类的equalsIgnoreCase()方法</li>
+</ul>
+<h4 id="号的比较"><a href="#号的比较" class="headerlink" title="==号的比较"></a>==号的比较</h4><ul>
+<li>比较基本数据类型：比较的是具体的值</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> num1 = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> num2 = <span class="number">20</span>;</span><br><span class="line">num1 == num2  ===&gt; <span class="number">10</span>==<span class="number">20</span>  结果:<span class="keyword">false</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>比较引用数据类型：比较的是对象地址值</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String str1 = <span class="keyword">new</span> String(<span class="string">&quot;abc&quot;</span>);</span><br><span class="line">String str2 = <span class="keyword">new</span> String(<span class="string">&quot;abc&quot;</span>);</span><br><span class="line">str1 == str2 ===&gt; </span><br><span class="line">str1存储的对象地址值 == str2存储的对象地址值  </span><br><span class="line">结果: <span class="keyword">false</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringDemo02</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      <span class="comment">//构造方法的方式得到对象</span></span><br><span class="line">      <span class="keyword">char</span>[] chs = &#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line">      String s1 = <span class="keyword">new</span> String(chs);</span><br><span class="line">      String s2 = <span class="keyword">new</span> String(chs);</span><br><span class="line"></span><br><span class="line">      <span class="comment">//直接赋值的方式得到对象</span></span><br><span class="line">      String s3 = <span class="string">&quot;abc&quot;</span>;</span><br><span class="line">      String s4 = <span class="string">&quot;abc&quot;</span>;</span><br><span class="line"></span><br><span class="line">      <span class="comment">//比较字符串对象地址是否相同</span></span><br><span class="line">      System.out.println(s1 == s2);<span class="comment">// </span></span><br><span class="line">      System.out.println(s1 == s3);<span class="comment">// </span></span><br><span class="line">      System.out.println(s3 == s4);<span class="comment">// </span></span><br><span class="line">      System.out.println(<span class="string">&quot;--------&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="equals方法的作用"><a href="#equals方法的作用" class="headerlink" title="equals方法的作用"></a>equals方法的作用</h4><ul>
+<li><p>字符串是对象,它比较内容是否相同,是通过一个方法来实现的,就是equals()方法</p>
+</li>
+<li><p>方法介绍</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object s)</span>     </span></span><br><span class="line"><span class="function">比较两个字符串内容是否相同、区分大小写</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code> public boolean equalsIgnoreCase (String anotherString)</code> ：将此字符串与指定对象进行比较，忽略大小写。</li>
+</ul>
+<h3 id="String类获取功能的方法"><a href="#String类获取功能的方法" class="headerlink" title="String类获取功能的方法"></a>String类获取功能的方法</h3><ul>
+<li>public int length () ：返回此字符串的长度。</li>
+<li>public String concat (String str) ：将指定的字符串连接到该字符串的末尾。拼接</li>
+<li>public char charAt (int index) ：返回指定索引处的 char值。</li>
+<li>public int indexOf (String str) ：返回指定子字符串第一次出现在该字符串内的索引。</li>
+<li>public int indexOf(String str, int fromIndex)  返回从指定索引位置查找,该子字符串第一次出现在该字符串内的索引。</li>
+<li>public int lastIndexOf(String str) 返回指定子字符串最后一次出现在该字符串内的索引。</li>
+<li>public int lastIndexOf(String str, int fromIndex) 返回从指定索引位置查找,,该子字符串最后一次出现在该字符串内的索引。</li>
+<li>public String substring (int beginIndex) ：返回一个子字符串，从beginIndex开始截取字符串到字符串结尾。</li>
+<li>public String substring (int beginIndex, int endIndex) ：返回一个子字符串，从beginIndex到endIndex截取字符串。含beginIndex，不含endIndex。</li>
+</ul>
+<h2 id="StringBuilder类"><a href="#StringBuilder类" class="headerlink" title="StringBuilder类"></a>StringBuilder类</h2><h3 id="字符串拼接问题"><a href="#字符串拼接问题" class="headerlink" title="字符串拼接问题"></a>字符串拼接问题</h3><p>由于String类的对象内容不可改变，所以每当进行字符串拼接时，总是会在内存中创建一个新的对象。例如：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s = <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line">        s += <span class="string">&quot;World&quot;</span>;<span class="comment">// s = s + &quot;World&quot;;</span></span><br><span class="line">        System.out.println(s);<span class="comment">// HelloWorld</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在API中对String类有这样的描述：字符串是常量，它们的值在创建后不能被更改。</p>
+<p>根据这句话分析我们的代码，其实总共产生了三个字符串，即<code>&quot;Hello&quot;</code>、<code>&quot;World&quot;</code>和<code>&quot;HelloWorld&quot;</code>。引用变量s首先指向<code>Hello</code>对象，最终指向拼接出来的新字符串对象，即<code>HelloWord</code> 。</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/string/img/String%E6%8B%BC%E6%8E%A5%E9%97%AE%E9%A2%98.bmp"></p>
+<p>由此可知，如果对字符串进行拼接操作，每次拼接，都会构建一个新的String对象，<strong>既耗时，又浪费空间</strong>。为了解决这一问题，可以使用<code>java.lang.StringBuilder</code>类。</p>
+<h3 id="StringBuilder类概述以及与String类的区别"><a href="#StringBuilder类概述以及与String类的区别" class="headerlink" title="StringBuilder类概述以及与String类的区别"></a>StringBuilder类概述以及与String类的区别</h3><p>StringBuilder 是一个可变的字符串类，我们可以把它看成是一个容器，这里的可变指的是 StringBuilder 对象中的内容是可变的</p>
+<h4 id="StringBuilder类和String类的区别"><a href="#StringBuilder类和String类的区别" class="headerlink" title="StringBuilder类和String类的区别"></a>StringBuilder类和String类的区别</h4><ul>
+<li><p>String类：内容是不可变的</p>
+</li>
+<li><p>StringBuilder类：内容是可变的</p>
+</li>
+</ul>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/string/img/06-StringBuilder%E7%9A%84%E5%8E%9F%E7%90%86.png" alt="06-StringBuilder的原理"></p>
+<h3 id="StringBuilder类的构造方法"><a href="#StringBuilder类的构造方法" class="headerlink" title="StringBuilder类的构造方法"></a>StringBuilder类的构造方法</h3><ul>
+<li>常用的构造方法</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public StringBuilder()</td>
+<td>创建一个空白可变字符串对象，不含有任何内容</td>
+</tr>
+<tr>
+<td>public StringBuilder(String   str)</td>
+<td>根据字符串的内容，来创建可变字符串对象</td>
+</tr>
+</tbody></table>
+<ul>
+<li>示例代码</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">            StringBuilder类的构造方法:</span></span><br><span class="line"><span class="comment">            public StringBuilder() </span></span><br><span class="line"><span class="comment">            创建一个空白可变字符串对象，不含有任何内容</span></span><br><span class="line"><span class="comment">            public StringBuilder(String str) </span></span><br><span class="line"><span class="comment">            根据字符串的内容，来创建可变字符串对象</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="comment">// 创建空白可变字符串对象  &quot;&quot;</span></span><br><span class="line">        StringBuilder sb1 = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        System.out.println(<span class="string">&quot;sb1:&quot;</span>+sb1+<span class="string">&quot;=&quot;</span>);<span class="comment">// sb1:=</span></span><br><span class="line">        System.out.println(<span class="string">&quot;sb1的长度:&quot;</span>+sb1.length());<span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 把不可变字符串转换为可变字符串</span></span><br><span class="line">        String str = <span class="string">&quot;itheima&quot;</span>;</span><br><span class="line">        <span class="comment">// 不可变的字符串</span></span><br><span class="line">        StringBuilder sb2 = <span class="keyword">new</span> StringBuilder(str);</span><br><span class="line">        <span class="comment">// 可变的字符串,字符串内容是:itheima</span></span><br><span class="line">        System.out.println(<span class="string">&quot;sb2:&quot;</span>+sb2);<span class="comment">// sb2:itheima</span></span><br><span class="line">        System.out.println(<span class="string">&quot;sb2的长度:&quot;</span>+sb2.length());<span class="comment">// 7</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="StringBuilder类拼接和反转方法"><a href="#StringBuilder类拼接和反转方法" class="headerlink" title="StringBuilder类拼接和反转方法"></a>StringBuilder类拼接和反转方法</h3><ul>
+<li>添加和反转方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> StringBuilder <span class="title">append</span><span class="params">(任意类型)</span> 拼接数据，并返回对象本身</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> StringBuilder <span class="title">insert</span><span class="params">(<span class="keyword">int</span> offset, 任意类型)</span> 在指定位置插入数据,并返回对象本身</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> StringBuilder <span class="title">reverse</span><span class="params">()</span>  反转字符串,并返回对象本身</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="StringBuilder和String相互转换"><a href="#StringBuilder和String相互转换" class="headerlink" title="StringBuilder和String相互转换"></a>StringBuilder和String相互转换</h3><h4 id="String转换为StringBuilder"><a href="#String转换为StringBuilder" class="headerlink" title="String转换为StringBuilder"></a>String转换为StringBuilder</h4><p><code>public StringBuilder(String s)</code>：通过StringBuilder的构造方法就可以实现把 String 转换为 StringBuilder</p>
+<h4 id="StringBuilder转换为String"><a href="#StringBuilder转换为String" class="headerlink" title="StringBuilder转换为String"></a>StringBuilder转换为String</h4><p><code>public String toString()</code>：通过StringBuilder类中的 toString() 就可以实现把 StringBuilder 转换为 String</p>
+<h2 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h2><ul>
+<li>集合: 是一个大小可变的容器,可以用来存储多个引用类型的数据</li>
+<li>集合和数组的区别:<ul>
+<li>数组大小是固定</li>
+<li>集合大小是可变</li>
+</ul>
+</li>
+</ul>
+<h3 id="ArrayList类概述"><a href="#ArrayList类概述" class="headerlink" title="ArrayList类概述"></a>ArrayList类概述</h3><ul>
+<li>概述: ArrayList类底层是一个大小可变的数组实现</li>
+<li>使用ArrayList<E>类的时候,在E出现的位置使用引用数据类型替换,表示该集合可以存储哪种引用类型的元素</E></li>
+</ul>
+<h3 id="ArrayList类构造方法"><a href="#ArrayList类构造方法" class="headerlink" title="ArrayList类构造方法"></a>ArrayList类构造方法</h3><ul>
+<li><code>ArrayList()</code>  构造一个初始容量为 10 的空列表。 </li>
+</ul>
+<h3 id="ArrayList类添加元素方法"><a href="#ArrayList类添加元素方法" class="headerlink" title="ArrayList类添加元素方法"></a>ArrayList类添加元素方法</h3><ul>
+<li><p>ArrayList添加元素的方法</p>
+<ul>
+<li> public boolean add(E e)：将指定的元素追加到此集合的末尾</li>
+<li> public void add(int index,E element)：在此集合中的指定位置插入指定的元素</li>
+</ul>
+</li>
+</ul>
+<h3 id="扩展–集合存储基本数据类型以及指定位置添加元素的注意事项"><a href="#扩展–集合存储基本数据类型以及指定位置添加元素的注意事项" class="headerlink" title="扩展–集合存储基本数据类型以及指定位置添加元素的注意事项"></a>扩展–集合存储基本数据类型以及指定位置添加元素的注意事项</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建ArrayList集合对象,限制集合中元素的类型为Integer类型</span></span><br><span class="line">        ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 往集合中添加元素</span></span><br><span class="line">        list.add(<span class="number">10</span>);</span><br><span class="line">        list.add(<span class="number">20</span>);</span><br><span class="line">        list.add(<span class="number">30</span>);</span><br><span class="line">        list.add(<span class="number">40</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;list:&quot;</span>+list);<span class="comment">// list:[10, 20, 30, 40]</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 思考一:指定索引为4的位置添加一个元素50,是否可以?---可以</span></span><br><span class="line">        list.add(<span class="number">4</span>,<span class="number">50</span>);<span class="comment">// 相当于list.add(50);</span></span><br><span class="line">        System.out.println(<span class="string">&quot;list:&quot;</span>+list);<span class="comment">// list:[10, 20, 30, 40, 50]</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 思考二:指定索引为6的位置添加一个元素100,是否可以?----不可以</span></span><br><span class="line">        <span class="comment">//list.add(6,100);</span></span><br><span class="line">        <span class="comment">// 运行报异常,IndexOutOfBoundsException索引越界异常</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="ArrayList类常用方法"><a href="#ArrayList类常用方法" class="headerlink" title="ArrayList类常用方法"></a>ArrayList类常用方法</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span>   <span class="title">remove</span><span class="params">(Object o)</span> </span></span><br><span class="line"><span class="function">删除指定的元素，返回删除是否成功</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> E   <span class="title">remove</span><span class="params">(<span class="keyword">int</span>   index)</span> </span></span><br><span class="line"><span class="function">删除指定索引处的元素，返回被删除的元素</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> E   <span class="title">set</span><span class="params">(<span class="keyword">int</span> index, E  element)</span> </span></span><br><span class="line"><span class="function">修改指定索引处的元素，返回被修改的元素</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> E   <span class="title">get</span><span class="params">(<span class="keyword">int</span>   index)</span> </span></span><br><span class="line"><span class="function">返回指定索引处的元素</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span>   <span class="title">size</span><span class="params">()</span> </span></span><br><span class="line"><span class="function">返回集合中的元素的个数</span></span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>注意事项</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test2</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      <span class="comment">//  public boolean remove(Object o) </span></span><br><span class="line">      删除指定的元素，返回删除是否成功</span><br><span class="line">      <span class="comment">//  public E   remove(int   index) </span></span><br><span class="line">      删除指定索引处的元素，返回被删除的元素</span><br><span class="line">      <span class="comment">// 1.创建ArrayList集合对象,限制集合中元素的类型为Integer</span></span><br><span class="line">      ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 2.往集合中存储int类型的整数</span></span><br><span class="line">      list.add(<span class="number">1</span>);</span><br><span class="line">      list.add(<span class="number">2</span>);</span><br><span class="line">      list.add(<span class="number">3</span>);</span><br><span class="line">      list.add(<span class="number">4</span>);</span><br><span class="line">      System.out.println(list);<span class="comment">// [1, 2, 3, 4]</span></span><br><span class="line"></span><br><span class="line">      list.remove(<span class="number">1</span>);<span class="comment">// 删除索引为1的元素</span></span><br><span class="line">      System.out.println(list);<span class="comment">// [1, 3, 4]</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">// 删除1这个元素,需要传入1的Integer对象</span></span><br><span class="line">      list.remove(<span class="keyword">new</span> Integer(<span class="number">1</span>));</span><br><span class="line">      System.out.println(list);<span class="comment">// [3, 4]</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+]]></content>
+      <categories>
+        <category>Java知识积累</category>
+      </categories>
+      <tags>
+        <tag>Java数据类型</tag>
+        <tag>String</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java重要知识积累02--从数据结构到Java常用集合</title>
     <url>/jwangcloud/3265662706/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/first_foots/01.jpeg"></p>
@@ -2994,198 +3186,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Java重要知识积累03--String和StringBuilder和ArrayList</title>
-    <url>/jwangcloud/3937920951/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/first_foots/01.jpeg"></p>
-<span id="more"></span>
-
-<h2 id="String类的常用方法"><a href="#String类的常用方法" class="headerlink" title="String类的常用方法"></a>String类的常用方法</h2><p>String 类代表字符串，Java 程序中的所有字符串文字（例如“abc”）都被实现为此类的实例。也就是说，Java 程序中所有的双引号字符串，都是 String 类的对象。String 类在 java.lang 包下，所以使用的时候不需要导包！</p>
-<h3 id="String类的构造方法"><a href="#String类的构造方法" class="headerlink" title="String类的构造方法"></a>String类的构造方法</h3><ul>
-<li>常用的构造方法</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>方法名</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>public   String()</td>
-<td>创建一个空白字符串对象，不含有任何内容</td>
-</tr>
-<tr>
-<td>public   String(char[] chs)</td>
-<td>根据字符数组的内容，来创建字符串对象</td>
-</tr>
-<tr>
-<td>public   String(byte[] bys)</td>
-<td>根据字节数组的内容，来创建字符串对象</td>
-</tr>
-<tr>
-<td>String s =   “abc”;</td>
-<td>直接赋值的方式创建字符串对象，内容就是abc</td>
-</tr>
-</tbody></table>
-<h3 id="使用String类的构造方法"><a href="#使用String类的构造方法" class="headerlink" title="使用String类的构造方法"></a>使用String类的构造方法</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>：pengzhilin</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2020/9/9 8:44</span></span><br><span class="line"><span class="comment"> * 构造方法通过new来调用</span></span><br><span class="line"><span class="comment"> * 成员方法:</span></span><br><span class="line"><span class="comment"> *      非静态成员方法:通过对象名来调用</span></span><br><span class="line"><span class="comment"> *      静态成员方法:通过类名来调用</span></span><br><span class="line"><span class="comment"> * 方法:</span></span><br><span class="line"><span class="comment"> *      无返回值:直接调用</span></span><br><span class="line"><span class="comment"> *      有返回值:</span></span><br><span class="line"><span class="comment"> *          直接调用</span></span><br><span class="line"><span class="comment"> *          赋值调用</span></span><br><span class="line"><span class="comment"> *          输出调用</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">            public   String() 创建一个空白字符串对象，不含有任何内容</span></span><br><span class="line"><span class="comment">            public   String(char[] chs) 根据字符数组的内容，来创建字符串对象</span></span><br><span class="line"><span class="comment">            public   String(char[] value, int offset, int count) 根据指定字符数组范围的内容，来创建字符串对象</span></span><br><span class="line"><span class="comment">            public   String(byte[] bys) 根据字节数组的内容，来创建字符串对象</span></span><br><span class="line"><span class="comment">            public   String(byte[] bytes, int offset, int length)根据指定字节数组范围的内容，来创建字符串对象</span></span><br><span class="line"><span class="comment">            String s =   “abc”;直接赋值的方式创建字符串对象，内容就是abc</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="comment">// 创建空白字符串对象</span></span><br><span class="line">        String str1 = <span class="keyword">new</span> String();<span class="comment">// str1字符串内容: &quot;&quot;</span></span><br><span class="line">        System.out.println(<span class="string">&quot;=&quot;</span>+str1+<span class="string">&quot;=&quot;</span>);<span class="comment">// ==</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 根据字符数组的内容，来创建字符串对象</span></span><br><span class="line">        <span class="keyword">char</span>[] chs = &#123;<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>,<span class="string">&#x27;d&#x27;</span>&#125;;</span><br><span class="line">        String str2 = <span class="keyword">new</span> String(chs);<span class="comment">// str2字符串内容:&quot;abcd&quot;</span></span><br><span class="line">        System.out.println(str2);<span class="comment">// abcd</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 根据指定字符数组范围的内容，来创建字符串对象</span></span><br><span class="line">        String str3 = <span class="keyword">new</span> String(chs, <span class="number">0</span>, <span class="number">3</span>);<span class="comment">// str3字符串内容:&quot;abc&quot;</span></span><br><span class="line">        System.out.println(str3);<span class="comment">// abc</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 根据字节数组的内容，来创建字符串对象</span></span><br><span class="line">        <span class="keyword">byte</span>[] bys = &#123;<span class="number">97</span>,<span class="number">98</span>,<span class="number">99</span>,<span class="number">100</span>,<span class="number">101</span>,<span class="number">102</span>&#125;;</span><br><span class="line">        String str4 = <span class="keyword">new</span> String(bys);<span class="comment">// str4字符串内容:&quot;abcdef&quot;</span></span><br><span class="line">        System.out.println(str4);<span class="comment">// abcdef</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 根据指定字节数组范围的内容，来创建字符串对象</span></span><br><span class="line">        String str5 = <span class="keyword">new</span> String(bys, <span class="number">2</span>, <span class="number">3</span>);<span class="comment">// str5字符串内容:&quot;cde&quot;</span></span><br><span class="line">        System.out.println(str5);<span class="comment">// cde</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 直接赋值的方式创建字符串对象</span></span><br><span class="line">        String str6 = <span class="string">&quot;abc&quot;</span>;<span class="comment">// str6字符串内容:&quot;abc&quot;</span></span><br><span class="line">        System.out.println(str6);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="创建字符串对象两种方式的区别"><a href="#创建字符串对象两种方式的区别" class="headerlink" title="创建字符串对象两种方式的区别"></a>创建字符串对象两种方式的区别</h3><h4 id="通过构造方法创建"><a href="#通过构造方法创建" class="headerlink" title="通过构造方法创建"></a>通过构造方法创建</h4><ul>
-<li>通过 new 创建的字符串对象，每一次 new 都会申请一个内存空间，虽然字符串内容相同，但是地址值不同</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span>[] chs = &#123;<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line">String s1 = <span class="keyword">new</span> String(chs);<span class="comment">// s1字符串的内容: abc</span></span><br><span class="line">String s2 = <span class="keyword">new</span> String(chs);<span class="comment">// s2字符串的内容: abc</span></span><br><span class="line"><span class="comment">// 上面的代码中,JVM首先会先创建一个字符数组,然后每一次new的时候都会有一个新的地址,只不过s1和s2参考的字符串内容是相同的</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="直接赋值方式创建"><a href="#直接赋值方式创建" class="headerlink" title="直接赋值方式创建"></a>直接赋值方式创建</h4><ul>
-<li>以“”方式给出的字符串，只要字符序列相同(顺序和大小写)，无论在程序代码中出现几次，JVM 都只会建立一个 String 对象，并在字符串池中维护  </li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s3 = <span class="string">&quot;abc&quot;</span>;</span><br><span class="line">String s4 = <span class="string">&quot;abc&quot;</span>;</span><br><span class="line"><span class="comment">// 上面的代码中,针对第一行代码,JVM会建立一个String对象放在字符串池中,并给s3参考;第二行代码,则让s4直接参考字符串池中String对象,也就是说他们本质上是同一个对象</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="绘制内存图"><a href="#绘制内存图" class="headerlink" title="绘制内存图"></a>绘制内存图</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">char</span>[] chs = &#123;<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line">        String s1 = <span class="keyword">new</span> String(chs);<span class="comment">// s1字符串的内容: abc</span></span><br><span class="line">        String s2 = <span class="keyword">new</span> String(chs);<span class="comment">// s2字符串的内容: abc</span></span><br><span class="line">        System.out.println(s1 == s2);<span class="comment">// 比较s1和s2的地址值 false</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 直接赋值方式创建</span></span><br><span class="line">        String str1 = <span class="string">&quot;abc&quot;</span>;<span class="comment">// str1字符串的内容: abc</span></span><br><span class="line">        String str2 = <span class="string">&quot;abc&quot;</span>;<span class="comment">// str2字符串的内容: abc</span></span><br><span class="line">        System.out.println(str1 == str2);<span class="comment">// 比较str1和str2的地址值 true</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/string/img/1582730449429.png" alt="1582730449429"></p>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/string/img/1584169790187.png" alt="1584169790187"></p>
-<ul>
-<li>通过new创建的字符串对象,每一次都会新开辟空间</li>
-<li>通过””方式直接创建的字符串对象,是常量,在常量池中,只有一份</li>
-</ul>
-<h3 id="String类的特点"><a href="#String类的特点" class="headerlink" title="String类的特点"></a>String类的特点</h3><ul>
-<li><p>String类的字符串不可变，它们的值在创建后不能被更改</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s1 = <span class="string">&quot;abc&quot;</span>;</span><br><span class="line">s1 += <span class="string">&quot;d&quot;</span>;</span><br><span class="line">System.out.println(s1); <span class="comment">// &quot;abcd&quot; </span></span><br><span class="line"><span class="comment">// 内存中有&quot;abc&quot;，&quot;abcd&quot;,&quot;d&quot;,3个对象，s1从指向&quot;abc&quot;，改变指向，指向了&quot;abcd&quot;。</span></span><br></pre></td></tr></table></figure></li>
-<li><p>虽然 String 的值是不可变的，但是它们可以被共享</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String s1 = <span class="string">&quot;abc&quot;</span>;</span><br><span class="line">String s2 = <span class="string">&quot;abc&quot;</span>;</span><br><span class="line"><span class="comment">// 内存中只有一个&quot;abc&quot;对象被创建，同时被s1和s2共享。</span></span><br></pre></td></tr></table></figure></li>
-<li><p>字符串效果上相当于字符数组( char[] )</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">例如： </span><br><span class="line">String str = <span class="string">&quot;abc&quot;</span>;</span><br><span class="line"></span><br><span class="line">相当于： </span><br><span class="line"><span class="keyword">char</span>[] data = &#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>&#125;;     </span><br><span class="line">String str = <span class="keyword">new</span> String(data);</span><br><span class="line"><span class="comment">// String底层是靠字符数组实现的,jdk9底层是字节数组。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">byte</span>[] bys = &#123;<span class="number">97</span>,<span class="number">98</span>,<span class="number">99</span>&#125;;</span><br><span class="line">String str = <span class="keyword">new</span> String(bys);</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h3 id="字符串的比较"><a href="#字符串的比较" class="headerlink" title="字符串的比较"></a>字符串的比较</h3><ul>
-<li>比较字符串内容是否相等,区分大小写,需要使用String类的equals方法,<strong>千万不要用 == 比较</strong></li>
-<li>如果比较字符串内容是否相等,不区分大小写,需要使用String类的equalsIgnoreCase()方法</li>
-</ul>
-<h4 id="号的比较"><a href="#号的比较" class="headerlink" title="==号的比较"></a>==号的比较</h4><ul>
-<li>比较基本数据类型：比较的是具体的值</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> num1 = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span> num2 = <span class="number">20</span>;</span><br><span class="line">num1 == num2  ===&gt; <span class="number">10</span>==<span class="number">20</span>  结果:<span class="keyword">false</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>比较引用数据类型：比较的是对象地址值</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String str1 = <span class="keyword">new</span> String(<span class="string">&quot;abc&quot;</span>);</span><br><span class="line">String str2 = <span class="keyword">new</span> String(<span class="string">&quot;abc&quot;</span>);</span><br><span class="line">str1 == str2 ===&gt; </span><br><span class="line">str1存储的对象地址值 == str2存储的对象地址值  </span><br><span class="line">结果: <span class="keyword">false</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringDemo02</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      <span class="comment">//构造方法的方式得到对象</span></span><br><span class="line">      <span class="keyword">char</span>[] chs = &#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line">      String s1 = <span class="keyword">new</span> String(chs);</span><br><span class="line">      String s2 = <span class="keyword">new</span> String(chs);</span><br><span class="line"></span><br><span class="line">      <span class="comment">//直接赋值的方式得到对象</span></span><br><span class="line">      String s3 = <span class="string">&quot;abc&quot;</span>;</span><br><span class="line">      String s4 = <span class="string">&quot;abc&quot;</span>;</span><br><span class="line"></span><br><span class="line">      <span class="comment">//比较字符串对象地址是否相同</span></span><br><span class="line">      System.out.println(s1 == s2);<span class="comment">// </span></span><br><span class="line">      System.out.println(s1 == s3);<span class="comment">// </span></span><br><span class="line">      System.out.println(s3 == s4);<span class="comment">// </span></span><br><span class="line">      System.out.println(<span class="string">&quot;--------&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="equals方法的作用"><a href="#equals方法的作用" class="headerlink" title="equals方法的作用"></a>equals方法的作用</h4><ul>
-<li><p>字符串是对象,它比较内容是否相同,是通过一个方法来实现的,就是equals()方法</p>
-</li>
-<li><p>方法介绍</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object s)</span>     </span></span><br><span class="line"><span class="function">比较两个字符串内容是否相同、区分大小写</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code> public boolean equalsIgnoreCase (String anotherString)</code> ：将此字符串与指定对象进行比较，忽略大小写。</li>
-</ul>
-<h3 id="String类获取功能的方法"><a href="#String类获取功能的方法" class="headerlink" title="String类获取功能的方法"></a>String类获取功能的方法</h3><ul>
-<li>public int length () ：返回此字符串的长度。</li>
-<li>public String concat (String str) ：将指定的字符串连接到该字符串的末尾。拼接</li>
-<li>public char charAt (int index) ：返回指定索引处的 char值。</li>
-<li>public int indexOf (String str) ：返回指定子字符串第一次出现在该字符串内的索引。</li>
-<li>public int indexOf(String str, int fromIndex)  返回从指定索引位置查找,该子字符串第一次出现在该字符串内的索引。</li>
-<li>public int lastIndexOf(String str) 返回指定子字符串最后一次出现在该字符串内的索引。</li>
-<li>public int lastIndexOf(String str, int fromIndex) 返回从指定索引位置查找,,该子字符串最后一次出现在该字符串内的索引。</li>
-<li>public String substring (int beginIndex) ：返回一个子字符串，从beginIndex开始截取字符串到字符串结尾。</li>
-<li>public String substring (int beginIndex, int endIndex) ：返回一个子字符串，从beginIndex到endIndex截取字符串。含beginIndex，不含endIndex。</li>
-</ul>
-<h2 id="StringBuilder类"><a href="#StringBuilder类" class="headerlink" title="StringBuilder类"></a>StringBuilder类</h2><h3 id="字符串拼接问题"><a href="#字符串拼接问题" class="headerlink" title="字符串拼接问题"></a>字符串拼接问题</h3><p>由于String类的对象内容不可改变，所以每当进行字符串拼接时，总是会在内存中创建一个新的对象。例如：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String s = <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line">        s += <span class="string">&quot;World&quot;</span>;<span class="comment">// s = s + &quot;World&quot;;</span></span><br><span class="line">        System.out.println(s);<span class="comment">// HelloWorld</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在API中对String类有这样的描述：字符串是常量，它们的值在创建后不能被更改。</p>
-<p>根据这句话分析我们的代码，其实总共产生了三个字符串，即<code>&quot;Hello&quot;</code>、<code>&quot;World&quot;</code>和<code>&quot;HelloWorld&quot;</code>。引用变量s首先指向<code>Hello</code>对象，最终指向拼接出来的新字符串对象，即<code>HelloWord</code> 。</p>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/string/img/String%E6%8B%BC%E6%8E%A5%E9%97%AE%E9%A2%98.bmp"></p>
-<p>由此可知，如果对字符串进行拼接操作，每次拼接，都会构建一个新的String对象，<strong>既耗时，又浪费空间</strong>。为了解决这一问题，可以使用<code>java.lang.StringBuilder</code>类。</p>
-<h3 id="StringBuilder类概述以及与String类的区别"><a href="#StringBuilder类概述以及与String类的区别" class="headerlink" title="StringBuilder类概述以及与String类的区别"></a>StringBuilder类概述以及与String类的区别</h3><p>StringBuilder 是一个可变的字符串类，我们可以把它看成是一个容器，这里的可变指的是 StringBuilder 对象中的内容是可变的</p>
-<h4 id="StringBuilder类和String类的区别"><a href="#StringBuilder类和String类的区别" class="headerlink" title="StringBuilder类和String类的区别"></a>StringBuilder类和String类的区别</h4><ul>
-<li><p>String类：内容是不可变的</p>
-</li>
-<li><p>StringBuilder类：内容是可变的</p>
-</li>
-</ul>
-<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/Java/string/img/06-StringBuilder%E7%9A%84%E5%8E%9F%E7%90%86.png" alt="06-StringBuilder的原理"></p>
-<h3 id="StringBuilder类的构造方法"><a href="#StringBuilder类的构造方法" class="headerlink" title="StringBuilder类的构造方法"></a>StringBuilder类的构造方法</h3><ul>
-<li>常用的构造方法</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>方法名</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>public StringBuilder()</td>
-<td>创建一个空白可变字符串对象，不含有任何内容</td>
-</tr>
-<tr>
-<td>public StringBuilder(String   str)</td>
-<td>根据字符串的内容，来创建可变字符串对象</td>
-</tr>
-</tbody></table>
-<ul>
-<li>示例代码</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">            StringBuilder类的构造方法:</span></span><br><span class="line"><span class="comment">            public StringBuilder() </span></span><br><span class="line"><span class="comment">            创建一个空白可变字符串对象，不含有任何内容</span></span><br><span class="line"><span class="comment">            public StringBuilder(String str) </span></span><br><span class="line"><span class="comment">            根据字符串的内容，来创建可变字符串对象</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="comment">// 创建空白可变字符串对象  &quot;&quot;</span></span><br><span class="line">        StringBuilder sb1 = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        System.out.println(<span class="string">&quot;sb1:&quot;</span>+sb1+<span class="string">&quot;=&quot;</span>);<span class="comment">// sb1:=</span></span><br><span class="line">        System.out.println(<span class="string">&quot;sb1的长度:&quot;</span>+sb1.length());<span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 把不可变字符串转换为可变字符串</span></span><br><span class="line">        String str = <span class="string">&quot;itheima&quot;</span>;</span><br><span class="line">        <span class="comment">// 不可变的字符串</span></span><br><span class="line">        StringBuilder sb2 = <span class="keyword">new</span> StringBuilder(str);</span><br><span class="line">        <span class="comment">// 可变的字符串,字符串内容是:itheima</span></span><br><span class="line">        System.out.println(<span class="string">&quot;sb2:&quot;</span>+sb2);<span class="comment">// sb2:itheima</span></span><br><span class="line">        System.out.println(<span class="string">&quot;sb2的长度:&quot;</span>+sb2.length());<span class="comment">// 7</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="StringBuilder类拼接和反转方法"><a href="#StringBuilder类拼接和反转方法" class="headerlink" title="StringBuilder类拼接和反转方法"></a>StringBuilder类拼接和反转方法</h3><ul>
-<li>添加和反转方法</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> StringBuilder <span class="title">append</span><span class="params">(任意类型)</span> 拼接数据，并返回对象本身</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> StringBuilder <span class="title">insert</span><span class="params">(<span class="keyword">int</span> offset, 任意类型)</span> 在指定位置插入数据,并返回对象本身</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> StringBuilder <span class="title">reverse</span><span class="params">()</span>  反转字符串,并返回对象本身</span></span><br></pre></td></tr></table></figure>
-
-
-<h3 id="StringBuilder和String相互转换"><a href="#StringBuilder和String相互转换" class="headerlink" title="StringBuilder和String相互转换"></a>StringBuilder和String相互转换</h3><h4 id="String转换为StringBuilder"><a href="#String转换为StringBuilder" class="headerlink" title="String转换为StringBuilder"></a>String转换为StringBuilder</h4><p><code>public StringBuilder(String s)</code>：通过StringBuilder的构造方法就可以实现把 String 转换为 StringBuilder</p>
-<h4 id="StringBuilder转换为String"><a href="#StringBuilder转换为String" class="headerlink" title="StringBuilder转换为String"></a>StringBuilder转换为String</h4><p><code>public String toString()</code>：通过StringBuilder类中的 toString() 就可以实现把 StringBuilder 转换为 String</p>
-<h2 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h2><ul>
-<li>集合: 是一个大小可变的容器,可以用来存储多个引用类型的数据</li>
-<li>集合和数组的区别:<ul>
-<li>数组大小是固定</li>
-<li>集合大小是可变</li>
-</ul>
-</li>
-</ul>
-<h3 id="ArrayList类概述"><a href="#ArrayList类概述" class="headerlink" title="ArrayList类概述"></a>ArrayList类概述</h3><ul>
-<li>概述: ArrayList类底层是一个大小可变的数组实现</li>
-<li>使用ArrayList<E>类的时候,在E出现的位置使用引用数据类型替换,表示该集合可以存储哪种引用类型的元素</E></li>
-</ul>
-<h3 id="ArrayList类构造方法"><a href="#ArrayList类构造方法" class="headerlink" title="ArrayList类构造方法"></a>ArrayList类构造方法</h3><ul>
-<li><code>ArrayList()</code>  构造一个初始容量为 10 的空列表。 </li>
-</ul>
-<h3 id="ArrayList类添加元素方法"><a href="#ArrayList类添加元素方法" class="headerlink" title="ArrayList类添加元素方法"></a>ArrayList类添加元素方法</h3><ul>
-<li><p>ArrayList添加元素的方法</p>
-<ul>
-<li> public boolean add(E e)：将指定的元素追加到此集合的末尾</li>
-<li> public void add(int index,E element)：在此集合中的指定位置插入指定的元素</li>
-</ul>
-</li>
-</ul>
-<h3 id="扩展–集合存储基本数据类型以及指定位置添加元素的注意事项"><a href="#扩展–集合存储基本数据类型以及指定位置添加元素的注意事项" class="headerlink" title="扩展–集合存储基本数据类型以及指定位置添加元素的注意事项"></a>扩展–集合存储基本数据类型以及指定位置添加元素的注意事项</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建ArrayList集合对象,限制集合中元素的类型为Integer类型</span></span><br><span class="line">        ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 往集合中添加元素</span></span><br><span class="line">        list.add(<span class="number">10</span>);</span><br><span class="line">        list.add(<span class="number">20</span>);</span><br><span class="line">        list.add(<span class="number">30</span>);</span><br><span class="line">        list.add(<span class="number">40</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;list:&quot;</span>+list);<span class="comment">// list:[10, 20, 30, 40]</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 思考一:指定索引为4的位置添加一个元素50,是否可以?---可以</span></span><br><span class="line">        list.add(<span class="number">4</span>,<span class="number">50</span>);<span class="comment">// 相当于list.add(50);</span></span><br><span class="line">        System.out.println(<span class="string">&quot;list:&quot;</span>+list);<span class="comment">// list:[10, 20, 30, 40, 50]</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 思考二:指定索引为6的位置添加一个元素100,是否可以?----不可以</span></span><br><span class="line">        <span class="comment">//list.add(6,100);</span></span><br><span class="line">        <span class="comment">// 运行报异常,IndexOutOfBoundsException索引越界异常</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="ArrayList类常用方法"><a href="#ArrayList类常用方法" class="headerlink" title="ArrayList类常用方法"></a>ArrayList类常用方法</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span>   <span class="title">remove</span><span class="params">(Object o)</span> </span></span><br><span class="line"><span class="function">删除指定的元素，返回删除是否成功</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> E   <span class="title">remove</span><span class="params">(<span class="keyword">int</span>   index)</span> </span></span><br><span class="line"><span class="function">删除指定索引处的元素，返回被删除的元素</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> E   <span class="title">set</span><span class="params">(<span class="keyword">int</span> index, E  element)</span> </span></span><br><span class="line"><span class="function">修改指定索引处的元素，返回被修改的元素</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> E   <span class="title">get</span><span class="params">(<span class="keyword">int</span>   index)</span> </span></span><br><span class="line"><span class="function">返回指定索引处的元素</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span>   <span class="title">size</span><span class="params">()</span> </span></span><br><span class="line"><span class="function">返回集合中的元素的个数</span></span><br></pre></td></tr></table></figure>
-
-
-<ul>
-<li>注意事项</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test2</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      <span class="comment">//  public boolean remove(Object o) </span></span><br><span class="line">      删除指定的元素，返回删除是否成功</span><br><span class="line">      <span class="comment">//  public E   remove(int   index) </span></span><br><span class="line">      删除指定索引处的元素，返回被删除的元素</span><br><span class="line">      <span class="comment">// 1.创建ArrayList集合对象,限制集合中元素的类型为Integer</span></span><br><span class="line">      ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 2.往集合中存储int类型的整数</span></span><br><span class="line">      list.add(<span class="number">1</span>);</span><br><span class="line">      list.add(<span class="number">2</span>);</span><br><span class="line">      list.add(<span class="number">3</span>);</span><br><span class="line">      list.add(<span class="number">4</span>);</span><br><span class="line">      System.out.println(list);<span class="comment">// [1, 2, 3, 4]</span></span><br><span class="line"></span><br><span class="line">      list.remove(<span class="number">1</span>);<span class="comment">// 删除索引为1的元素</span></span><br><span class="line">      System.out.println(list);<span class="comment">// [1, 3, 4]</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">// 删除1这个元素,需要传入1的Integer对象</span></span><br><span class="line">      list.remove(<span class="keyword">new</span> Integer(<span class="number">1</span>));</span><br><span class="line">      System.out.println(list);<span class="comment">// [3, 4]</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-]]></content>
-      <categories>
-        <category>Java知识积累</category>
-      </categories>
-      <tags>
-        <tag>Java数据类型</tag>
-        <tag>String</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java重要知识积累01--面相对象</title>
     <url>/jwangcloud/1572511114/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/first_foots/02.jpeg"></p>
@@ -3429,94 +3429,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Linux操作系统02--Linux权限</title>
-    <url>/jwangcloud/4264740339/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/Linux.jpeg"></p>
-<h2 id="进制计算"><a href="#进制计算" class="headerlink" title="进制计算"></a>进制计算</h2><span id="more"></span>    
-
-<pre><code>二进制 ： 以111（2） 为例：1*2^0 + 1*2^1 + 1*2^2 =7 
-十六进制：以16为底：0～9 A～F
-三十六进制：以32为低：0-9 A-Z 除开 i o s z
-</code></pre>
-<h2 id="Linux权限"><a href="#Linux权限" class="headerlink" title="Linux权限"></a>Linux权限</h2><ol>
-<li>例：使用ls -lh 文件属性字段显示信息如下<pre><code> d  rwx  r_x  r_x  d(文件夹) r(可读) w(可写) x(可执行) 
-   111  101  101
-    7    5    5
-    u    g    o
-  
-</code></pre>
-整个信息段表示：文件属性字段 文件硬链接数/目录子文件数 文件拥有者 文件拥有者所在组 文件大小（以字节为单位） 文件创建时间 文件名（–&gt;符号为指向目标文件夹）</li>
-<li> 修改权限：chmod 权限的十进制 文件名 （chmod 755 1.txt）权限最高为777<br>修改文件夹权限：chmod -R</li>
-<li>修改某一个权限：chmod u-x 文件名 （u-x 为 user 用户去掉可执行，还可以为u+x、u-wx、g+rx）</li>
-</ol>
-<h2 id="编码表"><a href="#编码表" class="headerlink" title="编码表"></a>编码表</h2><p>最早的字符编码表：Ascil码（不能存汉字）</p>
-<p>中文编码：gbk（简体） big5(繁体)</p>
-<p>世界性文字编码：unicode32  通过加工–通用编码：utf-8(可变长)、utf-16(即固定又可变)、utf-32(固定)</p>
-]]></content>
-      <categories>
-        <category>Linux操作系统</category>
-      </categories>
-      <tags>
-        <tag>Linux权限</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux操作系统01--Linux入门</title>
-    <url>/jwangcloud/1737435959/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/Linux.jpeg"></p>
-<h3 id="Linux版本之间的区别"><a href="#Linux版本之间的区别" class="headerlink" title="Linux版本之间的区别"></a>Linux版本之间的区别</h3><span id="more"></span>
-
-
-<pre><code>             redhat  RHEL CentOs 
-                     Fedora               --&gt; 稳定版本
-             Debian  Ubuntu
-     Linux           Mint Linux   knopix  --&gt; 最新版本
-             SlackWare  SUSE   SLEs
-                               openSuse
-             其它发行家族 
-</code></pre>
-<h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><pre><code>top : 查看电脑当前状态，比如CPU的使用率，物理内存（Physcmem）,可看作一个
-任务管理器（使用q键退出）
-date：日期。其中取的时区为CST 代表 中国上海
-cal ：日历
-echo : 将字符串输出到屏幕  &gt; ：输出重定向  &gt;&gt; : 输出追加重定向
-echo &#39;hello&#39; &gt; tmp.txt : 将字符串输出重定向，若当前目录下没有该文件，
-则会新建该文件并将字符串输出到文件，若存在该文件，则会覆盖该文件中的内容
-echo &#39;hello&#39; &gt;&gt; tmp.txt : 与上述一样，但存在该文件时会在该文件内容后
-追加字符串
-2&gt; : 标准错误截获，将错误提示输出到文件中
-unix时间戳（timestamp）: 以格林威治时间为准，计算机开始时间1970开始
-Tab键：命令自动补全，多个相同命令则按两下，会将全部相似的命令显示在屏幕上
-</code></pre>
-<h3 id="文件夹操作"><a href="#文件夹操作" class="headerlink" title="文件夹操作"></a>文件夹操作</h3><pre><code>cd  进入目标文件夹中
-cd .  当前目录
-cd ..  返回上一个文件夹下
-ls  查看当前所在文件夹下面所拥有的文件夹清单
-pwd 查看当前所在文件夹路径，属于绝对路径
-mkdir 创建文件夹
-rm -r -f 删除文件夹（不可恢复）
-/ 文件路径分隔符  \ 转义字符
-～ 用户根目录  ./ 当前目录
-ls -la 可显示隐藏文件  隐藏文件的创建为在名字前+“.”,例如：.match
-less 文件名  查看文件内信息  more可查看部分文件内信息
-cp 文件夹1 文件夹2  考本文件夹1到文件夹2（需要是文件夹全名）与文件操作一样
-</code></pre>
-<h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><pre><code>cp -r   : 文件复制
-cp -r &#123;文件1，文件2&#125; 目标文件夹   ： 拷贝多个文件到一个文件夹中
-rm -rf  : 删除任何相关的文件或文件夹 删除多个使用 空格隔开或者通配符
-touch   : 新建文件（使用通配符可创建多个）
-mkdir -p : 可以创建一个新文件夹下创建新文件
-&gt; text.txt : 创建空文件
-</code></pre>
-]]></content>
-      <categories>
-        <category>Linux操作系统</category>
-      </categories>
-      <tags>
-        <tag>Linux入门</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Linux操作系统03--vim操作、ssh</title>
     <url>/jwangcloud/2793636500/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/Linux.jpeg"></p>
@@ -3605,6 +3517,200 @@ mkdir -p : 可以创建一个新文件夹下创建新文件
       <tags>
         <tag>vim</tag>
         <tag>ssh</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux操作系统02--Linux权限</title>
+    <url>/jwangcloud/4264740339/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/Linux.jpeg"></p>
+<h2 id="进制计算"><a href="#进制计算" class="headerlink" title="进制计算"></a>进制计算</h2><span id="more"></span>    
+
+<pre><code>二进制 ： 以111（2） 为例：1*2^0 + 1*2^1 + 1*2^2 =7 
+十六进制：以16为底：0～9 A～F
+三十六进制：以32为低：0-9 A-Z 除开 i o s z
+</code></pre>
+<h2 id="Linux权限"><a href="#Linux权限" class="headerlink" title="Linux权限"></a>Linux权限</h2><ol>
+<li>例：使用ls -lh 文件属性字段显示信息如下<pre><code> d  rwx  r_x  r_x  d(文件夹) r(可读) w(可写) x(可执行) 
+   111  101  101
+    7    5    5
+    u    g    o
+  
+</code></pre>
+整个信息段表示：文件属性字段 文件硬链接数/目录子文件数 文件拥有者 文件拥有者所在组 文件大小（以字节为单位） 文件创建时间 文件名（–&gt;符号为指向目标文件夹）</li>
+<li> 修改权限：chmod 权限的十进制 文件名 （chmod 755 1.txt）权限最高为777<br>修改文件夹权限：chmod -R</li>
+<li>修改某一个权限：chmod u-x 文件名 （u-x 为 user 用户去掉可执行，还可以为u+x、u-wx、g+rx）</li>
+</ol>
+<h2 id="编码表"><a href="#编码表" class="headerlink" title="编码表"></a>编码表</h2><p>最早的字符编码表：Ascil码（不能存汉字）</p>
+<p>中文编码：gbk（简体） big5(繁体)</p>
+<p>世界性文字编码：unicode32  通过加工–通用编码：utf-8(可变长)、utf-16(即固定又可变)、utf-32(固定)</p>
+]]></content>
+      <categories>
+        <category>Linux操作系统</category>
+      </categories>
+      <tags>
+        <tag>Linux权限</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux操作系统01--Linux入门</title>
+    <url>/jwangcloud/1737435959/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/Linux.jpeg"></p>
+<h3 id="Linux版本之间的区别"><a href="#Linux版本之间的区别" class="headerlink" title="Linux版本之间的区别"></a>Linux版本之间的区别</h3><span id="more"></span>
+
+
+<pre><code>             redhat  RHEL CentOs 
+                     Fedora               --&gt; 稳定版本
+             Debian  Ubuntu
+     Linux           Mint Linux   knopix  --&gt; 最新版本
+             SlackWare  SUSE   SLEs
+                               openSuse
+             其它发行家族 
+</code></pre>
+<h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><pre><code>top : 查看电脑当前状态，比如CPU的使用率，物理内存（Physcmem）,可看作一个
+任务管理器（使用q键退出）
+date：日期。其中取的时区为CST 代表 中国上海
+cal ：日历
+echo : 将字符串输出到屏幕  &gt; ：输出重定向  &gt;&gt; : 输出追加重定向
+echo &#39;hello&#39; &gt; tmp.txt : 将字符串输出重定向，若当前目录下没有该文件，
+则会新建该文件并将字符串输出到文件，若存在该文件，则会覆盖该文件中的内容
+echo &#39;hello&#39; &gt;&gt; tmp.txt : 与上述一样，但存在该文件时会在该文件内容后
+追加字符串
+2&gt; : 标准错误截获，将错误提示输出到文件中
+unix时间戳（timestamp）: 以格林威治时间为准，计算机开始时间1970开始
+Tab键：命令自动补全，多个相同命令则按两下，会将全部相似的命令显示在屏幕上
+</code></pre>
+<h3 id="文件夹操作"><a href="#文件夹操作" class="headerlink" title="文件夹操作"></a>文件夹操作</h3><pre><code>cd  进入目标文件夹中
+cd .  当前目录
+cd ..  返回上一个文件夹下
+ls  查看当前所在文件夹下面所拥有的文件夹清单
+pwd 查看当前所在文件夹路径，属于绝对路径
+mkdir 创建文件夹
+rm -r -f 删除文件夹（不可恢复）
+/ 文件路径分隔符  \ 转义字符
+～ 用户根目录  ./ 当前目录
+ls -la 可显示隐藏文件  隐藏文件的创建为在名字前+“.”,例如：.match
+less 文件名  查看文件内信息  more可查看部分文件内信息
+cp 文件夹1 文件夹2  考本文件夹1到文件夹2（需要是文件夹全名）与文件操作一样
+</code></pre>
+<h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><pre><code>cp -r   : 文件复制
+cp -r &#123;文件1，文件2&#125; 目标文件夹   ： 拷贝多个文件到一个文件夹中
+rm -rf  : 删除任何相关的文件或文件夹 删除多个使用 空格隔开或者通配符
+touch   : 新建文件（使用通配符可创建多个）
+mkdir -p : 可以创建一个新文件夹下创建新文件
+&gt; text.txt : 创建空文件
+</code></pre>
+]]></content>
+      <categories>
+        <category>Linux操作系统</category>
+      </categories>
+      <tags>
+        <tag>Linux入门</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mysql数据库05--索引、引擎</title>
+    <url>/jwangcloud/1501163261/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/mysql.jpeg"></p>
+<h3 id="索引与优化"><a href="#索引与优化" class="headerlink" title="索引与优化"></a>索引与优化</h3><span id="more"></span>
+
+<p>1.MySQL官方对索引的定义为：索引（Index）是帮助MySQL高效获取数据的数据结构。提取句子主干，就可以得到索引的本质：索引是数据结构</p>
+<p>2.索引优缺点：</p>
+<pre><code>优点：
+    1.所有的MySql列类型(字段类型)都可以被索引，也就是可以给任意字段设置索引
+    2.大大加快数据的查询速度
+缺点：
+    1.创建索引和维护索引要耗费时间，并且随着数据量的增加所耗费的时间也会增加
+    2.索引也需要占空间，我们知道数据表中的数据也会有最大上线设置的，如果我们有大量的索引，索引文件
+      可能会比数据文件更快达到上线值
+    4.当对表中的数据进行增加、删除、修改时，索引也需要动态的维护，降低了数据的维护速度。
+    
+</code></pre>
+<p>3.使用</p>
+<pre><code>1.对经常更新的表就避免对其进行过多的索引，对经常用于查询的字段应该创建索引
+2.数据量小的表最好不要使用索引，因为由于数据较少，可能查询全部数据花费的时间比遍历索引的时间还要短，
+  索引就可能不会产生优化效果。
+3.在一同值少的列上(字段上)不要建立索引，比如在学生表的&quot;性别&quot;字段上只有男，女两个不同值。相反的，
+  在一个字段上不同值较多可是建立索引。
+  
+</code></pre>
+<h3 id="索引类型"><a href="#索引类型" class="headerlink" title="索引类型"></a>索引类型</h3><h4 id="1-索引的类型"><a href="#1-索引的类型" class="headerlink" title="1.索引的类型"></a>1.索引的类型</h4><p>1.普通索引 index(key)： MySQL中基本索引类型，没有什么限制，允许在定义索引的列中插入重复值和空值，纯粹为了查询数据更快一点。</p>
+<p>2.唯一索引 unique： 索引列中的值必须是唯一的，但是允许为空值</p>
+<p>3.主键索引 primary key： 是一种特殊的唯一索引，不允许有空值</p>
+<p>4.全文索引 fulltext: 只能在CHAR,VARCHAR,TEXT类型字段上使用全文索引，介绍了要求，说说什么是全文索引，就是在一堆文字中，通过其中的某个关键字等，就能找到该字段所属的记录行，比如有”好人，二货 …”</p>
+<p>5.空间索引 spatial: 空间索引是对空间数据类型的字段建立的索引，MySQL中的空间数据类型有四种，GEOMETRY、POINT、LINESTRING、POLYGON。在创建空间索引时，使用SPATIAL关键字。</p>
+<h4 id="2-存储数据结构"><a href="#2-存储数据结构" class="headerlink" title="2.存储数据结构"></a>2.存储数据结构</h4><p>1.HASH 只有Memory存储引擎显示支持hash索引，是Memory表的默认索引类型，尽管Memory表也可以使用B-Tree索引。</p>
+<pre><code>(1)由于索引仅包含hash code和记录指针，所以，MySQL不能通过使用索引避免读取记录。但是访问内存中的记
+    录是非常迅速的，不会对性造成太大的影响。 
+(2)不能使用hash索引排序。 
+(3)Hash索引不支持键的部分匹配，因为是通过整个索引值来计算hash值的。 
+(4)Hash索引只支持等值比较，例如使用=，IN( )和&lt;=&gt;。对于WHERE price&gt;100并不能加速查询。
+</code></pre>
+<p>2.b-tree BTREE索引就是一种将索引值按一定的算法，存入一个树形的数据结构中每次查询都是从树的入口root开始，依次遍历node，获取leaf。这是MySQL里默认和最常用的索引类型。</p>
+<h4 id="3-单列索引和组合索引"><a href="#3-单列索引和组合索引" class="headerlink" title="3.单列索引和组合索引"></a>3.单列索引和组合索引</h4><p>1.单列索引：一个索引只包含单个列，但一个表中可以有多个单列索引。 这里不要搞混淆了。</p>
+<pre><code>普通索引: MySQL中基本索引类型，没有什么限制，允许在定义索引的列中插入重复值和空值，纯粹为了查询数据更快
+一点。
+唯一索引：索引列中的值必须是唯一的，但是允许为空值
+主键索引：是一种特殊的唯一索引，不允许有空值。
+</code></pre>
+<p>2.组合索引(复合索引)</p>
+<p>在表中的多个字段组合上创建的索引，只有在查询条件中使用了这些字段的左边字段时，索引才会被使用，使用组合索<br>引时遵循最左前缀集合。</p>
+<pre><code>1.需要加索引的字段，要在where条件中
+2.数据量少的字段不需要加索引
+3.如果where条件中是OR关系，加索引不起作用
+4.符合最左原则
+</code></pre>
+<p>对于复合索引:Mysql从左到右的使用索引中的字段，一个查询可以只使用索引中的一部份，但只能是最左侧部分。例如索引是key index (a,b,c). 可以支持a | a,b| a,b,c 3种组合进行查找，但不支持 b,c进行查找 .当最左侧字段是常量引用时，索引就十分有效。</p>
+<h3 id="索引语句"><a href="#索引语句" class="headerlink" title="索引语句"></a>索引语句</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.创建索引</span><br><span class="line">以User表的username字段(类型为VARCHAR(50))为例，使用username字段的6个字符前缀来创建索引。</span><br><span class="line">CREATE INDEX idx_user_username ON user (username(6));</span><br><span class="line"></span><br><span class="line">CREATE INDEX可对表增加普通索引或UNIQUE索引</span><br><span class="line">--例,只能添加这两种索引;</span><br><span class="line">CREATE INDEX index_name ON table_name (column_list)</span><br><span class="line">CREATE UNIQUE INDEX index_name ON table_name (column_list)</span><br><span class="line"></span><br><span class="line">2.删除索引</span><br><span class="line"></span><br><span class="line">ALTER TABLE table_name DROP INDEX index_name;</span><br><span class="line"></span><br><span class="line">3.修改索引：先删除再创建同名索引</span><br><span class="line"></span><br><span class="line">--先删除</span><br><span class="line">ALTER TABLE user DROP INDEX idx_user_username;</span><br><span class="line">--再以修改后的内容创建同名索引</span><br><span class="line">CREATE INDEX idx_user_username ON user (username(8));</span><br><span class="line"></span><br><span class="line">4.查看索引</span><br><span class="line"></span><br><span class="line">--如果查看索引前，没有使用user db_name等命令指定具体的数据库，则必须加上FROM db_name</span><br><span class="line">SHOW INDEX FROM table_name [FROM db_name]</span><br><span class="line">--如果查看索引前，没有使用user db_name等命令指定具体的数据库，则必须加上db_name.前缀</span><br><span class="line">SHOW INDEX FROM [db_name.]table_name</span><br><span class="line"></span><br><span class="line">5.查看是否使用了索引进行查询</span><br><span class="line">EXPLAIN SELECT * FROM book WHERE year_publication &#x3D; 1990;</span><br><span class="line"></span><br><span class="line">6.添加索引</span><br><span class="line">ALTER TABLE 表名 ADD 索引类型 （unique,primary key,fulltext,index）[索引名]（字段名）</span><br><span class="line">ALTER TABLE book ADD INDEX BkNameIdx(bookname(30));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="引擎"><a href="#引擎" class="headerlink" title="引擎"></a>引擎</h3><p>概述<br>存储引擎就是指表的类型。数据库的存储引擎决定了表在计算机中的存储方式。存储引擎的概念是MySQl的特点，而且是一个插入式的存储引擎概念。这就决定了MySQl数据库中的表可以使用不同的存储方式存储。用户可以根据自己的不同要求，选择不同的存储方式、是否进行事务处理等。</p>
+<h4 id="引擎分类"><a href="#引擎分类" class="headerlink" title="引擎分类"></a>引擎分类</h4><p>InnoDB存储引擎</p>
+<pre><code>InnoDB是Mysql数据库的一种存储引擎。InnoDB给Mysql的表提供了 事务、回滚、崩溃修复能力、多版本并发控制
+的事务安全、间隙锁（可以有效的防止幻读的出现）、支持辅助索引、聚簇索引、自适应hash索引、支持热备、行级
+锁。还有InnoDB是Mysql上唯一一个提供了外键约束的引擎。
+
+InnoDB存储引擎中，创建的表的表结构是单独存储的并且存储在.frm文件中。数据和索引存储在一起的并且存储在表
+空间中。但是默认情况下mysql会将数据库的所有InnoDB表存储在一个表空间中的。其实这种方式管理起来非常的不
+方便而且还不支持高级功能所以建议每个表存储为一个表空间实现方式为：使用服务器变量
+innodb_file_per_table = 1。
+
+如果需要频繁的进行更新、删除操作的数据库也可选择InnoDB存储引擎。因为该存储引擎可以实现事务提交和回滚。
+</code></pre>
+<p>MyISAM存储引擎</p>
+<pre><code>MyISAM存储引擎是Mysql中常见的存储引擎，MyISAM存储引擎是基于ISAM存储引擎发展起来的。MyISAM支持全文索
+引、压缩存放、空间索引（空间函数）、表级锁、延迟更新索引键。但是MyISAM不支持事务、行级锁、更无法忍受的
+是崩溃后不能保证完全恢复（只能手动修复）。
+
+MyISAM存储引擎的表存储成3个文件。文件的名字和表的名字相同。扩展名包含frm、MYD、MYI。其中frm为扩展名的
+文件存储表的结构；MYD为扩展名的文件存储数据，其是MYData的缩写；MYI为扩展名的文件存储索引，其为MYIndex
+的缩写。
+
+MyISAM存储引擎的插入数据很快，空间和内存使用比较低。如果表主要是用于插入新记录和读出记录，那么选择
+MyISAM存储引擎能够实现处理的高效率。如果应用的完整性、并发性要求很低，也可以选择MyISAM存储引擎。
+</code></pre>
+<p>MEMORY存储引擎</p>
+<pre><code>MEMORY存储引擎是Mysql中的一类特殊的存储引擎。其使用存储在内存中的内存来创建表，而且所有数据保存在内存
+中。数据安全性很低，但是查找和插入速度很快。如果内存出现异常就会影响到数据的完整性，如果重启或关机，表中
+的所有数据就会丢失，因此基于MEMORY存储引擎的表的生命周期很短，一般都是一次性的。适用于某些特殊场景像查
+找和映射，缓存周期性的聚合数据等等。
+</code></pre>
+<p>NDB 集群引擎</p>
+<pre><code>作为sql和NDB元素协议之间的接口,用于mysql,ndb集群存储引擎,分布式等
+</code></pre>
+<h3 id="优化建议"><a href="#优化建议" class="headerlink" title="优化建议"></a>优化建议</h3><pre><code>1.尽可能让所有的数据检索都通过索引来完成
+2.合理设计索引，使索引键上面加锁的时候尽可能准确，尽可能的缩小锁定范围，避免造成不必要的锁定而影响其他
+Query的执行；
+3.尽量控制事务的大小，减少锁定的资源量和锁定时间长度
+4.尽可能减少基于范围的数据检索过滤条件，避免因为间隙锁带来的负面影响而锁定了不该锁定的记录
+5.尽可能按照相同的访问顺序来访问，防止产生死锁
+6.尽可能做到一次锁定所需要的所有资源，减少死锁产生概率
+</code></pre>
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>mysql索引</tag>
+        <tag>mysql引擎</tag>
       </tags>
   </entry>
   <entry>
@@ -3756,112 +3862,6 @@ delete from..where
       </tags>
   </entry>
   <entry>
-    <title>mysql数据库05--索引、引擎</title>
-    <url>/jwangcloud/1501163261/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/mysql.jpeg"></p>
-<h3 id="索引与优化"><a href="#索引与优化" class="headerlink" title="索引与优化"></a>索引与优化</h3><span id="more"></span>
-
-<p>1.MySQL官方对索引的定义为：索引（Index）是帮助MySQL高效获取数据的数据结构。提取句子主干，就可以得到索引的本质：索引是数据结构</p>
-<p>2.索引优缺点：</p>
-<pre><code>优点：
-    1.所有的MySql列类型(字段类型)都可以被索引，也就是可以给任意字段设置索引
-    2.大大加快数据的查询速度
-缺点：
-    1.创建索引和维护索引要耗费时间，并且随着数据量的增加所耗费的时间也会增加
-    2.索引也需要占空间，我们知道数据表中的数据也会有最大上线设置的，如果我们有大量的索引，索引文件
-      可能会比数据文件更快达到上线值
-    4.当对表中的数据进行增加、删除、修改时，索引也需要动态的维护，降低了数据的维护速度。
-    
-</code></pre>
-<p>3.使用</p>
-<pre><code>1.对经常更新的表就避免对其进行过多的索引，对经常用于查询的字段应该创建索引
-2.数据量小的表最好不要使用索引，因为由于数据较少，可能查询全部数据花费的时间比遍历索引的时间还要短，
-  索引就可能不会产生优化效果。
-3.在一同值少的列上(字段上)不要建立索引，比如在学生表的&quot;性别&quot;字段上只有男，女两个不同值。相反的，
-  在一个字段上不同值较多可是建立索引。
-  
-</code></pre>
-<h3 id="索引类型"><a href="#索引类型" class="headerlink" title="索引类型"></a>索引类型</h3><h4 id="1-索引的类型"><a href="#1-索引的类型" class="headerlink" title="1.索引的类型"></a>1.索引的类型</h4><p>1.普通索引 index(key)： MySQL中基本索引类型，没有什么限制，允许在定义索引的列中插入重复值和空值，纯粹为了查询数据更快一点。</p>
-<p>2.唯一索引 unique： 索引列中的值必须是唯一的，但是允许为空值</p>
-<p>3.主键索引 primary key： 是一种特殊的唯一索引，不允许有空值</p>
-<p>4.全文索引 fulltext: 只能在CHAR,VARCHAR,TEXT类型字段上使用全文索引，介绍了要求，说说什么是全文索引，就是在一堆文字中，通过其中的某个关键字等，就能找到该字段所属的记录行，比如有”好人，二货 …”</p>
-<p>5.空间索引 spatial: 空间索引是对空间数据类型的字段建立的索引，MySQL中的空间数据类型有四种，GEOMETRY、POINT、LINESTRING、POLYGON。在创建空间索引时，使用SPATIAL关键字。</p>
-<h4 id="2-存储数据结构"><a href="#2-存储数据结构" class="headerlink" title="2.存储数据结构"></a>2.存储数据结构</h4><p>1.HASH 只有Memory存储引擎显示支持hash索引，是Memory表的默认索引类型，尽管Memory表也可以使用B-Tree索引。</p>
-<pre><code>(1)由于索引仅包含hash code和记录指针，所以，MySQL不能通过使用索引避免读取记录。但是访问内存中的记
-    录是非常迅速的，不会对性造成太大的影响。 
-(2)不能使用hash索引排序。 
-(3)Hash索引不支持键的部分匹配，因为是通过整个索引值来计算hash值的。 
-(4)Hash索引只支持等值比较，例如使用=，IN( )和&lt;=&gt;。对于WHERE price&gt;100并不能加速查询。
-</code></pre>
-<p>2.b-tree BTREE索引就是一种将索引值按一定的算法，存入一个树形的数据结构中每次查询都是从树的入口root开始，依次遍历node，获取leaf。这是MySQL里默认和最常用的索引类型。</p>
-<h4 id="3-单列索引和组合索引"><a href="#3-单列索引和组合索引" class="headerlink" title="3.单列索引和组合索引"></a>3.单列索引和组合索引</h4><p>1.单列索引：一个索引只包含单个列，但一个表中可以有多个单列索引。 这里不要搞混淆了。</p>
-<pre><code>普通索引: MySQL中基本索引类型，没有什么限制，允许在定义索引的列中插入重复值和空值，纯粹为了查询数据更快
-一点。
-唯一索引：索引列中的值必须是唯一的，但是允许为空值
-主键索引：是一种特殊的唯一索引，不允许有空值。
-</code></pre>
-<p>2.组合索引(复合索引)</p>
-<p>在表中的多个字段组合上创建的索引，只有在查询条件中使用了这些字段的左边字段时，索引才会被使用，使用组合索<br>引时遵循最左前缀集合。</p>
-<pre><code>1.需要加索引的字段，要在where条件中
-2.数据量少的字段不需要加索引
-3.如果where条件中是OR关系，加索引不起作用
-4.符合最左原则
-</code></pre>
-<p>对于复合索引:Mysql从左到右的使用索引中的字段，一个查询可以只使用索引中的一部份，但只能是最左侧部分。例如索引是key index (a,b,c). 可以支持a | a,b| a,b,c 3种组合进行查找，但不支持 b,c进行查找 .当最左侧字段是常量引用时，索引就十分有效。</p>
-<h3 id="索引语句"><a href="#索引语句" class="headerlink" title="索引语句"></a>索引语句</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.创建索引</span><br><span class="line">以User表的username字段(类型为VARCHAR(50))为例，使用username字段的6个字符前缀来创建索引。</span><br><span class="line">CREATE INDEX idx_user_username ON user (username(6));</span><br><span class="line"></span><br><span class="line">CREATE INDEX可对表增加普通索引或UNIQUE索引</span><br><span class="line">--例,只能添加这两种索引;</span><br><span class="line">CREATE INDEX index_name ON table_name (column_list)</span><br><span class="line">CREATE UNIQUE INDEX index_name ON table_name (column_list)</span><br><span class="line"></span><br><span class="line">2.删除索引</span><br><span class="line"></span><br><span class="line">ALTER TABLE table_name DROP INDEX index_name;</span><br><span class="line"></span><br><span class="line">3.修改索引：先删除再创建同名索引</span><br><span class="line"></span><br><span class="line">--先删除</span><br><span class="line">ALTER TABLE user DROP INDEX idx_user_username;</span><br><span class="line">--再以修改后的内容创建同名索引</span><br><span class="line">CREATE INDEX idx_user_username ON user (username(8));</span><br><span class="line"></span><br><span class="line">4.查看索引</span><br><span class="line"></span><br><span class="line">--如果查看索引前，没有使用user db_name等命令指定具体的数据库，则必须加上FROM db_name</span><br><span class="line">SHOW INDEX FROM table_name [FROM db_name]</span><br><span class="line">--如果查看索引前，没有使用user db_name等命令指定具体的数据库，则必须加上db_name.前缀</span><br><span class="line">SHOW INDEX FROM [db_name.]table_name</span><br><span class="line"></span><br><span class="line">5.查看是否使用了索引进行查询</span><br><span class="line">EXPLAIN SELECT * FROM book WHERE year_publication &#x3D; 1990;</span><br><span class="line"></span><br><span class="line">6.添加索引</span><br><span class="line">ALTER TABLE 表名 ADD 索引类型 （unique,primary key,fulltext,index）[索引名]（字段名）</span><br><span class="line">ALTER TABLE book ADD INDEX BkNameIdx(bookname(30));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="引擎"><a href="#引擎" class="headerlink" title="引擎"></a>引擎</h3><p>概述<br>存储引擎就是指表的类型。数据库的存储引擎决定了表在计算机中的存储方式。存储引擎的概念是MySQl的特点，而且是一个插入式的存储引擎概念。这就决定了MySQl数据库中的表可以使用不同的存储方式存储。用户可以根据自己的不同要求，选择不同的存储方式、是否进行事务处理等。</p>
-<h4 id="引擎分类"><a href="#引擎分类" class="headerlink" title="引擎分类"></a>引擎分类</h4><p>InnoDB存储引擎</p>
-<pre><code>InnoDB是Mysql数据库的一种存储引擎。InnoDB给Mysql的表提供了 事务、回滚、崩溃修复能力、多版本并发控制
-的事务安全、间隙锁（可以有效的防止幻读的出现）、支持辅助索引、聚簇索引、自适应hash索引、支持热备、行级
-锁。还有InnoDB是Mysql上唯一一个提供了外键约束的引擎。
-
-InnoDB存储引擎中，创建的表的表结构是单独存储的并且存储在.frm文件中。数据和索引存储在一起的并且存储在表
-空间中。但是默认情况下mysql会将数据库的所有InnoDB表存储在一个表空间中的。其实这种方式管理起来非常的不
-方便而且还不支持高级功能所以建议每个表存储为一个表空间实现方式为：使用服务器变量
-innodb_file_per_table = 1。
-
-如果需要频繁的进行更新、删除操作的数据库也可选择InnoDB存储引擎。因为该存储引擎可以实现事务提交和回滚。
-</code></pre>
-<p>MyISAM存储引擎</p>
-<pre><code>MyISAM存储引擎是Mysql中常见的存储引擎，MyISAM存储引擎是基于ISAM存储引擎发展起来的。MyISAM支持全文索
-引、压缩存放、空间索引（空间函数）、表级锁、延迟更新索引键。但是MyISAM不支持事务、行级锁、更无法忍受的
-是崩溃后不能保证完全恢复（只能手动修复）。
-
-MyISAM存储引擎的表存储成3个文件。文件的名字和表的名字相同。扩展名包含frm、MYD、MYI。其中frm为扩展名的
-文件存储表的结构；MYD为扩展名的文件存储数据，其是MYData的缩写；MYI为扩展名的文件存储索引，其为MYIndex
-的缩写。
-
-MyISAM存储引擎的插入数据很快，空间和内存使用比较低。如果表主要是用于插入新记录和读出记录，那么选择
-MyISAM存储引擎能够实现处理的高效率。如果应用的完整性、并发性要求很低，也可以选择MyISAM存储引擎。
-</code></pre>
-<p>MEMORY存储引擎</p>
-<pre><code>MEMORY存储引擎是Mysql中的一类特殊的存储引擎。其使用存储在内存中的内存来创建表，而且所有数据保存在内存
-中。数据安全性很低，但是查找和插入速度很快。如果内存出现异常就会影响到数据的完整性，如果重启或关机，表中
-的所有数据就会丢失，因此基于MEMORY存储引擎的表的生命周期很短，一般都是一次性的。适用于某些特殊场景像查
-找和映射，缓存周期性的聚合数据等等。
-</code></pre>
-<p>NDB 集群引擎</p>
-<pre><code>作为sql和NDB元素协议之间的接口,用于mysql,ndb集群存储引擎,分布式等
-</code></pre>
-<h3 id="优化建议"><a href="#优化建议" class="headerlink" title="优化建议"></a>优化建议</h3><pre><code>1.尽可能让所有的数据检索都通过索引来完成
-2.合理设计索引，使索引键上面加锁的时候尽可能准确，尽可能的缩小锁定范围，避免造成不必要的锁定而影响其他
-Query的执行；
-3.尽量控制事务的大小，减少锁定的资源量和锁定时间长度
-4.尽可能减少基于范围的数据检索过滤条件，避免因为间隙锁带来的负面影响而锁定了不该锁定的记录
-5.尽可能按照相同的访问顺序来访问，防止产生死锁
-6.尽可能做到一次锁定所需要的所有资源，减少死锁产生概率
-</code></pre>
-]]></content>
-      <categories>
-        <category>数据库</category>
-      </categories>
-      <tags>
-        <tag>mysql索引</tag>
-        <tag>mysql引擎</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>mysql数据库04--存储过程、触发器、事件</title>
     <url>/jwangcloud/898521826/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/mysql.jpeg"></p>
@@ -3901,6 +3901,80 @@ do 定义语句部分
         <tag>mysql存储器</tag>
         <tag>mysql触发器</tag>
         <tag>mysql事件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mysql数据库03--事务</title>
+    <url>/jwangcloud/864966898/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/mysql.jpeg"></p>
+<h3 id="mysql隔离级别"><a href="#mysql隔离级别" class="headerlink" title="mysql隔离级别"></a>mysql隔离级别</h3><span id="more"></span>
+
+<p>隔离级别是mysql进行事务提交的时候,对数据的一种表现形式</p>
+<h4 id="1-事务的基本要素（ACID）"><a href="#1-事务的基本要素（ACID）" class="headerlink" title="1. 事务的基本要素（ACID）"></a>1. 事务的基本要素（ACID）</h4><p>1.1 原子性（Atomicity）：</p>
+<p>事务开始后所有操作，要么全部做完，要么全部不做，不可能停滞在中间环节。事务执行过程中出错，会回滚到事务开始前的状态，所有的操作就像没有发生一样。也就是说事务是一个不可分割的整体，就像化学中学过的原子，是物质构成的基本单位。</p>
+<p>1.2 一致性（Consistency）：</p>
+<p>事务开始前和结束后，数据库的完整性约束没有被破坏 。比如A向B转账，不可能A扣了钱，B却没收到。</p>
+<p>1.3 隔离性（Isolation）：</p>
+<p>同一时间，只允许一个事务请求同一数据，不同的事务之间彼此没有任何干扰。比如A正在从一张银行卡中取钱，在A取钱的过程结束前，B不能向这张卡转账。</p>
+<p>1.4 持久性（Durability）：</p>
+<p>事务完成后，事务对数据库的所有更新将被保存到数据库，不能回滚。</p>
+<h4 id="2-事务的操作方式"><a href="#2-事务的操作方式" class="headerlink" title="2. 事务的操作方式"></a>2. 事务的操作方式</h4><p>提交使用commit 回滚使用 rollback</p>
+<pre><code>begin
+
+&#39;&#39;&#39;&#39;&#39;语句快
+
+commit
+</code></pre>
+<h4 id="3-事务的并发问题"><a href="#3-事务的并发问题" class="headerlink" title="3.事务的并发问题"></a>3.事务的并发问题</h4><p>3.1 脏读：事务A读取了事务B更新的数据，然后B回滚操作，那么A读取到的数据是脏数据</p>
+<p>3.2 不可重复读：事务 A 多次读取同一数据，事务 B 在事务A多次读取的过程中，对数据作了更新并提交，导致事务A多次读取同一数据时，结果 不一致。</p>
+<p>3.3 幻读：系统管理员A将数据库中所有学生的成绩从具体分数改为ABCDE等级，但是系统管理员B就在这个时候插入了一条具体分数的记录，当系统管理员A改结束后发现还有一条记录没有改过来，就好像发生了幻觉一样，这就叫幻读。</p>
+<table>
+<thead>
+<tr>
+<th align="center">事物隔离级别</th>
+<th align="center">胀读</th>
+<th align="center">不可重复读</th>
+<th align="center">幻读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">读未提交（read-uncommitted）</td>
+<td align="center">是</td>
+<td align="center">是</td>
+<td align="center">是</td>
+</tr>
+<tr>
+<td align="center">不可重复读（read-committed）</td>
+<td align="center">否</td>
+<td align="center">是</td>
+<td align="center">是</td>
+</tr>
+<tr>
+<td align="center">可重复读（repeatable-read）</td>
+<td align="center">否</td>
+<td align="center">否</td>
+<td align="center">是</td>
+</tr>
+<tr>
+<td align="center">串行化（serializable）</td>
+<td align="center">否</td>
+<td align="center">否</td>
+<td align="center">否</td>
+</tr>
+</tbody></table>
+<p>3.4 语句实现</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">	</span><br><span class="line">说明: 我们使用a,b两个端 a负责开启事务,并且修改数据。b负责开启事务,并且在a执行事务的时候不断去获取数</span><br><span class="line">	  据。以此研究数据的影响.a先执行,因为a需要去修改数据,所以a要首先获取到锁才行</span><br><span class="line"></span><br><span class="line">1.脏读:</span><br><span class="line">首先在b中去设置隔离级别</span><br><span class="line">a客户端</span><br><span class="line">	start transaction</span><br><span class="line">	update &#96;Employee&#96; set Name&#x3D;&#39;test2&#39; where Id&#x3D;1</span><br><span class="line">b客户端</span><br><span class="line">	set session transaction isolation level read uncommitted</span><br><span class="line">	start transaction</span><br><span class="line">	select * from &#96;Employee&#96;</span><br><span class="line">可以看到a中修改的数据,b中已经可以查看到,但是a的数据并没有commit,b读取到了a还没有提交上</span><br><span class="line">去的脏数据,称为脏读</span><br><span class="line"></span><br><span class="line">2.不可复读:</span><br><span class="line">a客户端</span><br><span class="line">	start transaction</span><br><span class="line">	update &#96;Employee&#96; set Name&#x3D;&#39;test2&#39; where Id&#x3D;1</span><br><span class="line">b客户端</span><br><span class="line">	set session transaction isolation level read committed</span><br><span class="line">	start transaction</span><br><span class="line">	select * from &#96;Employee&#96;</span><br><span class="line">这时候再去查看数据就不会出现脏读的情况,但是在a提交之后,再使用b去查看的话就会有一定的问题</span><br><span class="line"></span><br><span class="line">a客户端</span><br><span class="line">	commit</span><br><span class="line">b客户端</span><br><span class="line">	select * from &#96;Employee&#96;</span><br><span class="line">这时候b的中表的数据就变了,虽然没有脏读的情况,但是b中的数据两次不一样, 所以称之为不可复读</span><br><span class="line"></span><br><span class="line">3.幻读:</span><br><span class="line">a客户端</span><br><span class="line">	start transaction</span><br><span class="line">	update &#96;Employee&#96; set Name&#x3D;&#39;test2&#39; where Id&#x3D;1</span><br><span class="line">b客户端</span><br><span class="line">	set session transaction isolation level REPEATABLE read</span><br><span class="line">	start transaction</span><br><span class="line">	select * from &#96;Employee&#96;</span><br><span class="line">这个时候,b中查看的数据没有没有问题,他看到的一直都是老数据。这里使用了mvvc技术</span><br><span class="line"></span><br><span class="line">a客户端</span><br><span class="line">	commit</span><br><span class="line">b客户端</span><br><span class="line">	select * from &#96;Employee&#96;</span><br><span class="line">但是有一个问题,当a表去Insert一条数据数据并且commit了之后,b去select的时候就会看到a表中新加的数据,就像幻读</span><br><span class="line">一样,多出了一条数据来</span><br><span class="line"></span><br><span class="line">a</span><br><span class="line">	start transaction</span><br><span class="line">	insert into &#96;Employee&#96; (name,id)value(&#39;test&#39;,10</span><br><span class="line">	commit</span><br><span class="line">为了避免这个问题,b可以设置</span><br><span class="line">	set session transaction isolation level serializable</span><br><span class="line">在a操作事务的时候,b操作事务会一直卡住,直到a表操作完成b才能去select操作，这就是串行化</span><br><span class="line"></span><br><span class="line">4. mysql默认的级别是不可复读</span><br></pre></td></tr></table></figure>
+
+
+<p>3.5 不可重复读 和 幻读</p>
+<p>不可复读是针对同一条数据两次读取会有变化 幻读是说当select到数据id=9的时候,这个时候我们可以去插入id=10的数据,但是其他的事务已经插入了id=10的记录,这个时候就会报错。但是从本事务的观点来看id为10的东西是不存在的。所以就想有幻觉一样,称为幻读。</p>
+<p>其实对于 幻读, MySQL的InnoDB引擎默认的RR级别已经通过MVCC自动帮我们(部分)解决了。因为当其他事务增加一条数据的时候。我们两次执行查询语句结果都是一样的。这是使用了mvcc模式来实现的,在RR模式下面，事务每次读取的都是一个快照。同一个事务中每次都读取同一份快照。所以就算数据更新了。读的也是老数据</p>
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>mysql数据库事务</tag>
       </tags>
   </entry>
   <entry>
@@ -4331,80 +4405,6 @@ do 定义语句部分
         <tag>kibana</tag>
         <tag>DSL语句</tag>
         <tag>SpringData Elasticsearch</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>mysql数据库03--事务</title>
-    <url>/jwangcloud/864966898/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/mysql.jpeg"></p>
-<h3 id="mysql隔离级别"><a href="#mysql隔离级别" class="headerlink" title="mysql隔离级别"></a>mysql隔离级别</h3><span id="more"></span>
-
-<p>隔离级别是mysql进行事务提交的时候,对数据的一种表现形式</p>
-<h4 id="1-事务的基本要素（ACID）"><a href="#1-事务的基本要素（ACID）" class="headerlink" title="1. 事务的基本要素（ACID）"></a>1. 事务的基本要素（ACID）</h4><p>1.1 原子性（Atomicity）：</p>
-<p>事务开始后所有操作，要么全部做完，要么全部不做，不可能停滞在中间环节。事务执行过程中出错，会回滚到事务开始前的状态，所有的操作就像没有发生一样。也就是说事务是一个不可分割的整体，就像化学中学过的原子，是物质构成的基本单位。</p>
-<p>1.2 一致性（Consistency）：</p>
-<p>事务开始前和结束后，数据库的完整性约束没有被破坏 。比如A向B转账，不可能A扣了钱，B却没收到。</p>
-<p>1.3 隔离性（Isolation）：</p>
-<p>同一时间，只允许一个事务请求同一数据，不同的事务之间彼此没有任何干扰。比如A正在从一张银行卡中取钱，在A取钱的过程结束前，B不能向这张卡转账。</p>
-<p>1.4 持久性（Durability）：</p>
-<p>事务完成后，事务对数据库的所有更新将被保存到数据库，不能回滚。</p>
-<h4 id="2-事务的操作方式"><a href="#2-事务的操作方式" class="headerlink" title="2. 事务的操作方式"></a>2. 事务的操作方式</h4><p>提交使用commit 回滚使用 rollback</p>
-<pre><code>begin
-
-&#39;&#39;&#39;&#39;&#39;语句快
-
-commit
-</code></pre>
-<h4 id="3-事务的并发问题"><a href="#3-事务的并发问题" class="headerlink" title="3.事务的并发问题"></a>3.事务的并发问题</h4><p>3.1 脏读：事务A读取了事务B更新的数据，然后B回滚操作，那么A读取到的数据是脏数据</p>
-<p>3.2 不可重复读：事务 A 多次读取同一数据，事务 B 在事务A多次读取的过程中，对数据作了更新并提交，导致事务A多次读取同一数据时，结果 不一致。</p>
-<p>3.3 幻读：系统管理员A将数据库中所有学生的成绩从具体分数改为ABCDE等级，但是系统管理员B就在这个时候插入了一条具体分数的记录，当系统管理员A改结束后发现还有一条记录没有改过来，就好像发生了幻觉一样，这就叫幻读。</p>
-<table>
-<thead>
-<tr>
-<th align="center">事物隔离级别</th>
-<th align="center">胀读</th>
-<th align="center">不可重复读</th>
-<th align="center">幻读</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">读未提交（read-uncommitted）</td>
-<td align="center">是</td>
-<td align="center">是</td>
-<td align="center">是</td>
-</tr>
-<tr>
-<td align="center">不可重复读（read-committed）</td>
-<td align="center">否</td>
-<td align="center">是</td>
-<td align="center">是</td>
-</tr>
-<tr>
-<td align="center">可重复读（repeatable-read）</td>
-<td align="center">否</td>
-<td align="center">否</td>
-<td align="center">是</td>
-</tr>
-<tr>
-<td align="center">串行化（serializable）</td>
-<td align="center">否</td>
-<td align="center">否</td>
-<td align="center">否</td>
-</tr>
-</tbody></table>
-<p>3.4 语句实现</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">	</span><br><span class="line">说明: 我们使用a,b两个端 a负责开启事务,并且修改数据。b负责开启事务,并且在a执行事务的时候不断去获取数</span><br><span class="line">	  据。以此研究数据的影响.a先执行,因为a需要去修改数据,所以a要首先获取到锁才行</span><br><span class="line"></span><br><span class="line">1.脏读:</span><br><span class="line">首先在b中去设置隔离级别</span><br><span class="line">a客户端</span><br><span class="line">	start transaction</span><br><span class="line">	update &#96;Employee&#96; set Name&#x3D;&#39;test2&#39; where Id&#x3D;1</span><br><span class="line">b客户端</span><br><span class="line">	set session transaction isolation level read uncommitted</span><br><span class="line">	start transaction</span><br><span class="line">	select * from &#96;Employee&#96;</span><br><span class="line">可以看到a中修改的数据,b中已经可以查看到,但是a的数据并没有commit,b读取到了a还没有提交上</span><br><span class="line">去的脏数据,称为脏读</span><br><span class="line"></span><br><span class="line">2.不可复读:</span><br><span class="line">a客户端</span><br><span class="line">	start transaction</span><br><span class="line">	update &#96;Employee&#96; set Name&#x3D;&#39;test2&#39; where Id&#x3D;1</span><br><span class="line">b客户端</span><br><span class="line">	set session transaction isolation level read committed</span><br><span class="line">	start transaction</span><br><span class="line">	select * from &#96;Employee&#96;</span><br><span class="line">这时候再去查看数据就不会出现脏读的情况,但是在a提交之后,再使用b去查看的话就会有一定的问题</span><br><span class="line"></span><br><span class="line">a客户端</span><br><span class="line">	commit</span><br><span class="line">b客户端</span><br><span class="line">	select * from &#96;Employee&#96;</span><br><span class="line">这时候b的中表的数据就变了,虽然没有脏读的情况,但是b中的数据两次不一样, 所以称之为不可复读</span><br><span class="line"></span><br><span class="line">3.幻读:</span><br><span class="line">a客户端</span><br><span class="line">	start transaction</span><br><span class="line">	update &#96;Employee&#96; set Name&#x3D;&#39;test2&#39; where Id&#x3D;1</span><br><span class="line">b客户端</span><br><span class="line">	set session transaction isolation level REPEATABLE read</span><br><span class="line">	start transaction</span><br><span class="line">	select * from &#96;Employee&#96;</span><br><span class="line">这个时候,b中查看的数据没有没有问题,他看到的一直都是老数据。这里使用了mvvc技术</span><br><span class="line"></span><br><span class="line">a客户端</span><br><span class="line">	commit</span><br><span class="line">b客户端</span><br><span class="line">	select * from &#96;Employee&#96;</span><br><span class="line">但是有一个问题,当a表去Insert一条数据数据并且commit了之后,b去select的时候就会看到a表中新加的数据,就像幻读</span><br><span class="line">一样,多出了一条数据来</span><br><span class="line"></span><br><span class="line">a</span><br><span class="line">	start transaction</span><br><span class="line">	insert into &#96;Employee&#96; (name,id)value(&#39;test&#39;,10</span><br><span class="line">	commit</span><br><span class="line">为了避免这个问题,b可以设置</span><br><span class="line">	set session transaction isolation level serializable</span><br><span class="line">在a操作事务的时候,b操作事务会一直卡住,直到a表操作完成b才能去select操作，这就是串行化</span><br><span class="line"></span><br><span class="line">4. mysql默认的级别是不可复读</span><br></pre></td></tr></table></figure>
-
-
-<p>3.5 不可重复读 和 幻读</p>
-<p>不可复读是针对同一条数据两次读取会有变化 幻读是说当select到数据id=9的时候,这个时候我们可以去插入id=10的数据,但是其他的事务已经插入了id=10的记录,这个时候就会报错。但是从本事务的观点来看id为10的东西是不存在的。所以就想有幻觉一样,称为幻读。</p>
-<p>其实对于 幻读, MySQL的InnoDB引擎默认的RR级别已经通过MVCC自动帮我们(部分)解决了。因为当其他事务增加一条数据的时候。我们两次执行查询语句结果都是一样的。这是使用了mvcc模式来实现的,在RR模式下面，事务每次读取的都是一个快照。同一个事务中每次都读取同一份快照。所以就算数据更新了。读的也是老数据</p>
-]]></content>
-      <categories>
-        <category>数据库</category>
-      </categories>
-      <tags>
-        <tag>mysql数据库事务</tag>
       </tags>
   </entry>
   <entry>
@@ -8429,6 +8429,38 @@ deleteview
       </tags>
   </entry>
   <entry>
+    <title>数据分析02--spark错误分析</title>
+    <url>/jwangcloud/3907582757/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/date.jpeg"></p>
+<h2 id="spark错误分析"><a href="#spark错误分析" class="headerlink" title="spark错误分析"></a>spark错误分析</h2><span id="more"></span>
+
+
+<p><a href="http://spark.apache.org/docs/2.4.4/">官方文档</a></p>
+<p>错误1</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1020104:sbin rimi$ .&#x2F;start-master.sh </span><br><span class="line">starting org.apache.spark.deploy.master.Master, logging to &#x2F;Users&#x2F;rimi&#x2F;Desktop&#x2F;spark-2.4.4-bin-hadoop2.7&#x2F;</span><br><span class="line">logs&#x2F;spark-rimi-org.apache.spark.deploy.master.Master-1-1020104.local.out</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>解决：本地ip未找到，添加</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#sudo vim &#x2F;etc&#x2F;hosts</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">127.0.0.1       localhost</span><br><span class="line">255.255.255.255 broadcasthost</span><br><span class="line">::1             localhost</span><br><span class="line">0.0.0.0 1020104.local   (这一个没有)</span><br></pre></td></tr></table></figure>
+
+<p>错误2</p>
+<blockquote>
+<p>spark 与 jdk 不兼容  </p>
+</blockquote>
+<p>解决：</p>
+<blockquote>
+<p>下载saprk2.7 或者更加稳定版本  jdk下载1.8  8u231</p>
+<p>重新配置jdk环境</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>数据分析</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>数据存储与处理01--hadoop</title>
     <url>/jwangcloud/1462761565/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/date.jpeg"></p>
@@ -8761,38 +8793,6 @@ deleteview
       <tags>
         <tag>数据存储</tag>
         <tag>数据处理</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>数据分析02--spark错误分析</title>
-    <url>/jwangcloud/3907582757/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/date.jpeg"></p>
-<h2 id="spark错误分析"><a href="#spark错误分析" class="headerlink" title="spark错误分析"></a>spark错误分析</h2><span id="more"></span>
-
-
-<p><a href="http://spark.apache.org/docs/2.4.4/">官方文档</a></p>
-<p>错误1</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1020104:sbin rimi$ .&#x2F;start-master.sh </span><br><span class="line">starting org.apache.spark.deploy.master.Master, logging to &#x2F;Users&#x2F;rimi&#x2F;Desktop&#x2F;spark-2.4.4-bin-hadoop2.7&#x2F;</span><br><span class="line">logs&#x2F;spark-rimi-org.apache.spark.deploy.master.Master-1-1020104.local.out</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>解决：本地ip未找到，添加</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#sudo vim &#x2F;etc&#x2F;hosts</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">127.0.0.1       localhost</span><br><span class="line">255.255.255.255 broadcasthost</span><br><span class="line">::1             localhost</span><br><span class="line">0.0.0.0 1020104.local   (这一个没有)</span><br></pre></td></tr></table></figure>
-
-<p>错误2</p>
-<blockquote>
-<p>spark 与 jdk 不兼容  </p>
-</blockquote>
-<p>解决：</p>
-<blockquote>
-<p>下载saprk2.7 或者更加稳定版本  jdk下载1.8  8u231</p>
-<p>重新配置jdk环境</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>大数据</category>
-      </categories>
-      <tags>
-        <tag>数据分析</tag>
       </tags>
   </entry>
   <entry>
@@ -9473,6 +9473,298 @@ model.predict()
       </tags>
   </entry>
   <entry>
+    <title>python扩展知识01--设计模式</title>
+    <url>/jwangcloud/1761882267/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/python01.jpeg"></p>
+<h3 id="python与设计模式"><a href="#python与设计模式" class="headerlink" title="python与设计模式"></a>python与设计模式</h3><span id="more"></span>
+
+<h4 id="1-定义："><a href="#1-定义：" class="headerlink" title="1.定义："></a>1.定义：</h4><blockquote>
+<p>设计模式是面对各种问题进行提炼和抽象而形成的解决方案。这些设计方案是前人不断试验，考虑了封装性、复用性、效率、可修改、可移植等各种因素的高度总结。它不限于一种特定的语言，它是一种解决问题的思想和方法。</p>
+</blockquote>
+<h4 id="2-分类"><a href="#2-分类" class="headerlink" title="2.分类"></a>2.分类</h4><p>设计模式可以分为三个大类：创建类设计模式、结构类设计模式、行为类设计模式。</p>
+<p>创建类设计模式可以分为</p>
+<blockquote>
+<p>单例模式、工厂模式、抽象工厂模式、原型模式、建造者模式；</p>
+</blockquote>
+<p>结构类设计模式可以分为</p>
+<blockquote>
+<p>装饰器模式、适配器模式、门面模式、组合模式、享元模式、桥梁模式；</p>
+</blockquote>
+<p>行为类设计模式可以细分为</p>
+<blockquote>
+<p>策略模式、责任链模式、命令模式、中介者模式、模板模式、迭代器模式、访问者模式、观察者模式、解释器模式、备忘录模式、状态模式。</p>
+</blockquote>
+<h4 id="3-设计模式与软件框架"><a href="#3-设计模式与软件框架" class="headerlink" title="3.设计模式与软件框架"></a>3.设计模式与软件框架</h4><p>设计模式和软件框架在软件设计中是两个不同的研究领域：</p>
+<blockquote>
+<p>A、设计模式如前边的定义所讲，它指的是针对一类问题的解决方法，一个设计模式可应用于不同的框架和被不同的语言所实现；而框架则是一个应用的体系结构，是一种或多种设计模式和代码的混合体；</p>
+</blockquote>
+<blockquote>
+<p>B、设计模式相较于框架更容易移植，并且可以用各种语言实现，而软件框架则受限于领域大环境。虽然设计模式和软件框架有很多不同，但在某些方面他们二者是统一的，即重视软件复用，提高开发效率。</p>
+</blockquote>
+<h4 id="4-软件架构和设计模式"><a href="#4-软件架构和设计模式" class="headerlink" title="4.软件架构和设计模式"></a>4.软件架构和设计模式</h4><p>软件架构可以由不同的框架和不同的设计模式，再加上特定的构件组合来实现；</p>
+<p>框架可以根据设计模式结合特定编程语言和环境来实现。</p>
+<p>设计模式就是解决单一问题的设计思路和解决方法。</p>
+<h3 id="python与设计模式–单例模式"><a href="#python与设计模式–单例模式" class="headerlink" title="python与设计模式–单例模式"></a>python与设计模式–单例模式</h3><h4 id="1-单例模式"><a href="#1-单例模式" class="headerlink" title="1.单例模式"></a>1.单例模式</h4><blockquote>
+<p>单例模式是所有设计模式中比较简单的一类，其定义如下：Ensure a class has only one instance, and provide a global point of access to it.（保证某一个类只有一个实例，而且在全局只有一个访问点）</p>
+</blockquote>
+<h4 id="2-实例"><a href="#2-实例" class="headerlink" title="2.实例"></a>2.实例</h4><ol>
+<li>模块：</li>
+</ol>
+<blockquote>
+<p>Python 的模块就是天然的单例模式，因为模块在第一次导入时，会生成 .pyc 文件，当第二次导入时，就会直接加载 .pyc<br>文件，而不会再次执行模块代码。因此，我们只需把相关的函数和数据定义在一个模块中，就可以获得一个单例对象了</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Singleton(object):</span><br><span class="line">    def foo(self):</span><br><span class="line">        pass</span><br><span class="line">singleton &#x3D; Singleton()</span><br><span class="line"></span><br><span class="line">from a import singleton</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>装饰器</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def Singleton(cls):</span><br><span class="line">    _instance &#x3D; &#123;&#125;</span><br><span class="line">    def _singleton(*args, **kargs):</span><br><span class="line">        if cls not in _instance:</span><br><span class="line">            _instance[cls] &#x3D; cls(*args, **kargs)</span><br><span class="line">        return _instance[cls]</span><br><span class="line">    return _singleton</span><br><span class="line"></span><br><span class="line">@Singleton</span><br><span class="line">class A(object):</span><br><span class="line">    a &#x3D; 1</span><br><span class="line">    def __init__(self, x&#x3D;0):</span><br><span class="line">        self.x &#x3D; x</span><br><span class="line"></span><br><span class="line">a1 &#x3D; A(2)</span><br><span class="line">a2 &#x3D; A(3)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>类(多线程)</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import time</span><br><span class="line">import threading</span><br><span class="line">class Singleton(object):</span><br><span class="line">    _instance_lock &#x3D; threading.Lock()</span><br><span class="line"></span><br><span class="line">    def __init__(self):</span><br><span class="line">        time.sleep(1)</span><br><span class="line"></span><br><span class="line">    @classmethod</span><br><span class="line">    def instance(cls, *args, **kwargs):</span><br><span class="line">        if not hasattr(Singleton, &quot;_instance&quot;):</span><br><span class="line">            with Singleton._instance_lock:</span><br><span class="line">                if not hasattr(Singleton, &quot;_instance&quot;):</span><br><span class="line">                    Singleton._instance &#x3D; Singleton(*args, **kwargs)</span><br><span class="line">        return Singleton._instance</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def task(arg):</span><br><span class="line">    obj &#x3D; Singleton.instance()</span><br><span class="line">    print(obj)</span><br><span class="line">for i in range(10):</span><br><span class="line">    t &#x3D; threading.Thread(target&#x3D;task,args&#x3D;[i,])</span><br><span class="line">    t.start()</span><br><span class="line">time.sleep(20)</span><br><span class="line">obj &#x3D; Singleton.instance()</span><br><span class="line">print(obj)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>基于__new__方法</li>
+</ol>
+<blockquote>
+<p>实例化一个对象时，是先执行了类的__new__方法，实例化对象；然后再执行类的__init__方法，对这个对象进行初始化，所有我们可以基于这个，实现单例模式</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import threading</span><br><span class="line">class Singleton(object):</span><br><span class="line">    _instance_lock &#x3D; threading.Lock()</span><br><span class="line"></span><br><span class="line">    def __init__(self):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    def __new__(cls, *args, **kwargs):</span><br><span class="line">        if not hasattr(Singleton, &quot;_instance&quot;):</span><br><span class="line">            with Singleton._instance_lock:</span><br><span class="line">                if not hasattr(Singleton, &quot;_instance&quot;):</span><br><span class="line">                    Singleton._instance &#x3D; object.__new__(cls)  </span><br><span class="line">        return Singleton._instance</span><br><span class="line"></span><br><span class="line">obj1 &#x3D; Singleton()</span><br><span class="line">obj2 &#x3D; Singleton()</span><br><span class="line">print(obj1,obj2)</span><br><span class="line"></span><br><span class="line">def task(arg):</span><br><span class="line">    obj &#x3D; Singleton()</span><br><span class="line">    print(obj)</span><br><span class="line"></span><br><span class="line">for i in range(10):</span><br><span class="line">    t &#x3D; threading.Thread(target&#x3D;task,args&#x3D;[i,])</span><br><span class="line">    t.start()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>元类metaclass</li>
+</ol>
+<blockquote>
+<p>1.类由type创建，创建类时，type的__init__方法自动执行，类()<br>  执行type的 __call__方法(类的__new__方法,类的__init__方法)</p>
+</blockquote>
+<blockquote>
+<p>2.对象由类创建，创建对象时，类的__init__方法自动执行，对象()执行类的 <strong>call</strong> 方法</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import threading</span><br><span class="line"></span><br><span class="line">class SingletonType(type):</span><br><span class="line">    _instance_lock &#x3D; threading.Lock()</span><br><span class="line">    def __call__(cls, *args, **kwargs):</span><br><span class="line">        if not hasattr(cls, &quot;_instance&quot;):</span><br><span class="line">            with SingletonType._instance_lock:</span><br><span class="line">                if not hasattr(cls, &quot;_instance&quot;):</span><br><span class="line">                    cls._instance &#x3D; super(SingletonType,cls).__call__(*args, **kwargs)</span><br><span class="line">        return cls._instance</span><br><span class="line"></span><br><span class="line">class Foo(metaclass&#x3D;SingletonType):</span><br><span class="line">    def __init__(self,name):</span><br><span class="line">        self.name &#x3D; name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">obj1 &#x3D; Foo(&#39;name&#39;)</span><br><span class="line">obj2 &#x3D; Foo(&#39;name&#39;)</span><br><span class="line">print(obj1,obj2)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-单例模式的优点："><a href="#3-单例模式的优点：" class="headerlink" title="3.单例模式的优点："></a>3.单例模式的优点：</h4><p>1、由于单例模式要求在全局内只有一个实例，因而可以节省比较多的内存空间；</p>
+<p>2、全局只有一个接入点，可以更好地进行数据同步控制，避免多重占用；</p>
+<p>3、单例可长驻内存，减少系统开销。</p>
+<p>单例模式的应用举例：</p>
+<pre><code>1、生成全局惟一的序列号；
+2、访问全局复用的惟一资源，如磁盘、总线等；
+3、单个对象占用的资源过多，如数据库等；
+4、系统全局统一管理，如Windows下的Task Manager；
+5、网站计数器。
+</code></pre>
+<h3 id="python设计模式–工厂模式"><a href="#python设计模式–工厂模式" class="headerlink" title="python设计模式–工厂模式"></a>python设计模式–工厂模式</h3><blockquote>
+<p>通过一个指定的“工厂”获得需要的“产品”，在设计模式中主要用于抽象对象的创建过程，让用户可以指定自己想要的对象而不必关心对象的实例化过程。这样做的好处是用户只需通过固定的接口而不是直接去调用类的实例化方法来获得一个对象的实例，隐藏了实例创建过程的复杂度，解耦了生产实例和使用实例的代码，降低了维护的复杂性。</p>
+</blockquote>
+<h4 id="1-简单工厂"><a href="#1-简单工厂" class="headerlink" title="1.简单工厂"></a>1.简单工厂</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#coding&#x3D;utf-8</span><br><span class="line">class Mercedes(object):</span><br><span class="line">    &quot;&quot;&quot;梅赛德斯</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def __repr__(self):</span><br><span class="line">        return &quot;Mercedes-Benz&quot;</span><br><span class="line"></span><br><span class="line">class BMW(object):</span><br><span class="line">    &quot;&quot;&quot;宝马</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def __repr__(self):</span><br><span class="line">        return &quot;BMW&quot;</span><br><span class="line">        </span><br><span class="line">假设我们有两个“产品”分别是Mercedes和BMW的汽车，如果没有“工厂”来生产它们，</span><br><span class="line">我们就要在代码中自己进行实例化，如：</span><br><span class="line"></span><br><span class="line">mercedes &#x3D; Mercedes()</span><br><span class="line">bmw &#x3D; BMW()</span><br><span class="line">但现实中，你可能会面对很多汽车产品，而且每个产品的构造参数还不一样，这样在创</span><br><span class="line">建实例时会遇到麻烦。这时就可以构造一个“简单工厂”把所有汽车实例化的过程封装在里面。</span><br><span class="line"></span><br><span class="line">class SimpleCarFactory(object):</span><br><span class="line">    &quot;&quot;&quot;简单工厂</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    @staticmethod</span><br><span class="line">    def product_car(name):</span><br><span class="line">        if name &#x3D;&#x3D; &#39;mb&#39;:</span><br><span class="line">            return Mercedes()</span><br><span class="line">        elif name &#x3D;&#x3D; &#39;bmw&#39;:</span><br><span class="line">            return BMW()</span><br><span class="line">SimpleCarFactory类后，就可以通过向固定的接口传入参数获得想要的对象实例</span><br><span class="line"></span><br><span class="line">c1 &#x3D; SimpleCarFactory.product_car(&#39;mb&#39;)</span><br><span class="line">c2 &#x3D; SimpleCarFactory.product_car(&#39;bmw&#39;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-工厂方法"><a href="#2-工厂方法" class="headerlink" title="2.工厂方法"></a>2.工厂方法</h4><blockquote>
+<p>如果我们要新增一个“产品”，例如Audi的汽车，我们除了新增一个Audi类外还要修改SimpleCarFactory内的product_car方法。这样就违背了软件设计中的开闭原则[1]，即在扩展新的类时，尽量不要修改原有代码。所以我们在简单工厂的基础上把SimpleCarFactory抽象成不同的工厂，每个工厂对应生成自己的产品，这就是工厂方法。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#coding&#x3D;utf-8</span><br><span class="line">import abc</span><br><span class="line"></span><br><span class="line">class AbstractFactory(object):</span><br><span class="line">    &quot;&quot;&quot;抽象工厂</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    __metaclass__ &#x3D; abc.ABCMeta</span><br><span class="line"></span><br><span class="line">    @abc.abstractmethod</span><br><span class="line">    def product_car(self):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">class MercedesFactory(AbstractFactory):</span><br><span class="line">    &quot;&quot;&quot;梅赛德斯工厂</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def product_car(self):</span><br><span class="line">        return Mercedes()</span><br><span class="line"></span><br><span class="line">class BMWFactory(AbstractFactory):</span><br><span class="line">    &quot;&quot;&quot;宝马工厂</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def product_car(self):</span><br><span class="line">        return BMW()</span><br><span class="line">我们把工厂抽象出来用abc模块[2]实现了一个抽象的基类AbstractFactory，</span><br><span class="line">这样就可以通过特定的工厂来获得特定的产品实例了：</span><br><span class="line"></span><br><span class="line">c1 &#x3D; MercedesFactory().product_car()</span><br><span class="line">c2 &#x3D; BMWFactory().product_car()</span><br><span class="line"></span><br><span class="line">每个工厂负责生产自己的产品也避免了我们在新增产品时需要修改工厂的代码，</span><br><span class="line">而只要增加相应的工厂即可。如新增一个Audi产品，只需新增一个Audi类和AudiFactory类。</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-抽象工厂"><a href="#3-抽象工厂" class="headerlink" title="3.抽象工厂"></a>3.抽象工厂</h4><blockquote>
+<p>如果我们要生产很多产品，就会发现我们同样需要写很多对应的工厂类。比如如果MercedesFactory和BMWFactory不仅生产小汽车，还要生产SUV，那我们用工厂方法就要再多构造两个生产SUV的工厂类。所以为了解决这个问题，我们就要再更进一步的抽象工厂类，让一个工厂可以生产同一类的多个产品，这就是抽象工厂</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import abc</span><br><span class="line"></span><br><span class="line"># 两种小汽车</span><br><span class="line">class Mercedes_C63(object):</span><br><span class="line">    &quot;&quot;&quot;梅赛德斯 C63</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def __repr__(self):</span><br><span class="line">        return &quot;Mercedes-Benz: C63&quot;</span><br><span class="line"></span><br><span class="line">class BMW_M3(object):</span><br><span class="line">    &quot;&quot;&quot;宝马 M3</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def __repr__(self):</span><br><span class="line">        return &quot;BMW: M3&quot;</span><br><span class="line"></span><br><span class="line">#　两种SUV</span><br><span class="line">class Mercedes_G63(object):</span><br><span class="line">    &quot;&quot;&quot;梅赛德斯 G63</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def __repr__(self):</span><br><span class="line">        return &quot;Mercedes-Benz: G63&quot;</span><br><span class="line"></span><br><span class="line">class BMW_X5(object):</span><br><span class="line">    &quot;&quot;&quot;宝马 X5</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def __repr__(self):</span><br><span class="line">        return &quot;BMW: X5&quot;</span><br><span class="line"></span><br><span class="line">class AbstractFactory(object):</span><br><span class="line">    &quot;&quot;&quot;抽象工厂</span><br><span class="line">    可以生产小汽车外，还可以生产SUV</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    __metaclass__ &#x3D; abc.ABCMeta</span><br><span class="line"></span><br><span class="line">    @abc.abstractmethod</span><br><span class="line">    def product_car(self):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">    @abc.abstractmethod</span><br><span class="line">    def product_suv(self):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">class MercedesFactory(AbstractFactory):</span><br><span class="line">    &quot;&quot;&quot;梅赛德斯工厂</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def product_car(self):</span><br><span class="line">        return Mercedes_C63()</span><br><span class="line"></span><br><span class="line">    def product_suv(self):</span><br><span class="line">        return Mercedes_G63()</span><br><span class="line"></span><br><span class="line">class BMWFactory(AbstractFactory):</span><br><span class="line">    &quot;&quot;&quot;宝马工厂</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def product_car(self):</span><br><span class="line">        return BMW_M3()</span><br><span class="line"></span><br><span class="line">    def product_suv(self):</span><br><span class="line">        return BMW_X5()</span><br><span class="line"></span><br><span class="line">让基类AbstractFactory同时可以生产汽车和SUV，然后令MercedesFactory和BMWFactory</span><br><span class="line">继承AbstractFactory并重写product_car和product_suv方法即可。</span><br><span class="line"></span><br><span class="line">c1 &#x3D; MercedesFactory().product_car()</span><br><span class="line">s1 &#x3D; MercedesFactory().product_suv()</span><br><span class="line">print(c1, s1)</span><br><span class="line">s2 &#x3D; BMWFactory().product_suv()</span><br><span class="line">c2 &#x3D; BMWFactory().product_car()</span><br><span class="line">print(c2, s2)</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="4-抽象工厂模式与工厂方法模式区别"><a href="#4-抽象工厂模式与工厂方法模式区别" class="headerlink" title="4.抽象工厂模式与工厂方法模式区别"></a>4.抽象工厂模式与工厂方法模式区别</h4><ol>
+<li>抽象工厂中的一个工厂对象可以负责多个不同产品对象的创建 ，这样比工厂方法模式更为简单、有效率。</li>
+</ol>
+<p>工厂模式、抽象工厂模式的优点：</p>
+<blockquote>
+<p>1、工厂模式巨有非常好的封装性，代码结构清晰；在抽象工厂模式中，其结构还可以随着需要进行更深或者更浅的抽象层级调整，非常灵活；</p>
+</blockquote>
+<blockquote>
+<p>2、屏蔽产品类，使产品的被使用业务场景和产品的功能细节可以分而开发进行，是比较典型的解耦框架。</p>
+</blockquote>
+<ol start="2">
+<li>工厂模式、抽象工厂模式的使用场景： 1、当系统实例要求比较灵活和可扩展时，可以考虑工厂模式或者抽象工厂模式实现。比如，<pre><code> 在通信系统中，高层通信协议会很多样化，同时，上层协议依赖于下层协议，
+ 那么就可以对应建立对应层级的抽象工厂，根据不同的“产品需求”去生产定制的实例。
+</code></pre>
+</li>
+</ol>
+<h3 id="python与设计模式–建造者模式"><a href="#python与设计模式–建造者模式" class="headerlink" title="python与设计模式–建造者模式"></a>python与设计模式–建造者模式</h3><blockquote>
+<p>建造者模式的定义如下：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。</p>
+</blockquote>
+<blockquote>
+<p>在建造者模式中，还可以加一个Director类，用以安排已有模块的构造步骤。对于在建造者中有比较严格的顺序要求时，该类会有比较大的用处。</p>
+</blockquote>
+<h4 id="快餐例："><a href="#快餐例：" class="headerlink" title="快餐例："></a>快餐例：</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">主餐</span><br><span class="line">class Burger():</span><br><span class="line">    name&#x3D;&quot;&quot;</span><br><span class="line">    price&#x3D;0.0</span><br><span class="line">    def getPrice(self):</span><br><span class="line">        return self.price</span><br><span class="line">    def setPrice(self,price):</span><br><span class="line">        self.price&#x3D;price</span><br><span class="line">    def getName(self):</span><br><span class="line">        return self.name</span><br><span class="line">class cheeseBurger(Burger):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name&#x3D;&quot;cheese burger&quot;</span><br><span class="line">        self.price&#x3D;10.0</span><br><span class="line">class spicyChickenBurger(Burger):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name&#x3D;&quot;spicy chicken burger&quot;</span><br><span class="line">        self.price&#x3D;15.0</span><br><span class="line">小食</span><br><span class="line">class Snack():</span><br><span class="line">    name &#x3D; &quot;&quot;</span><br><span class="line">    price &#x3D; 0.0</span><br><span class="line">    type &#x3D; &quot;SNACK&quot;</span><br><span class="line">    def getPrice(self):</span><br><span class="line">        return self.price</span><br><span class="line">    def setPrice(self, price):</span><br><span class="line">        self.price &#x3D; price</span><br><span class="line">    def getName(self):</span><br><span class="line">        return self.name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class chips(Snack):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name &#x3D; &quot;chips&quot;</span><br><span class="line">        self.price &#x3D; 6.0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class chickenWings(Snack):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name &#x3D; &quot;chicken wings&quot;</span><br><span class="line">        self.price &#x3D; 12.0</span><br><span class="line">饮料</span><br><span class="line">class Beverage():</span><br><span class="line">    name &#x3D; &quot;&quot;</span><br><span class="line">    price &#x3D; 0.0</span><br><span class="line">    type &#x3D; &quot;BEVERAGE&quot;</span><br><span class="line">    def getPrice(self):</span><br><span class="line">        return self.price</span><br><span class="line">    def setPrice(self, price):</span><br><span class="line">        self.price &#x3D; price</span><br><span class="line">    def getName(self):</span><br><span class="line">        return self.name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class coke(Beverage):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name &#x3D; &quot;coke&quot;</span><br><span class="line">        self.price &#x3D; 4.0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class milk(Beverage):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name &#x3D; &quot;milk&quot;</span><br><span class="line">        self.price &#x3D; 5.0</span><br><span class="line"></span><br><span class="line">一个订单类。假设，一个订单，包括一份主食，一份小食，一种饮料。（省去一些异常判断）</span><br><span class="line"></span><br><span class="line">class order():</span><br><span class="line">    burger&#x3D;&quot;&quot;</span><br><span class="line">    snack&#x3D;&quot;&quot;</span><br><span class="line">    beverage&#x3D;&quot;&quot;</span><br><span class="line">    def __init__(self,orderBuilder):</span><br><span class="line">        self.burger&#x3D;orderBuilder.bBurger</span><br><span class="line">        self.snack&#x3D;orderBuilder.bSnack</span><br><span class="line">        self.beverage&#x3D;orderBuilder.bBeverage</span><br><span class="line">    def show(self):</span><br><span class="line">        print &quot;Burger:%s&quot;%self.burger.getName()</span><br><span class="line">        print &quot;Snack:%s&quot;%self.snack.getName()</span><br><span class="line">        print &quot;Beverage:%s&quot;%self.beverage.getName()</span><br><span class="line"></span><br><span class="line">orderBuilder就是建造者模式中所谓的“建造者”了</span><br><span class="line"></span><br><span class="line">class orderBuilder():</span><br><span class="line">    bBurger&#x3D;&quot;&quot;</span><br><span class="line">    bSnack&#x3D;&quot;&quot;</span><br><span class="line">    bBeverage&#x3D;&quot;&quot;</span><br><span class="line">    def addBurger(self,xBurger):</span><br><span class="line">        self.bBurger&#x3D;xBurger</span><br><span class="line">    def addSnack(self,xSnack):</span><br><span class="line">        self.bSnack&#x3D;xSnack</span><br><span class="line">    def addBeverage(self,xBeverage):</span><br><span class="line">        self.bBeverage&#x3D;xBeverage</span><br><span class="line">    def build(self):</span><br><span class="line">        return order(self)</span><br><span class="line">        </span><br><span class="line">订单生成</span><br><span class="line"></span><br><span class="line">if  __name__&#x3D;&#x3D;&quot;__main__&quot;:</span><br><span class="line">    order_builder&#x3D;orderBuilder()</span><br><span class="line">    order_builder.addBurger(spicyChickenBurger())</span><br><span class="line">    order_builder.addSnack(chips())</span><br><span class="line">    order_builder.addBeverage(milk())</span><br><span class="line">    order_1&#x3D;order_builder.build()</span><br><span class="line">    order_1.show()</span><br><span class="line">    </span><br><span class="line">构造步骤</span><br><span class="line"></span><br><span class="line">class orderDirector():</span><br><span class="line">    order_builder&#x3D;&quot;&quot;</span><br><span class="line">    def __init__(self,order_builder):</span><br><span class="line">        self.order_builder&#x3D;order_builder</span><br><span class="line">    def createOrder(self,burger,snack,beverage):</span><br><span class="line">        self.order_builder.addBurger(burger)</span><br><span class="line">        self.order_builder.addSnack(snack)</span><br><span class="line">        self.order_builder.addBeverage(beverage)</span><br><span class="line">        return self.order_builder.build()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-优缺："><a href="#3-优缺：" class="headerlink" title="3.优缺："></a>3.优缺：</h4><pre><code>1、封装性好，用户可以不知道对象的内部构造和细节，就可以直接建造对象；
+2、系统扩展容易；
+3、建造者模式易于使用，非常灵活。在构造性的场景中很容易实现“流水线”；
+4、便于控制细节。
+</code></pre>
+<p>使用场景：</p>
+<blockquote>
+<p>1、 目标对象由组件构成的场景中，很适合建造者模式。例如，在一款赛车游戏中，车辆生成时，需要根据级别、环境等，选择轮胎、悬挂、骨架等部件，构造一辆“赛车”；</p>
+</blockquote>
+<blockquote>
+<p>2、 在具体的场景中，对象内部接口需要根据不同的参数而调用顺序有所不同时，可以使用建造者模式。例如：一个植物养殖器系统，对于某些不同的植物，浇水、施加肥料的顺序要求可能会不同，因而可以在Director中维护一个类似于队列的结构，在实例化时作为参数代入到具体建造者中。</p>
+</blockquote>
+<p>缺点：</p>
+<pre><code>1、“加工工艺”对用户不透明。（封装的两面性）
+</code></pre>
+<h3 id="python设计模式–原型模式"><a href="#python设计模式–原型模式" class="headerlink" title="python设计模式–原型模式"></a>python设计模式–原型模式</h3><h4 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h4><p>原型模式定义如下：用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象。<br>需要注意一点的是，进行clone操作后，新对象的构造函数没有被二次执行，新对象的内容是从内存里直接拷贝的。</p>
+<blockquote>
+<p>用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。</p>
+</blockquote>
+<p><img data-src="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/56e6c262b1510b59beba7552f07522ae.png" alt="原型模式"></p>
+<h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><blockquote>
+<p>从简历原型，生成新的简历</p>
+<p>简历类Resume提供的Clone()方法其实并不是真正的Clone，只是为已存在对象增加了一次引用。</p>
+<p>Python为对象提供的copy模块中的copy方法和deepcopy方法已经实现了原型模式，但由于例子的层次较浅，二者看不出区别。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import copy</span><br><span class="line">class WorkExp:</span><br><span class="line">    place&#x3D;&quot;&quot;</span><br><span class="line">    year&#x3D;0</span><br><span class="line"></span><br><span class="line">class Resume:</span><br><span class="line">    name &#x3D; &#39;&#39;</span><br><span class="line">    age &#x3D; 0</span><br><span class="line">    def __init__(self,n):</span><br><span class="line">        self.name &#x3D; n</span><br><span class="line">    def SetAge(self,a):</span><br><span class="line">        self.age &#x3D; a</span><br><span class="line">    def SetWorkExp(self,p,y):</span><br><span class="line">        self.place &#x3D; p</span><br><span class="line">        self.year &#x3D; y</span><br><span class="line">    def Display(self):</span><br><span class="line">        print self.age</span><br><span class="line">        print self.place</span><br><span class="line">        print self.year</span><br><span class="line">    def Clone(self):</span><br><span class="line">    #实际不是“克隆”，只是返回了自身</span><br><span class="line">        return self</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &quot;__main__&quot;:</span><br><span class="line">    a &#x3D; Resume(&quot;a&quot;)</span><br><span class="line">    b &#x3D; a.Clone()</span><br><span class="line">    c &#x3D; copy.copy(a)</span><br><span class="line">    d &#x3D; copy.deepcopy(a)</span><br><span class="line">    a.SetAge(7)</span><br><span class="line">    b.SetAge(12)</span><br><span class="line">    c.SetAge(15)</span><br><span class="line">    d.SetAge(18)</span><br><span class="line">    a.SetWorkExp(&quot;PrimarySchool&quot;,1996)</span><br><span class="line">    b.SetWorkExp(&quot;MidSchool&quot;,2001)</span><br><span class="line">    c.SetWorkExp(&quot;HighSchool&quot;,2004)</span><br><span class="line">    d.SetWorkExp(&quot;University&quot;,2007)</span><br><span class="line">    a.Display()</span><br><span class="line">    b.Display()</span><br><span class="line">    c.Display()</span><br><span class="line">    d.Display()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="原型模式的优缺点和使用场景"><a href="#原型模式的优缺点和使用场景" class="headerlink" title="原型模式的优缺点和使用场景"></a>原型模式的优缺点和使用场景</h4><ol>
+<li><p>优点：</p>
+<pre><code> 1、性能极佳，直接拷贝比在内存里直接新建实例节省不少的资源；
+ 2、简化对象创建，同时避免了构造函数的约束，不受构造函数的限制直接复制对象，是优
+ 点，也有隐患，这一点还是需要多留意一些。
+</code></pre>
+</li>
+<li><p>使用场景：</p>
+<pre><code> 1、对象在修改过后，需要复制多份的场景。如本例和其它一些涉及到复制、粘贴的场景；
+ 2、需要优化资源的情况。如，需要在内存中创建非常多的实例，可以通过原型模式来减少
+     资源消耗。此时，原型模式与工厂
+     模式配合起来，不管在逻辑上还是结构上，都会达到不错的效果；
+ 3、某些重复性的复杂工作不需要多次进行。如对于一个设备的访问权限，多个对象不用各
+     申请一遍权限，由一个设备申请后，通过原型模式将权限交给可信赖的对象，
+     既可以提升效率，又可以节约资源。
+</code></pre>
+</li>
+<li><p>原型模式的缺点</p>
+<pre><code> 1、深拷贝和浅拷贝的使用需要事先考虑周到；
+ 2、某些编程语言中，拷贝会影响到静态变量和静态函数的使用。
+ 
+ 
+</code></pre>
+</li>
+</ol>
+<h3 id="Python与设计模式–代理模式"><a href="#Python与设计模式–代理模式" class="headerlink" title="Python与设计模式–代理模式"></a>Python与设计模式–代理模式</h3><p>代理模式是一种使用频率非常高的模式，在多个著名的开源软件和当前多个著名的互联网产品后台程序中都有所应用。下面我们用一个抽象化的简单例子，来说明代理模式。</p>
+<blockquote>
+<p>首先，构造一个网络服务器：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#该服务器接受如下格式数据，addr代表地址，content代表接收的信息内容</span><br><span class="line">info_struct&#x3D;dict()</span><br><span class="line">info_struct[&quot;addr&quot;]&#x3D;10000</span><br><span class="line">info_struct[&quot;content&quot;]&#x3D;&quot;&quot;</span><br><span class="line">class Server:</span><br><span class="line">    content&#x3D;&quot;&quot;</span><br><span class="line">    def recv(self,info):</span><br><span class="line">        pass</span><br><span class="line">    def send(self,info):</span><br><span class="line">        pass</span><br><span class="line">    def show(self):</span><br><span class="line">        pass</span><br><span class="line">class infoServer(Server):</span><br><span class="line">    def recv(self,info):</span><br><span class="line">        self.content&#x3D;info</span><br><span class="line">        return &quot;recv OK!&quot;</span><br><span class="line">    def send(self,info):</span><br><span class="line">        pass</span><br><span class="line">    def show(self):</span><br><span class="line">        print &quot;SHOW:%s&quot;%self.content</span><br><span class="line">        </span><br></pre></td></tr></table></figure>
+
+<p>infoServer有接收和发送的功能，发送功能由于暂时用不到，保留。</p>
+<p>另外新加一个接口show，用来展示服务器接收的内容。</p>
+<p>接收的数据格式必须如info_struct所示，服务器仅接受info_struct的content字段。</p>
+<p>那么，如何给这个服务器设置一个白名单，使得只有白名单里的地址可以访问服务器呢？</p>
+<p>修改Server结构是个方法，但这显然不符合软件设计原则中的单一职责原则。</p>
+<blockquote>
+<p>在此基础之上，使用代理，是个不错的方法。代理配置如下：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class serverProxy:</span><br><span class="line">    pass</span><br><span class="line">class infoServerProxy(serverProxy):</span><br><span class="line">    server&#x3D;&quot;&quot;</span><br><span class="line">    def __init__(self,server):</span><br><span class="line">        self.server&#x3D;server</span><br><span class="line">    def recv(self,info):</span><br><span class="line">        return self.server.recv(info)</span><br><span class="line">    def show(self):</span><br><span class="line">        self.server.show()</span><br><span class="line"></span><br><span class="line">class whiteInfoServerProxy(infoServerProxy):</span><br><span class="line">    white_list&#x3D;[]</span><br><span class="line">    def recv(self,info):</span><br><span class="line">        try:</span><br><span class="line">            assert type(info)&#x3D;&#x3D;dict</span><br><span class="line">        except:</span><br><span class="line">            return &quot;info structure is not correct&quot;</span><br><span class="line">        addr&#x3D;info.get(&quot;addr&quot;,0)</span><br><span class="line">        if not addr in self.white_list:</span><br><span class="line">            return &quot;Your address is not in the white list.&quot;</span><br><span class="line">        else:</span><br><span class="line">            content&#x3D;info.get(&quot;content&quot;,&quot;&quot;)</span><br><span class="line">            return self.server.recv(content)</span><br><span class="line">    def addWhite(self,addr):</span><br><span class="line">        self.white_list.append(addr)</span><br><span class="line">    def rmvWhite(self,addr):</span><br><span class="line">        self.white_list.remove(addr)</span><br><span class="line">    def clearWhite(self):</span><br><span class="line">        self.white_list&#x3D;[]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>代理中有一个server字段，控制代理的服务器对象，infoServerProxy充当Server的直接接口代理，而whiteInfoServerProxy直接继承了infoServerProxy对象，同时加入了white_list和对白名单的操作。</p>
+<blockquote>
+<p>这样，在场景中通过对白名单代理的访问，就可以实现服务器的白名单访问了。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if  __name__&#x3D;&#x3D;&quot;__main__&quot;:</span><br><span class="line">    info_struct &#x3D; dict()</span><br><span class="line">    info_struct[&quot;addr&quot;] &#x3D; 10010</span><br><span class="line">    info_struct[&quot;content&quot;] &#x3D; &quot;Hello World!&quot;</span><br><span class="line">    info_server &#x3D; infoServer()</span><br><span class="line">    info_server_proxy &#x3D; whiteInfoServerProxy(info_server)</span><br><span class="line">    print info_server_proxy.recv(info_struct)</span><br><span class="line">    info_server_proxy.show()</span><br><span class="line">    info_server_proxy.addWhite(10010)</span><br><span class="line">    print info_server_proxy.recv(info_struct)</span><br><span class="line">    info_server_proxy.show()</span><br><span class="line">		</span><br></pre></td></tr></table></figure>
+
+<h4 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h4><p>代理模式定义如下：为某对象提供一个代理，以控制对此对象的访问和控制。代理模式在使用过程中，应尽量对抽象主题类进行代理，而尽量不要对加过修饰和方法的子类代理。</p>
+<pre><code>为其他对象提供一种代理以控制对这个对象的访问。
+</code></pre>
+<blockquote>
+<p>如上例中，如果有一个xServer继承了Server，并新加了方法xMethod，xServer的代理应以Server为主题进行设计，而尽量不要以xServer为主题，以xServer为主题的代理可以从ServerProxy继承并添加对应的方法.</p>
+</blockquote>
+<p><img data-src="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/651b419d706989c57083ad35e71d1029.png" alt="代理模式"></p>
+<blockquote>
+<p>在JAVA中，讲到代理模式，不得不会提到动态代理。动态代理是实现AOP（面向切面编程）的重要实现手段。而在Python中，很少会提到动态代理，而AOP则会以另一种模式实现：装饰模式。有关AOP的相关内容，我们会在装饰模式这一节中进行说明。</p>
+</blockquote>
+<h4 id="代理模式的优缺点和应用场景"><a href="#代理模式的优缺点和应用场景" class="headerlink" title="代理模式的优缺点和应用场景"></a>代理模式的优缺点和应用场景</h4><ol>
+<li><p>优点:</p>
+<pre><code> 1、职责清晰：非常符合单一职责原则，主题对象实现真实业务逻辑，而非本职责
+     的事务，交由代理完成；
+ 2、扩展性强：面对主题对象可能会有的改变，代理模式在不改变对外接口的情况
+     下，可以实现最大程度的扩展；
+ 3、保证主题对象的处理逻辑：代理可以通过检查参数的方式，保证主题对象的处
+ 理逻辑输入在理想范围内。
+</code></pre>
+</li>
+<li><p>应用场景：</p>
+<pre><code> 1、针对某特定对象进行功能和增强性扩展。如IP防火墙、远程访问代理等技术的应用；
+ 2、对主题对象进行保护。如大流量代理，安全代理等；
+ 3、减轻主题对象负载。如权限代理等。
+</code></pre>
+</li>
+<li><p>代理模式的缺点</p>
+<pre><code> 1、可能会降低整体业务的处理效率和速度。
+ 
+</code></pre>
+</li>
+</ol>
+<h4 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h4><p>同模式特点描述：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Interface :</span><br><span class="line">    def Request(self):</span><br><span class="line">    return 0</span><br><span class="line"></span><br><span class="line">class RealSubject(Interface): </span><br><span class="line">    def Request(self):</span><br><span class="line">        print &quot;Real request.&quot;</span><br><span class="line"></span><br><span class="line">class Proxy(Interface):</span><br><span class="line">    def Request(self):</span><br><span class="line">        self.real &#x3D; RealSubject()</span><br><span class="line">        self.real.Request()</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &quot;__main__&quot;:</span><br><span class="line">    p &#x3D; Proxy()</span><br><span class="line">    p.Request()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="python与设计模式–装饰器模式"><a href="#python与设计模式–装饰器模式" class="headerlink" title="python与设计模式–装饰器模式"></a>python与设计模式–装饰器模式</h3><h4 id="快餐点餐系统（3）"><a href="#快餐点餐系统（3）" class="headerlink" title="快餐点餐系统（3）"></a>快餐点餐系统（3）</h4><blockquote>
+<p>又提到了那个快餐点餐系统，不过今天我们只以其中的一个类作为主角：饮料类。首先，回忆下饮料类：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Beverage():</span><br><span class="line">    name &#x3D; &quot;&quot;</span><br><span class="line">    price &#x3D; 0.0</span><br><span class="line">    type &#x3D; &quot;BEVERAGE&quot;</span><br><span class="line">    def getPrice(self):</span><br><span class="line">        return self.price</span><br><span class="line">    def setPrice(self, price):</span><br><span class="line">        self.price &#x3D; price</span><br><span class="line">    def getName(self):</span><br><span class="line">        return self.name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class coke(Beverage):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name &#x3D; &quot;coke&quot;</span><br><span class="line">        self.price &#x3D; 4.0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class milk(Beverage):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name &#x3D; &quot;milk&quot;</span><br><span class="line">        self.price &#x3D; 5.0</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>除了基本配置，快餐店卖可乐时，可以选择加冰，如果加冰的话，要在原价上加0.3元；卖牛奶时，可以选择加糖，如果加糖的话，要原价上加0.5元。怎么解决这样的问题？可以选择装饰器模式来解决这一类的问题。首先，定义装饰器类：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class drinkDecorator():</span><br><span class="line">    def getName(self):</span><br><span class="line">        pass</span><br><span class="line">    def getPrice(self):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">class iceDecorator(drinkDecorator):</span><br><span class="line">    def __init__(self,beverage):</span><br><span class="line">        self.beverage&#x3D;beverage</span><br><span class="line">    def getName(self):</span><br><span class="line">        return self.beverage.getName()+&quot; +ice&quot;</span><br><span class="line">    def getPrice(self):</span><br><span class="line">        return self.beverage.getPrice()+0.3</span><br><span class="line">    </span><br><span class="line">class sugarDecorator(drinkDecorator):</span><br><span class="line">    def __init__(self,beverage):</span><br><span class="line">        self.beverage&#x3D;beverage</span><br><span class="line">    def getName(self):</span><br><span class="line">        return self.beverage.getName()+&quot; +sugar&quot;</span><br><span class="line">    def getPrice(self):</span><br><span class="line">        return self.beverage.getPrice()+0.5</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>构建好装饰器后，在具体的业务场景中，就可以与饮料类进行关联。以可乐+冰为例，示例业务场景如下：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if  __name__&#x3D;&#x3D;&quot;__main__&quot;:</span><br><span class="line">    coke_cola&#x3D;coke()</span><br><span class="line">    print &quot;Name:%s&quot;%coke_cola.getName()</span><br><span class="line">    print &quot;Price:%s&quot;%coke_cola.getPrice()</span><br><span class="line">    ice_coke&#x3D;iceDecorator(coke_cola)</span><br><span class="line">    print &quot;Name:%s&quot; % ice_coke.getName()</span><br><span class="line">    print &quot;Price:%s&quot; % ice_coke.getPrice()</span><br><span class="line">    </span><br><span class="line">打印结果如下：</span><br><span class="line">Name:coke</span><br><span class="line">Price:4.0</span><br><span class="line">Name:coke +ice</span><br><span class="line">Price:4.3</span><br></pre></td></tr></table></figure>
+
+<h4 id="装饰器模式"><a href="#装饰器模式" class="headerlink" title="装饰器模式"></a>装饰器模式</h4><p>装饰器模式定义如下：动态地给一个对象添加一些额外的职责。在增加功能方面，装饰器模式比生成子类更为灵活。</p>
+<p><img data-src="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/6c8cc57b36c5772c0bc489221c648819.png" alt="装饰器模式"></p>
+<p>装饰器模式和上一节说到的代理模式非常相似，可以认为，装饰器模式就是代理模式的一个特殊应用，两者的共同点是都具有相同的接口，不同点是侧重对主题类的过程的控制，而装饰模式则侧重对类功能的加强或减弱。</p>
+<blockquote>
+<p>动态地为对象增加额外的职责</p>
+</blockquote>
+<p>上一次说到，JAVA中的动态代理模式，是实现AOP的重要手段。而在Python中，AOP通过装饰器模式实现更为简洁和方便。</p>
+<p>先来解释一下什么是AOP。AOP即Aspect Oriented Programming，中文翻译为面向切面的编程，它的含义可以解释为：如果几个或更多个逻辑过程中（这类逻辑过程可能位于不同的对象，不同的接口当中），有重复的操作行为，就可以将这些行为提取出来（即形成切面），进行统一管理和维护。举例子说，系统中需要在各个地方打印日志，就可以将打印日志这一操作提取出来，作为切面进行统一维护。</p>
+<p>从编程思想的关系来看，可以认为AOP和OOP（面向对象的编程）是并列关系，二者是可以替换的，也可以结合起来用。</p>
+<blockquote>
+<p>实际上，在Python语言中，是天然支持装饰器的，如下例：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def log(func):</span><br><span class="line">    def wrapper(*args, **kw):</span><br><span class="line">        print &#39;call %s():&#39; % func.__name__</span><br><span class="line">        return func(*args, **kw)</span><br><span class="line">    return wrapper</span><br><span class="line"></span><br><span class="line">@log</span><br><span class="line">def now():</span><br><span class="line">    print &#39;2016-12-04&#39;</span><br><span class="line">if  __name__&#x3D;&#x3D;&quot;__main__&quot;:</span><br><span class="line">    now()</span><br><span class="line">打印如下：</span><br><span class="line">call now():</span><br><span class="line">2016-12-04</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>log接口就是装饰器的定义，而Python的@语法部分则直接支持装饰器的使用。<br>如果要在快餐点餐系统中打印日志，该如何进行AOP改造呢？可以借助类的静态方法或者类方法来实现：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class LogManager:</span><br><span class="line">    @staticmethod</span><br><span class="line">    def log(func):</span><br><span class="line">        def wrapper(*args):</span><br><span class="line">            print &quot;Visit Func %s&quot;%func.__name__</span><br><span class="line">            return func(*args)</span><br><span class="line">        return wrapper</span><br><span class="line">在需要打印日志的地方直接@LogManager.log，即可打印出访问的日志信息。</span><br><span class="line">如，在beverage类的函数前加上@LogManager.log，场景类保持不变，则打印结果如下：</span><br><span class="line">Visit Func getName</span><br><span class="line">Name:coke</span><br><span class="line">Visit Func getPrice</span><br><span class="line">Price:4.0</span><br><span class="line">Visit Func getName</span><br><span class="line">Name:coke +ice</span><br><span class="line">Visit Func getPrice</span><br><span class="line">Price:4.3</span><br></pre></td></tr></table></figure>
+<h4 id="装饰器模式的优点和应用场景"><a href="#装饰器模式的优点和应用场景" class="headerlink" title="装饰器模式的优点和应用场景"></a>装饰器模式的优点和应用场景</h4><ol>
+<li><p>优点：</p>
+<pre><code> 1、装饰器模式是继承方式的一个替代方案，可以轻量级的扩展被装饰对象的功能；
+ 2、Python的装饰器模式是实现AOP的一种方式，便于相同操作位于不同调用位置
+     的统一管理。
+</code></pre>
+</li>
+<li><p>应用场景：</p>
+<pre><code> 1、需要扩展、增强或者减弱一个类的功能，如本例。
+</code></pre>
+</li>
+<li><p>装饰器模式的缺点</p>
+<pre><code>  1、多层装饰器的调试和维护有比较大的困难。
+</code></pre>
+</li>
+</ol>
+<h4 id="举例：展示一个人一件一件穿衣服的过程。"><a href="#举例：展示一个人一件一件穿衣服的过程。" class="headerlink" title="举例：展示一个人一件一件穿衣服的过程。"></a>举例：展示一个人一件一件穿衣服的过程。</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Person:</span><br><span class="line">    def __init__(self,tname):</span><br><span class="line">        self.name &#x3D; tname</span><br><span class="line">    def Show(self):</span><br><span class="line">       print &quot;dressed %s&quot; %(self.name)</span><br><span class="line"></span><br><span class="line">class Finery(Person):</span><br><span class="line">    componet &#x3D; None</span><br><span class="line">    def __init__(self):</span><br><span class="line">        pass</span><br><span class="line">    def Decorate(self,ct):</span><br><span class="line">        self.componet &#x3D; ct</span><br><span class="line">    def Show(self):</span><br><span class="line">    if(self.componet!&#x3D;None):</span><br><span class="line">        self.componet.Show()</span><br><span class="line"></span><br><span class="line">class TShirts(Finery):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        pass</span><br><span class="line">    def Show(self):</span><br><span class="line">        print &quot;Big T-shirt &quot;</span><br><span class="line">        self.componet.Show()</span><br><span class="line"></span><br><span class="line">class BigTrouser(Finery):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        pass</span><br><span class="line">    def Show(self):</span><br><span class="line">        print &quot;Big Trouser &quot;</span><br><span class="line">        self.componet.Show()</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &quot;__main__&quot;:</span><br><span class="line">    p &#x3D; Person(&quot;somebody&quot;)</span><br><span class="line">    bt &#x3D; BigTrouser()</span><br><span class="line">    ts &#x3D; TShirts()</span><br><span class="line">    bt.Decorate(p)</span><br><span class="line">    ts.Decorate(bt)</span><br><span class="line">    ts.Show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>python扩展</category>
+      </categories>
+      <tags>
+        <tag>python设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>python扩展知识02--IO编程</title>
     <url>/jwangcloud/3348220571/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/python01.jpeg"></p>
@@ -9955,298 +10247,6 @@ null|    None
       </categories>
       <tags>
         <tag>pythonIO编程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python扩展知识01--设计模式</title>
-    <url>/jwangcloud/1761882267/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/python01.jpeg"></p>
-<h3 id="python与设计模式"><a href="#python与设计模式" class="headerlink" title="python与设计模式"></a>python与设计模式</h3><span id="more"></span>
-
-<h4 id="1-定义："><a href="#1-定义：" class="headerlink" title="1.定义："></a>1.定义：</h4><blockquote>
-<p>设计模式是面对各种问题进行提炼和抽象而形成的解决方案。这些设计方案是前人不断试验，考虑了封装性、复用性、效率、可修改、可移植等各种因素的高度总结。它不限于一种特定的语言，它是一种解决问题的思想和方法。</p>
-</blockquote>
-<h4 id="2-分类"><a href="#2-分类" class="headerlink" title="2.分类"></a>2.分类</h4><p>设计模式可以分为三个大类：创建类设计模式、结构类设计模式、行为类设计模式。</p>
-<p>创建类设计模式可以分为</p>
-<blockquote>
-<p>单例模式、工厂模式、抽象工厂模式、原型模式、建造者模式；</p>
-</blockquote>
-<p>结构类设计模式可以分为</p>
-<blockquote>
-<p>装饰器模式、适配器模式、门面模式、组合模式、享元模式、桥梁模式；</p>
-</blockquote>
-<p>行为类设计模式可以细分为</p>
-<blockquote>
-<p>策略模式、责任链模式、命令模式、中介者模式、模板模式、迭代器模式、访问者模式、观察者模式、解释器模式、备忘录模式、状态模式。</p>
-</blockquote>
-<h4 id="3-设计模式与软件框架"><a href="#3-设计模式与软件框架" class="headerlink" title="3.设计模式与软件框架"></a>3.设计模式与软件框架</h4><p>设计模式和软件框架在软件设计中是两个不同的研究领域：</p>
-<blockquote>
-<p>A、设计模式如前边的定义所讲，它指的是针对一类问题的解决方法，一个设计模式可应用于不同的框架和被不同的语言所实现；而框架则是一个应用的体系结构，是一种或多种设计模式和代码的混合体；</p>
-</blockquote>
-<blockquote>
-<p>B、设计模式相较于框架更容易移植，并且可以用各种语言实现，而软件框架则受限于领域大环境。虽然设计模式和软件框架有很多不同，但在某些方面他们二者是统一的，即重视软件复用，提高开发效率。</p>
-</blockquote>
-<h4 id="4-软件架构和设计模式"><a href="#4-软件架构和设计模式" class="headerlink" title="4.软件架构和设计模式"></a>4.软件架构和设计模式</h4><p>软件架构可以由不同的框架和不同的设计模式，再加上特定的构件组合来实现；</p>
-<p>框架可以根据设计模式结合特定编程语言和环境来实现。</p>
-<p>设计模式就是解决单一问题的设计思路和解决方法。</p>
-<h3 id="python与设计模式–单例模式"><a href="#python与设计模式–单例模式" class="headerlink" title="python与设计模式–单例模式"></a>python与设计模式–单例模式</h3><h4 id="1-单例模式"><a href="#1-单例模式" class="headerlink" title="1.单例模式"></a>1.单例模式</h4><blockquote>
-<p>单例模式是所有设计模式中比较简单的一类，其定义如下：Ensure a class has only one instance, and provide a global point of access to it.（保证某一个类只有一个实例，而且在全局只有一个访问点）</p>
-</blockquote>
-<h4 id="2-实例"><a href="#2-实例" class="headerlink" title="2.实例"></a>2.实例</h4><ol>
-<li>模块：</li>
-</ol>
-<blockquote>
-<p>Python 的模块就是天然的单例模式，因为模块在第一次导入时，会生成 .pyc 文件，当第二次导入时，就会直接加载 .pyc<br>文件，而不会再次执行模块代码。因此，我们只需把相关的函数和数据定义在一个模块中，就可以获得一个单例对象了</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Singleton(object):</span><br><span class="line">    def foo(self):</span><br><span class="line">        pass</span><br><span class="line">singleton &#x3D; Singleton()</span><br><span class="line"></span><br><span class="line">from a import singleton</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>装饰器</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def Singleton(cls):</span><br><span class="line">    _instance &#x3D; &#123;&#125;</span><br><span class="line">    def _singleton(*args, **kargs):</span><br><span class="line">        if cls not in _instance:</span><br><span class="line">            _instance[cls] &#x3D; cls(*args, **kargs)</span><br><span class="line">        return _instance[cls]</span><br><span class="line">    return _singleton</span><br><span class="line"></span><br><span class="line">@Singleton</span><br><span class="line">class A(object):</span><br><span class="line">    a &#x3D; 1</span><br><span class="line">    def __init__(self, x&#x3D;0):</span><br><span class="line">        self.x &#x3D; x</span><br><span class="line"></span><br><span class="line">a1 &#x3D; A(2)</span><br><span class="line">a2 &#x3D; A(3)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>类(多线程)</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import time</span><br><span class="line">import threading</span><br><span class="line">class Singleton(object):</span><br><span class="line">    _instance_lock &#x3D; threading.Lock()</span><br><span class="line"></span><br><span class="line">    def __init__(self):</span><br><span class="line">        time.sleep(1)</span><br><span class="line"></span><br><span class="line">    @classmethod</span><br><span class="line">    def instance(cls, *args, **kwargs):</span><br><span class="line">        if not hasattr(Singleton, &quot;_instance&quot;):</span><br><span class="line">            with Singleton._instance_lock:</span><br><span class="line">                if not hasattr(Singleton, &quot;_instance&quot;):</span><br><span class="line">                    Singleton._instance &#x3D; Singleton(*args, **kwargs)</span><br><span class="line">        return Singleton._instance</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def task(arg):</span><br><span class="line">    obj &#x3D; Singleton.instance()</span><br><span class="line">    print(obj)</span><br><span class="line">for i in range(10):</span><br><span class="line">    t &#x3D; threading.Thread(target&#x3D;task,args&#x3D;[i,])</span><br><span class="line">    t.start()</span><br><span class="line">time.sleep(20)</span><br><span class="line">obj &#x3D; Singleton.instance()</span><br><span class="line">print(obj)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>基于__new__方法</li>
-</ol>
-<blockquote>
-<p>实例化一个对象时，是先执行了类的__new__方法，实例化对象；然后再执行类的__init__方法，对这个对象进行初始化，所有我们可以基于这个，实现单例模式</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import threading</span><br><span class="line">class Singleton(object):</span><br><span class="line">    _instance_lock &#x3D; threading.Lock()</span><br><span class="line"></span><br><span class="line">    def __init__(self):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    def __new__(cls, *args, **kwargs):</span><br><span class="line">        if not hasattr(Singleton, &quot;_instance&quot;):</span><br><span class="line">            with Singleton._instance_lock:</span><br><span class="line">                if not hasattr(Singleton, &quot;_instance&quot;):</span><br><span class="line">                    Singleton._instance &#x3D; object.__new__(cls)  </span><br><span class="line">        return Singleton._instance</span><br><span class="line"></span><br><span class="line">obj1 &#x3D; Singleton()</span><br><span class="line">obj2 &#x3D; Singleton()</span><br><span class="line">print(obj1,obj2)</span><br><span class="line"></span><br><span class="line">def task(arg):</span><br><span class="line">    obj &#x3D; Singleton()</span><br><span class="line">    print(obj)</span><br><span class="line"></span><br><span class="line">for i in range(10):</span><br><span class="line">    t &#x3D; threading.Thread(target&#x3D;task,args&#x3D;[i,])</span><br><span class="line">    t.start()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>元类metaclass</li>
-</ol>
-<blockquote>
-<p>1.类由type创建，创建类时，type的__init__方法自动执行，类()<br>  执行type的 __call__方法(类的__new__方法,类的__init__方法)</p>
-</blockquote>
-<blockquote>
-<p>2.对象由类创建，创建对象时，类的__init__方法自动执行，对象()执行类的 <strong>call</strong> 方法</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import threading</span><br><span class="line"></span><br><span class="line">class SingletonType(type):</span><br><span class="line">    _instance_lock &#x3D; threading.Lock()</span><br><span class="line">    def __call__(cls, *args, **kwargs):</span><br><span class="line">        if not hasattr(cls, &quot;_instance&quot;):</span><br><span class="line">            with SingletonType._instance_lock:</span><br><span class="line">                if not hasattr(cls, &quot;_instance&quot;):</span><br><span class="line">                    cls._instance &#x3D; super(SingletonType,cls).__call__(*args, **kwargs)</span><br><span class="line">        return cls._instance</span><br><span class="line"></span><br><span class="line">class Foo(metaclass&#x3D;SingletonType):</span><br><span class="line">    def __init__(self,name):</span><br><span class="line">        self.name &#x3D; name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">obj1 &#x3D; Foo(&#39;name&#39;)</span><br><span class="line">obj2 &#x3D; Foo(&#39;name&#39;)</span><br><span class="line">print(obj1,obj2)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="3-单例模式的优点："><a href="#3-单例模式的优点：" class="headerlink" title="3.单例模式的优点："></a>3.单例模式的优点：</h4><p>1、由于单例模式要求在全局内只有一个实例，因而可以节省比较多的内存空间；</p>
-<p>2、全局只有一个接入点，可以更好地进行数据同步控制，避免多重占用；</p>
-<p>3、单例可长驻内存，减少系统开销。</p>
-<p>单例模式的应用举例：</p>
-<pre><code>1、生成全局惟一的序列号；
-2、访问全局复用的惟一资源，如磁盘、总线等；
-3、单个对象占用的资源过多，如数据库等；
-4、系统全局统一管理，如Windows下的Task Manager；
-5、网站计数器。
-</code></pre>
-<h3 id="python设计模式–工厂模式"><a href="#python设计模式–工厂模式" class="headerlink" title="python设计模式–工厂模式"></a>python设计模式–工厂模式</h3><blockquote>
-<p>通过一个指定的“工厂”获得需要的“产品”，在设计模式中主要用于抽象对象的创建过程，让用户可以指定自己想要的对象而不必关心对象的实例化过程。这样做的好处是用户只需通过固定的接口而不是直接去调用类的实例化方法来获得一个对象的实例，隐藏了实例创建过程的复杂度，解耦了生产实例和使用实例的代码，降低了维护的复杂性。</p>
-</blockquote>
-<h4 id="1-简单工厂"><a href="#1-简单工厂" class="headerlink" title="1.简单工厂"></a>1.简单工厂</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#coding&#x3D;utf-8</span><br><span class="line">class Mercedes(object):</span><br><span class="line">    &quot;&quot;&quot;梅赛德斯</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def __repr__(self):</span><br><span class="line">        return &quot;Mercedes-Benz&quot;</span><br><span class="line"></span><br><span class="line">class BMW(object):</span><br><span class="line">    &quot;&quot;&quot;宝马</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def __repr__(self):</span><br><span class="line">        return &quot;BMW&quot;</span><br><span class="line">        </span><br><span class="line">假设我们有两个“产品”分别是Mercedes和BMW的汽车，如果没有“工厂”来生产它们，</span><br><span class="line">我们就要在代码中自己进行实例化，如：</span><br><span class="line"></span><br><span class="line">mercedes &#x3D; Mercedes()</span><br><span class="line">bmw &#x3D; BMW()</span><br><span class="line">但现实中，你可能会面对很多汽车产品，而且每个产品的构造参数还不一样，这样在创</span><br><span class="line">建实例时会遇到麻烦。这时就可以构造一个“简单工厂”把所有汽车实例化的过程封装在里面。</span><br><span class="line"></span><br><span class="line">class SimpleCarFactory(object):</span><br><span class="line">    &quot;&quot;&quot;简单工厂</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    @staticmethod</span><br><span class="line">    def product_car(name):</span><br><span class="line">        if name &#x3D;&#x3D; &#39;mb&#39;:</span><br><span class="line">            return Mercedes()</span><br><span class="line">        elif name &#x3D;&#x3D; &#39;bmw&#39;:</span><br><span class="line">            return BMW()</span><br><span class="line">SimpleCarFactory类后，就可以通过向固定的接口传入参数获得想要的对象实例</span><br><span class="line"></span><br><span class="line">c1 &#x3D; SimpleCarFactory.product_car(&#39;mb&#39;)</span><br><span class="line">c2 &#x3D; SimpleCarFactory.product_car(&#39;bmw&#39;)</span><br></pre></td></tr></table></figure>
-
-<h4 id="2-工厂方法"><a href="#2-工厂方法" class="headerlink" title="2.工厂方法"></a>2.工厂方法</h4><blockquote>
-<p>如果我们要新增一个“产品”，例如Audi的汽车，我们除了新增一个Audi类外还要修改SimpleCarFactory内的product_car方法。这样就违背了软件设计中的开闭原则[1]，即在扩展新的类时，尽量不要修改原有代码。所以我们在简单工厂的基础上把SimpleCarFactory抽象成不同的工厂，每个工厂对应生成自己的产品，这就是工厂方法。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#coding&#x3D;utf-8</span><br><span class="line">import abc</span><br><span class="line"></span><br><span class="line">class AbstractFactory(object):</span><br><span class="line">    &quot;&quot;&quot;抽象工厂</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    __metaclass__ &#x3D; abc.ABCMeta</span><br><span class="line"></span><br><span class="line">    @abc.abstractmethod</span><br><span class="line">    def product_car(self):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">class MercedesFactory(AbstractFactory):</span><br><span class="line">    &quot;&quot;&quot;梅赛德斯工厂</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def product_car(self):</span><br><span class="line">        return Mercedes()</span><br><span class="line"></span><br><span class="line">class BMWFactory(AbstractFactory):</span><br><span class="line">    &quot;&quot;&quot;宝马工厂</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def product_car(self):</span><br><span class="line">        return BMW()</span><br><span class="line">我们把工厂抽象出来用abc模块[2]实现了一个抽象的基类AbstractFactory，</span><br><span class="line">这样就可以通过特定的工厂来获得特定的产品实例了：</span><br><span class="line"></span><br><span class="line">c1 &#x3D; MercedesFactory().product_car()</span><br><span class="line">c2 &#x3D; BMWFactory().product_car()</span><br><span class="line"></span><br><span class="line">每个工厂负责生产自己的产品也避免了我们在新增产品时需要修改工厂的代码，</span><br><span class="line">而只要增加相应的工厂即可。如新增一个Audi产品，只需新增一个Audi类和AudiFactory类。</span><br></pre></td></tr></table></figure>
-
-<h4 id="3-抽象工厂"><a href="#3-抽象工厂" class="headerlink" title="3.抽象工厂"></a>3.抽象工厂</h4><blockquote>
-<p>如果我们要生产很多产品，就会发现我们同样需要写很多对应的工厂类。比如如果MercedesFactory和BMWFactory不仅生产小汽车，还要生产SUV，那我们用工厂方法就要再多构造两个生产SUV的工厂类。所以为了解决这个问题，我们就要再更进一步的抽象工厂类，让一个工厂可以生产同一类的多个产品，这就是抽象工厂</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import abc</span><br><span class="line"></span><br><span class="line"># 两种小汽车</span><br><span class="line">class Mercedes_C63(object):</span><br><span class="line">    &quot;&quot;&quot;梅赛德斯 C63</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def __repr__(self):</span><br><span class="line">        return &quot;Mercedes-Benz: C63&quot;</span><br><span class="line"></span><br><span class="line">class BMW_M3(object):</span><br><span class="line">    &quot;&quot;&quot;宝马 M3</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def __repr__(self):</span><br><span class="line">        return &quot;BMW: M3&quot;</span><br><span class="line"></span><br><span class="line">#　两种SUV</span><br><span class="line">class Mercedes_G63(object):</span><br><span class="line">    &quot;&quot;&quot;梅赛德斯 G63</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def __repr__(self):</span><br><span class="line">        return &quot;Mercedes-Benz: G63&quot;</span><br><span class="line"></span><br><span class="line">class BMW_X5(object):</span><br><span class="line">    &quot;&quot;&quot;宝马 X5</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def __repr__(self):</span><br><span class="line">        return &quot;BMW: X5&quot;</span><br><span class="line"></span><br><span class="line">class AbstractFactory(object):</span><br><span class="line">    &quot;&quot;&quot;抽象工厂</span><br><span class="line">    可以生产小汽车外，还可以生产SUV</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    __metaclass__ &#x3D; abc.ABCMeta</span><br><span class="line"></span><br><span class="line">    @abc.abstractmethod</span><br><span class="line">    def product_car(self):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">    @abc.abstractmethod</span><br><span class="line">    def product_suv(self):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">class MercedesFactory(AbstractFactory):</span><br><span class="line">    &quot;&quot;&quot;梅赛德斯工厂</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def product_car(self):</span><br><span class="line">        return Mercedes_C63()</span><br><span class="line"></span><br><span class="line">    def product_suv(self):</span><br><span class="line">        return Mercedes_G63()</span><br><span class="line"></span><br><span class="line">class BMWFactory(AbstractFactory):</span><br><span class="line">    &quot;&quot;&quot;宝马工厂</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def product_car(self):</span><br><span class="line">        return BMW_M3()</span><br><span class="line"></span><br><span class="line">    def product_suv(self):</span><br><span class="line">        return BMW_X5()</span><br><span class="line"></span><br><span class="line">让基类AbstractFactory同时可以生产汽车和SUV，然后令MercedesFactory和BMWFactory</span><br><span class="line">继承AbstractFactory并重写product_car和product_suv方法即可。</span><br><span class="line"></span><br><span class="line">c1 &#x3D; MercedesFactory().product_car()</span><br><span class="line">s1 &#x3D; MercedesFactory().product_suv()</span><br><span class="line">print(c1, s1)</span><br><span class="line">s2 &#x3D; BMWFactory().product_suv()</span><br><span class="line">c2 &#x3D; BMWFactory().product_car()</span><br><span class="line">print(c2, s2)</span><br></pre></td></tr></table></figure>
-
-
-<h4 id="4-抽象工厂模式与工厂方法模式区别"><a href="#4-抽象工厂模式与工厂方法模式区别" class="headerlink" title="4.抽象工厂模式与工厂方法模式区别"></a>4.抽象工厂模式与工厂方法模式区别</h4><ol>
-<li>抽象工厂中的一个工厂对象可以负责多个不同产品对象的创建 ，这样比工厂方法模式更为简单、有效率。</li>
-</ol>
-<p>工厂模式、抽象工厂模式的优点：</p>
-<blockquote>
-<p>1、工厂模式巨有非常好的封装性，代码结构清晰；在抽象工厂模式中，其结构还可以随着需要进行更深或者更浅的抽象层级调整，非常灵活；</p>
-</blockquote>
-<blockquote>
-<p>2、屏蔽产品类，使产品的被使用业务场景和产品的功能细节可以分而开发进行，是比较典型的解耦框架。</p>
-</blockquote>
-<ol start="2">
-<li>工厂模式、抽象工厂模式的使用场景： 1、当系统实例要求比较灵活和可扩展时，可以考虑工厂模式或者抽象工厂模式实现。比如，<pre><code> 在通信系统中，高层通信协议会很多样化，同时，上层协议依赖于下层协议，
- 那么就可以对应建立对应层级的抽象工厂，根据不同的“产品需求”去生产定制的实例。
-</code></pre>
-</li>
-</ol>
-<h3 id="python与设计模式–建造者模式"><a href="#python与设计模式–建造者模式" class="headerlink" title="python与设计模式–建造者模式"></a>python与设计模式–建造者模式</h3><blockquote>
-<p>建造者模式的定义如下：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。</p>
-</blockquote>
-<blockquote>
-<p>在建造者模式中，还可以加一个Director类，用以安排已有模块的构造步骤。对于在建造者中有比较严格的顺序要求时，该类会有比较大的用处。</p>
-</blockquote>
-<h4 id="快餐例："><a href="#快餐例：" class="headerlink" title="快餐例："></a>快餐例：</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">主餐</span><br><span class="line">class Burger():</span><br><span class="line">    name&#x3D;&quot;&quot;</span><br><span class="line">    price&#x3D;0.0</span><br><span class="line">    def getPrice(self):</span><br><span class="line">        return self.price</span><br><span class="line">    def setPrice(self,price):</span><br><span class="line">        self.price&#x3D;price</span><br><span class="line">    def getName(self):</span><br><span class="line">        return self.name</span><br><span class="line">class cheeseBurger(Burger):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name&#x3D;&quot;cheese burger&quot;</span><br><span class="line">        self.price&#x3D;10.0</span><br><span class="line">class spicyChickenBurger(Burger):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name&#x3D;&quot;spicy chicken burger&quot;</span><br><span class="line">        self.price&#x3D;15.0</span><br><span class="line">小食</span><br><span class="line">class Snack():</span><br><span class="line">    name &#x3D; &quot;&quot;</span><br><span class="line">    price &#x3D; 0.0</span><br><span class="line">    type &#x3D; &quot;SNACK&quot;</span><br><span class="line">    def getPrice(self):</span><br><span class="line">        return self.price</span><br><span class="line">    def setPrice(self, price):</span><br><span class="line">        self.price &#x3D; price</span><br><span class="line">    def getName(self):</span><br><span class="line">        return self.name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class chips(Snack):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name &#x3D; &quot;chips&quot;</span><br><span class="line">        self.price &#x3D; 6.0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class chickenWings(Snack):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name &#x3D; &quot;chicken wings&quot;</span><br><span class="line">        self.price &#x3D; 12.0</span><br><span class="line">饮料</span><br><span class="line">class Beverage():</span><br><span class="line">    name &#x3D; &quot;&quot;</span><br><span class="line">    price &#x3D; 0.0</span><br><span class="line">    type &#x3D; &quot;BEVERAGE&quot;</span><br><span class="line">    def getPrice(self):</span><br><span class="line">        return self.price</span><br><span class="line">    def setPrice(self, price):</span><br><span class="line">        self.price &#x3D; price</span><br><span class="line">    def getName(self):</span><br><span class="line">        return self.name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class coke(Beverage):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name &#x3D; &quot;coke&quot;</span><br><span class="line">        self.price &#x3D; 4.0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class milk(Beverage):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name &#x3D; &quot;milk&quot;</span><br><span class="line">        self.price &#x3D; 5.0</span><br><span class="line"></span><br><span class="line">一个订单类。假设，一个订单，包括一份主食，一份小食，一种饮料。（省去一些异常判断）</span><br><span class="line"></span><br><span class="line">class order():</span><br><span class="line">    burger&#x3D;&quot;&quot;</span><br><span class="line">    snack&#x3D;&quot;&quot;</span><br><span class="line">    beverage&#x3D;&quot;&quot;</span><br><span class="line">    def __init__(self,orderBuilder):</span><br><span class="line">        self.burger&#x3D;orderBuilder.bBurger</span><br><span class="line">        self.snack&#x3D;orderBuilder.bSnack</span><br><span class="line">        self.beverage&#x3D;orderBuilder.bBeverage</span><br><span class="line">    def show(self):</span><br><span class="line">        print &quot;Burger:%s&quot;%self.burger.getName()</span><br><span class="line">        print &quot;Snack:%s&quot;%self.snack.getName()</span><br><span class="line">        print &quot;Beverage:%s&quot;%self.beverage.getName()</span><br><span class="line"></span><br><span class="line">orderBuilder就是建造者模式中所谓的“建造者”了</span><br><span class="line"></span><br><span class="line">class orderBuilder():</span><br><span class="line">    bBurger&#x3D;&quot;&quot;</span><br><span class="line">    bSnack&#x3D;&quot;&quot;</span><br><span class="line">    bBeverage&#x3D;&quot;&quot;</span><br><span class="line">    def addBurger(self,xBurger):</span><br><span class="line">        self.bBurger&#x3D;xBurger</span><br><span class="line">    def addSnack(self,xSnack):</span><br><span class="line">        self.bSnack&#x3D;xSnack</span><br><span class="line">    def addBeverage(self,xBeverage):</span><br><span class="line">        self.bBeverage&#x3D;xBeverage</span><br><span class="line">    def build(self):</span><br><span class="line">        return order(self)</span><br><span class="line">        </span><br><span class="line">订单生成</span><br><span class="line"></span><br><span class="line">if  __name__&#x3D;&#x3D;&quot;__main__&quot;:</span><br><span class="line">    order_builder&#x3D;orderBuilder()</span><br><span class="line">    order_builder.addBurger(spicyChickenBurger())</span><br><span class="line">    order_builder.addSnack(chips())</span><br><span class="line">    order_builder.addBeverage(milk())</span><br><span class="line">    order_1&#x3D;order_builder.build()</span><br><span class="line">    order_1.show()</span><br><span class="line">    </span><br><span class="line">构造步骤</span><br><span class="line"></span><br><span class="line">class orderDirector():</span><br><span class="line">    order_builder&#x3D;&quot;&quot;</span><br><span class="line">    def __init__(self,order_builder):</span><br><span class="line">        self.order_builder&#x3D;order_builder</span><br><span class="line">    def createOrder(self,burger,snack,beverage):</span><br><span class="line">        self.order_builder.addBurger(burger)</span><br><span class="line">        self.order_builder.addSnack(snack)</span><br><span class="line">        self.order_builder.addBeverage(beverage)</span><br><span class="line">        return self.order_builder.build()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="3-优缺："><a href="#3-优缺：" class="headerlink" title="3.优缺："></a>3.优缺：</h4><pre><code>1、封装性好，用户可以不知道对象的内部构造和细节，就可以直接建造对象；
-2、系统扩展容易；
-3、建造者模式易于使用，非常灵活。在构造性的场景中很容易实现“流水线”；
-4、便于控制细节。
-</code></pre>
-<p>使用场景：</p>
-<blockquote>
-<p>1、 目标对象由组件构成的场景中，很适合建造者模式。例如，在一款赛车游戏中，车辆生成时，需要根据级别、环境等，选择轮胎、悬挂、骨架等部件，构造一辆“赛车”；</p>
-</blockquote>
-<blockquote>
-<p>2、 在具体的场景中，对象内部接口需要根据不同的参数而调用顺序有所不同时，可以使用建造者模式。例如：一个植物养殖器系统，对于某些不同的植物，浇水、施加肥料的顺序要求可能会不同，因而可以在Director中维护一个类似于队列的结构，在实例化时作为参数代入到具体建造者中。</p>
-</blockquote>
-<p>缺点：</p>
-<pre><code>1、“加工工艺”对用户不透明。（封装的两面性）
-</code></pre>
-<h3 id="python设计模式–原型模式"><a href="#python设计模式–原型模式" class="headerlink" title="python设计模式–原型模式"></a>python设计模式–原型模式</h3><h4 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h4><p>原型模式定义如下：用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象。<br>需要注意一点的是，进行clone操作后，新对象的构造函数没有被二次执行，新对象的内容是从内存里直接拷贝的。</p>
-<blockquote>
-<p>用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。</p>
-</blockquote>
-<p><img data-src="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/56e6c262b1510b59beba7552f07522ae.png" alt="原型模式"></p>
-<h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><blockquote>
-<p>从简历原型，生成新的简历</p>
-<p>简历类Resume提供的Clone()方法其实并不是真正的Clone，只是为已存在对象增加了一次引用。</p>
-<p>Python为对象提供的copy模块中的copy方法和deepcopy方法已经实现了原型模式，但由于例子的层次较浅，二者看不出区别。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import copy</span><br><span class="line">class WorkExp:</span><br><span class="line">    place&#x3D;&quot;&quot;</span><br><span class="line">    year&#x3D;0</span><br><span class="line"></span><br><span class="line">class Resume:</span><br><span class="line">    name &#x3D; &#39;&#39;</span><br><span class="line">    age &#x3D; 0</span><br><span class="line">    def __init__(self,n):</span><br><span class="line">        self.name &#x3D; n</span><br><span class="line">    def SetAge(self,a):</span><br><span class="line">        self.age &#x3D; a</span><br><span class="line">    def SetWorkExp(self,p,y):</span><br><span class="line">        self.place &#x3D; p</span><br><span class="line">        self.year &#x3D; y</span><br><span class="line">    def Display(self):</span><br><span class="line">        print self.age</span><br><span class="line">        print self.place</span><br><span class="line">        print self.year</span><br><span class="line">    def Clone(self):</span><br><span class="line">    #实际不是“克隆”，只是返回了自身</span><br><span class="line">        return self</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &quot;__main__&quot;:</span><br><span class="line">    a &#x3D; Resume(&quot;a&quot;)</span><br><span class="line">    b &#x3D; a.Clone()</span><br><span class="line">    c &#x3D; copy.copy(a)</span><br><span class="line">    d &#x3D; copy.deepcopy(a)</span><br><span class="line">    a.SetAge(7)</span><br><span class="line">    b.SetAge(12)</span><br><span class="line">    c.SetAge(15)</span><br><span class="line">    d.SetAge(18)</span><br><span class="line">    a.SetWorkExp(&quot;PrimarySchool&quot;,1996)</span><br><span class="line">    b.SetWorkExp(&quot;MidSchool&quot;,2001)</span><br><span class="line">    c.SetWorkExp(&quot;HighSchool&quot;,2004)</span><br><span class="line">    d.SetWorkExp(&quot;University&quot;,2007)</span><br><span class="line">    a.Display()</span><br><span class="line">    b.Display()</span><br><span class="line">    c.Display()</span><br><span class="line">    d.Display()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="原型模式的优缺点和使用场景"><a href="#原型模式的优缺点和使用场景" class="headerlink" title="原型模式的优缺点和使用场景"></a>原型模式的优缺点和使用场景</h4><ol>
-<li><p>优点：</p>
-<pre><code> 1、性能极佳，直接拷贝比在内存里直接新建实例节省不少的资源；
- 2、简化对象创建，同时避免了构造函数的约束，不受构造函数的限制直接复制对象，是优
- 点，也有隐患，这一点还是需要多留意一些。
-</code></pre>
-</li>
-<li><p>使用场景：</p>
-<pre><code> 1、对象在修改过后，需要复制多份的场景。如本例和其它一些涉及到复制、粘贴的场景；
- 2、需要优化资源的情况。如，需要在内存中创建非常多的实例，可以通过原型模式来减少
-     资源消耗。此时，原型模式与工厂
-     模式配合起来，不管在逻辑上还是结构上，都会达到不错的效果；
- 3、某些重复性的复杂工作不需要多次进行。如对于一个设备的访问权限，多个对象不用各
-     申请一遍权限，由一个设备申请后，通过原型模式将权限交给可信赖的对象，
-     既可以提升效率，又可以节约资源。
-</code></pre>
-</li>
-<li><p>原型模式的缺点</p>
-<pre><code> 1、深拷贝和浅拷贝的使用需要事先考虑周到；
- 2、某些编程语言中，拷贝会影响到静态变量和静态函数的使用。
- 
- 
-</code></pre>
-</li>
-</ol>
-<h3 id="Python与设计模式–代理模式"><a href="#Python与设计模式–代理模式" class="headerlink" title="Python与设计模式–代理模式"></a>Python与设计模式–代理模式</h3><p>代理模式是一种使用频率非常高的模式，在多个著名的开源软件和当前多个著名的互联网产品后台程序中都有所应用。下面我们用一个抽象化的简单例子，来说明代理模式。</p>
-<blockquote>
-<p>首先，构造一个网络服务器：</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#该服务器接受如下格式数据，addr代表地址，content代表接收的信息内容</span><br><span class="line">info_struct&#x3D;dict()</span><br><span class="line">info_struct[&quot;addr&quot;]&#x3D;10000</span><br><span class="line">info_struct[&quot;content&quot;]&#x3D;&quot;&quot;</span><br><span class="line">class Server:</span><br><span class="line">    content&#x3D;&quot;&quot;</span><br><span class="line">    def recv(self,info):</span><br><span class="line">        pass</span><br><span class="line">    def send(self,info):</span><br><span class="line">        pass</span><br><span class="line">    def show(self):</span><br><span class="line">        pass</span><br><span class="line">class infoServer(Server):</span><br><span class="line">    def recv(self,info):</span><br><span class="line">        self.content&#x3D;info</span><br><span class="line">        return &quot;recv OK!&quot;</span><br><span class="line">    def send(self,info):</span><br><span class="line">        pass</span><br><span class="line">    def show(self):</span><br><span class="line">        print &quot;SHOW:%s&quot;%self.content</span><br><span class="line">        </span><br></pre></td></tr></table></figure>
-
-<p>infoServer有接收和发送的功能，发送功能由于暂时用不到，保留。</p>
-<p>另外新加一个接口show，用来展示服务器接收的内容。</p>
-<p>接收的数据格式必须如info_struct所示，服务器仅接受info_struct的content字段。</p>
-<p>那么，如何给这个服务器设置一个白名单，使得只有白名单里的地址可以访问服务器呢？</p>
-<p>修改Server结构是个方法，但这显然不符合软件设计原则中的单一职责原则。</p>
-<blockquote>
-<p>在此基础之上，使用代理，是个不错的方法。代理配置如下：</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class serverProxy:</span><br><span class="line">    pass</span><br><span class="line">class infoServerProxy(serverProxy):</span><br><span class="line">    server&#x3D;&quot;&quot;</span><br><span class="line">    def __init__(self,server):</span><br><span class="line">        self.server&#x3D;server</span><br><span class="line">    def recv(self,info):</span><br><span class="line">        return self.server.recv(info)</span><br><span class="line">    def show(self):</span><br><span class="line">        self.server.show()</span><br><span class="line"></span><br><span class="line">class whiteInfoServerProxy(infoServerProxy):</span><br><span class="line">    white_list&#x3D;[]</span><br><span class="line">    def recv(self,info):</span><br><span class="line">        try:</span><br><span class="line">            assert type(info)&#x3D;&#x3D;dict</span><br><span class="line">        except:</span><br><span class="line">            return &quot;info structure is not correct&quot;</span><br><span class="line">        addr&#x3D;info.get(&quot;addr&quot;,0)</span><br><span class="line">        if not addr in self.white_list:</span><br><span class="line">            return &quot;Your address is not in the white list.&quot;</span><br><span class="line">        else:</span><br><span class="line">            content&#x3D;info.get(&quot;content&quot;,&quot;&quot;)</span><br><span class="line">            return self.server.recv(content)</span><br><span class="line">    def addWhite(self,addr):</span><br><span class="line">        self.white_list.append(addr)</span><br><span class="line">    def rmvWhite(self,addr):</span><br><span class="line">        self.white_list.remove(addr)</span><br><span class="line">    def clearWhite(self):</span><br><span class="line">        self.white_list&#x3D;[]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>代理中有一个server字段，控制代理的服务器对象，infoServerProxy充当Server的直接接口代理，而whiteInfoServerProxy直接继承了infoServerProxy对象，同时加入了white_list和对白名单的操作。</p>
-<blockquote>
-<p>这样，在场景中通过对白名单代理的访问，就可以实现服务器的白名单访问了。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if  __name__&#x3D;&#x3D;&quot;__main__&quot;:</span><br><span class="line">    info_struct &#x3D; dict()</span><br><span class="line">    info_struct[&quot;addr&quot;] &#x3D; 10010</span><br><span class="line">    info_struct[&quot;content&quot;] &#x3D; &quot;Hello World!&quot;</span><br><span class="line">    info_server &#x3D; infoServer()</span><br><span class="line">    info_server_proxy &#x3D; whiteInfoServerProxy(info_server)</span><br><span class="line">    print info_server_proxy.recv(info_struct)</span><br><span class="line">    info_server_proxy.show()</span><br><span class="line">    info_server_proxy.addWhite(10010)</span><br><span class="line">    print info_server_proxy.recv(info_struct)</span><br><span class="line">    info_server_proxy.show()</span><br><span class="line">		</span><br></pre></td></tr></table></figure>
-
-<h4 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h4><p>代理模式定义如下：为某对象提供一个代理，以控制对此对象的访问和控制。代理模式在使用过程中，应尽量对抽象主题类进行代理，而尽量不要对加过修饰和方法的子类代理。</p>
-<pre><code>为其他对象提供一种代理以控制对这个对象的访问。
-</code></pre>
-<blockquote>
-<p>如上例中，如果有一个xServer继承了Server，并新加了方法xMethod，xServer的代理应以Server为主题进行设计，而尽量不要以xServer为主题，以xServer为主题的代理可以从ServerProxy继承并添加对应的方法.</p>
-</blockquote>
-<p><img data-src="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/651b419d706989c57083ad35e71d1029.png" alt="代理模式"></p>
-<blockquote>
-<p>在JAVA中，讲到代理模式，不得不会提到动态代理。动态代理是实现AOP（面向切面编程）的重要实现手段。而在Python中，很少会提到动态代理，而AOP则会以另一种模式实现：装饰模式。有关AOP的相关内容，我们会在装饰模式这一节中进行说明。</p>
-</blockquote>
-<h4 id="代理模式的优缺点和应用场景"><a href="#代理模式的优缺点和应用场景" class="headerlink" title="代理模式的优缺点和应用场景"></a>代理模式的优缺点和应用场景</h4><ol>
-<li><p>优点:</p>
-<pre><code> 1、职责清晰：非常符合单一职责原则，主题对象实现真实业务逻辑，而非本职责
-     的事务，交由代理完成；
- 2、扩展性强：面对主题对象可能会有的改变，代理模式在不改变对外接口的情况
-     下，可以实现最大程度的扩展；
- 3、保证主题对象的处理逻辑：代理可以通过检查参数的方式，保证主题对象的处
- 理逻辑输入在理想范围内。
-</code></pre>
-</li>
-<li><p>应用场景：</p>
-<pre><code> 1、针对某特定对象进行功能和增强性扩展。如IP防火墙、远程访问代理等技术的应用；
- 2、对主题对象进行保护。如大流量代理，安全代理等；
- 3、减轻主题对象负载。如权限代理等。
-</code></pre>
-</li>
-<li><p>代理模式的缺点</p>
-<pre><code> 1、可能会降低整体业务的处理效率和速度。
- 
-</code></pre>
-</li>
-</ol>
-<h4 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h4><p>同模式特点描述：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Interface :</span><br><span class="line">    def Request(self):</span><br><span class="line">    return 0</span><br><span class="line"></span><br><span class="line">class RealSubject(Interface): </span><br><span class="line">    def Request(self):</span><br><span class="line">        print &quot;Real request.&quot;</span><br><span class="line"></span><br><span class="line">class Proxy(Interface):</span><br><span class="line">    def Request(self):</span><br><span class="line">        self.real &#x3D; RealSubject()</span><br><span class="line">        self.real.Request()</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &quot;__main__&quot;:</span><br><span class="line">    p &#x3D; Proxy()</span><br><span class="line">    p.Request()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<h3 id="python与设计模式–装饰器模式"><a href="#python与设计模式–装饰器模式" class="headerlink" title="python与设计模式–装饰器模式"></a>python与设计模式–装饰器模式</h3><h4 id="快餐点餐系统（3）"><a href="#快餐点餐系统（3）" class="headerlink" title="快餐点餐系统（3）"></a>快餐点餐系统（3）</h4><blockquote>
-<p>又提到了那个快餐点餐系统，不过今天我们只以其中的一个类作为主角：饮料类。首先，回忆下饮料类：</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Beverage():</span><br><span class="line">    name &#x3D; &quot;&quot;</span><br><span class="line">    price &#x3D; 0.0</span><br><span class="line">    type &#x3D; &quot;BEVERAGE&quot;</span><br><span class="line">    def getPrice(self):</span><br><span class="line">        return self.price</span><br><span class="line">    def setPrice(self, price):</span><br><span class="line">        self.price &#x3D; price</span><br><span class="line">    def getName(self):</span><br><span class="line">        return self.name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class coke(Beverage):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name &#x3D; &quot;coke&quot;</span><br><span class="line">        self.price &#x3D; 4.0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class milk(Beverage):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        self.name &#x3D; &quot;milk&quot;</span><br><span class="line">        self.price &#x3D; 5.0</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>除了基本配置，快餐店卖可乐时，可以选择加冰，如果加冰的话，要在原价上加0.3元；卖牛奶时，可以选择加糖，如果加糖的话，要原价上加0.5元。怎么解决这样的问题？可以选择装饰器模式来解决这一类的问题。首先，定义装饰器类：</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class drinkDecorator():</span><br><span class="line">    def getName(self):</span><br><span class="line">        pass</span><br><span class="line">    def getPrice(self):</span><br><span class="line">        pass</span><br><span class="line"></span><br><span class="line">class iceDecorator(drinkDecorator):</span><br><span class="line">    def __init__(self,beverage):</span><br><span class="line">        self.beverage&#x3D;beverage</span><br><span class="line">    def getName(self):</span><br><span class="line">        return self.beverage.getName()+&quot; +ice&quot;</span><br><span class="line">    def getPrice(self):</span><br><span class="line">        return self.beverage.getPrice()+0.3</span><br><span class="line">    </span><br><span class="line">class sugarDecorator(drinkDecorator):</span><br><span class="line">    def __init__(self,beverage):</span><br><span class="line">        self.beverage&#x3D;beverage</span><br><span class="line">    def getName(self):</span><br><span class="line">        return self.beverage.getName()+&quot; +sugar&quot;</span><br><span class="line">    def getPrice(self):</span><br><span class="line">        return self.beverage.getPrice()+0.5</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>构建好装饰器后，在具体的业务场景中，就可以与饮料类进行关联。以可乐+冰为例，示例业务场景如下：</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if  __name__&#x3D;&#x3D;&quot;__main__&quot;:</span><br><span class="line">    coke_cola&#x3D;coke()</span><br><span class="line">    print &quot;Name:%s&quot;%coke_cola.getName()</span><br><span class="line">    print &quot;Price:%s&quot;%coke_cola.getPrice()</span><br><span class="line">    ice_coke&#x3D;iceDecorator(coke_cola)</span><br><span class="line">    print &quot;Name:%s&quot; % ice_coke.getName()</span><br><span class="line">    print &quot;Price:%s&quot; % ice_coke.getPrice()</span><br><span class="line">    </span><br><span class="line">打印结果如下：</span><br><span class="line">Name:coke</span><br><span class="line">Price:4.0</span><br><span class="line">Name:coke +ice</span><br><span class="line">Price:4.3</span><br></pre></td></tr></table></figure>
-
-<h4 id="装饰器模式"><a href="#装饰器模式" class="headerlink" title="装饰器模式"></a>装饰器模式</h4><p>装饰器模式定义如下：动态地给一个对象添加一些额外的职责。在增加功能方面，装饰器模式比生成子类更为灵活。</p>
-<p><img data-src="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/6c8cc57b36c5772c0bc489221c648819.png" alt="装饰器模式"></p>
-<p>装饰器模式和上一节说到的代理模式非常相似，可以认为，装饰器模式就是代理模式的一个特殊应用，两者的共同点是都具有相同的接口，不同点是侧重对主题类的过程的控制，而装饰模式则侧重对类功能的加强或减弱。</p>
-<blockquote>
-<p>动态地为对象增加额外的职责</p>
-</blockquote>
-<p>上一次说到，JAVA中的动态代理模式，是实现AOP的重要手段。而在Python中，AOP通过装饰器模式实现更为简洁和方便。</p>
-<p>先来解释一下什么是AOP。AOP即Aspect Oriented Programming，中文翻译为面向切面的编程，它的含义可以解释为：如果几个或更多个逻辑过程中（这类逻辑过程可能位于不同的对象，不同的接口当中），有重复的操作行为，就可以将这些行为提取出来（即形成切面），进行统一管理和维护。举例子说，系统中需要在各个地方打印日志，就可以将打印日志这一操作提取出来，作为切面进行统一维护。</p>
-<p>从编程思想的关系来看，可以认为AOP和OOP（面向对象的编程）是并列关系，二者是可以替换的，也可以结合起来用。</p>
-<blockquote>
-<p>实际上，在Python语言中，是天然支持装饰器的，如下例：</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def log(func):</span><br><span class="line">    def wrapper(*args, **kw):</span><br><span class="line">        print &#39;call %s():&#39; % func.__name__</span><br><span class="line">        return func(*args, **kw)</span><br><span class="line">    return wrapper</span><br><span class="line"></span><br><span class="line">@log</span><br><span class="line">def now():</span><br><span class="line">    print &#39;2016-12-04&#39;</span><br><span class="line">if  __name__&#x3D;&#x3D;&quot;__main__&quot;:</span><br><span class="line">    now()</span><br><span class="line">打印如下：</span><br><span class="line">call now():</span><br><span class="line">2016-12-04</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>log接口就是装饰器的定义，而Python的@语法部分则直接支持装饰器的使用。<br>如果要在快餐点餐系统中打印日志，该如何进行AOP改造呢？可以借助类的静态方法或者类方法来实现：</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class LogManager:</span><br><span class="line">    @staticmethod</span><br><span class="line">    def log(func):</span><br><span class="line">        def wrapper(*args):</span><br><span class="line">            print &quot;Visit Func %s&quot;%func.__name__</span><br><span class="line">            return func(*args)</span><br><span class="line">        return wrapper</span><br><span class="line">在需要打印日志的地方直接@LogManager.log，即可打印出访问的日志信息。</span><br><span class="line">如，在beverage类的函数前加上@LogManager.log，场景类保持不变，则打印结果如下：</span><br><span class="line">Visit Func getName</span><br><span class="line">Name:coke</span><br><span class="line">Visit Func getPrice</span><br><span class="line">Price:4.0</span><br><span class="line">Visit Func getName</span><br><span class="line">Name:coke +ice</span><br><span class="line">Visit Func getPrice</span><br><span class="line">Price:4.3</span><br></pre></td></tr></table></figure>
-<h4 id="装饰器模式的优点和应用场景"><a href="#装饰器模式的优点和应用场景" class="headerlink" title="装饰器模式的优点和应用场景"></a>装饰器模式的优点和应用场景</h4><ol>
-<li><p>优点：</p>
-<pre><code> 1、装饰器模式是继承方式的一个替代方案，可以轻量级的扩展被装饰对象的功能；
- 2、Python的装饰器模式是实现AOP的一种方式，便于相同操作位于不同调用位置
-     的统一管理。
-</code></pre>
-</li>
-<li><p>应用场景：</p>
-<pre><code> 1、需要扩展、增强或者减弱一个类的功能，如本例。
-</code></pre>
-</li>
-<li><p>装饰器模式的缺点</p>
-<pre><code>  1、多层装饰器的调试和维护有比较大的困难。
-</code></pre>
-</li>
-</ol>
-<h4 id="举例：展示一个人一件一件穿衣服的过程。"><a href="#举例：展示一个人一件一件穿衣服的过程。" class="headerlink" title="举例：展示一个人一件一件穿衣服的过程。"></a>举例：展示一个人一件一件穿衣服的过程。</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Person:</span><br><span class="line">    def __init__(self,tname):</span><br><span class="line">        self.name &#x3D; tname</span><br><span class="line">    def Show(self):</span><br><span class="line">       print &quot;dressed %s&quot; %(self.name)</span><br><span class="line"></span><br><span class="line">class Finery(Person):</span><br><span class="line">    componet &#x3D; None</span><br><span class="line">    def __init__(self):</span><br><span class="line">        pass</span><br><span class="line">    def Decorate(self,ct):</span><br><span class="line">        self.componet &#x3D; ct</span><br><span class="line">    def Show(self):</span><br><span class="line">    if(self.componet!&#x3D;None):</span><br><span class="line">        self.componet.Show()</span><br><span class="line"></span><br><span class="line">class TShirts(Finery):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        pass</span><br><span class="line">    def Show(self):</span><br><span class="line">        print &quot;Big T-shirt &quot;</span><br><span class="line">        self.componet.Show()</span><br><span class="line"></span><br><span class="line">class BigTrouser(Finery):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        pass</span><br><span class="line">    def Show(self):</span><br><span class="line">        print &quot;Big Trouser &quot;</span><br><span class="line">        self.componet.Show()</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &quot;__main__&quot;:</span><br><span class="line">    p &#x3D; Person(&quot;somebody&quot;)</span><br><span class="line">    bt &#x3D; BigTrouser()</span><br><span class="line">    ts &#x3D; TShirts()</span><br><span class="line">    bt.Decorate(p)</span><br><span class="line">    ts.Decorate(bt)</span><br><span class="line">    ts.Show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-]]></content>
-      <categories>
-        <category>python扩展</category>
-      </categories>
-      <tags>
-        <tag>python设计模式</tag>
       </tags>
   </entry>
   <entry>
