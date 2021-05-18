@@ -11,7 +11,7 @@ date: 2019-07-04 18:18:19
 password:
 ---
 
-![](https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/first_foots/01.jpeg)
+<img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/first_foots/01.jpeg" width="1000" height="300" align="middle" />
 
 <!--more-->
 

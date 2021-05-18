@@ -9,7 +9,8 @@ date: 2019-05-03 18:18:19
 password:
 ---
 
-![](https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/git.jpeg)
+
+<img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/git.jpeg" width="1000" height="300" align="middle" />
 
 # git基础
 

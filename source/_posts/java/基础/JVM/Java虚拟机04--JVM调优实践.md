@@ -10,7 +10,7 @@ date: 2019-09-01 18:18:19
 password:
 ---
 
-![](https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/JVM.png)
+<img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/JVM.png" width="1000" height="200" align="middle" />
 
 
 ​	对于一个系统要部署上线时，则一定会对JVM进行调整，很少会不经过任何调整直接上线。否则很容易出现线上系统频繁FullGC造成系统卡顿、CPU使用频率过高、系统无反应等问题。

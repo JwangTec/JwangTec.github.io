@@ -9,7 +9,7 @@ password:
 ---
 
 
-![](https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/juc2.jpeg)
+<img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/juc.jpeg" width="1000" height="200" align="middle" />
 
 ​<!--more-->
 

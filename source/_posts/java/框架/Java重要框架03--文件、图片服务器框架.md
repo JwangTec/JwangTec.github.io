@@ -10,7 +10,6 @@ date: 2019-07-05 18:18:19
 password:
 ---
 
-![](https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/first_foots/01.jpeg)
 
 
 ##  FastDFS

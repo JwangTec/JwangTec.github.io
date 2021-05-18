@@ -9,7 +9,8 @@ date: 2019-05-08 18:18:19
 password:
 ---
 
-![](https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/Linux.jpeg)
+
+<img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/Linux.jpeg" width="1000" height="200" align="middle" />
 
 ### Linux版本之间的区别
 

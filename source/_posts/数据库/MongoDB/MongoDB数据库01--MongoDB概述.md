@@ -10,9 +10,7 @@ password:
 ---
 
 
-![](https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/MongoDB.jpeg)
-
-
+<img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/MongoDB.jpeg" width="1000" height="200" align="middle" />
 
 ## MongoDB简介
 

@@ -11,7 +11,7 @@ password:
 
 
 
-![](https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/JVM.png)
+<img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/JVM.png" width="1000" height="200" align="middle" />
 
 
 

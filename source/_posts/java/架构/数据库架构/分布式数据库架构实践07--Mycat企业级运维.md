@@ -10,7 +10,7 @@ date: 2019-09-01 18:18:19
 password:
 ---
 
-![](https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/DB1.jpeg)
+<img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/DB1.jpeg" width="1000" height="200" align="middle" />
 
 
 ## Mycat-Web性能监控平台

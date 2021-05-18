@@ -10,7 +10,7 @@ password:
 ---
 
 
-![](https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/date.jpeg)
+<img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/date.jpeg" width="1000" height="300" align="middle" />
 
 ## spark错误分析
 

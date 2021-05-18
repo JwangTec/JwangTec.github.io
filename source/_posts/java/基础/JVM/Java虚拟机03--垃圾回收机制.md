@@ -12,7 +12,7 @@ date: 2019-09-01 18:18:19
 password:
 ---
 
-![](https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/JVM.png)
+<img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/JVM.png" width="1000" height="200" align="middle" />
 
 
 ##  Java语言的垃圾回收

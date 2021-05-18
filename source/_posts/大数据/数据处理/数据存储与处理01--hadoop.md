@@ -10,7 +10,8 @@ date: 2019-05-02 18:18:19
 password:
 ---
 
-![](https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/date.jpeg)
+<img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/date.jpeg" width="1000" height="300" align="middle" />
+
 
 ## hadoop
 
