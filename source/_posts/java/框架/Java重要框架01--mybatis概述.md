@@ -151,7 +151,7 @@ resultType就是List的泛型类型
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.itheima.dao.UserDao">
+<mapper namespace="com.jwang.dao.UserDao">
     <select id="findAll" resultType="User">
         SELECT *FROM t_user
     </select>
@@ -236,7 +236,7 @@ jdbc.password=123
 
 ```xml
 <typeAliases>
-      <typeAlias type="com.itheima.bean.User" alias="user"></typeAlias>
+      <typeAlias type="com.jwang.bean.User" alias="user"></typeAlias>
  </typeAliases>
 ```
 
@@ -256,7 +256,7 @@ jdbc.password=123
 
 ```xml
 <typeAliases>
-    <package name="com.itheima.bean"/>
+    <package name="com.jwang.bean"/>
 </typeAliases>
 ```
 
@@ -274,7 +274,7 @@ jdbc.password=123
 
 ```xml
 <mappers>
-     <mapper resource="com/itheima/dao/UserDao.xml"/>
+     <mapper resource="com/jwang/dao/UserDao.xml"/>
  </mappers>
 ```
 
@@ -284,7 +284,7 @@ jdbc.password=123
 
 ```xml
 <mappers>
- 	<mapper class="com.itheima.dao.UserDao"></mapper>
+ 	<mapper class="com.jwang.dao.UserDao"></mapper>
 </mappers>
 ```
 
@@ -292,7 +292,7 @@ jdbc.password=123
 
 ```xml
 <mappers>
-   <package name="com.itheima.dao"></package>
+   <package name="com.jwang.dao"></package>
 </mappers>
 ```
 
@@ -337,7 +337,7 @@ log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
 #%d{yyyy-MM-dd HH:mm:ss,SSS\} %-5p [%t] {%c}-%m%n
 log4j.appender.stdout.layout.ConversionPattern=[%-5p] %t %l %d %rms:%m%n
 log4j.appender.file=org.apache.log4j.FileAppender
-log4j.appender.file.File=D:\\idea_project\\itheima_mm_backend.log
+log4j.appender.file.File=D:\\idea_project\\jwang_mm_backend.log
 log4j.appender.file.layout=org.apache.log4j.PatternLayout
 log4j.appender.file.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss,SSS\} %-5p [%t] {%c}-%m%n
 ```
@@ -1093,7 +1093,7 @@ public interface UserDao {
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.itheima.dao.UserDao">
+<mapper namespace="com.jwang.dao.UserDao">
     <select id="findUserListByAddress" parameterType="string" resultType="User">
         select * from t_user
         <!--

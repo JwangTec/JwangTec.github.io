@@ -30,8 +30,8 @@ password:
 ### 证明一级缓存的存在
 
 ```java
-import com.itheima.dao.UserDao;
-import com.itheima.pojo.User;
+import com.jwang.dao.UserDao;
+import com.jwang.pojo.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -162,7 +162,7 @@ public class TestMybatis {
 <!DOCTYPE mapper
       PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
       "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.itheima.dao.UserDao">
+<mapper namespace="com.jwang.dao.UserDao">
   <cache/>
   
   <select id="findAll" resultType="User">
@@ -287,7 +287,7 @@ public interface AccountDao {
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.itheima.dao.AccountDao">
+<mapper namespace="com.jwang.dao.AccountDao">
     
     <resultMap id="accountUserMap" type="Account" autoMapping="true">
         <!--
@@ -983,7 +983,7 @@ public interface AccountDao {
                     //映射主键
                     @Result(column = "uid",property = "uid",id = true),
                     //调用第二步查询进行一对一映射
-                    @Result(property = "user",column = "uid",one = @One(select = "com.itheima.dao.UserDao.findUserByUid"))
+                    @Result(property = "user",column = "uid",one = @One(select = "com.jwang.dao.UserDao.findUserByUid"))
             }
     )
     Account findAccountByAid(int aid);
@@ -1065,7 +1065,7 @@ public interface UserDao {
     @Select("select * from t_user where uid=#{uid}")
     @Results({
             @Result(id = true,column = "uid",property = "uid"),
-            @Result(property = "accountList",column = "uid",many = @Many(select = "com.itheima.dao.AccountDao.findAccountListByUid"))
+            @Result(property = "accountList",column = "uid",many = @Many(select = "com.jwang.dao.AccountDao.findAccountListByUid"))
     })
     User findUserByUid(int uid);
 }
