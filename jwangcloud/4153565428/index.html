@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Spring Cloud Feign">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微服务框架SpringCloud02-远程调用、请求压缩、日志配置">
+<meta property="og:url" content="http://example.com/jwangcloud/4153565428/index.html">
+<meta property="og:site_name" content="jwangcloud">
+<meta property="og:description" content="Spring Cloud Feign">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563260831222.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563261614474.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563261683709.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563261807063.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563263001726.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563263626561.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563266845269.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1604132484375.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563267991954.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563268061326.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563313032299.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563269396043.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563269953975.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563270055671.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563270306529.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563271202588.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563271983446.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563272403821.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563273974252.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1568970734136.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/abc.jpg">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1558282481764.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563278785689.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563278922857.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563278978078.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563279131699.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563279208501.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563276201436.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1558275102243.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1558275137843.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563276549136.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563276955927.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563277655450.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563278214919.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563278362302.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563278440773.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563278498743.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563278633611.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1558286268166.png">
+<meta property="article:published_time" content="2019-07-01T10:18:19.000Z">
+<meta property="article:modified_time" content="2021-06-20T10:42:10.498Z">
+<meta property="article:author" content="jwangtec">
+<meta property="article:tag" content="Java框架">
+<meta property="article:tag" content="Spring Cloud">
+<meta property="article:tag" content="Spring Cloud feign">
+<meta property="article:tag" content="Spring Cloud Gateway">
+<meta property="article:tag" content="Spring Cloud config">
+<meta property="article:tag" content="Spring Cloud Bus">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563260831222.png">
+
+<link rel="canonical" href="http://example.com/jwangcloud/4153565428/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>微服务框架SpringCloud02-远程调用、请求压缩、日志配置 | jwangcloud</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">jwangcloud</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/JwangTec" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/jwangcloud/4153565428/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="jwangtec">
+      <meta itemprop="description" content="小脑袋，大智慧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jwangcloud">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          微服务框架SpringCloud02-远程调用、请求压缩、日志配置
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-07-01 18:18:19" itemprop="dateCreated datePublished" datetime="2019-07-01T18:18:19+08:00">2019-07-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-06-20 18:42:10" itemprop="dateModified" datetime="2021-06-20T18:42:10+08:00">2021-06-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java%E6%A1%86%E6%9E%B6/" itemprop="url" rel="index"><span itemprop="name">Java框架</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/jwangcloud/4153565428/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/jwangcloud/4153565428/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>20k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>18 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Spring-Cloud-Feign"><a href="#Spring-Cloud-Feign" class="headerlink" title="Spring Cloud Feign"></a>Spring Cloud Feign</h2><span id="more"></span>
+
+<h3 id="讲解"><a href="#讲解" class="headerlink" title="讲解"></a>讲解</h3><h4 id="Feign简介"><a href="#Feign简介" class="headerlink" title="Feign简介"></a>Feign简介</h4><p>Feign [feɪn] 译文 伪装。Feign是一个声明式WebService客户端.使用Feign能让编写WebService客户端更加简单,它的使用方法是定义一个接口，然后在上面添加注解。不再需要拼接URL，参数等操作。项目主页：<a target="_blank" rel="noopener" href="https://github.com/OpenFeign/feign">https://github.com/OpenFeign/feign</a> 。</p>
+<ul>
+<li>集成Ribbon的负载均衡功能</li>
+<li>集成了Hystrix的熔断器功能</li>
+<li>支持请求压缩</li>
+<li>大大简化了远程调用的代码，同时功能还增强啦</li>
+<li>Feign以更加优雅的方式编写远程调用代码，并简化重复代码</li>
+</ul>
+<h4 id="快速入门"><a href="#快速入门" class="headerlink" title="快速入门"></a>快速入门</h4><p>使用Feign替代RestTemplate发送Rest请求。</p>
+<p><strong>实现步骤：</strong></p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">1.</span> <span class="string">导入feign依赖</span></span><br><span class="line"><span class="meta">2.</span> <span class="string">编写Feign客户端接口</span></span><br><span class="line"><span class="meta">3.</span> <span class="string">消费者启动引导类开启Feign功能注解</span></span><br><span class="line"><span class="meta">4.</span> <span class="string">访问接口测试</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>实现过程：</strong></p>
+<p>(1)导入依赖</p>
+<p>在<code>user-consumer</code>中添加<code>spring-cloud-starter-openfeign</code>依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--配置feign--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-openfeign<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>(2)创建Feign客户端</p>
+<p>在<code>user-consumer</code>中创建<code>com.jwang.feign.UserClient</code>接口，代码如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563260831222.png" alt="1563260831222"></p>
+<p>解释：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Feign会通过动态代理，帮我们生成实现类。</span></span><br><span class="line"><span class="attr">注解@FeignClient声明Feign的客户端，注解value指明服务名称</span></span><br><span class="line"><span class="attr">接口定义的方法，采用SpringMVC的注解。Feign会根据注解帮我们生成URL地址</span></span><br><span class="line"><span class="attr">注解@RequestMapping中的/user，不要忘记。因为Feign需要拼接可访问地址</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>(3)编写控制层</p>
+<p>在<code>user-consumer</code>中创建<code>com.jwang.controller.ConsumerFeignController</code>，在Controller中使用@Autowired注入FeignClient,代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;/feign&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConsumerFeignController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserClient userClient;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/****</span></span><br><span class="line"><span class="comment">     * 使用Feign调用user-provider的方法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/&#123;id&#125;&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">queryById</span><span class="params">(<span class="meta">@PathVariable(value = &quot;id&quot;)</span>Integer id)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> userClient.findById(id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>(4)开启Feign</p>
+<p>修改<code>user-consumer</code>的启动类，在启动类上添加<code>@EnableFeignClients</code>注解，开启Feign,代码如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563261614474.png" alt="1563261614474"></p>
+<p>(5)测试</p>
+<p>请求<code>&lt;http://localhost:18082/feign/2&gt;</code>，效果如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563261683709.png" alt="1563261683709"></p>
+<h4 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h4><p>Feign自身已经集成了Ribbon，因此使用Feign的时候，不需要额外引入依赖。</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563261807063.png" alt="1563261807063"></p>
+<p>Feign内置的ribbon默认设置了请求超时时长，默认是1000，可以修改</p>
+<p>ribbon内部有重试机制，一旦超时，会自动重新发起请求。如果不希望重试可以关闭配置：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改服务地址轮询策略，默认是轮询，配置之后变随机</span></span><br><span class="line"><span class="attr">user-provider:</span></span><br><span class="line">  <span class="attr">ribbon:</span></span><br><span class="line">    <span class="comment">#轮询</span></span><br><span class="line">    <span class="attr">NFLoadBalancerRuleClassName:</span> <span class="string">com.netflix.loadbalancer.RoundRobinRule</span></span><br><span class="line">    <span class="attr">ConnectTimeout:</span> <span class="number">10000</span> <span class="comment"># 连接超时时间</span></span><br><span class="line">    <span class="attr">ReadTimeout:</span> <span class="number">2000</span> <span class="comment"># 数据读取超时时间</span></span><br><span class="line">    <span class="attr">MaxAutoRetries:</span> <span class="number">1</span> <span class="comment"># 最大重试次数(第一个服务)</span></span><br><span class="line">    <span class="attr">MaxAutoRetriesNextServer:</span> <span class="number">0</span> <span class="comment"># 最大重试下一个服务次数(集群的情况才会用到)</span></span><br><span class="line">    <span class="attr">OkToRetryOnAllOperations:</span> <span class="literal">false</span> <span class="comment"># 无论是请求超时或者socket read timeout都进行重试</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="熔断器支持"><a href="#熔断器支持" class="headerlink" title="熔断器支持"></a>熔断器支持</h4><p>feign整合Hystrix熔断器</p>
+<p>Feign默认也有对Hystrix的集成!</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563263001726.png" alt="1563263001726"></p>
+<p>实现步骤：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">1.</span> <span class="string">在配置文件application.yml中开启feign熔断器支持</span></span><br><span class="line"><span class="meta">2.</span> <span class="string">编写FallBack处理类，实现FeignClient客户端</span></span><br><span class="line"><span class="meta">3.</span> <span class="string">在@FeignClient注解中，指定FallBack处理类。</span></span><br><span class="line"><span class="meta">4.</span> <span class="string">测试</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>(1)开启Hystrix</p>
+<p>在配置文件application.yml中开启feign熔断器支持：默认关闭</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">feign</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">hystrix</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">enabled</span>: <span class="string">true # 开启Feign的熔断功能</span></span><br></pre></td></tr></table></figure>
+
+<p>(2)熔断降级类创建</p>
+<p>修改<code>user-consumer</code>,创建一个类<code>com.jwang.feign.fallback.UserClientFallback</code>，实现刚才编写的UserClient，作为FallBack的处理类,代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserClientFallback</span> <span class="keyword">implements</span> <span class="title">UserClient</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/***</span></span><br><span class="line"><span class="comment">     * 服务降级处理方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> id</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">findById</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">        User user = <span class="keyword">new</span> User();</span><br><span class="line">        user.setUsername(<span class="string">&quot;Fallback，服务降级。。。&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> user;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>(3)指定Fallback处理类</p>
+<p>在@FeignClient注解中，指定FallBack处理类</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563263626561.png" alt="1563263626561"></p>
+<p>(4)测试</p>
+<p>关闭服务消费方，请求<code>&lt;http://localhost:18082/feign/2&gt;</code>，效果如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563266845269.png" alt="1563266845269"></p>
+<p>如果不想写/user,可以如下使用</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1604132484375.png" alt="1604132484375"></p>
+<h4 id="请求压缩"><a href="#请求压缩" class="headerlink" title="请求压缩"></a>请求压缩</h4><p>SpringCloudFeign支持对请求和响应进行GZIP压缩，以减少通信过程中的性能损耗。</p>
+<p>通过配置开启请求与响应的压缩功能：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">feign:</span></span><br><span class="line">  <span class="attr">compression:</span></span><br><span class="line">    <span class="attr">request:</span></span><br><span class="line">      <span class="attr">enabled:</span> <span class="literal">true</span> <span class="comment"># 开启请求压缩</span></span><br><span class="line">    <span class="attr">response:</span></span><br><span class="line">      <span class="attr">enabled:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>也可以对请求的数据类型，以及触发压缩的大小下限进行设置</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">feign:</span></span><br><span class="line">  <span class="attr">compression:</span></span><br><span class="line">    <span class="attr">request:</span></span><br><span class="line">      <span class="attr">enabled:</span> <span class="literal">true</span> <span class="comment"># 开启请求压缩</span></span><br><span class="line">      <span class="attr">mime-types:</span> <span class="string">text/html,application/xml,application/json</span> <span class="comment"># 设置压缩的数据类型</span></span><br><span class="line">      <span class="attr">min-request-size:</span> <span class="number">2048</span> <span class="comment"># 设置触发压缩的大小下限   #以上数据类型，压缩大小下限均为默认值</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Feign的日志级别配置"><a href="#Feign的日志级别配置" class="headerlink" title="Feign的日志级别配置"></a>Feign的日志级别配置</h4><p>通过loggin.level.xx=debug来设置日志级别。然而这个对Feign客户端不会产生效果。因为@FeignClient注解修饰的客户端在被代理时，都会创建一个新的Feign.Logger实例。我们需要额外通过配置类的方式指定这个日志的级别才可以。</p>
+<p><strong>实现步骤：</strong></p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">1.</span> <span class="string">在application.yml配置文件中开启日志级别配置</span></span><br><span class="line"><span class="meta">2.</span> <span class="string">编写配置类，定义日志级别bean。</span></span><br><span class="line"><span class="meta">3.</span> <span class="string">在接口的@FeignClient中指定配置类</span></span><br><span class="line"><span class="meta">4.</span> <span class="string">重启项目，测试访问</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>实现过程：</strong></p>
+<p>(1)普通日志等级配置</p>
+<p>在<code>user-consumer</code>的配置文件中设置com.jwang包下的日志级别都为debug</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># com.jwang 包下的日志级别都为Debug</span></span><br><span class="line"><span class="attr">logging</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">level</span>:<span class="string"></span></span><br><span class="line">    <span class="meta">com.jwang</span>: <span class="string">debug</span></span><br></pre></td></tr></table></figure>
+
+<p>(2)Feign日志等级配置</p>
+<p>在<code>user-consumer</code>中创建<code>com.jwang.feign.util.FeignConfig</code>,定义日志级别</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FeignConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/***</span></span><br><span class="line"><span class="comment">     * 日志级别</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> Logger.<span class="function">Level <span class="title">feignLoggerLevel</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Logger.Level.FULL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>日志级别说明：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Feign支持4中级别：</span></span><br><span class="line">	<span class="attr">NONE：不记录任何日志，默认值</span></span><br><span class="line">	<span class="attr">BASIC：仅记录请求的方法，URL以及响应状态码和执行时间</span></span><br><span class="line">	<span class="attr">HEADERS：在BASIC基础上，额外记录了请求和响应的头信息</span></span><br><span class="line">	<span class="attr">FULL：记录所有请求和响应的明细，包括头信息、请求体、元数据</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>(3)指定配置类</p>
+<p>修改<code>user-consumer</code>的<code>com.jwang.feign.UserClient</code>指定上面的配置类，代码如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563267991954.png" alt="1563267991954"></p>
+<p>重启项目，即可看到每次访问的日志</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563268061326.png" alt="1563268061326"></p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ul>
+<li><p>Feign的作用:不再使用拼接URL的方式实现远程调用，以接口调用的方式实现远程调用，简化了远程调用的实现方式，增强了远程调用的功能，例如：增加了负载均衡、熔断、压缩、日志启用。</p>
+</li>
+<li><p>掌握Feign的使用过程</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">1.引入Feign依赖包</span></span><br><span class="line"><span class="attr">2.创建Feign接口,feign接口中需要指定调用的服务名字</span></span><br><span class="line"><span class="attr">3.使用@EnabledFeignClients启用Feign功能</span></span><br></pre></td></tr></table></figure></li>
+<li><p>掌握Feign的负载均衡配置</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">在配置文件中配置</span></span><br><span class="line"><span class="meta">&#123;spring.application.name&#125;</span>:<span class="string">ribbon:负载均衡属性配置</span></span><br></pre></td></tr></table></figure></li>
+<li><p>掌握Feign的熔断配置</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">1.在application.yml中开启Hystrix</span></span><br><span class="line"><span class="attr">2.给Feign接口创建一个实现类</span></span><br><span class="line"><span class="attr">3.给Feign指定fallback类</span></span><br></pre></td></tr></table></figure></li>
+<li><p>掌握Feign的压缩配置</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">在application.yml中指定压缩属性即可</span></span><br></pre></td></tr></table></figure></li>
+<li><p>掌握Feign的日志配置</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">1.在application.yml中开启普通日志等级</span></span><br><span class="line"><span class="attr">2.创建一个类，定义Feign日志等级</span></span><br><span class="line"><span class="attr">3.在Feign接口中指定定义日志的配置</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="网关-Spring-Cloud-Gateway"><a href="#网关-Spring-Cloud-Gateway" class="headerlink" title="网关 Spring Cloud Gateway"></a>网关 Spring Cloud Gateway</h2><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563313032299.png" alt="1563313032299"></p>
+<h3 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h3><ul>
+<li>网关的作用</li>
+<li>会配置动态路由</li>
+<li>会配置过滤器</li>
+<li>能自定义全局过滤器</li>
+</ul>
+<p>==网关作用：为微服务提供统一的路由管理，可以在路由管理基础上进行一系列的过滤，可以做一系列的监控操作，限流。==</p>
+<h3 id="讲解-1"><a href="#讲解-1" class="headerlink" title="讲解"></a>讲解</h3><h4 id="Gateway-简介"><a href="#Gateway-简介" class="headerlink" title="Gateway 简介"></a>Gateway 简介</h4><p>Spring Cloud Gateway 是Spring Cloud团队的一个全新项目，基于Spring 5.0、SpringBoot2.0、Project Reactor 等技术开发的网关。 ==旨在为微服务架构提供一种简单有效统一的API路由管理方式。==</p>
+<p>Spring Cloud Gateway 作为SpringCloud生态系统中的网关，目标是替代Netflix Zuul。Gateway不仅提供统一路由方式，并且==基于Filter链的方式提供网关的基本功能。例如：安全，监控/指标，和限流。==</p>
+<p><strong>本身也是一个微服务，需要注册到Eureka</strong></p>
+<p><strong>网关的核心功能：</strong>过滤、路由</p>
+<p><strong>核心概念：</strong>通过画图解释</p>
+<ul>
+<li><strong>路由(route)：</strong></li>
+<li><strong>断言Predicate函数：</strong>路由转发规则</li>
+<li><strong>过滤器(Filter)：</strong></li>
+</ul>
+<h4 id="快速入门-1"><a href="#快速入门-1" class="headerlink" title="快速入门"></a>快速入门</h4><p><strong>实现步骤：</strong></p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">1.</span> <span class="string">创建gateway-service工程SpringBoot</span></span><br><span class="line"><span class="meta">2.</span> <span class="string">编写基础配置</span></span><br><span class="line"><span class="meta">3.</span> <span class="string">编写路由规则，配置静态路由策略</span></span><br><span class="line"><span class="meta">4.</span> <span class="string">启动网关服务进行测试</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><strong>实现过程：</strong></p>
+<p>(1)创建一个子工程gateway-service</p>
+<p>工程坐标：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>gateway-service<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.jwang<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>(2)pom.xml依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springcloud-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.jwang<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>gateway-service<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--网关依赖--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-gateway<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- Eureka客户端 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>(3)启动类</p>
+<p>创建启动类<code>com.jwang.GatewayApplication</code>,代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableDiscoveryClient</span><span class="comment">// 开启Eureka客户端发现功能</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GatewayApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(GatewayApplication.class,args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>(4)application.yml配置</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注释版本</span></span><br><span class="line"><span class="attr">server</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">port</span>: <span class="string">18084</span></span><br><span class="line"><span class="attr">spring</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">application</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">name</span>: <span class="string">api-gateway # 应用名</span></span><br><span class="line"><span class="comment"># Eureka服务中心配置</span></span><br><span class="line"><span class="attr">eureka</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">client</span>:<span class="string"></span></span><br><span class="line">    <span class="meta">service-url</span>:<span class="string"></span></span><br><span class="line"><span class="comment">      # 注册Eureka Server集群</span></span><br><span class="line">      <span class="attr">defaultZone</span>: <span class="string">http://127.0.0.1:7001/eureka</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="路由配置"><a href="#路由配置" class="headerlink" title="路由配置"></a>路由配置</h4><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563269396043.png" alt="1563269396043"></p>
+<p>通过网关配置一个路由功能，用户访问网关的时候,如果用户请求的路径是以<code>/user</code>开始，则路由到<code>user-provider</code>服务去,修改application.yml配置即可实现，配置如下：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">application</span>:<span class="string"></span></span><br><span class="line"><span class="comment">    # 应用名</span></span><br><span class="line">    <span class="attr">name</span>: <span class="string">api-gateway</span></span><br><span class="line">  <span class="attr">cloud</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">gateway</span>:<span class="string"></span></span><br><span class="line">      <span class="attr">routes</span>:<span class="string"></span></span><br><span class="line"><span class="comment">        #id唯一标识，可自定义</span></span><br><span class="line">        <span class="meta">-</span> <span class="string">id: user-service-route</span></span><br><span class="line"><span class="comment">          #路由的服务地址</span></span><br><span class="line">          <span class="attr">uri</span>: <span class="string">http://localhost:18081</span></span><br><span class="line"><span class="comment">          # 路由拦截的地址配置（断言）</span></span><br><span class="line">          <span class="attr">predicates</span>:<span class="string"></span></span><br><span class="line">            <span class="meta">-</span> <span class="string">Path=/user/**</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>启动GatewayApplication测试</p>
+<p>访问<code>http://localhost:18084/user/find/2</code>会访问<code>user-provider</code>服务，效果如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563269953975.png" alt="1563269953975"></p>
+<h4 id="动态路由"><a href="#动态路由" class="headerlink" title="动态路由"></a>动态路由</h4><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563270055671.png" alt="1563270055671"></p>
+<p>刚才路由规则中，我们把路径对应服务地址写死了！如果服务提供者集群的话，这样做不合理。应该是<strong>根据服务名称</strong>，去Eureka注册中心查找服务对应的所有实例列表，然后进行动态路由！</p>
+<p><strong>修改映射配置：通过服务名称获取：</strong></p>
+<p>修改application.yml</p>
+<p>因为已经配置了Eureka客户端，可以从Eureka获取服务的地址信息，修改application.yml文件如下:</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563270306529.png" alt="1563270306529"></p>
+<p>上图代码如下：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">application</span>:<span class="string"></span></span><br><span class="line"><span class="comment">    # 应用名</span></span><br><span class="line">    <span class="attr">name</span>: <span class="string">api-gateway</span></span><br><span class="line">  <span class="attr">cloud</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">gateway</span>:<span class="string"></span></span><br><span class="line">      <span class="attr">routes</span>:<span class="string"></span></span><br><span class="line"><span class="comment">        #id唯一标识，可自定义</span></span><br><span class="line">        <span class="meta">-</span> <span class="string">id: user-service-route</span></span><br><span class="line"><span class="comment">          #路由的服务地址</span></span><br><span class="line"><span class="comment">          #uri: http://localhost:18081</span></span><br><span class="line"><span class="comment">          #lb协议表示从Eureka注册中心获取服务请求地址</span></span><br><span class="line"><span class="comment">          #user-provider访问的服务名称。</span></span><br><span class="line"><span class="comment">          #路由地址如果通过lb协议加服务名称时，会自动使用负载均衡访问对应服务</span></span><br><span class="line">          <span class="attr">uri</span>: <span class="string">lb://user-provider</span></span><br><span class="line"><span class="comment">          # 路由拦截的地址配置（断言）</span></span><br><span class="line">          <span class="attr">predicates</span>:<span class="string"></span></span><br><span class="line">            <span class="meta">-</span> <span class="string">Path=/user/**</span></span><br></pre></td></tr></table></figure>
+
+<p>路由配置中uri所用的协议为lb时，gateway将把user-provider解析为实际的主机和端口，并通过Ribbon进行负载均衡。</p>
+<h4 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h4><p>过滤器作为Gateway的重要功能。常用于请求鉴权、服务调用时长统计、修改请求或响应header、限流、去除路径等等…</p>
+<h5 id="过滤器的分类"><a href="#过滤器的分类" class="headerlink" title="过滤器的分类"></a>过滤器的分类</h5><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">默认过滤器：出厂自带，实现好了拿来就用，不需要实现</span></span><br><span class="line">  <span class="attr">全局默认过滤器</span></span><br><span class="line">  <span class="attr">局部默认过滤器</span></span><br><span class="line"><span class="attr">自定义过滤器：根据需求自己实现，实现后需配置，然后才能用哦。</span></span><br><span class="line">  <span class="attr">全局过滤器：作用在所有路由上。</span></span><br><span class="line">  <span class="attr">局部过滤器：配置在具体路由下，只作用在当前路由上。</span></span><br></pre></td></tr></table></figure>
+
+<p>默认过滤器几十个，常见如下：</p>
+<table>
+<thead>
+<tr>
+<th>过滤器名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AddRequestHeader</td>
+<td>对匹配上的请求加上Header</td>
+</tr>
+<tr>
+<td>AddRequestParameters</td>
+<td>对匹配上的请求路由</td>
+</tr>
+<tr>
+<td>AddResponseHeader</td>
+<td>对从网关返回的响应添加Header</td>
+</tr>
+<tr>
+<td>StripPrefix</td>
+<td>对匹配上的请求路径去除前缀</td>
+</tr>
+</tbody></table>
+<p>详细说明官方<a target="_blank" rel="noopener" href="https://cloud.spring.io/spring-cloud-static/spring-cloud-gateway/2.1.1.RELEASE/single/spring-cloud-gateway.html#_gatewayfilter_factories">链接</a></p>
+<h5 id="默认过滤器配置"><a href="#默认过滤器配置" class="headerlink" title="默认过滤器配置"></a>默认过滤器配置</h5><p>默认过滤器有两个：全局默认过滤器和局部默认过滤器。</p>
+<p><strong>全局过滤器：对输出响应头设置属性</strong></p>
+<p>对输出的响应设置其头部属性名称为X-Response-Default-MyName,值为jwang</p>
+<p>修改配置文件</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">     <span class="comment"># 配置全局默认过滤器</span></span><br><span class="line">      <span class="attr">default-filters:</span></span><br><span class="line">      <span class="comment"># 往响应过滤器中加入信息</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">AddResponseHeader=X-Response-Default-MyName,jwang</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>查看浏览器响应头信息!</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563271202588.png" alt="1563271202588"></p>
+<p><strong>局部过滤器：</strong>通过局部默认过滤器，修改请求路径。局部过滤器在这里介绍两种：添加路径前缀、去除路径前缀。</p>
+<p><strong>第一：添加路径前缀：</strong></p>
+<p>在gateway中可以通过配置路由的过滤器PrefixPath 实现映射路径中的前缀</p>
+<p>配置请求地址添加路径前缀过滤器</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563271983446.png" alt="1563271983446"></p>
+<p>上图配置如下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="comment"># 应用名</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">api-gateway</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="comment">#id唯一标识，可自定义</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">user-service-route</span></span><br><span class="line">          <span class="comment">#路由的服务地址</span></span><br><span class="line">          <span class="comment">#uri: http://localhost:18081</span></span><br><span class="line">          <span class="comment">#lb协议表示从Eureka注册中心获取服务请求地址</span></span><br><span class="line">          <span class="comment">#user-provider访问的服务名称。</span></span><br><span class="line">          <span class="comment">#路由地址如果通过lb协议加服务名称时，会自动使用负载均衡访问对应服务</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">lb://user-provider</span></span><br><span class="line">          <span class="comment"># 路由拦截的地址配置（断言）</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Path=/**</span></span><br><span class="line">          <span class="attr">filters:</span></span><br><span class="line">            <span class="comment"># 请求地址添加路径前缀过滤器</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">PrefixPath=/user</span></span><br><span class="line">      <span class="attr">default-filters:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">AddResponseHeader=X-Response-Default-MyName,jwang</span></span><br></pre></td></tr></table></figure>
+
+<p>路由地址信息：</p>
+<table>
+<thead>
+<tr>
+<th>配置</th>
+<th>访问地址</th>
+<th>路由地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PrefixPath=/user</td>
+<td><a target="_blank" rel="noopener" href="http://localhost:18084/find/2">http://localhost:18084/find/2</a></td>
+<td><a target="_blank" rel="noopener" href="http://localhost:18081/user/find/2">http://localhost:18081/user/find/2</a></td>
+</tr>
+</tbody></table>
+<p><strong>第二：去除路径前缀：</strong></p>
+<p>在gateway中通过配置路由过滤器StripPrefix，实现映射路径中地址的去除。通过StripPrefix=1来指定路由要去掉的前缀个数。如：路径/api/user/1将会被路由到/user/1。</p>
+<p>配置去除路径前缀过滤器</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563272403821.png" alt="1563272403821"></p>
+<p>上图配置如下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="comment"># 应用名</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">api-gateway</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="comment">#id唯一标识，可自定义</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">user-service-route</span></span><br><span class="line">          <span class="comment">#路由的服务地址</span></span><br><span class="line">          <span class="comment">#uri: http://localhost:18081</span></span><br><span class="line">          <span class="comment">#lb协议表示从Eureka注册中心获取服务请求地址</span></span><br><span class="line">          <span class="comment">#user-provider访问的服务名称。</span></span><br><span class="line">          <span class="comment">#路由地址如果通过lb协议加服务名称时，会自动使用负载均衡访问对应服务</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">lb://user-provider</span></span><br><span class="line">          <span class="comment"># 路由拦截的地址配置（断言）</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Path=/**</span></span><br><span class="line">          <span class="attr">filters:</span></span><br><span class="line">            <span class="comment"># 请求地址添加路径前缀过滤器</span></span><br><span class="line">            <span class="comment">#- PrefixPath=/user</span></span><br><span class="line">            <span class="comment"># 去除路径前缀过滤器</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">StripPrefix=1</span></span><br><span class="line">      <span class="attr">default-filters:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">AddResponseHeader=X-Response-Default-MyName,jwang</span></span><br></pre></td></tr></table></figure>
+
+<p>路由地址信息：</p>
+<table>
+<thead>
+<tr>
+<th>配置</th>
+<th>访问地址</th>
+<th>路由地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>StripPrefix=1</td>
+<td><a target="_blank" rel="noopener" href="http://localhost:18084/api/user/find/2">http://localhost:18084/api/user/find/2</a></td>
+<td><a target="_blank" rel="noopener" href="http://localhost:18081/user/find/2">http://localhost:18081/user/find/2</a></td>
+</tr>
+<tr>
+<td>StripPrefix=2</td>
+<td><a target="_blank" rel="noopener" href="http://localhost:18084/api/r/user/find/2">http://localhost:18084/api/r/user/find/2</a></td>
+<td><a target="_blank" rel="noopener" href="http://localhost:18081/user/find/2">http://localhost:18081/user/find/2</a></td>
+</tr>
+</tbody></table>
+<h5 id="自定义过滤器案例"><a href="#自定义过滤器案例" class="headerlink" title="自定义过滤器案例"></a>自定义过滤器案例</h5><p>自定义过滤器也有两个：全局自定义过滤器，和局部自定义过滤器。</p>
+<p>自定义全局过滤器的案例，自定义局部过滤器的案例。</p>
+<p><strong>自定义全局过滤器的案例：</strong>模拟登陆校验。</p>
+<p>基本逻辑：如果请求中有Token参数，则认为请求有效放行，如果没有则拦截提示授权无效</p>
+<h6 id="全局过滤器自定义："><a href="#全局过滤器自定义：" class="headerlink" title="全局过滤器自定义："></a>全局过滤器自定义：</h6><p><strong>实现步骤：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.在gateway-service工程编写全局过滤器类GlobalFilter,Ordered</span><br><span class="line">2.编写业务逻辑代码</span><br><span class="line">3.访问接口测试，加token和不加token。</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>实现过程：</strong></p>
+<p>在<code>gateway-service</code>中创建<code>com.jwang.filter.LoginGlobalFilter</code>全局过滤器类,代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginGlobalFilter</span> <span class="keyword">implements</span> <span class="title">GlobalFilter</span>, <span class="title">Ordered</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/***</span></span><br><span class="line"><span class="comment">     * 过滤拦截</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> exchange</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> chain</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Mono&lt;Void&gt; <span class="title">filter</span><span class="params">(ServerWebExchange exchange, GatewayFilterChain chain)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//获取请求参数</span></span><br><span class="line">        String token = exchange.getRequest().getQueryParams().getFirst(<span class="string">&quot;token&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//如果token为空，则表示没有登录</span></span><br><span class="line">        <span class="keyword">if</span>(StringUtils.isEmpty(token))&#123;</span><br><span class="line">            <span class="comment">//没登录,状态设置403</span></span><br><span class="line">            exchange.getResponse().setStatusCode(HttpStatus.PAYLOAD_TOO_LARGE);</span><br><span class="line">            <span class="comment">//结束请求</span></span><br><span class="line">            <span class="keyword">return</span> exchange.getResponse().setComplete();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//放行</span></span><br><span class="line">        <span class="keyword">return</span> chain.filter(exchange);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/***</span></span><br><span class="line"><span class="comment">     * 定义过滤器执行顺序</span></span><br><span class="line"><span class="comment">     * 返回值越小，越靠前执行</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getOrder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>测试：不携带token  <code>&lt;http://localhost:18084/api/user/find/2&gt;</code>效果如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563273974252.png" alt="1563273974252"></p>
+<p>测试：携带token <code>&lt;http://localhost:18084/api/user/find/2?token=abc&gt;</code> 此时可以正常访问。</p>
+<h6 id="局部过滤器定义"><a href="#局部过滤器定义" class="headerlink" title="局部过滤器定义"></a>局部过滤器定义</h6><p>自定义局部过滤器，该过滤器在控制台输出配置文件中指定名称的请求参数及参数的值,以及判断是否携带请求中参数,打印.</p>
+<p><strong>实现步骤：</strong></p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">1.</span> <span class="string">在gateway-service中编写MyParamGatewayFilterFactory类</span></span><br><span class="line"><span class="meta">2.</span> <span class="string">实现业务代码：循环请求参数中是否包含name，如果包含则输出参数值,并打印在第三步配置的参数名和值</span></span><br><span class="line"><span class="meta">3.</span> <span class="string">修改配置文件</span></span><br><span class="line"><span class="meta">4.</span> <span class="string">访问请求测试，带name参数</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>实现过程：</strong></p>
+<p>在gateway_service中编写MyParamGatewayFilterFactory类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyParamGatewayFilterFactory</span> <span class="keyword">extends</span> <span class="title">AbstractNameValueGatewayFilterFactory</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 处理过程  默认需要在配置配置文件中配置 NAME ,VALUE</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> config</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> GatewayFilter <span class="title">apply</span><span class="params">(NameValueConfig config)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> GatewayFilter() &#123;</span><br><span class="line">            <span class="comment">//- MyParam=name,value</span></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Mono&lt;Void&gt; <span class="title">filter</span><span class="params">(ServerWebExchange exchange, GatewayFilterChain chain)</span> </span>&#123;</span><br><span class="line">                String name111 = config.getName();<span class="comment">//获取参数名name的值</span></span><br><span class="line">                String value111 = config.getValue();<span class="comment">//获取参数名value的值</span></span><br><span class="line">                System.out.println(<span class="string">&quot;获取配置中的参数的NAME值:&quot;</span> + name111);</span><br><span class="line">                System.out.println(<span class="string">&quot;获取配置中的参数的VALUE值:&quot;</span> + value111);</span><br><span class="line">                <span class="comment">//获取参数值</span></span><br><span class="line">                String name = exchange.getRequest().getQueryParams().getFirst(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">                <span class="keyword">if</span> (!StringUtils.isEmpty(name)) &#123;</span><br><span class="line">                    System.out.println(<span class="string">&quot;哈哈:&quot;</span> + name);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">//添加到头信息或者作为参数传递等等.</span></span><br><span class="line">                <span class="keyword">return</span> chain.filter(exchange);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>修改application.yml配置文件</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1568970734136.png" alt="1568970734136"></p>
+<p>测试访问，检查后台是否输出name和jwang；访问<code>&lt;http://localhost:18084/api/user/find/2?name=jwang&amp;tomen=aaa&gt;</code>会输出。</p>
+<h4 id="微服务架构加入Gateway后"><a href="#微服务架构加入Gateway后" class="headerlink" title="微服务架构加入Gateway后"></a>微服务架构加入Gateway后</h4><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/abc.jpg"></p>
+<ul>
+<li>不管是来自客户端的请求，还是服务内部调用。一切对服务的请求都可经过网关。</li>
+<li>网关实现鉴权、动态路由等等操作。</li>
+<li>Gateway就是我们服务的统一入口</li>
+</ul>
+<h4 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h4><ul>
+<li><p>网关的作用</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">1.为微服务架构提供一种简单有效统一的API路由管理方式</span></span><br><span class="line"><span class="attr">2.可以在网关中实现微服务鉴权、安全控制、请求监控、限流</span></span><br></pre></td></tr></table></figure></li>
+<li><p>会配置动态路由</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">使用lb配置，能根据服务名字动态请求。</span></span><br></pre></td></tr></table></figure></li>
+<li><p>会配置过滤器</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">默认过滤器：default-filters</span>:<span class="string"></span></span><br></pre></td></tr></table></figure></li>
+<li><p>能自定义全局过滤器</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">编写过滤器类，实现GlobalFilter和Ordered，在filter方法中实现过滤。</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="配置中心-Spring-Cloud-Config"><a href="#配置中心-Spring-Cloud-Config" class="headerlink" title="配置中心 Spring Cloud Config"></a>配置中心 Spring Cloud Config</h2><h3 id="目标-1"><a href="#目标-1" class="headerlink" title="目标"></a>目标</h3><ul>
+<li>了解配置中心的作用</li>
+<li>能配置Git仓库</li>
+<li>能搭建配置中心</li>
+<li>修改微服务，从配置中心获取修改的配置</li>
+</ul>
+<h3 id="讲解-2"><a href="#讲解-2" class="headerlink" title="讲解"></a>讲解</h3><h4 id="Config简介"><a href="#Config简介" class="headerlink" title="Config简介"></a>Config简介</h4><p>分布式系统中，由于服务数量非常多，配置文件分散在不同微服务项目中，管理极其不方便。为了方便配置文件集中管理，需要分布式配置中心组件。在Spring Cloud中，提供了Spring Cloud Config，它支持配置文件放在配置服务的本地，也支持配置文件放在远程仓库Git(GitHub、码云)。配置中心本质上是一个微服务，同样需要注册到Eureka服务中心！</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1558282481764.png" alt="1558282481764"></p>
+<p>​                                                                            【配置中心的架构图】</p>
+<h4 id="Git配置管理"><a href="#Git配置管理" class="headerlink" title="Git配置管理"></a>Git配置管理</h4><h5 id="远程Git仓库"><a href="#远程Git仓库" class="headerlink" title="远程Git仓库"></a>远程Git仓库</h5><ul>
+<li>知名的Git远程仓库有国外的GitHub和国内的码云(gitee)；</li>
+<li>GitHub主服务在外网，访问经常不稳定，如果希望服务稳定，可以使用码云；</li>
+<li>码云访问地址：<a target="_blank" rel="noopener" href="http://gitee.com/">http://gitee.com</a></li>
+</ul>
+<p>测试地址：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:&#x2F;&#x2F;gitee.com&#x2F;skllll&#x2F;config.git</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="创建远程仓库"><a href="#创建远程仓库" class="headerlink" title="创建远程仓库"></a>创建远程仓库</h5><p>首先使用码云上的git仓库需要先注册账户</p>
+<p>账户注册完成，然后使用账户登录码云控制台并创建公开仓库</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563278785689.png" alt="1563278785689"></p>
+<p>配置仓库 名称和路径</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563278922857.png" alt="1563278922857"></p>
+<h5 id="创建配置文件"><a href="#创建配置文件" class="headerlink" title="创建配置文件"></a>创建配置文件</h5><p>在新建的仓库中创建需要被统一配置管理的配置文件</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563278978078.png" alt="1563278978078"></p>
+<p>文件命名有规则：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">配置文件的命名方式：&#123;application&#125;-&#123;profile&#125;.yml或&#123;application&#125;-&#123;profile&#125;.properties</span></span><br><span class="line"><span class="attr">application为应用名称</span></span><br><span class="line"><span class="attr">profile用于区分开发环境dev，测试环境test，生产环境pro等</span></span><br><span class="line">  <span class="meta">开发环境</span> <span class="string">user-dev.yml</span></span><br><span class="line">  <span class="meta">测试环境</span> <span class="string">user-test.yml</span></span><br><span class="line">  <span class="meta">生产环境</span> <span class="string">user-pro.yml</span></span><br></pre></td></tr></table></figure>
+
+<p>创建一个user-provider-dev.yml文件</p>
+<p>将user-provider工程里的配置文件application.yml内容复制进去。</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563279131699.png" alt="1563279131699"></p>
+<p>创建完user-provider-dev.yml配置文件之后，gitee中的仓库如下： </p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563279208501.png" alt="1563279208501"></p>
+<h4 id="搭建配置中心微服务"><a href="#搭建配置中心微服务" class="headerlink" title="搭建配置中心微服务"></a>搭建配置中心微服务</h4><p><strong>实现步骤：</strong></p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">1.</span> <span class="string">创建配置中心SpringBoot项目config_server</span></span><br><span class="line"><span class="meta">2.</span> <span class="string">配置坐标依赖</span></span><br><span class="line"><span class="meta">3.</span> <span class="string">启动类添加开启配置中心服务注解</span></span><br><span class="line"><span class="meta">4.</span> <span class="string">配置服务中心application.yml文件</span></span><br><span class="line"><span class="meta">5.</span> <span class="string">启动测试</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>实现过程：</strong></p>
+<p>(1)创建工程</p>
+<p>工程坐标</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&lt;artifactId&gt;config-server&lt;/artifactId&gt;</span></span><br><span class="line"><span class="attr">&lt;groupId&gt;com.jwang&lt;/groupId&gt;</span></span><br><span class="line"><span class="attr">&lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>(2)pom.xml依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springcloud-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.jwang<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>config-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- Eureka客户端 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--配置中心--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-config-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>(3)创建启动类</p>
+<p>在<code>config-server</code>工程中创建启动类<code>com.jwang.ConfigServerApplication</code>,代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableDiscoveryClient</span><span class="comment">//开启Eureka客户端发现功能</span></span><br><span class="line"><span class="meta">@EnableConfigServer</span><span class="comment">//开启配置服务支持</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConfigServerApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(ConfigServerApplication.class,args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>(4)application.yml配置文件</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注释版本</span></span><br><span class="line"><span class="attr">server</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">port</span>: <span class="string">18085 # 端口号</span></span><br><span class="line"><span class="attr">spring</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">application</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">name</span>: <span class="string">config-server # 应用名</span></span><br><span class="line">  <span class="attr">cloud</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">config</span>:<span class="string"></span></span><br><span class="line">      <span class="attr">server</span>:<span class="string"></span></span><br><span class="line">        <span class="attr">git</span>:<span class="string"></span></span><br><span class="line"><span class="comment">          # 配置gitee的仓库地址</span></span><br><span class="line">          <span class="attr">uri</span>: <span class="string">https://gitee.com/skllll/config.git</span></span><br><span class="line"><span class="comment"># Eureka服务中心配置</span></span><br><span class="line"><span class="attr">eureka</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">client</span>:<span class="string"></span></span><br><span class="line">    <span class="meta">service-url</span>:<span class="string"></span></span><br><span class="line"><span class="comment">      # 注册Eureka Server集群</span></span><br><span class="line">      <span class="attr">defaultZone</span>: <span class="string">http://127.0.0.1:7001/eureka</span></span><br><span class="line"><span class="comment"># com.jwang 包下的日志级别都为Debug</span></span><br><span class="line"><span class="attr">logging</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">level</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">com</span>: <span class="string">debug</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：上述spring.cloud.config.server.git.uri是在码云创建的仓库地址</p>
+<p>(5)测试</p>
+<p>启动<code>config-server</code>，访问<code>&lt;http://localhost:18085/user-provider-dev.yml&gt;</code>，效果如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563276201436.png" alt="1563276201436"></p>
+<p>可以查看到码云上的文件数据，并且可以在gitee上修改user-dev.yml，然后刷新上述测试地址也能及时更新数据</p>
+<h4 id="服务去获取配置中心配置"><a href="#服务去获取配置中心配置" class="headerlink" title="服务去获取配置中心配置"></a>服务去获取配置中心配置</h4><p><strong>目标：改造user-provider工程，配置文件不再由微服务项目提供，而是从配置中心获取。</strong></p>
+<p><strong>实现步骤：</strong></p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">1.</span> <span class="string">添加配置中心客户端启动依赖</span></span><br><span class="line"><span class="meta">2.</span> <span class="string">修改服务提供者的配置文件</span></span><br><span class="line"><span class="meta">3.</span> <span class="string">启动服务</span></span><br><span class="line"><span class="meta">4.</span> <span class="string">测试效果</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>实现过程：</strong></p>
+<p>(1)添加依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--spring cloud 配置中心--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-config<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>(2)修改配置</p>
+<p>删除user-provider工程的application.yml文件</p>
+<p>创建user-provider工程bootstrap.yml配置文件，配置内容如下</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注释版本</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">config:</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">user-provider</span> <span class="comment"># 与远程仓库中的配置文件的application保持一致，&#123;application&#125;-&#123;profile&#125;.yml</span></span><br><span class="line">      <span class="attr">profile:</span> <span class="string">dev</span> <span class="comment"># 远程仓库中的配置文件的profile保持一致</span></span><br><span class="line">      <span class="attr">label:</span> <span class="string">master</span> <span class="comment"># 远程仓库中的版本保持一致</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">enabled:</span> <span class="literal">true</span> <span class="comment"># 使用配置中心</span></span><br><span class="line">        <span class="attr">service-id:</span> <span class="string">config-server</span> <span class="comment"># 配置中心服务id</span></span><br><span class="line"><span class="comment">#向Eureka服务中心集群注册服务</span></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://127.0.0.1:7001/eureka</span></span><br></pre></td></tr></table></figure>
+
+<p>关于application.yml和bootstrap.yml文件的说明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- bootstrap.yml文件是SpringBoot的默认配置文件，而且其加载时间相比于application.yml更早。</span><br><span class="line">- bootstrap.yml和application.yml都是默认配置文件，但定位不同</span><br><span class="line">  - bootstrap.yml可以理解成系统级别的一些参数配置，一般不会变动</span><br><span class="line">  - application.yml用来定义应用级别的参数</span><br><span class="line">- 搭配spring-cloud-config使用application.yml的配置可以动态替换。</span><br><span class="line">- bootstrap.yml相当于项目启动的引导文件，内容相对固定</span><br><span class="line">- application.yml文件是微服务的常规配置参数，变化比较频繁</span><br></pre></td></tr></table></figure>
+
+
+
+<p>启动测试：</p>
+<p>启动服务中心、配置中心、用户中心user_service<img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1558275102243.png" alt="1558275102243"></p>
+<p>如果启动没报错，其实已经使用上配置中心内容了</p>
+<p>可以在服务中心查看也可以检验user_service的服务<img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1558275137843.png" alt="1558275137843"></p>
+<h4 id="配置中心存在的问题"><a href="#配置中心存在的问题" class="headerlink" title="配置中心存在的问题"></a>配置中心存在的问题</h4><p>(1)修改码云配置文件</p>
+<p>修改在码云上的user-provider-dev.yml文件，添加一个属性test.message,如下操作：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563276549136.png" alt="1563276549136"></p>
+<p>(2)读取配置文件数据</p>
+<p>在<code>user-provider</code>工程中创建一个<code>com.jwang.controller.LoadConfigController</code>读取配置文件信息，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;/config&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoadConfigController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;test.message&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String msg;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/***</span></span><br><span class="line"><span class="comment">     * 响应配置文件中的数据</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/load&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">load</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> msg;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>启动运行<code>user-provider</code>，访问<code>&lt;http://localhost:18081/config/load&gt;</code></p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563276955927.png" alt="1563276955927"></p>
+<p>修改码云上的配置后，发现项目中的数据仍然没有变化,只有项目重启后才会变化。</p>
+<h3 id="小结-2"><a href="#小结-2" class="headerlink" title="小结"></a>小结</h3><ul>
+<li><p>配置中心的作用:将各个微服务的配置文件集中到一起进行统一管理。</p>
+</li>
+<li><p>能搭建配置中心</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">需要在application.yml配置文件中指定需要远程更新的仓库地址。</span><br></pre></td></tr></table></figure></li>
+<li><p>修改微服务，从配置中心获取修改的配置</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">创建bootstrap.yml，并在bootstrap.yml中配置</span></span><br><span class="line"><span class="comment"># 注释版本</span></span><br><span class="line"><span class="attr">spring</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">cloud</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">config</span>:<span class="string"></span></span><br><span class="line">      <span class="attr">name</span>: <span class="string">user-provider # 与远程仓库中的配置文件的application保持一致，&#123;application&#125;-&#123;profile&#125;.yml</span></span><br><span class="line">      <span class="attr">profile</span>: <span class="string">dev # 远程仓库中的配置文件的profile保持一致</span></span><br><span class="line">      <span class="attr">label</span>: <span class="string">master # 远程仓库中的版本保持一致</span></span><br><span class="line">      <span class="attr">discovery</span>:<span class="string"></span></span><br><span class="line">        <span class="attr">enabled</span>: <span class="string">true # 使用配置中心</span></span><br><span class="line">        <span class="meta">service-id</span>: <span class="string">config-server # 配置中心服务id</span></span><br><span class="line"><span class="comment">#向Eureka服务中心集群注册服务</span></span><br><span class="line"><span class="attr">eureka</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">client</span>:<span class="string"></span></span><br><span class="line">    <span class="meta">service-url</span>:<span class="string"></span></span><br><span class="line">      <span class="attr">defaultZone</span>: <span class="string">http://127.0.0.1:7001/eureka</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="消息总线-Spring-Cloud-Bus"><a href="#消息总线-Spring-Cloud-Bus" class="headerlink" title="消息总线 Spring Cloud Bus"></a>消息总线 Spring Cloud Bus</h2><p>SpringCloud Bus，解决上述问题，实现配置自动更新。</p>
+<p>注意：SpringCloudBus基于RabbitMQ实现，默认使用本地的消息队列服务，所以需要提前安装并启动RabbitMQ。</p>
+<h3 id="Bus简介"><a href="#Bus简介" class="headerlink" title="Bus简介"></a>Bus简介</h3><p>Bus是用轻量的消息代理将分布式的节点连接起来，可以用于<strong>广播配置文件的更改</strong>或者服务的监控管理。</p>
+<p>Bus可以为微服务做监控，也可以实现应用程序之间互相通信。Bus可选的消息代理<strong>RabbitMQ</strong>和Kafka。</p>
+<p>广播出去的配置文件服务会进行本地缓存。</p>
+<h3 id="整合案例"><a href="#整合案例" class="headerlink" title="整合案例"></a>整合案例</h3><p>目标：消息总线整合入微服务系统，实现配置中心的配置自动更新。不需要重启微服务。</p>
+<h4 id="改造配置中心"><a href="#改造配置中心" class="headerlink" title="改造配置中心"></a>改造配置中心</h4><p><strong>改造步骤：</strong></p>
+<ol>
+<li>在config-server项目中加入Bus相关依赖</li>
+<li>修改application.yml，加入RabbitMQ的配置信息，和暴露触发消息总线地址</li>
+</ol>
+<p><strong>实现过程</strong>：</p>
+<p>(1)引入依赖</p>
+<p>修改<code>config-server</code>的pom.xml引入依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--消息总线依赖--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-bus<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--RabbitMQ依赖--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-stream-binder-rabbit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>(2)修改application.yml配置文件</p>
+<p>修改<code>config-server</code>的application.yml，如下配置的rabbit都是默认值，其实可以完全不配置,代码如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563277655450.png" alt="1563277655450"></p>
+<p>上图配置如下：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注释版本</span></span><br><span class="line"><span class="attr">server</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">port</span>: <span class="string">18085 # 端口号</span></span><br><span class="line"><span class="attr">spring</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">application</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">name</span>: <span class="string">config-server # 应用名</span></span><br><span class="line">  <span class="attr">cloud</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">config</span>:<span class="string"></span></span><br><span class="line">      <span class="attr">server</span>:<span class="string"></span></span><br><span class="line">        <span class="attr">git</span>:<span class="string"></span></span><br><span class="line"><span class="comment">          # 配置gitee的仓库地址</span></span><br><span class="line">          <span class="attr">uri</span>: <span class="string">https://gitee.com/skllll/config.git</span></span><br><span class="line"><span class="comment">  # rabbitmq的配置信息；如下配置的rabbit都是默认值，其实可以完全不配置</span></span><br><span class="line">  <span class="attr">rabbitmq</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">host</span>: <span class="string">localhost</span></span><br><span class="line">    <span class="attr">port</span>: <span class="string">5672</span></span><br><span class="line">    <span class="attr">username</span>: <span class="string">guest</span></span><br><span class="line">    <span class="attr">password</span>: <span class="string">guest</span></span><br><span class="line"><span class="comment"># 暴露触发消息总线的地址</span></span><br><span class="line"><span class="attr">management</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">endpoints</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">web</span>:<span class="string"></span></span><br><span class="line">      <span class="attr">exposure</span>:<span class="string"></span></span><br><span class="line"><span class="comment">        # 暴露触发消息总线的地址</span></span><br><span class="line">        <span class="attr">include</span>: <span class="string">bus-refresh</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Eureka服务中心配置</span></span><br><span class="line"><span class="attr">eureka</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">client</span>:<span class="string"></span></span><br><span class="line">    <span class="meta">service-url</span>:<span class="string"></span></span><br><span class="line"><span class="comment">      # 注册Eureka Server集群</span></span><br><span class="line">      <span class="attr">defaultZone</span>: <span class="string">http://127.0.0.1:7001/eureka</span></span><br><span class="line"><span class="comment"># com.jwang 包下的日志级别都为Debug</span></span><br><span class="line"><span class="attr">logging</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">level</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">com</span>: <span class="string">debug</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="改造用户服务"><a href="#改造用户服务" class="headerlink" title="改造用户服务"></a>改造用户服务</h4><p><strong>改造步骤：</strong></p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">1.</span> <span class="string">在用户微服务user_service项目中加入Bus相关依赖</span></span><br><span class="line"><span class="meta">2.</span> <span class="string">修改user_service项目的bootstrap.yml，加入RabbitMQ的配置信息</span></span><br><span class="line"><span class="meta">3.</span> <span class="string">UserController类上加入@RefreshScope刷新配置注解</span></span><br><span class="line"><span class="meta">4.</span> <span class="string">测试</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>实现过程：</strong></p>
+<p>(1)引入依赖</p>
+<p>修改<code>user-provider</code>引入如下依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--消息总线依赖--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-bus<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--RabbitMQ依赖--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-stream-binder-rabbit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--健康监控依赖--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>(2)添加bootstrap.yml文件</p>
+<p>在<code>user-provider</code>的resources目录下添加bootstrap.yml，添加rabbitmq配置，代码如下：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注释版本</span></span><br><span class="line"><span class="attr">spring</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">cloud</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">config</span>:<span class="string"></span></span><br><span class="line">      <span class="attr">name</span>: <span class="string">user-provider # 与远程仓库中的配置文件的application保持一致，&#123;application&#125;-&#123;profile&#125;.yml</span></span><br><span class="line">      <span class="attr">profile</span>: <span class="string">dev # 远程仓库中的配置文件的profile保持一致</span></span><br><span class="line">      <span class="attr">label</span>: <span class="string">master # 远程仓库中的版本保持一致</span></span><br><span class="line">      <span class="attr">discovery</span>:<span class="string"></span></span><br><span class="line">        <span class="attr">enabled</span>: <span class="string">true # 使用配置中心</span></span><br><span class="line">        <span class="meta">service-id</span>: <span class="string">config-server # 配置中心服务id</span></span><br><span class="line"><span class="comment"># rabbitmq的配置信息；如下配置的rabbit都是默认值，其实可以完全不配置</span></span><br><span class="line">  <span class="attr">rabbitmq</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">host</span>: <span class="string">localhost</span></span><br><span class="line">    <span class="attr">port</span>: <span class="string">5672</span></span><br><span class="line">    <span class="attr">username</span>: <span class="string">guest</span></span><br><span class="line">    <span class="attr">password</span>: <span class="string">guest</span></span><br><span class="line"><span class="comment">#向Eureka服务中心集群注册服务</span></span><br><span class="line"><span class="attr">eureka</span>:<span class="string"></span></span><br><span class="line">  <span class="attr">client</span>:<span class="string"></span></span><br><span class="line">    <span class="meta">service-url</span>:<span class="string"></span></span><br><span class="line">      <span class="attr">defaultZone</span>: <span class="string">http://127.0.0.1:7001/eureka</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>(3)添加刷新配置</p>
+<p>修改<code>user-provider</code>的<code>com.jwang.controller.LoadConfigController</code>，添加一个<code>@RefreshScope</code>注解刷新配置信息，代码如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563278214919.png" alt="1563278214919"></p>
+<p>@RefreshScope：用于启用刷新配置文件的信息。</p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>目标：当我们修改Git仓库的配置文件，用户微服务是否能够在不重启的情况下自动更新配置文件信息。</p>
+<p>测试步骤：</p>
+<p>(1)启动<code>eureka-server</code></p>
+<p>(2)启动<code>config-server</code></p>
+<p>(3)启动<code>user-provider</code></p>
+<p>(4)访问测试</p>
+<p>访问<code>&lt;http://localhost:18081/config/load&gt;</code>,效果如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563278362302.png" alt="1563278362302"></p>
+<p>(5)修改码云配置</p>
+<p>修改码云的配置，修改后并提交，修改如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563278440773.png" alt="1563278440773"></p>
+<p>(6)刷新配置</p>
+<p>使用Postman以POST方式请求<code>http://localhost:18085/actuator/bus-refresh</code></p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563278498743.png" alt="1563278498743"></p>
+<p>请求地址中actuator是固定的，bus-refresh对应的是配置中心的config-server中的application.yml文件的配置项include的内容</p>
+<p>(7)刷新测试</p>
+<p>访问<code>&lt;http://localhost:18081/config/load&gt;</code>,效果如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1563278633611.png" alt="1563278633611"></p>
+<p><strong>消息总线实现消息分发过程：</strong></p>
+<ul>
+<li>请求地址访问配置中心的消息总线</li>
+<li>消息总线接收到请求</li>
+<li>消息总线向消息队列发送消息</li>
+<li>user-service微服务会监听消息队列</li>
+<li>user-service微服务接到消息队列中消息后</li>
+<li>user-service微服务会重新从配置中心获取最新配置信息</li>
+</ul>
+<h3 id="SpringCloud-总架构图"><a href="#SpringCloud-总架构图" class="headerlink" title="SpringCloud 总架构图"></a>SpringCloud 总架构图</h3><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/springcloud/s2/images/1558286268166.png" alt="1558286268166"></p>
+
+    </div>
+
+    
+    
+    
+
+    
+    <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束 <i class="fa fa-heart"></i> 感谢阅读-------------</div>
+
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/jwangcloud/3243820324/" rel="bookmark">微服务框架SpringCloud01-注册中心、负载均衡、熔断器</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/jwangcloud/4011234037/" rel="bookmark">SpringMVC01-基础知识及常用注解开发</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/jwangcloud/2296578456/" rel="bookmark">SpringMVC02-文件上传、拦截器及异常处理</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/jwangcloud/1860077176/" rel="bookmark">Spring02-IOC注解开发及AOP简述</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/jwangcloud/978502610/" rel="bookmark">Spring01-Spring基础知识</a></div>
+    </li>
+  </ul>
+
+        <div class="reward-container">
+  <div><p style="font-size:14px; color:#34495e; margin:0 0 5px 0;">赞赏一下吧～ 还可以关注公众号订阅最新内容</p></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/WechatIMG18.png" alt="jwangtec 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>jwangtec
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/jwangcloud/4153565428/" title="微服务框架SpringCloud02-远程调用、请求压缩、日志配置">http://example.com/jwangcloud/4153565428/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Java%E6%A1%86%E6%9E%B6/" rel="tag"><i class="fa fa-tag"></i> Java框架</a>
+              <a href="/tags/Spring-Cloud/" rel="tag"><i class="fa fa-tag"></i> Spring Cloud</a>
+              <a href="/tags/Spring-Cloud-feign/" rel="tag"><i class="fa fa-tag"></i> Spring Cloud feign</a>
+              <a href="/tags/Spring-Cloud-Gateway/" rel="tag"><i class="fa fa-tag"></i> Spring Cloud Gateway</a>
+              <a href="/tags/Spring-Cloud-config/" rel="tag"><i class="fa fa-tag"></i> Spring Cloud config</a>
+              <a href="/tags/Spring-Cloud-Bus/" rel="tag"><i class="fa fa-tag"></i> Spring Cloud Bus</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/jwangcloud/380147732/" rel="prev" title="Java重要框架02--mybatis进阶">
+      <i class="fa fa-chevron-left"></i> Java重要框架02--mybatis进阶
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/jwangcloud/4011234037/" rel="next" title="SpringMVC01-基础知识及常用注解开发">
+      SpringMVC01-基础知识及常用注解开发 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-Cloud-Feign"><span class="nav-number">1.</span> <span class="nav-text">Spring Cloud Feign</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%B2%E8%A7%A3"><span class="nav-number">1.1.</span> <span class="nav-text">讲解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Feign%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.1.</span> <span class="nav-text">Feign简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8"><span class="nav-number">1.1.2.</span> <span class="nav-text">快速入门</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-number">1.1.3.</span> <span class="nav-text">负载均衡</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%86%94%E6%96%AD%E5%99%A8%E6%94%AF%E6%8C%81"><span class="nav-number">1.1.4.</span> <span class="nav-text">熔断器支持</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E5%8E%8B%E7%BC%A9"><span class="nav-number">1.1.5.</span> <span class="nav-text">请求压缩</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Feign%E7%9A%84%E6%97%A5%E5%BF%97%E7%BA%A7%E5%88%AB%E9%85%8D%E7%BD%AE"><span class="nav-number">1.1.6.</span> <span class="nav-text">Feign的日志级别配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">1.2.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E5%85%B3-Spring-Cloud-Gateway"><span class="nav-number">2.</span> <span class="nav-text">网关 Spring Cloud Gateway</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87"><span class="nav-number">2.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%B2%E8%A7%A3-1"><span class="nav-number">2.2.</span> <span class="nav-text">讲解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Gateway-%E7%AE%80%E4%BB%8B"><span class="nav-number">2.2.1.</span> <span class="nav-text">Gateway 简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">快速入门</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.3.</span> <span class="nav-text">路由配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1"><span class="nav-number">2.2.4.</span> <span class="nav-text">动态路由</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="nav-number">2.2.5.</span> <span class="nav-text">过滤器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%87%E6%BB%A4%E5%99%A8%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">2.2.5.1.</span> <span class="nav-text">过滤器的分类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E8%BF%87%E6%BB%A4%E5%99%A8%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.5.2.</span> <span class="nav-text">默认过滤器配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%87%E6%BB%A4%E5%99%A8%E6%A1%88%E4%BE%8B"><span class="nav-number">2.2.5.3.</span> <span class="nav-text">自定义过滤器案例</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E8%BF%87%E6%BB%A4%E5%99%A8%E8%87%AA%E5%AE%9A%E4%B9%89%EF%BC%9A"><span class="nav-number">2.2.5.3.1.</span> <span class="nav-text">全局过滤器自定义：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E8%BF%87%E6%BB%A4%E5%99%A8%E5%AE%9A%E4%B9%89"><span class="nav-number">2.2.5.3.2.</span> <span class="nav-text">局部过滤器定义</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%8A%A0%E5%85%A5Gateway%E5%90%8E"><span class="nav-number">2.2.6.</span> <span class="nav-text">微服务架构加入Gateway后</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93-1"><span class="nav-number">2.2.7.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83-Spring-Cloud-Config"><span class="nav-number">3.</span> <span class="nav-text">配置中心 Spring Cloud Config</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87-1"><span class="nav-number">3.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%B2%E8%A7%A3-2"><span class="nav-number">3.2.</span> <span class="nav-text">讲解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Config%E7%AE%80%E4%BB%8B"><span class="nav-number">3.2.1.</span> <span class="nav-text">Config简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Git%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86"><span class="nav-number">3.2.2.</span> <span class="nav-text">Git配置管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8BGit%E4%BB%93%E5%BA%93"><span class="nav-number">3.2.2.1.</span> <span class="nav-text">远程Git仓库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="nav-number">3.2.2.2.</span> <span class="nav-text">创建远程仓库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">3.2.2.3.</span> <span class="nav-text">创建配置文件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%90%AD%E5%BB%BA%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E5%BE%AE%E6%9C%8D%E5%8A%A1"><span class="nav-number">3.2.3.</span> <span class="nav-text">搭建配置中心微服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%8E%BB%E8%8E%B7%E5%8F%96%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E9%85%8D%E7%BD%AE"><span class="nav-number">3.2.4.</span> <span class="nav-text">服务去获取配置中心配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">3.2.5.</span> <span class="nav-text">配置中心存在的问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93-2"><span class="nav-number">3.3.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E6%80%BB%E7%BA%BF-Spring-Cloud-Bus"><span class="nav-number">4.</span> <span class="nav-text">消息总线 Spring Cloud Bus</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bus%E7%AE%80%E4%BB%8B"><span class="nav-number">4.1.</span> <span class="nav-text">Bus简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E5%90%88%E6%A1%88%E4%BE%8B"><span class="nav-number">4.2.</span> <span class="nav-text">整合案例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%B9%E9%80%A0%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83"><span class="nav-number">4.2.1.</span> <span class="nav-text">改造配置中心</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%B9%E9%80%A0%E7%94%A8%E6%88%B7%E6%9C%8D%E5%8A%A1"><span class="nav-number">4.2.2.</span> <span class="nav-text">改造用户服务</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">4.3.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SpringCloud-%E6%80%BB%E6%9E%B6%E6%9E%84%E5%9B%BE"><span class="nav-number">4.4.</span> <span class="nav-text">SpringCloud 总架构图</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="jwangtec"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">jwangtec</p>
+  <div class="site-description" itemprop="description">小脑袋，大智慧</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">97</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">170</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jwangtec" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jwangtec" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.jianshu.com/u/684433bc744b" title="简书 → https:&#x2F;&#x2F;www.jianshu.com&#x2F;u&#x2F;684433bc744b" rel="noopener" target="_blank"><i class="fa fa-heartbeat fa-fw"></i>简书</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/qq_34536604" title="csdn → https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_34536604" rel="noopener" target="_blank"><i class="fa fa-crosshairs fa-fw"></i>csdn</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://juejin.im/user/5e5c685e6fb9a07cd443bedai" title="掘金 → https:&#x2F;&#x2F;juejin.im&#x2F;user&#x2F;5e5c685e6fb9a07cd443bedai" rel="noopener" target="_blank"><i class="fa fa-spinner fa-fw"></i>掘金</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://app.gitbook.com/@79896867/spaces" title="gitbook → https:&#x2F;&#x2F;app.gitbook.com&#x2F;@79896867&#x2F;spaces" rel="noopener" target="_blank"><i class="fa fa-git fa-fw"></i>gitbook</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/jwangtec@163.com" title="E-Mail → jwangtec@163.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.runoob.com/manual/jdk11api/index.html" title="https:&#x2F;&#x2F;www.runoob.com&#x2F;manual&#x2F;jdk11api&#x2F;index.html" rel="noopener" target="_blank">Java11开发文档</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://spring.io/projects/spring-cloud-azure" title="https:&#x2F;&#x2F;spring.io&#x2F;projects&#x2F;spring-cloud-azure" rel="noopener" target="_blank">Spring cloud</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://ife.baidu.com/" title="http:&#x2F;&#x2F;ife.baidu.com&#x2F;" rel="noopener" target="_blank">百度前端技术学院</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://learn666-gif.github.io/Jwang/4cff2ea4.html" title="https:&#x2F;&#x2F;learn666-gif.github.io&#x2F;Jwang&#x2F;4cff2ea4.html" rel="noopener" target="_blank">JAVA体系构建</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jwangtec</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.1m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">17:21</span>
+</div>
+
+
+<!-- 网站运行时间的设置 -->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>  努力创造未来
+<script>
+        var now = new Date();
+        function createtime() {
+            var grt= new Date("01/05/2018 00:00:00");//此处修改你的建站时间或者网站上线时间
+            now.setTime(now.getTime()+250);
+            days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+            hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+            if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+            mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+            seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+            snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+            document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+            document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()",250);
+</script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : '2UzmUUcYke4dpzoJtJNAzAPL-gzGzoHsz',
+      appKey     : 'rdlKv9Hl6K9hnMEp9A1NCRMB',
+      placeholder: "留下邮箱，有回复时你将收到提醒，邮箱不会被公开。",
+      avatar     : 'wavatar',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
