@@ -14,6 +14,8 @@ password:
 
 <img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/redis.jpeg" width="1000" height="200" align="middle" />
 
+<!--more-->
+
 ## 集群概述
 
 ### 什么是集群
