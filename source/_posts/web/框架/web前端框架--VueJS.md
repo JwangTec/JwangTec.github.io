@@ -19,6 +19,8 @@ password:
 常见的前端的框架:
 
 ​	jQuery、Anglar、Vue、React、Node
+​
+​<!--more-->
 
 ## MVVM模式
 
