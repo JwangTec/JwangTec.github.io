@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="领域驱动前瞻领域驱动设计的概念 大家都知道软件开发不是一蹴而就的事情，我们不可能在不了解产品(或行业领域)的前提下进行软件开发，在开发前通常需要进行大量的业务知识梳理，然后才能到软件设计的层面，最后才是开发。而在业务知识梳理的过程中，必然会形成某个领域知识，根据领域知识来一步步驱动软件设计，就是领域驱动设计(DDD,Domain-Driven Design)的基本概念 。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="项目模型运用-- DDD领域驱动模型">
+<meta property="og:url" content="http://example.com/jwangcloud/2680834629/index.html">
+<meta property="og:site_name" content="jwangcloud">
+<meta property="og:description" content="领域驱动前瞻领域驱动设计的概念 大家都知道软件开发不是一蹴而就的事情，我们不可能在不了解产品(或行业领域)的前提下进行软件开发，在开发前通常需要进行大量的业务知识梳理，然后才能到软件设计的层面，最后才是开发。而在业务知识梳理的过程中，必然会形成某个领域知识，根据领域知识来一步步驱动软件设计，就是领域驱动设计(DDD,Domain-Driven Design)的基本概念 。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/DDD/01/01.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/DDD/01/02.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/DDD/01/03.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/DDD/01/04.gif">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/DDD/01/05.gif">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/DDD/01/06.gif">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/DDD/01/07.gif">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/DDD/01/08.gif">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/DDD/01/09.gif">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/DDD/01/10.gif">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/DDD/01/11.gif">
+<meta property="article:published_time" content="2021-07-22T01:18:19.000Z">
+<meta property="article:modified_time" content="2021-07-23T05:07:08.239Z">
+<meta property="article:author" content="jwangtec">
+<meta property="article:tag" content="DDD">
+<meta property="article:tag" content="领域驱动">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/DDD/01/01.png">
+
+<link rel="canonical" href="http://example.com/jwangcloud/2680834629/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>项目模型运用-- DDD领域驱动模型 | jwangcloud</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">jwangcloud</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/JwangTec" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/jwangcloud/2680834629/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="jwangtec">
+      <meta itemprop="description" content="小脑袋，大智慧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jwangcloud">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          项目模型运用-- DDD领域驱动模型
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-07-22 09:18:19" itemprop="dateCreated datePublished" datetime="2021-07-22T09:18:19+08:00">2021-07-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-23 13:07:08" itemprop="dateModified" datetime="2021-07-23T13:07:08+08:00">2021-07-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/jwangcloud/2680834629/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/jwangcloud/2680834629/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>11k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="领域驱动前瞻"><a href="#领域驱动前瞻" class="headerlink" title="领域驱动前瞻"></a>领域驱动前瞻</h1><h2 id="领域驱动设计的概念"><a href="#领域驱动设计的概念" class="headerlink" title="领域驱动设计的概念"></a>领域驱动设计的概念</h2><ul>
+<li>大家都知道软件开发不是一蹴而就的事情，我们不可能在不了解产品(或行业领域)的前提下进行软件开发，在开发前通常需要进行大量的业务知识梳理，然后才能到软件设计的层面，最后才是开发。而在业务知识梳理的过程中，必然会形成某个领域知识，根据领域知识来一步步驱动软件设计，就是领域驱动设计(DDD,Domain-Driven Design)的基本概念 。</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="为何需要DDD"><a href="#为何需要DDD" class="headerlink" title="为何需要DDD"></a>为何需要DDD</h2><h3 id="普通的处理方式"><a href="#普通的处理方式" class="headerlink" title="普通的处理方式"></a>普通的处理方式</h3><ul>
+<li>在业务初期，功能大都非常简单，普通的 CRUD 就基本能满足要求，此时系统是清晰的。但随着产品的不断迭代和演化，业务逻辑变得越来越复杂，我们的系统也越来越冗杂。各个模块之间彼此关联，甚至到后期连相应的开发者都很难说清模块的具体功能和意图到底是啥。这就会导致在想要修改一个功能时，要追溯到这个功能需要修改的点就要很长时间，更别提修改带来的不可预知的影响面。 比如下图所示:</li>
+</ul>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/DDD/01/01.png" alt="01"></p>
+<ul>
+<li><p>订单服务中提供了查询、创建订单相关的接口，也提供了订单评价、支付的接口。同时订单表是个大表，包含了非常多字段。我们在维护代码时，将会导致牵一发而动全身，很可能原本我们只是想改下评价相关的功能，却影响到了创建订单的核心流程。虽然我们可以通过测试来保证功能的完备性，但当我们在订单领域有大量需求同时并行开发时将会出现改动重叠、恶性循环、疲于奔命修改各种问题的局面，而且大量的全量回归会给测试带来不可接受的灾难。</p>
+</li>
+<li><p>但现实中绝大部分公司都是这样一个状态，然后一般他们的解决方案是不断的重构系统，让系统的设计随着业务成长也进行不断的演进。通过重构出一些独立的类来存放某些通用的逻辑解决混乱问题，但是我们很难给它一个业务上的含义，只能以技术纬度进行描述，那么带来的问题就是其他人接手这块代码的时候不知道这个的含义或者只能通过修改通用逻辑来达到某些需求。</p>
+</li>
+</ul>
+<h3 id="发展"><a href="#发展" class="headerlink" title="发展"></a>发展</h3><ul>
+<li>实际上，领域模型本身也不是一个陌生的单词，说直白点，在早期开发中，领域模型就是数据库设计。因为你想：我们做传统项目的流程或者说包括现在我们做项目的流程，都是首先讨论需求，然后是数据库建模，在需求逐步确定的过程不断的去变更数据库的设计，接着我们在项目开发阶段，发现有些关系没有建、有些字段少了、有些表结构设计不合理，又在不断的去调整设计，最后上线。在传统项目中，数据库是整个项目的根本，数据模型出来以后后续的开发都是围绕着数据展开，然后形成如下的一个架构 :</li>
+</ul>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/DDD/01/02.png" alt="02"></p>
+<h3 id="传统方式的问题"><a href="#传统方式的问题" class="headerlink" title="传统方式的问题"></a>传统方式的问题</h3><ul>
+<li><p>Service层很重，所有逻辑处理基本都放在service层。</p>
+</li>
+<li><p>POJO作为 Service 层非常重要的一个实体，会因为不同场景的需求做不同的变化和组合，就会造成 POJO 的几种不同模型(失血、贫血、充血)，以此用来形容领域模型太胖或者太瘦。</p>
+</li>
+<li><p>随着业务变得复杂以后，包括数据结构的变化，那么各 个模块就需要进行修改，原本清晰的系统经过不断的演 化变得复杂、冗余、耦合度高，后果就非常严重。</p>
+</li>
+<li><p>我们试想一下如果一个软件产品不依赖数据库存储设备，那我们怎么去设计这个软件呢？如果没有了数据存储，那么我们的领域模型就得基于程序本身来设计。那这个就是 DDD 需要去考虑的问题。</p>
+</li>
+</ul>
+<h3 id="建立领域模型的重要性"><a href="#建立领域模型的重要性" class="headerlink" title="建立领域模型的重要性"></a>建立领域模型的重要性</h3><p>领域驱动设计告诉我们，在通过软件实现一个业务系统时，建立一个领域模型是非常重要和必要的，因为领域模型具有以下特点：</p>
+<ul>
+<li>领域模型是对具有某个边界的领域的一个抽象，反映了领域内用户业务需求的本质；领域模型是有边界的，只反应了我们在领域内所关注的部分；<br>领域模型只反映业务，和任何技术实现无关；领域模型不仅能反映领域中的一些实体概念，如货物，书本，应聘记录，地址，等；还能反映领域中的一些过程概念，如资金转账，等；</li>
+<li>领域模型确保了我们的软件的业务逻辑都在一个模型中，都在一个地方；这样对提高软件的可维护性，业务可理解性以及可重用性方面都有很好的帮助；</li>
+<li>领域模型能够帮助开发人员相对平滑地将领域知识转化为软件构造；</li>
+<li>领域模型贯穿软件分析、设计，以及开发的整个过程；领域专家、设计人员、开发人员通过领域模型进行交流，彼此共享知识与信息；因为大家面向的都是同一个模型，所以可以防止需求走样，可以让软件设计开发人员做出来的软件真正满足需求；</li>
+<li>要建立正确的领域模型并不简单，需要领域专家、设计、开发人员积极沟通共同努力，然后才能使大家对领域的认识不断深入，从而不断细化和完善领域模型；</li>
+<li>为了让领域模型看的见，我们需要用一些方法来表示它；图是表达领域模型最常用的方式，但不是唯一的表达方式，代码或文字描述也能表达领域模型；</li>
+<li>领域模型是整个软件的核心，是软件中最有价值和最具竞争力的部分；设计足够精良且符合业务需求的领域模型能够更快速的响应需求变化；</li>
+</ul>
+<p>  ​</p>
+<h1 id="DDD领域模型架构概述"><a href="#DDD领域模型架构概述" class="headerlink" title="DDD领域模型架构概述"></a>DDD领域模型架构概述</h1><h2 id="DDD中基本概念"><a href="#DDD中基本概念" class="headerlink" title="DDD中基本概念"></a>DDD中基本概念</h2><h3 id="实体（Entity）"><a href="#实体（Entity）" class="headerlink" title="实体（Entity）"></a>实体（Entity）</h3><p>​　　<br>​当一个对象由其标识(而不是属性)区分时，这种对象称为实体(Entity)。比如当两个对象的标识不同时，即使两个对象的其他属性全都相同，我们也认为他们是两个完全不同的实体。</p>
+<h3 id="值对象（Value-Object）"><a href="#值对象（Value-Object）" class="headerlink" title="值对象（Value Object）"></a>值对象（Value Object）</h3><p>当一个对象用于对事物进行描述而没有唯一标识时，那么它被称作值对象。因为在领域中并不是任何时候一个事物都需要有一个唯一的标识，也就是说我们并不关心具体是哪个事物，只关心这个事物是什么。比如下单流程中，对于配送地址来说，只要是地址信息相同，我们就认为是同一个配送地址。由于不具有唯一标示，我们也不能说”这一个”值对象或者”那一个”值对象。</p>
+<h3 id="领域服务（Domain-Service）"><a href="#领域服务（Domain-Service）" class="headerlink" title="领域服务（Domain Service）"></a>领域服务（Domain Service）</h3><p>一些重要的领域行为或操作，它们不太适合建模为实体对象或者值对象，它们本质上只是一些操作，并不是具体的事物，另一方面这些操作往往又会涉及到多个领域对象的操作，它们只负责来协调这些领域对象完成操作而已，那么我们可以归类它们为领域服务。它实现了全部业务逻辑并且通过各种校验手段保证业务的正确性。同时呢，它也能避免在应用层出现领域逻辑。理解起来，领域服务有点facade的味道。</p>
+<h3 id="聚合及聚合根（Aggregate，Aggregate-Root）"><a href="#聚合及聚合根（Aggregate，Aggregate-Root）" class="headerlink" title="聚合及聚合根（Aggregate，Aggregate Root）"></a>聚合及聚合根（Aggregate，Aggregate Root）</h3><ul>
+<li><p>聚合是通过定义领域对象之间清晰的所属关系以及边界来实现领域模型的内聚，以此来避免形成错综复杂的、难以维护的对象关系网。聚合定义了一组具有内聚关系的相关领域对象的集合，我们可以把聚合看作是一个修改数据的单元。</p>
+</li>
+<li><p>聚合根属于实体对象，它是领域对象中一个高度内聚的核心对象。(聚合根具有全局的唯一标识，而实体只有在聚合内部有唯一的本地标识，值对象没有唯一标识，不存在这个值对象或那个值对象的说法)</p>
+</li>
+<li><p>若一个聚合仅有一个实体，那这个实体就是聚合根；但要有多个实体，我们就要思考聚合内哪个对象有独立存在的意义且可以和外部领域直接进行交互。</p>
+</li>
+</ul>
+<h3 id="工厂（Factory）"><a href="#工厂（Factory）" class="headerlink" title="工厂（Factory）"></a>工厂（Factory）</h3><p>DDD中的工厂也是一种封装思想的体现。引入工厂的原因是：有时创建一个领域对象是一件相对比较复杂的事情，而不是简单的new操作。工厂的作用是隐藏创建对象的细节。事实上大部分情况下，领域对象的创建都不会相对太复杂，故我们仅需使用简单的构造函数创建对象就可以。隐藏创建对象细节的好处是显而易见的，这样就可以不会让领域层的业务逻辑泄露到应用层，同时也减轻应用层负担，它只要简单调用领域工厂来创建出期望的对象就可以了。</p>
+<h3 id="仓储（Repository）"><a href="#仓储（Repository）" class="headerlink" title="仓储（Repository）"></a>仓储（Repository）</h3><p>资源仓储封装了基础设施来提供查询和持久化聚合操作。这样能够让我们始终关注在模型层面，把对象的存储和访问都委托给资源库来完成。它不是数据库的封装，而是领域层与基础设施之间的桥梁。DDD 关心的是领域内的模型，而不是数据库的操作。</p>
+<h2 id="一个小demo"><a href="#一个小demo" class="headerlink" title="一个小demo"></a>一个小demo</h2><p>DDD 概念理解起来有点抽象, 这个有点像设计模式，感觉很有用，但是自己开发的时候又不知道怎么应用到代码里面，或者生搬硬套后自己看起来都很别扭，那么接下来我们就以一个简单的转盘抽奖案例来分析一下 DDD 的应用。</p>
+<h3 id="针对功能层面划分边界"><a href="#针对功能层面划分边界" class="headerlink" title="针对功能层面划分边界"></a>针对功能层面划分边界</h3><p>这个系统可以划分为运营管理平台和用户使用层，运营平台对于抽奖的配置比较复杂但是操作频率会比较低。而用户对抽奖活动页面的使用是高频率的但是对于配置规则来说是误感知的，根据这样的特点，我们把抽奖平台划分针对C端抽奖和 M 端抽奖两个子域。</p>
+<p>在确认了 M 端领域和 C 端的限界上下文后，我们再对各 自上下文内部进行限界上下文的划分，接下来以 C 端用 户为例来划分界限上下文。</p>
+<h3 id="确认基本需求"><a href="#确认基本需求" class="headerlink" title="确认基本需求"></a>确认基本需求</h3><p>首先我们要来了解该产品的基本需求</p>
+<ul>
+<li>抽奖资格(什么情况下会有抽奖机会、抽奖次数、抽 奖的活动起始时间) 。</li>
+<li>抽奖的奖品(实物、优惠券、理财金、购物卡…) 。</li>
+<li>奖品自身的配置，概率、库存、某些奖品在有限的概 率下还只能被限制抽到多少次等。</li>
+<li>风控对接, 防止恶意薅羊毛。</li>
+</ul>
+<h3 id="针对产品功能划分边界"><a href="#针对产品功能划分边界" class="headerlink" title="针对产品功能划分边界"></a>针对产品功能划分边界</h3><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/DDD/01/03.png" alt="03"></p>
+<p>抽奖上下文是整个领域的核心，负责处理用户抽奖的核心业务。</p>
+<ul>
+<li>对于抽奖的限制，我们定义了抽奖资格的通用语言，将抽奖开始 / 结束时间，抽奖可参与次数等限制条件都收拢到抽奖资格子域中。</li>
+<li>由于 C 端存在一些刷单行为，我们根据产品需求定义了风控上下文，用于对抽奖进行风控。</li>
+<li>由于抽奖和发放奖品其实可以认为是两个领域，一个负责根据概率去抽奖、另一个负责将抽中的奖品发放出去，所以对于这一块也独立出来一个领域。</li>
+</ul>
+<h3 id="细化上下文"><a href="#细化上下文" class="headerlink" title="细化上下文"></a>细化上下文</h3><p>通过上下文划分以后，我们还需要进一步梳理上下文之间的关系，梳理的好处在于:</p>
+<ul>
+<li>任务更好拆分(一个开发人员可以全身心投入到相关子域的上下文中) 。</li>
+<li>方便沟通，明确自身上下文和其他上下文之间的依赖关 系，可以实现更好的对接。</li>
+</ul>
+<h3 id="代码设计"><a href="#代码设计" class="headerlink" title="代码设计"></a>代码设计</h3><p>在实际开发中，我们一般会采用模块来表示一个领域的界 限上下文，比如：</p>
+<ul>
+<li>抽奖上下文：com.hafiz.business.lottery.*</li>
+<li>风控上下文：com.hafiz.business.riskcontroller.*</li>
+<li>奖品上下文：com.hafiz.business.prize.*</li>
+<li>活动资格上下文 : com.hafiz.business.qualification.*</li>
+<li>库存上下文：com.hafiz.business.stock.*</li>
+</ul>
+<p>对于模块内的组织结构，一般情况下我们是按照领域对象、 领域服务、领域资源库、防腐层等组织方式定义的。</p>
+<ul>
+<li>领域对象-值对象: com.hafiz.business.lottery.domain.valobj.*</li>
+<li>领域对象-实体: com.hafiz.business.lottery.domain.entity.*</li>
+<li>领域对象-聚合根: com.hafiz.business.lottery.domain.aggregate.*</li>
+<li>领域服务: com.hafiz.business.lottery.domain.service.*</li>
+<li>领域资源库: com.hafiz.business.lottery.domain.repo.*</li>
+<li>领域防腐层：com.hafiz.business.lottery.domain.facade.*</li>
+</ul>
+<h3 id="部分代码"><a href="#部分代码" class="headerlink" title="部分代码"></a>部分代码</h3><h4 id="抽奖聚合根："><a href="#抽奖聚合根：" class="headerlink" title="抽奖聚合根："></a>抽奖聚合根：</h4><ul>
+<li>拥有抽奖活动id和该活动下所有可用的奖池列表，它最主要的领域功能是根据一个抽奖的场景（DrawLotteryContext），通过chooseAwardPool方法筛选出一个匹配的奖池。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hafiz.business.lottery.domain.aggregate;</span><br><span class="line"><span class="keyword">import</span> ...;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DrawLottery</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> lotteryId; <span class="comment">// 抽奖id</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;AwardPool&gt; awardPools; <span class="comment">// 奖池列表</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setLotteryId</span><span class="params">(<span class="keyword">int</span> lotteryId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (lotteryId &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;非法的抽奖id&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.lotteryId = lotteryId;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> AwardPool <span class="title">chooseAwardPool</span><span class="params">(DrawLotteryContext context)</span> </span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="奖池值对象"><a href="#奖池值对象" class="headerlink" title="奖池值对象"></a>奖池值对象</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hafiz.business.lottery.domain.valobj;</span><br><span class="line"><span class="keyword">import</span> ...;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AwardPool</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String cityIds; <span class="comment">// 奖池支持的城市</span></span><br><span class="line">    <span class="keyword">private</span> String scores; <span class="comment">// 奖池支持的得分</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> userGroupType; <span class="comment">// 奖池匹配的用户类型</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;Award&gt; awards; <span class="comment">// 奖池中包含的奖品</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">matchedCity</span><span class="params">(<span class="keyword">int</span> cityId)</span> </span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">matchedScore</span><span class="params">(<span class="keyword">int</span> score)</span> </span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Award <span class="title">randomGetAward</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sumOfProbablity = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (Award award : awards) &#123;</span><br><span class="line">            sumOfProbablity += award.getAwardProbablity();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> randomNumber = ThreadLocalRandom.current().netInt(sumOfProbablity);</span><br><span class="line">        <span class="keyword">int</span> range = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (Award award : awards) &#123;</span><br><span class="line">            range += award.getAwardProbablity();</span><br><span class="line">            <span class="keyword">if</span> (randomNumber &lt; range) &#123;</span><br><span class="line">                <span class="keyword">return</span> award;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="抽奖资源库"><a href="#抽奖资源库" class="headerlink" title="抽奖资源库"></a>抽奖资源库</h4><p>我们屏蔽对底层奖池及奖品的直接访问，仅对抽奖的聚合根资源进行管理。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hafiz.business.lottery.domain.repo;</span><br><span class="line"><span class="keyword">import</span> ...;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DrawLotteryRepository</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowried</span></span><br><span class="line">    <span class="keyword">private</span> AwardDao awardDao;</span><br><span class="line">    <span class="meta">@Autowried</span></span><br><span class="line">    <span class="keyword">private</span> AwardPoolDao awardPoolDao;</span><br><span class="line">    <span class="meta">@Autowried</span></span><br><span class="line">    <span class="keyword">private</span> DrawLotteryCacheAccessObj drawLotteryCacheAccessObj;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DrawLottery <span class="title">getDrawLotteryById</span><span class="params">(<span class="keyword">int</span> lotteryId)</span> </span>&#123;</span><br><span class="line">        DrawLottery drawLottery = drawLotteryCacheAccessObj.get(lotteryId);</span><br><span class="line">        <span class="keyword">if</span> (drawLottery != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> drawLottery;</span><br><span class="line">        &#125;</span><br><span class="line">        drawLottery = getDrawLotteryFromDB(lotteryId);</span><br><span class="line">        drawLotteryCacheAccessObj.add(lotteryId, drawLottery);</span><br><span class="line">        <span class="keyword">return</span> drawLottery;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> DrawLottery <span class="title">getDrawLotteryFromDB</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="防腐层"><a href="#防腐层" class="headerlink" title="防腐层"></a>防腐层</h4><p>以用户信息防腐层为例，它的入参是抽奖请求参数(LotteryContext)，输出为城市信息(CityInfo)。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> com.hafiz.business.lottery.domain.facade;</span><br><span class="line"><span class="keyword">import</span> ...;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserCityInfoFacade</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowried</span></span><br><span class="line">    <span class="keyword">private</span> CityService cityService;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> CityInfo <span class="title">getCityInfo</span> <span class="params">(LotteryContext context)</span> </span>&#123;</span><br><span class="line">        CityRequest request = <span class="keyword">new</span> CityRequest();</span><br><span class="line">        request.setLat(context.getLat());</span><br><span class="line">        request.setLng(context.getLng());</span><br><span class="line">        CityReponse reponse = cityService.getCityInfo(request);</span><br><span class="line">        <span class="keyword">return</span> buildCityInfo(reponse);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> CityInfo <span class="title">buildCityInfo</span><span class="params">(CityReponse reponse)</span> </span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="抽奖领域服务"><a href="#抽奖领域服务" class="headerlink" title="抽奖领域服务"></a>抽奖领域服务</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hafiz.business.lottery.domain.service.impl;</span><br><span class="line"><span class="keyword">import</span> ...;</span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LotteryServiceImpl</span> <span class="keyword">implements</span> <span class="title">LotteryService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowried</span></span><br><span class="line">    <span class="keyword">private</span> DrawLotteryRepository drawLotteryRepository;</span><br><span class="line">    <span class="meta">@Autowried</span></span><br><span class="line">    <span class="keyword">private</span> UserCityInfoFacade userCityInfoFacade;</span><br><span class="line">    <span class="meta">@Autowried</span></span><br><span class="line">    <span class="keyword">private</span> AwardSenderService awardSenderService;</span><br><span class="line">    <span class="meta">@Autowried</span></span><br><span class="line">    <span class="keyword">private</span> AwardCountFacade awardCountFacade;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> LotteryReponse <span class="title">drawLottery</span><span class="params">(LotteryContext context)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 获取抽奖聚合根</span></span><br><span class="line">        DrawLottery drawLottery = drawLotteryRepository.getDrawLotteryById(context.getLotteryId());</span><br><span class="line">        <span class="comment">// 增加抽奖计数信息</span></span><br><span class="line">        awardCountFacade.incrTryCount(context);</span><br><span class="line">        <span class="comment">// 选中奖池</span></span><br><span class="line">        AwardPool awardPool = drawLottery.chooseAwardPool(context);</span><br><span class="line">        <span class="comment">// 抽出奖品</span></span><br><span class="line">        Award award = awardPool.randomGetAward();</span><br><span class="line">        <span class="comment">// 发出奖品</span></span><br><span class="line">        <span class="keyword">return</span> buildLotteryReponse(awardSenderService.sendeAward(award, context));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> LotteryReponse <span class="title">buildLotteryReponse</span><span class="params">(AwardSendReponse awardSendReponse)</span> </span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="领域驱动好处"><a href="#领域驱动好处" class="headerlink" title="领域驱动好处"></a>领域驱动好处</h4><p>用 DDD 可以很好的解决领域模型到设计模型的同步、演进最后映射到实际的代码逻辑，总的来说，DDD 开发模式有以下几个好处 ：</p>
+<ul>
+<li>DDD 能让我们知道如何抽象出限界上下文以及如何去分而治之。</li>
+<li>分而治之 : 把复杂的大规模软件拆分成若干个子模块，每一个模块都能独立运行和解决相关问题。并且分割后各个部分可以组装成为一个整体。</li>
+<li>抽象 : 使用抽象能够精简问题空间，而且问题越小越容易理解，比如说我们要对接支付，抽象的纬度应该是支付，而不是具体的微信支付还是支付宝支付。</li>
+<li>DDD 的限界上下文可以完美匹配微服务的要求。在系统复杂之后，我们都需要用分治来拆解问题。一般有两种方式，技术维度和业务维度。技术维度是类似 MVC 这 样，业务维度则是指按业务领域来划分系统。 微服务架构更强调从业务维度去做分治来应对系统复杂度， 而 DDD 也是同样的着重业务视角。</li>
+</ul>
+<h1 id="DDD详解"><a href="#DDD详解" class="headerlink" title="DDD详解"></a>DDD详解</h1><p>领域驱动设计(Domain Driven Design)有一个官方的sample工程，名为<a target="_blank" rel="noopener" href="http://dddsample.sourceforge.net/">DDDSample</a>，该工程给出了一种实践领域驱动设计的参考架构，本文将对此该架构进行简单介绍，并就一些重要问题进行讨论。</p>
+<p>该架构分成了Interfaces、Applications和Domain三层以及包含各类基础设施的Infrastructure。下图简略描述了它们之间的关系：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/DDD/01/04.gif" alt="04"></p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/DDD/01/05.gif" alt="05"></p>
+<ul>
+<li><p>作为参照，下图展示了传统TransactionScript风格的架构，可以看出，两者的差异并不是太大（对于Façade来说，它是一种可选设施，如果系统架构中省略Façade，则DTO与领域对象的互换工作可在service中进行），这也从则面说明推行领域驱动设计的关键并不在架构上，而在于整个团队在分析、设计和开发上没有自始至终地以领域模型为核心开展工作，以面向对象的思想进行设计和编程。</p>
+</li>
+<li><p>Transaction Script风格的架构具有明显的“数据”与“操作”分离的特征，其和领域驱动设计风格的架构在两个类组件上有质的区别，一个是领域对象，一个是Service。领域驱动设计的架构核心目标是要创建一个富领域模型，其典型特征是它的领域对象具有丰富的业务方法用以处理业务逻辑，而Transaction Script风格的领域对象则仅仅是数据的载体，没有业务方法，这种领域也被称作“贫血的领域对象”(Anemic Domain Objects)。在Service方面，领域驱动设计的架构里Service是非常“薄“的一层，其并不负责处理业务逻辑，而在TransactionScript风格的架构里，Service是处理业务逻辑的主要场所，因而往往非常厚重。</p>
+</li>
+</ul>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/DDD/01/06.gif" alt="06"></p>
+<h2 id="架构详解"><a href="#架构详解" class="headerlink" title="架构详解"></a>架构详解</h2><h3 id="interface-接口层"><a href="#interface-接口层" class="headerlink" title="interface-接口层"></a>interface-接口层</h3><p>该层包含与其他系统进行交互的接口与通信设施，在多数应用里，该层可能提供包括Web Services、RMI或Rest等在内的一种或多种通信接口。该层主要由Façade、DTO和Assembler三类组件构成，三类组件均是典型的J2EE模式，以下是对三类组件的具体介绍</p>
+<h4 id="DTO"><a href="#DTO" class="headerlink" title="DTO"></a>DTO</h4><p>DTO- DataTransfer Object（数据传输对象），也常被称作VO-Value Object(值对象)。基于面向对象技术设计的领域对象（即通常所说的“实体”）都是细粒度的，将细粒度的领域对象直接传递到远程调用端需要进行多次网络通信，DTO在设计之初的主要考量是以粗粒度的数据结构减少网络通信并简化调用接口。以下罗列了DTO的多项作用：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/DDD/01/07.gif" alt="07DTO应用时序图"></p>
+<p>值得一提的是，DTO对实现一个独立封闭的领域模型具有积极的作用，特别是当系统使用了某些具有自动脏数据检查（automatic dirty checking）机制的ORM框架时，DTO的优势就更加明显，否则就会存在领域对象在模型层以外被意外修改并自动持久化到数据库中的风险或者是像Hibernate那样的框架因未开启OpenSessionInView (注：开启OpenSessionInView有副作用，一般认为OpenSessionInView不是一种好的实践)而导致Lazy Loading出现问题。</p>
+<h4 id="Assembler"><a href="#Assembler" class="headerlink" title="Assembler"></a>Assembler</h4><p>在引入DTO后，DTO与领域对象之间的相互转换工作多由Assembler承担，因此Assembler几乎总是同DTO一起出现。也有一些系统使用反射机制自动实现DTO与领域对象之间的相互转换，Appache的Commons BeanUtils就提供了类似的功能。应该说这两种实现各有利弊，使用Assembler进行对象数据交换更为安全与可控，并且接受编译期检查，但是代码量明显偏多。使用反射机制自动进行象数据交换虽然代码量很少，但却是非常脆弱的，一旦对象属性名发生了变化，数据交互就会失败，并且很难追踪发现。总体来说，Assembler更为直白和稳妥</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/DDD/01/08.gif" alt="08Assebler应用类图"></p>
+<h4 id="Facade"><a href="#Facade" class="headerlink" title="Facade"></a>Facade</h4><ul>
+<li>作为一种设计模式同时也是Interfaces层内的一类组件，Façade的用意在于为远程客户端提供粗粒度的调用接口。Façade本身不处理任何的业务逻辑，它的主要工作就是将一个用户请求委派给一个或多个Service进行处理，同时借助Assembler将Service传入或传出的领域对象转化为DTO进行传输。</li>
+</ul>
+<ul>
+<li>实践Façade的过程中最难把握的问题就是Façade的粒度问题。传统的Service均以实体为单位进行组织，而Façade应该具有更粗粒度的组织依据，较为合适的粒度依据有：一个高度内聚的模块一个Façade,或者是一个“聚合”(特指领域驱动设计中的聚合)一个Façade.</li>
+</ul>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/DDD/01/09.gif" alt="09"></p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/DDD/01/10.gif" alt="10"></p>
+<h3 id="Application-应用层"><a href="#Application-应用层" class="headerlink" title="Application-应用层"></a>Application-应用层</h3><p>Application层中主要组件就是Service,在领域驱动设计的架构里，Service的组织粒度和接口设计依据与传统Transaction Script风格的Service是一致的，但是两者的实现却有着质的区别。TransactionScript风格的Service是实现业务逻辑的主要场所，因此往往非常厚重。而在领域驱动设计的架构里，Application是非常“薄”的一层，所有的Service只负责协调并委派业务逻辑给领域对象进行处理，其本身并真正实现业务逻辑，绝大部分的业务逻辑都由领域对象承载和实现了，这是区别系统是Transaction Script架构还是Domain Model架构的重要标志。</p>
+<p>不管是Transaction Script风格还Domain Model风格，Service都会与多种组件进行交互，这些组件包括：其他的Service、领域对象和Repository 或 DAO</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/DDD/01/11.gif" alt="11"></p>
+<p>Service的接口是面向用例设计的，是控制事务、安全的适宜场所。如果Façade的某一方法需要调用两个以上的Service方法，需要注意事务问题。</p>
+<h3 id="Domain-领域层"><a href="#Domain-领域层" class="headerlink" title="Domain-领域层"></a>Domain-领域层</h3><p>Domain层是整个系统的核心层，该层维护一个使用面向对象技术实现的领域模型，几乎全部的业务逻辑会在该层实现。Domain层包含Entity（实体）、ValueObject(值对象)、Domain Event（领域事件）和Repository（仓储）等多种重要的领域组件。</p>
+<h3 id="Infrastructure-基础设施层"><a href="#Infrastructure-基础设施层" class="headerlink" title="Infrastructure-基础设施层"></a>Infrastructure-基础设施层</h3><p>作为基础设施层，Infrastructure为Interfaces、Application和Domain三层提供支撑。所有与具体平台、框架相关的实现会在Infrastructure中提供，避免三层特别是Domain层掺杂进这些实现，从而“污染”领域模型。Infrastructure中最常见的一类设施是对象持久化的具体实现。</p>
+<h1 id="架构见解"><a href="#架构见解" class="headerlink" title="架构见解"></a>架构见解</h1><ul>
+<li>架构并不能保证领域驱动设计的贯彻与执行</li>
+</ul>
+<p>虽然一个合适的架构对于实施领域驱动设计是大有必要的，但只依靠架构是不能保证领域驱动设计的贯彻与执行的。实际上，在这个参考架构上使用Transaction Script的方式进行开法几乎没有任何问题，只要开发人员将领域对象变成“贫血”的“数据载体”对待，在service里实现业务逻辑，那么该参考架构将成为纯粹的TransactionScript方式。当然反过来看，这也体现了这一架构的灵活性。确保领域驱动设计的贯彻与执行需要整个团队在分析、设计和开发上没有自始至终地以领域模型为核心开展工作，以面向对象的思想进行设计和编程，才能保证实现领域驱动设计。</p>
+<ul>
+<li> Façade是否是必须的？</li>
+</ul>
+<p>尽管在架构中对Façade的定义非常清晰，但在实践中我发现Façade并不是一个容易拿捏的东西。主要问题在于其与service之间的有太多的重叠与相似之处。我们注意到service是接口是面向一个use case的，因此事务也是追加在service这一层上，于是对于façade而言，99%的情况是，它只是把某个service的某个方法再包裹一下而已，如果把领域对象和DTO的互转换工作移至service中进行，那么façade将彻底变成空壳，而关键的是：如果service的接口设计是面向和user case的，那么，毫无疑问，service接口的传入传出参数也都应该是DTO，而这一点也在《Core J2EE™ Patterns: Best Practices and Design Strategies, SecondEdition》和《Patterns of Enterprise ApplicationArchitecture》两书的示例代码中完全印证了。那么，从更为务实角度出发，Façade并非是一种必须的组件。</p>
+
+    </div>
+
+    
+    
+    
+
+    
+    <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束 <i class="fa fa-heart"></i> 感谢阅读-------------</div>
+
+    
+      
+
+        <div class="reward-container">
+  <div><p style="font-size:14px; color:#34495e; margin:0 0 5px 0;">赞赏一下吧～ 还可以关注公众号订阅最新内容</p></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/WechatIMG18.png" alt="jwangtec 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>jwangtec
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/jwangcloud/2680834629/" title="项目模型运用-- DDD领域驱动模型">http://example.com/jwangcloud/2680834629/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/DDD/" rel="tag"><i class="fa fa-tag"></i> DDD</a>
+              <a href="/tags/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8/" rel="tag"><i class="fa fa-tag"></i> 领域驱动</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/jwangcloud/986289229/" rel="prev" title="消息中间件03-RocketMQ">
+      <i class="fa fa-chevron-left"></i> 消息中间件03-RocketMQ
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E5%89%8D%E7%9E%BB"><span class="nav-number">1.</span> <span class="nav-text">领域驱动前瞻</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">领域驱动设计的概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BD%95%E9%9C%80%E8%A6%81DDD"><span class="nav-number">1.2.</span> <span class="nav-text">为何需要DDD</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E7%9A%84%E5%A4%84%E7%90%86%E6%96%B9%E5%BC%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">普通的处理方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E5%B1%95"><span class="nav-number">1.2.2.</span> <span class="nav-text">发展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E7%BB%9F%E6%96%B9%E5%BC%8F%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.3.</span> <span class="nav-text">传统方式的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E9%A2%86%E5%9F%9F%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7"><span class="nav-number">1.2.4.</span> <span class="nav-text">建立领域模型的重要性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DDD%E9%A2%86%E5%9F%9F%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84%E6%A6%82%E8%BF%B0"><span class="nav-number">2.</span> <span class="nav-text">DDD领域模型架构概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DDD%E4%B8%AD%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">2.1.</span> <span class="nav-text">DDD中基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BD%93%EF%BC%88Entity%EF%BC%89"><span class="nav-number">2.1.1.</span> <span class="nav-text">实体（Entity）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%80%BC%E5%AF%B9%E8%B1%A1%EF%BC%88Value-Object%EF%BC%89"><span class="nav-number">2.1.2.</span> <span class="nav-text">值对象（Value Object）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%86%E5%9F%9F%E6%9C%8D%E5%8A%A1%EF%BC%88Domain-Service%EF%BC%89"><span class="nav-number">2.1.3.</span> <span class="nav-text">领域服务（Domain Service）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%9A%E5%90%88%E5%8F%8A%E8%81%9A%E5%90%88%E6%A0%B9%EF%BC%88Aggregate%EF%BC%8CAggregate-Root%EF%BC%89"><span class="nav-number">2.1.4.</span> <span class="nav-text">聚合及聚合根（Aggregate，Aggregate Root）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E5%8E%82%EF%BC%88Factory%EF%BC%89"><span class="nav-number">2.1.5.</span> <span class="nav-text">工厂（Factory）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%93%E5%82%A8%EF%BC%88Repository%EF%BC%89"><span class="nav-number">2.1.6.</span> <span class="nav-text">仓储（Repository）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E5%B0%8Fdemo"><span class="nav-number">2.2.</span> <span class="nav-text">一个小demo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%92%88%E5%AF%B9%E5%8A%9F%E8%83%BD%E5%B1%82%E9%9D%A2%E5%88%92%E5%88%86%E8%BE%B9%E7%95%8C"><span class="nav-number">2.2.1.</span> <span class="nav-text">针对功能层面划分边界</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A1%AE%E8%AE%A4%E5%9F%BA%E6%9C%AC%E9%9C%80%E6%B1%82"><span class="nav-number">2.2.2.</span> <span class="nav-text">确认基本需求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%92%88%E5%AF%B9%E4%BA%A7%E5%93%81%E5%8A%9F%E8%83%BD%E5%88%92%E5%88%86%E8%BE%B9%E7%95%8C"><span class="nav-number">2.2.3.</span> <span class="nav-text">针对产品功能划分边界</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%86%E5%8C%96%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-number">2.2.4.</span> <span class="nav-text">细化上下文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E8%AE%BE%E8%AE%A1"><span class="nav-number">2.2.5.</span> <span class="nav-text">代码设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E5%88%86%E4%BB%A3%E7%A0%81"><span class="nav-number">2.2.6.</span> <span class="nav-text">部分代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8A%BD%E5%A5%96%E8%81%9A%E5%90%88%E6%A0%B9%EF%BC%9A"><span class="nav-number">2.2.6.1.</span> <span class="nav-text">抽奖聚合根：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A5%96%E6%B1%A0%E5%80%BC%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.2.6.2.</span> <span class="nav-text">奖池值对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8A%BD%E5%A5%96%E8%B5%84%E6%BA%90%E5%BA%93"><span class="nav-number">2.2.6.3.</span> <span class="nav-text">抽奖资源库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%B2%E8%85%90%E5%B1%82"><span class="nav-number">2.2.6.4.</span> <span class="nav-text">防腐层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8A%BD%E5%A5%96%E9%A2%86%E5%9F%9F%E6%9C%8D%E5%8A%A1"><span class="nav-number">2.2.6.5.</span> <span class="nav-text">抽奖领域服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E5%A5%BD%E5%A4%84"><span class="nav-number">2.2.6.6.</span> <span class="nav-text">领域驱动好处</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DDD%E8%AF%A6%E8%A7%A3"><span class="nav-number">3.</span> <span class="nav-text">DDD详解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%B6%E6%9E%84%E8%AF%A6%E8%A7%A3"><span class="nav-number">3.1.</span> <span class="nav-text">架构详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#interface-%E6%8E%A5%E5%8F%A3%E5%B1%82"><span class="nav-number">3.1.1.</span> <span class="nav-text">interface-接口层</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DTO"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">DTO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Assembler"><span class="nav-number">3.1.1.2.</span> <span class="nav-text">Assembler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Facade"><span class="nav-number">3.1.1.3.</span> <span class="nav-text">Facade</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Application-%E5%BA%94%E7%94%A8%E5%B1%82"><span class="nav-number">3.1.2.</span> <span class="nav-text">Application-应用层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Domain-%E9%A2%86%E5%9F%9F%E5%B1%82"><span class="nav-number">3.1.3.</span> <span class="nav-text">Domain-领域层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Infrastructure-%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B1%82"><span class="nav-number">3.1.4.</span> <span class="nav-text">Infrastructure-基础设施层</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9E%B6%E6%9E%84%E8%A7%81%E8%A7%A3"><span class="nav-number">4.</span> <span class="nav-text">架构见解</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="jwangtec"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">jwangtec</p>
+  <div class="site-description" itemprop="description">小脑袋，大智慧</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">107</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">204</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jwangtec" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jwangtec" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.jianshu.com/u/684433bc744b" title="简书 → https:&#x2F;&#x2F;www.jianshu.com&#x2F;u&#x2F;684433bc744b" rel="noopener" target="_blank"><i class="fa fa-heartbeat fa-fw"></i>简书</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/qq_34536604" title="csdn → https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_34536604" rel="noopener" target="_blank"><i class="fa fa-crosshairs fa-fw"></i>csdn</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://juejin.im/user/5e5c685e6fb9a07cd443bedai" title="掘金 → https:&#x2F;&#x2F;juejin.im&#x2F;user&#x2F;5e5c685e6fb9a07cd443bedai" rel="noopener" target="_blank"><i class="fa fa-spinner fa-fw"></i>掘金</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://app.gitbook.com/@79896867/spaces" title="gitbook → https:&#x2F;&#x2F;app.gitbook.com&#x2F;@79896867&#x2F;spaces" rel="noopener" target="_blank"><i class="fa fa-git fa-fw"></i>gitbook</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/jwangtec@163.com" title="E-Mail → jwangtec@163.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.runoob.com/manual/jdk11api/index.html" title="https:&#x2F;&#x2F;www.runoob.com&#x2F;manual&#x2F;jdk11api&#x2F;index.html" rel="noopener" target="_blank">Java11开发文档</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://spring.io/projects/spring-cloud-azure" title="https:&#x2F;&#x2F;spring.io&#x2F;projects&#x2F;spring-cloud-azure" rel="noopener" target="_blank">Spring cloud</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://ife.baidu.com/" title="http:&#x2F;&#x2F;ife.baidu.com&#x2F;" rel="noopener" target="_blank">百度前端技术学院</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://learn666-gif.github.io/Jwang/4cff2ea4.html" title="https:&#x2F;&#x2F;learn666-gif.github.io&#x2F;Jwang&#x2F;4cff2ea4.html" rel="noopener" target="_blank">JAVA体系构建</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jwangtec</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">20:31</span>
+</div>
+
+
+<!-- 网站运行时间的设置 -->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>  努力创造未来
+<script>
+        var now = new Date();
+        function createtime() {
+            var grt= new Date("01/05/2018 00:00:00");//此处修改你的建站时间或者网站上线时间
+            now.setTime(now.getTime()+250);
+            days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+            hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+            if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+            mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+            seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+            snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+            document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+            document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()",250);
+</script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : '2UzmUUcYke4dpzoJtJNAzAPL-gzGzoHsz',
+      appKey     : 'rdlKv9Hl6K9hnMEp9A1NCRMB',
+      placeholder: "留下邮箱，有回复时你将收到提醒，邮箱不会被公开。",
+      avatar     : 'wavatar',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
