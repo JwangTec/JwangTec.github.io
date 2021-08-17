@@ -1,14 +1,14 @@
-​---
+---
 title: Java并发编程11--ThreadLocal
 categories: Java并发编程
 tags:
-	- ThreadLocal
+  - ThreadLocal
 top: 10
-date: 2019-08-03 18:18:19
+abbrlink: 1281709871
 password:
 ---
 
-<img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/juc3.jpeg" width="1000" height="300" align="middle" />
+
 
 
 ##   概述

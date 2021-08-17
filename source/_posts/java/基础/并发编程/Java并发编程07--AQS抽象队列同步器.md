@@ -1,21 +1,15 @@
-​---
+---
 title: Java并发编程07--AQS抽象队列同步器
 categories: Java并发编程
 tags:
-	- AQS
+  - AQS
 top: 10
-date: 2019-08-02 18:18:19
+abbrlink: 3407258096
 password:
 ---
 
 
-
-<img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/juc2.jpeg" width="1000" height="300" align="middle" />
-
-
-
-
-​	AQS(AbstractQueuedSynchronizer），即队列同步器。它是构建锁或者其他同步组件的基础框架（如ReentrantLock、ReentrantReadWriteLock、Semaphore等），JUC并发包的作者期望它能够成为实现大部分同步需求的基础。它是JUC并发包中的核心基础组件。
+AQS(AbstractQueuedSynchronizer），即队列同步器。它是构建锁或者其他同步组件的基础框架（如ReentrantLock、ReentrantReadWriteLock、Semaphore等），JUC并发包的作者期望它能够成为实现大部分同步需求的基础。它是JUC并发包中的核心基础组件。
 ​	
 ​​<!--more-->
 

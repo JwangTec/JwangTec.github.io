@@ -12,11 +12,6 @@ date: 2019-08-01 18:18:19
 password:
 ---
 
-
-<img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/juc.jpeg" width="1000" height="200" align="middle" />
-
-
-
 ​	Java从诞生开始，其就已经内置了对于多线程的支持。当多个线程能够同时执行时，大多数情况下都能够显著提升系统性能，尤其现在的计算机普遍都是多核的，所以性能的提升会更加明显。但是，多线程在使用中也需要注意诸多的问题，如果使用不当，也会对系统性能造成非常严重的影响。
 ​	
 ​<!--more-->

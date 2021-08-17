@@ -1,22 +1,19 @@
-​---
+---
 title: Java并发编程08--Fork/Join分解合并框架
 categories: Java并发编程
 tags:
-	- Fork
-	- Join
+  - Fork
+  - Join
 top: 10
-date: 2019-08-03 18:18:19
+abbrlink: 4259891498
 password:
 ---
-
-
-<img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/juc3.jpeg" width="1000" height="300" align="middle" />
-
-<!--more-->
 
 ##   什么是fork/join
 
 ​	Fork/Join框架是JDK1.7提供的一个用于并行执行任务的框架，开发者可以在不去了解如Thread、Runnable等相关知识的情况下，只要遵循fork/join开发模式，就完成写出很好的多线程并发任务。
+
+<!--more-->
 
 ​	同时其按照**分而治之**的思想，可以把一个大任务分割成若干个小任务，最终汇总每个小任务结果后得到大任务结果的框架。
 

@@ -1,12 +1,14 @@
-​---
+---
 title: Java并发编程12--ThreadPoolExecutor线程池
 categories: Java并发编程
 tags:
-	- ThreadPoolExecutor线程池
+  - ThreadPoolExecutor线程池
 top: 10
-date: 2019-08-03 18:18:19
+abbrlink: 2407816807
 password:
 ---
+
+
 
 <img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/juc3.jpeg" width="1000" height="300" align="middle" />
 
