@@ -13,12 +13,6 @@ password:
 ---
 
 
-<img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/fen1.jpeg" width="1000" height="300" align="middle" />
-
-
-<!--more-->
-
-
 
 ## 1. 消息队列概述
 
@@ -31,7 +25,7 @@ MQ全称为Message Queue，消息队列是应用程序和应用程序之间的�
 ```properties
 在项目中，可将一些无需即时返回且耗时的操作提取出来，进行异步处理，而这种异步处理的方式大大的节省了服务器的请求响应时间，从而提高了系统的吞吐量。
 ```
-
+<!--more-->
 开发中消息队列通常有如下应用场景：
 
 ```properties

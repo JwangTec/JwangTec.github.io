@@ -13,16 +13,14 @@ password:
 ---
 
 
-<img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/fen1.jpeg" width="1000" height="300" align="middle" />
-
-
 ## 1 分布式事务介绍
 
-<!--more-->
 
 ### 1.1 什么是事务
 
 数据库事务(简称：事务，Transaction)是指数据库执行过程中的一个逻辑单位，由一个有限的数据库操作序列构成[由当前业务逻辑多个不同操作构成]。
+
+<!--more-->
 
 事务拥有以下四个特性，习惯上被称为ACID特性：
 

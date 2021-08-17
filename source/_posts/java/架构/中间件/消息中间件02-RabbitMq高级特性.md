@@ -13,16 +13,12 @@ password:
 ---
 
 
-<img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/fen1.jpeg" width="1000" height="300" align="middle" />
-
-
-<!--more-->
-
-
 
 ## 1 RabbitMq高级特性
 
 在消息的使用过程当中存在一些问题。比如发送消息我们如何确保消息的投递的可靠性呢？如何保证消费消息可靠性呢？如果不能保证在某些情况下可能会出现损失。比如当我们发送消息的时候和接收消息的时候能否根据消息的特性来实现某一些业务场景的模拟呢？订单30分钟过期等等，系统通信的确认等等。
+
+<!--more-->
 
 ### 1.1 生产者可靠性消息投递
 

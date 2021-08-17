@@ -13,9 +13,6 @@ password:
 ---
 
 
-<img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/fen1.jpeg" width="1000" height="300" align="middle" />
-
-
 
 <!--more-->
 
@@ -30,6 +27,7 @@ password:
 ​	ZooKeeper 适用于存储和协同相关的关键数据，不适合用于大数据量存储。
 
 是一个分布式的小文件管理系统，管理分布式服务(Web Service)
+<!--more-->
 
 ## zookeeper的发展历程
 

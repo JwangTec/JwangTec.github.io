@@ -13,12 +13,6 @@ password:
 ---
 
 
-<img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/fen1.jpeg" width="1000" height="300" align="middle" />
-
-
-<!--more-->
-
-
 
 ##  应用架构的演进过程
 
@@ -35,6 +29,8 @@ password:
 负载均衡：将请求平均分配到不同的服务器中，达到均衡的目的。
 
 ------
+
+<!--more-->
 
 高并发：同一时刻，处理同一件事情的处理能力（解决方案：分布式、集群、负载均衡）
 
