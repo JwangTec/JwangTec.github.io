@@ -8,15 +8,13 @@ abbrlink: 1546721459
 password:
 ---
 
-
-<img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/juc.jpeg" width="1000" height="200" align="middle" />
-
-
 ## 传统创建线程池弊端
 
 ### Executors的创建线程池的方法
 
 创建出来的线程池都实现了ExecutorService接口。常用方法有以下几个：
+
+<!--more-->
 
 - newFiexedThreadPool(int Threads)：创建固定数目线程的线程池。
 
