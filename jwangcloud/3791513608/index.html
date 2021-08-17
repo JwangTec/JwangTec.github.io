@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.jwang.cloud","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="​">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java并发编程06--显示锁(XXXLock)">
+<meta property="og:url" content="https://www.jwang.cloud/jwangcloud/3791513608/index.html">
+<meta property="og:site_name" content="jwangcloud">
+<meta property="og:description" content="​">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/juc.jpeg">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/juc/2/assets/image-20200729114736511.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/juc/2/assets/image-20200729141310930.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/juc/2/assets/image-20200729154422765.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/juc/2/assets/image-20200729154633299.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/juc/2/assets/image-20200729154821354.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/juc/2/assets/image-20200729160508082.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/juc/2/assets/image-20200729161746584.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/juc/2/assets/image-20200729165051019.png">
+<meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/juc/2/assets/image-20200729165201591.png">
+<meta property="article:published_time" content="2021-05-18T10:55:49.856Z">
+<meta property="article:modified_time" content="2021-08-17T05:07:08.715Z">
+<meta property="article:author" content="jwangtec">
+<meta property="article:tag" content="lock">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/juc.jpeg">
+
+<link rel="canonical" href="https://www.jwang.cloud/jwangcloud/3791513608/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java并发编程06--显示锁(XXXLock) | jwangcloud</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">jwangcloud</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/JwangTec" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.jwang.cloud/jwangcloud/3791513608/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="jwangtec">
+      <meta itemprop="description" content="小脑袋，大智慧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jwangcloud">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java并发编程06--显示锁(XXXLock)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-18 18:55:49" itemprop="dateCreated datePublished" datetime="2021-05-18T18:55:49+08:00">2021-05-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-08-17 13:07:08" itemprop="dateModified" datetime="2021-08-17T13:07:08+08:00">2021-08-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Java并发编程</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/jwangcloud/3791513608/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/jwangcloud/3791513608/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>16k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>15 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/juc.jpeg" width="1000" height="200" align="middle">
+
+<p>​<span id="more"></span></p>
+<h2 id="基础介绍"><a href="#基础介绍" class="headerlink" title="基础介绍"></a>基础介绍</h2><p>​    在程序中可以通过synchronized实现锁功能，对于它可以称为内置锁，是由Java语言层面直接为我们提供使用的。可以在程序中隐式的获取锁。但是对于它的使用方式是固化的，只能先获取再释放。而且在使用的过程中，当一个线程获取到某个资源的锁后，其他线程再要获取该资源则必须要进行等待。synchronized并没有提供中断或超时获取的操作。</p>
+<p>​    为了解决这些问题，所以才出现了显示锁。在显示锁中其提供了三个很常见方法：lock()、unLock()、tryLock()。<br>​</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/juc/2/assets/image-20200729114736511.png" alt="image-20200729114736511"></p>
+<p>Lock的标准用法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//加锁</span></span><br><span class="line">lock.lock();</span><br><span class="line"><span class="comment">//业务逻辑</span></span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    i++;</span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">    <span class="comment">//解锁</span></span><br><span class="line">    lock.unLock();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    不要将获取锁的过程写在try中，因为如果在获取锁时发生异常，异常抛出的同时会导致锁的释放。</p>
+<p>​    在 finally 块中释放锁，目的是保证在获取到锁之后，最终能够被释放。</p>
+<h2 id="何时选择用synchronized还是Lock"><a href="#何时选择用synchronized还是Lock" class="headerlink" title="何时选择用synchronized还是Lock"></a>何时选择用synchronized还是Lock</h2><p>​    如果在锁的使用过程中，不需要考虑尝试取锁或锁中断的这些特性的话。尽量使用synchronized。因为synchronized在现在的JDK中对于synchronized的优化是很多的。如锁优化升级。</p>
+<p>​    同时synchronized要比显示锁的内存消耗要少。为什么呢？ 因为synchronized是一个语言层面的内容，而lock是一个接口，在使用Lock时需要获取其对象实例后才能进行操作。特别在锁很多的情况下，如没特殊需求，建议使用synchronized。</p>
+<h2 id="ReentrantLock"><a href="#ReentrantLock" class="headerlink" title="ReentrantLock"></a>ReentrantLock</h2><h3 id="标准使用方式"><a href="#标准使用方式" class="headerlink" title="标准使用方式"></a>标准使用方式</h3><p>​    根据源码可知Lock本身是一个接口，那么对于其实现类来说，最常用的就是ReentrantLock。</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/juc/2/assets/image-20200729141310930.png" alt="image-20200729141310930"></p>
+<p>​    那么ReentrantLock应该如何来使用呢？ 其实很简单，只要遵循使用规范即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//通过两个线程对value进行count次自增</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LockTest</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> count = <span class="number">100000</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> value = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Lock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">            lock.lock();</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName()+<span class="string">&quot; : &quot;</span>+value);</span><br><span class="line">                value++;</span><br><span class="line">            &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">                lock.unlock();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">        LockTest l1 = <span class="keyword">new</span> LockTest();</span><br><span class="line">        LockTest l2 = <span class="keyword">new</span> LockTest();</span><br><span class="line"></span><br><span class="line">        l1.start();</span><br><span class="line">        l2.start();</span><br><span class="line">        TimeUnit.SECONDS.sleep(<span class="number">5</span>);</span><br><span class="line">        System.out.println(value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    在加锁时务必要注意，对于解锁需要在finally中执行，因为在执行业务逻辑时，有可能出现异常，导致锁无法被释放。</p>
+<p>​    而synchronized的使用要么作用在方法，要么作用在语句块。当出现异常后，代表脱离了执行的代码块，锁自然就会被释放。而显示锁本身是一个对象的实例，如果加锁后，没有进行释放的话，那么锁就会一直存在。</p>
+<h3 id="可重入"><a href="#可重入" class="headerlink" title="可重入"></a>可重入</h3><p>​    ReentrantLock一般会把它称之为<strong>可重入锁</strong>，其是一种递归无阻塞的同步机制。它可以等同于synchronized的使用，但是ReentrantLock提供了比synchronized更强大、灵活的锁机制，可以减少死锁发生的概率。</p>
+<p>​    简单来说就是：<strong>同一个线程对于已经获取的锁，可以多次继续申请到该锁的使用权</strong>。而 synchronized 关键字隐式的支持重进入，比如一个 synchronized修饰的递归方法，在方法执行时，执行线程在获取了锁之后仍能连续多次地获得<br>该锁。ReentrantLock 在调用 lock()方法时，已经获取到锁的线程，能够再次调用lock()方法获取锁而不被阻塞。</p>
+<p>​    其内部实现流程为：</p>
+<ol>
+<li>每个锁关联一个线程持有者和计数器，当计数器为0时表示该锁没有被任何线程持有，那么线程都会可能获得该锁而调用对应方法。</li>
+<li>当某个线程请求成功后，JVM会记录锁的持有线程，并将计数器置为1，此时其他线程请求获取锁，则必须等待。</li>
+<li>当持有锁的线程如果再次请求这个锁，就可以再次拿到这个锁，同时计数器递增。</li>
+<li>当持有锁的线程退出同步代码块时，计数器递减，如果计数器为0，则释放该锁。</li>
+</ol>
+<p><strong>synchronized可重入</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SynDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">lock1</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;lock1&quot;</span>);</span><br><span class="line">        lock2();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">lock2</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;lock2&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread()&#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                lock1();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lock1</span><br><span class="line">lock2</span><br></pre></td></tr></table></figure>
+
+<p>根据执行结果可以看到，当同一个线程调用多个同步方法时，当其第一次获取锁成功时，接着调用其他同步方法时，仍然可以继续向下调用，不会发生阻塞。实现了锁的可重入。</p>
+<p><strong>ReentrantLock可重入</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReentrantTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Lock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span></span>&#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            count++;</span><br><span class="line">            test2();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span></span>&#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> ReentrantTest reentrantTest;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">MyThread</span><span class="params">(ReentrantTest reentrantTest)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.reentrantTest = reentrantTest;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++) &#123;</span><br><span class="line">                reentrantTest.test1();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">        ReentrantTest reentrantTest = <span class="keyword">new</span> ReentrantTest();</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> MyThread(reentrantTest)).start();</span><br><span class="line">        TimeUnit.SECONDS.sleep(<span class="number">2</span>);</span><br><span class="line">        System.out.println(count);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    运行可以发现，虽然进行了多次加锁，但是并没有被阻塞。代表其也是支持可重入的。</p>
+<h3 id="公平锁与非公平锁"><a href="#公平锁与非公平锁" class="headerlink" title="公平锁与非公平锁"></a>公平锁与非公平锁</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>​    在多线程并发执行中，当有多个线程同时来获取同一把锁，如果是按照谁等待时间最长，谁先获取锁，则代表这是一把公平锁。反之如果是随机获取的话，CPU时间片轮询到哪个线程，哪个线程就获取锁，则代表这是一把非公平锁。</p>
+<p>​    那么公平锁和非公平锁哪个性能最好呢？ 答案是非公平锁的性能更好，因为其充分利用了CPU，减少了线程唤醒的上下文切换的时间。</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/juc/2/assets/image-20200729154422765.png" alt="image-20200729154422765"></p>
+<p>公平锁</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/juc/2/assets/image-20200729154633299.png" alt="image-20200729154633299"></p>
+<p>非公平锁</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/juc/2/assets/image-20200729154821354.png" alt="image-20200729154821354"></p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p>在ReentrantLock和synchronized中，默认都为非公平锁。ReentrantLock可以通过参数将其开启使用公平锁。</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/juc/2/assets/image-20200729160508082.png" alt="image-20200729160508082"></p>
+<p><strong>1）ReentrantLock公平锁</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FairLockTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//开启公平锁</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Lock lock = <span class="keyword">new</span> ReentrantLock(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++) &#123;</span><br><span class="line">            lock.lock();</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName()+<span class="string">&quot;获取到锁&quot;</span>);</span><br><span class="line">                TimeUnit.MILLISECONDS.sleep(<span class="number">100</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                lock.unlock();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="string">&quot;线程A&quot;</span>)&#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                test();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.start();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="string">&quot;线程B&quot;</span>)&#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                test();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    根据结果可以看到，其获取锁的过程是按照公平策略来进行。</p>
+<p><strong>2）ReentrantLock非公平锁</strong></p>
+<p>​    只需要在实例化ReentrantLock时，不传入参数即为非公平锁。 根据执行结果可以看到，是按照非公平策略来进行锁的获取。</p>
+<h3 id="ReentrantLock与synchronized的比较"><a href="#ReentrantLock与synchronized的比较" class="headerlink" title="ReentrantLock与synchronized的比较"></a>ReentrantLock与synchronized的比较</h3><p><strong>相似点：</strong></p>
+<p>​    都是以阻塞性方式进行加锁同步，也就是说如果当一个线程获得了对象锁，执行同步代码块，则其他线程要访问都要阻塞等待，直到获取锁的线程释放锁才能继续获取锁。</p>
+<p><strong>不同点：</strong></p>
+<ul>
+<li>对于Synchronized来说，它是java语言的关键字，是原生语法层面的互斥，需要jvm实现。而ReentrantLock它是JDK 1.5之后提供的API层面的互斥锁，需要lock()和unlock()方法配合try/finally语句块来完成。</li>
+<li>Synchronized的使用比较方便简洁，并且由编译器去保证锁的加锁和释放，而ReenTrantLock需要手工声明来加锁和释放锁，为了避免忘记手工释放锁造成死锁，所以最好在finally中声明释放锁。</li>
+<li>ReenTrantLock的锁粒度和灵活度要优于Synchronized。</li>
+</ul>
+<h2 id="ReentrantReadWriteLock"><a href="#ReentrantReadWriteLock" class="headerlink" title="ReentrantReadWriteLock"></a>ReentrantReadWriteLock</h2><p>​    对于之前学习的ReentrantLock或synchronized都可以称之为<strong>独占锁、排他锁</strong>，可以理解为是悲观锁，这些锁在同一时刻只允许一个线程进行访问。但是对于互联网应用来说，绝大多数的场景都是读多写少，比例大概在10：1。按照数据库的场景来说，对于读多写少的处理，就会进行读写分离。</p>
+<p>​    <strong>在读多写少的场景下</strong>，对于业务代码的处理，此时也可以考虑进行读写分别加锁的操作，此时就可以使用<strong>ReentrantReadWriteLock</strong>。其对ReadWriteLock接口进行实现，内部会维护一对锁，分别为读锁、写锁。</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/juc/2/assets/image-20200729161746584.png" alt="image-20200729161746584"></p>
+<h3 id="读写锁特性"><a href="#读写锁特性" class="headerlink" title="读写锁特性"></a>读写锁特性</h3><ol>
+<li>读操作不互斥，写操作互斥，读和写互斥。</li>
+<li>公平性：支持公平性和非公平性。</li>
+<li>重入性：支持锁重入。</li>
+<li>锁降级：写锁能够降级成为读锁，遵循获取写锁、获取读锁在释放写锁的次序。读锁不能升级为写锁。</li>
+</ol>
+<h3 id="读写锁实现原理"><a href="#读写锁实现原理" class="headerlink" title="读写锁实现原理"></a>读写锁实现原理</h3><p>​    ReentrantReadWriteLock实现接口ReadWriteLock，该接口维护了一对相关的锁，一个用于读操作，另一个用于写入操作。</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/juc/2/assets/image-20200729165051019.png" alt="image-20200729165051019"></p>
+<p>​    ReadWriteLock定义了两个方法。readLock()返回用于读操作的锁，writeLock()返回用于写操作的锁。ReentrantReadWriteLock定义如下：</p>
+<p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/juc/2/assets/image-20200729165201591.png" alt="image-20200729165201591"></p>
+<p>​    其内部的writeLock()用于获取写锁，readLock()用于获取读锁。</p>
+<h3 id="读写锁演示"><a href="#读写锁演示" class="headerlink" title="读写锁演示"></a>读写锁演示</h3><p>​    读写锁的特点在于写互斥、读不互斥、读写互斥。下面就通过例子来演示具体效果：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReentrantReadWriteLockDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">WriteDemo</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        ReentrantReadWriteLock lock ;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">WriteDemo</span><span class="params">(ReentrantReadWriteLock lock)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.lock = lock;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    TimeUnit.MILLISECONDS.sleep(<span class="number">1</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                lock.writeLock().lock();</span><br><span class="line">                count++;</span><br><span class="line">                System.out.println(<span class="string">&quot;写锁: &quot;</span>+count);</span><br><span class="line">                lock.writeLock().unlock();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ReadDemo</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">        ReentrantReadWriteLock lock ;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ReadDemo</span><span class="params">(ReentrantReadWriteLock lock)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.lock = lock;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                TimeUnit.MILLISECONDS.sleep(<span class="number">1</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            lock.readLock().lock();</span><br><span class="line">            count++;</span><br><span class="line">            System.out.println(<span class="string">&quot;读锁: &quot;</span>+count);</span><br><span class="line">            lock.readLock().unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ReentrantReadWriteLock lock = <span class="keyword">new</span> ReentrantReadWriteLock();</span><br><span class="line">        WriteDemo writeDemo = <span class="keyword">new</span> WriteDemo(lock);</span><br><span class="line">        ReadDemo readDemo = <span class="keyword">new</span> ReadDemo(lock);</span><br><span class="line">        <span class="comment">//运行多个写线程，不会重复，证明写互斥</span></span><br><span class="line">        <span class="comment">//运行多个读线程，可能重复，证明读不互斥</span></span><br><span class="line">        <span class="comment">//同时运行，读锁和写锁后面不会出现重复的数字，证明读写互斥</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">new</span> Thread(writeDemo).start();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">new</span> Thread(readDemo).start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="锁降级"><a href="#锁降级" class="headerlink" title="锁降级"></a>锁降级</h3><p>​    读写锁是支持锁降级的，但不支持锁升级。写锁可以被降级为读锁，但读锁不能被升级写锁。什么意思呢？简单来说就是<strong>获取到了写锁的线程能够再次获取到同一把锁的读锁</strong>，因为支持提到过ReentrantReadWriteLock这把锁内部是维护了两个锁的。 而<strong>获取到了读锁的线程不能再次获取同一把锁的写锁</strong>。</p>
+<p><strong>1）写锁降级读锁</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LockDegradeDemo1</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        ReentrantReadWriteLock lock = <span class="keyword">new</span> ReentrantReadWriteLock();</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fun1</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="comment">//获取写锁</span></span><br><span class="line">            lock.writeLock().lock();</span><br><span class="line">            System.out.println(<span class="string">&quot;fun1&quot;</span>);</span><br><span class="line">            fun2();</span><br><span class="line">            lock.writeLock().unlock();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fun2</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="comment">//获取读锁</span></span><br><span class="line">            lock.readLock().lock();</span><br><span class="line">            System.out.println(<span class="string">&quot;fun2&quot;</span>);</span><br><span class="line">            lock.readLock().unlock();</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> Demo().fun1();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    根据执行结果可知，当一个线程获取到了写锁后，其可以继续向下来获取同一把锁的读锁。</p>
+<p><strong>2）读锁升级写锁</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LockDegradeDemo2</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        ReentrantReadWriteLock lock = <span class="keyword">new</span> ReentrantReadWriteLock();</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fun1</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="comment">//获取写锁</span></span><br><span class="line">            lock.writeLock().lock();</span><br><span class="line">            System.out.println(<span class="string">&quot;fun1&quot;</span>);</span><br><span class="line">            <span class="comment">//fun2();</span></span><br><span class="line">            lock.writeLock().unlock();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fun2</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="comment">//获取读锁</span></span><br><span class="line">            lock.readLock().lock();</span><br><span class="line">            System.out.println(<span class="string">&quot;fun2&quot;</span>);</span><br><span class="line">            fun1();</span><br><span class="line">            lock.readLock().unlock();</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> Demo().fun2();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    根据执行结果可知。当线程获取到读锁，不能继续获取写锁。</p>
+<h3 id="性能优化演示"><a href="#性能优化演示" class="headerlink" title="性能优化演示"></a>性能优化演示</h3><p>​    在读多写少的情况下，通过读写锁可以优化原有的synchronized对于程序执行的性能。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Sku</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> totalMoney;<span class="comment">//总销售额</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> storeNumber;<span class="comment">//库存数</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Sku</span><span class="params">(String name, <span class="keyword">double</span> totalMoney, <span class="keyword">int</span> storeNumber)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.totalMoney = totalMoney;</span><br><span class="line">        <span class="keyword">this</span>.storeNumber = storeNumber;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getTotalMoney</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> totalMoney;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getStoreNumber</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> storeNumber;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">changeNumber</span><span class="params">(<span class="keyword">int</span> sellNumber)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.totalMoney += sellNumber*<span class="number">25</span>;</span><br><span class="line">        <span class="keyword">this</span>.storeNumber -= sellNumber;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SkuService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//获得商品的信息</span></span><br><span class="line">    <span class="function">Sku <span class="title">getSkuInfo</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//设置商品的数量</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setNum</span><span class="params">(<span class="keyword">int</span> number)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以synchronized形式运行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SkuServiceImplSync</span> <span class="keyword">implements</span> <span class="title">SkuService</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Sku sku;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SkuServiceImplSync</span><span class="params">(Sku sku)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.sku = sku;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> Sku <span class="title">getSkuInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            TimeUnit.MILLISECONDS.sleep(<span class="number">5</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.sku;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">setNum</span><span class="params">(<span class="keyword">int</span> number)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            TimeUnit.MILLISECONDS.sleep(<span class="number">5</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        sku.changeNumber(number);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SkuExec</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//读写线程的比例</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> readWriteRatio = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//最少线程数</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> minthreadCount = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//读操作</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ReadThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> SkuService skuService;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ReadThread</span><span class="params">(SkuService skuService)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.skuService = skuService;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">                skuService.getSkuInfo();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(Thread.currentThread().getName()+<span class="string">&quot;读取商品数据耗时：&quot;</span></span><br><span class="line">                               +(System.currentTimeMillis()-start)+<span class="string">&quot;ms&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//写操作</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">WriteThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> SkuService skuService;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">WriteThread</span><span class="params">(SkuService skuService)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.skuService = skuService;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line">            Random r = <span class="keyword">new</span> Random();</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;<span class="comment">//操作10次</span></span><br><span class="line">                skuService.setNum(r.nextInt(<span class="number">10</span>));</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(Thread.currentThread().getName()</span><br><span class="line">                               +<span class="string">&quot;写商品数据耗时：&quot;</span>+(System.currentTimeMillis()-start)+<span class="string">&quot;ms---------&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        Sku sku = <span class="keyword">new</span> Sku(<span class="string">&quot;computer&quot;</span>,<span class="number">10000</span>,<span class="number">10000</span>);</span><br><span class="line">        SkuService skuService = <span class="keyword">new</span> SkuServiceImplSync(sku);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;minthreadCount;i++)&#123;</span><br><span class="line"></span><br><span class="line">            Thread setT = <span class="keyword">new</span> Thread(<span class="keyword">new</span> WriteThread(skuService));</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;readWriteRatio;j++) &#123;</span><br><span class="line">                Thread getT = <span class="keyword">new</span> Thread(<span class="keyword">new</span> ReadThread(skuService));</span><br><span class="line">                getT.start();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            TimeUnit.MILLISECONDS.sleep(<span class="number">100</span>);</span><br><span class="line">            setT.start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">Thread-0写商品数据耗时：58ms---------</span><br><span class="line">Thread-11写商品数据耗时：58ms---------</span><br><span class="line">Thread-22写商品数据耗时：58ms---------</span><br><span class="line">Thread-4读取商品数据耗时：2577ms</span><br><span class="line">Thread-5读取商品数据耗时：3029ms</span><br><span class="line">Thread-6读取商品数据耗时：3040ms</span><br><span class="line">Thread-9读取商品数据耗时：4016ms</span><br><span class="line">Thread-29读取商品数据耗时：4980ms</span><br><span class="line">Thread-15读取商品数据耗时：8971ms</span><br><span class="line">Thread-13读取商品数据耗时：9742ms</span><br><span class="line">Thread-18读取商品数据耗时：10257ms</span><br><span class="line">Thread-19读取商品数据耗时：10417ms</span><br><span class="line">Thread-25读取商品数据耗时：10805ms</span><br><span class="line">Thread-26读取商品数据耗时：11250ms</span><br><span class="line">Thread-27读取商品数据耗时：11645ms</span><br><span class="line">Thread-31读取商品数据耗时：12137ms</span><br><span class="line">Thread-3读取商品数据耗时：13257ms</span><br><span class="line">Thread-7读取商品数据耗时：13714ms</span><br><span class="line">Thread-10读取商品数据耗时：13911ms</span><br><span class="line">Thread-32读取商品数据耗时：13730ms</span><br><span class="line">Thread-28读取商品数据耗时：14101ms</span><br><span class="line">Thread-23读取商品数据耗时：14409ms</span><br><span class="line">Thread-1读取商品数据耗时：14808ms</span><br><span class="line">Thread-20读取商品数据耗时：14986ms</span><br><span class="line">Thread-17读取商品数据耗时：15150ms</span><br><span class="line">Thread-14读取商品数据耗时：15691ms</span><br><span class="line">Thread-16读取商品数据耗时：16312ms</span><br><span class="line">Thread-21读取商品数据耗时：16494ms</span><br><span class="line">Thread-24读取商品数据耗时：16514ms</span><br><span class="line">Thread-30读取商品数据耗时：16637ms</span><br><span class="line">Thread-8读取商品数据耗时：16867ms</span><br><span class="line">Thread-2读取商品数据耗时：16982ms</span><br><span class="line">Thread-12读取商品数据耗时：16986ms</span><br></pre></td></tr></table></figure>
+
+<p><strong>以ReentrantReadWriteLock形式执行</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SkuServiceImplReen</span> <span class="keyword">implements</span> <span class="title">SkuService</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Sku sku;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SkuServiceImplReen</span><span class="params">(Sku sku)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.sku = sku;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> ReadWriteLock lock = <span class="keyword">new</span> ReentrantReadWriteLock();</span><br><span class="line">    <span class="keyword">private</span> Lock readLock = lock.readLock();</span><br><span class="line">    <span class="keyword">private</span> Lock writeLock = lock.writeLock();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Sku <span class="title">getSkuInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        readLock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            TimeUnit.MILLISECONDS.sleep(<span class="number">5</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.sku;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            readLock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span>  <span class="keyword">void</span> <span class="title">setNum</span><span class="params">(<span class="keyword">int</span> number)</span> </span>&#123;</span><br><span class="line">        writeLock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            TimeUnit.MILLISECONDS.sleep(<span class="number">5</span>);</span><br><span class="line">            sku.changeNumber(number);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            writeLock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>修改启动类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SkuService skuService = <span class="keyword">new</span> SkuServiceImplReen(sku);</span><br></pre></td></tr></table></figure>
+
+<p>执行结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">Thread-0写商品数据耗时：66ms---------</span><br><span class="line">Thread-11写商品数据耗时：68ms---------</span><br><span class="line">Thread-22写商品数据耗时：62ms---------</span><br><span class="line">Thread-2读取商品数据耗时：765ms</span><br><span class="line">Thread-8读取商品数据耗时：764ms</span><br><span class="line">Thread-10读取商品数据耗时：764ms</span><br><span class="line">Thread-5读取商品数据耗时：765ms</span><br><span class="line">Thread-1读取商品数据耗时：765ms</span><br><span class="line">Thread-4读取商品数据耗时：765ms</span><br><span class="line">Thread-7读取商品数据耗时：764ms</span><br><span class="line">Thread-6读取商品数据耗时：764ms</span><br><span class="line">Thread-3读取商品数据耗时：765ms</span><br><span class="line">Thread-9读取商品数据耗时：770ms</span><br><span class="line">Thread-15读取商品数据耗时：760ms</span><br><span class="line">Thread-17读取商品数据耗时：760ms</span><br><span class="line">Thread-12读取商品数据耗时：760ms</span><br><span class="line">Thread-13读取商品数据耗时：760ms</span><br><span class="line">Thread-14读取商品数据耗时：760ms</span><br><span class="line">Thread-18读取商品数据耗时：759ms</span><br><span class="line">Thread-16读取商品数据耗时：760ms</span><br><span class="line">Thread-20读取商品数据耗时：765ms</span><br><span class="line">Thread-19读取商品数据耗时：765ms</span><br><span class="line">Thread-21读取商品数据耗时：765ms</span><br><span class="line">Thread-31读取商品数据耗时：704ms</span><br><span class="line">Thread-28读取商品数据耗时：705ms</span><br><span class="line">Thread-25读取商品数据耗时：705ms</span><br><span class="line">Thread-30读取商品数据耗时：704ms</span><br><span class="line">Thread-29读取商品数据耗时：705ms</span><br><span class="line">Thread-27读取商品数据耗时：705ms</span><br><span class="line">Thread-26读取商品数据耗时：705ms</span><br><span class="line">Thread-23读取商品数据耗时：705ms</span><br><span class="line">Thread-24读取商品数据耗时：705ms</span><br><span class="line">Thread-32读取商品数据耗时：704ms</span><br></pre></td></tr></table></figure>
+
+<p>​    根据最终结果可以看出，其性能的提升是非常巨大的。</p>
+<h2 id="StamptedLock"><a href="#StamptedLock" class="headerlink" title="StamptedLock"></a>StamptedLock</h2><p>​    StampedLock类是在JDK8引入的一把新锁，其是对原有ReentrantReadWriteLock读写锁的增强，增加了一个乐观读模式，内部提供了相关API不仅优化了读锁、写锁的访问，也可以让读锁与写锁间可以互相转换，从而更细粒度的控制并发。</p>
+<h3 id="ReentrantReadWriteLock存在的问题"><a href="#ReentrantReadWriteLock存在的问题" class="headerlink" title="ReentrantReadWriteLock存在的问题"></a>ReentrantReadWriteLock存在的问题</h3><p>​    在使用读写锁时，还容易出现写线程饥饿的问题。主要是因为读锁和写锁互斥。比方说：当线程 A 持有读锁读取数据时，线程 B 要获取写锁修改数据就只能到队列里排队。此时又来了线程 C 读取数据，那么线程 C 就可以获取到读锁，而要执行写操作线程 B 就要等线程 C 释放读锁。由于该场景下读操作远远大于写的操作，此时可能会有很多线程来读取数据而获取到读锁，那么要获取写锁的线程 B 就只能一直等待下去，最终导致饥饿。</p>
+<p>​    对于写线程饥饿问题，可以通过公平锁进行一定程度的解决，但是它是以牺牲系统吞吐量为代价的。</p>
+<h3 id="StampedLock特点"><a href="#StampedLock特点" class="headerlink" title="StampedLock特点"></a>StampedLock特点</h3><p>1）获取锁的方法，会返回一个票据（stamp），当该值为0代表获取锁失败，其他值都代表成功。</p>
+<p>2）释放锁的方法，都需要传递获取锁时返回的票据，从而控制是同一把锁。</p>
+<p>3）StampedLock是<strong>不可重入的</strong>，如果一个线程已经持有了写锁，再去获取写锁就会造成死锁。</p>
+<p>4）StampedLock提供了三种模式控制读写操作：写锁、悲观读锁、乐观读锁</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">写锁：</span><br><span class="line">	使用类似于ReentrantReadWriteLock，是一把独占锁，当一个线程获取该锁后，其他请求线程会阻塞等待。 对于一条数据没有线程持有写锁或悲观读锁时，才可以获取到写锁，获取成功后会返回一个票据，当释放写锁时，需要传递获取锁时得到的票据。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">悲观读锁：</span><br><span class="line">	使用类似于ReentrantReadWriteLock，是一把共享锁，多个线程可以同时持有该锁。当一个数据没有线程获取写锁的情况下，多个线程可以同时获取到悲观读锁，当获取到后会返回一个票据，并且阻塞线程获取写锁。当释放锁时，需要传递获取锁时得到的票据。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">乐观读锁：</span><br><span class="line">	这把锁是StampedLock新增加的。可以把它理解为是一个悲观锁的弱化版。当没有线程持有写锁时，可以获取乐观读锁，并且返回一个票据。值得注意的是，它认为在获取到乐观读锁后，数据不会发生修改，获取到乐观读锁后，其并不会阻塞写入的操作。</span><br><span class="line">	那这样的话，它是如何保证数据一致性的呢？ 乐观读锁在获取票据时，会将需要的数据拷贝一份，在真正读取数据时，会调用StampedLock中的API，验证票据是否有效。如果在获取到票据到使用数据这期间，有线程获取到了写锁并修改数据的话，则票据就会失效。 如果验证票据有效性时，当返回true，代表票据仍有效，数据没有被修改过，则直接读取原有数据。当返回flase，代表票据失效，数据被修改过，则重新拷贝最新数据使用。</span><br><span class="line">	乐观读锁使用与一些很短的只读代码，它可以降低线程之间的锁竞争，从而提高系统吞吐量。但对于读锁获取数据结果必须要进行校验。</span><br></pre></td></tr></table></figure>
+
+<p>5）在StampedLock中读锁和写锁可以相互转换，而在ReentrantReadWriteLock中，写锁可以降级为读锁，而读锁不能升级为写锁。</p>
+<h3 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h3><p>此处引用Oracle官方案例。<a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/locks/StampedLock.html">https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/locks/StampedLock.html</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//定义共享数据</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> x, y;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//实例化锁</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> StampedLock sl = <span class="keyword">new</span> StampedLock();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//写锁案例</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">move</span><span class="params">(<span class="keyword">double</span> deltaX, <span class="keyword">double</span> deltaY)</span> </span>&#123; </span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取写锁</span></span><br><span class="line">        <span class="keyword">long</span> stamp = sl.writeLock();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            x += deltaX;</span><br><span class="line">            y += deltaY;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="comment">//释放写锁</span></span><br><span class="line">            sl.unlockWrite(stamp);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//使用乐观读锁案例</span></span><br><span class="line">    <span class="function"><span class="keyword">double</span> <span class="title">distanceFromOrigin</span><span class="params">()</span> </span>&#123; </span><br><span class="line"></span><br><span class="line">        <span class="keyword">long</span> stamp = sl.tryOptimisticRead(); <span class="comment">//获得一个乐观读锁</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">double</span> currentX = x, currentY = y; <span class="comment">//将两个字段读入本地局部变量</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!sl.validate(stamp)) &#123; <span class="comment">//检查发出乐观读锁后同时是否有其他写锁发生？</span></span><br><span class="line"></span><br><span class="line">            stamp = sl.readLock(); <span class="comment">//如果有，我们再次获得一个读悲观锁</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                currentX = x; <span class="comment">// 将两个字段读入本地局部变量</span></span><br><span class="line">                currentY = y; <span class="comment">// 将两个字段读入本地局部变量</span></span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                sl.unlockRead(stamp);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> Math.sqrt(currentX * currentX + currentY * currentY);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//使用悲观读锁并锁升级案例</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">moveIfAtOrigin</span><span class="params">(<span class="keyword">double</span> newX, <span class="keyword">double</span> newY)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取悲观读锁</span></span><br><span class="line">        <span class="keyword">long</span> stamp = sl.readLock();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">while</span> (x == <span class="number">0.0</span> &amp;&amp; y == <span class="number">0.0</span>) &#123; <span class="comment">//循环，检查当前状态是否符合</span></span><br><span class="line"></span><br><span class="line">                <span class="comment">//锁升级，将读锁转为写锁</span></span><br><span class="line">                <span class="keyword">long</span> ws = sl.tryConvertToWriteLock(stamp); </span><br><span class="line"></span><br><span class="line">                <span class="comment">//确认转为写锁是否成功</span></span><br><span class="line">                <span class="keyword">if</span> (ws != <span class="number">0L</span>) &#123; </span><br><span class="line">                    stamp = ws; <span class="comment">//如果成功 替换票据</span></span><br><span class="line">                    x = newX; <span class="comment">//进行状态改变</span></span><br><span class="line">                    y = newY; <span class="comment">//进行状态改变</span></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> &#123; <span class="comment">//如果不成功</span></span><br><span class="line">                    sl.unlockRead(stamp); <span class="comment">//显式释放读锁</span></span><br><span class="line">                    stamp = sl.writeLock(); <span class="comment">//显式直接进行写锁 然后再通过循环再试</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="comment">//释放读锁或写锁</span></span><br><span class="line">            sl.unlock(stamp); </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+    </div>
+
+    
+    
+    
+
+    
+    <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束 <i class="fa fa-heart"></i> 感谢阅读-------------</div>
+
+    
+      
+
+        <div class="reward-container">
+  <div><p style="font-size:14px; color:#34495e; margin:0 0 5px 0;">赞赏一下吧～ 还可以关注公众号订阅最新内容</p></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/WechatIMG18.png" alt="jwangtec 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>jwangtec
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.jwang.cloud/jwangcloud/3791513608/" title="Java并发编程06--显示锁(XXXLock)">https://www.jwang.cloud/jwangcloud/3791513608/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/lock/" rel="tag"><i class="fa fa-tag"></i> lock</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/jwangcloud/655849358/" rel="prev" title="构建型设计模式--工厂模式 Factory">
+      <i class="fa fa-chevron-left"></i> 构建型设计模式--工厂模式 Factory
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/jwangcloud/3407258096/" rel="next" title="Java并发编程07--AQS抽象队列同步器">
+      Java并发编程07--AQS抽象队列同步器 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">基础介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%95%E6%97%B6%E9%80%89%E6%8B%A9%E7%94%A8synchronized%E8%BF%98%E6%98%AFLock"><span class="nav-number">2.</span> <span class="nav-text">何时选择用synchronized还是Lock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ReentrantLock"><span class="nav-number">3.</span> <span class="nav-text">ReentrantLock</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">3.1.</span> <span class="nav-text">标准使用方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E9%87%8D%E5%85%A5"><span class="nav-number">3.2.</span> <span class="nav-text">可重入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AC%E5%B9%B3%E9%94%81%E4%B8%8E%E9%9D%9E%E5%85%AC%E5%B9%B3%E9%94%81"><span class="nav-number">3.3.</span> <span class="nav-text">公平锁与非公平锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-number">3.3.1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.3.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReentrantLock%E4%B8%8Esynchronized%E7%9A%84%E6%AF%94%E8%BE%83"><span class="nav-number">3.4.</span> <span class="nav-text">ReentrantLock与synchronized的比较</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ReentrantReadWriteLock"><span class="nav-number">4.</span> <span class="nav-text">ReentrantReadWriteLock</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BB%E5%86%99%E9%94%81%E7%89%B9%E6%80%A7"><span class="nav-number">4.1.</span> <span class="nav-text">读写锁特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BB%E5%86%99%E9%94%81%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">4.2.</span> <span class="nav-text">读写锁实现原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BB%E5%86%99%E9%94%81%E6%BC%94%E7%A4%BA"><span class="nav-number">4.3.</span> <span class="nav-text">读写锁演示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%81%E9%99%8D%E7%BA%A7"><span class="nav-number">4.4.</span> <span class="nav-text">锁降级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%BC%94%E7%A4%BA"><span class="nav-number">4.5.</span> <span class="nav-text">性能优化演示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#StamptedLock"><span class="nav-number">5.</span> <span class="nav-text">StamptedLock</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ReentrantReadWriteLock%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">5.1.</span> <span class="nav-text">ReentrantReadWriteLock存在的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StampedLock%E7%89%B9%E7%82%B9"><span class="nav-number">5.2.</span> <span class="nav-text">StampedLock特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="nav-number">5.3.</span> <span class="nav-text">使用示例</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="jwangtec"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">jwangtec</p>
+  <div class="site-description" itemprop="description">小脑袋，大智慧</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">117</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">217</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jwangtec" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jwangtec" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.jianshu.com/u/684433bc744b" title="简书 → https:&#x2F;&#x2F;www.jianshu.com&#x2F;u&#x2F;684433bc744b" rel="noopener" target="_blank"><i class="fa fa-heartbeat fa-fw"></i>简书</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/qq_34536604" title="csdn → https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_34536604" rel="noopener" target="_blank"><i class="fa fa-crosshairs fa-fw"></i>csdn</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://juejin.im/user/5e5c685e6fb9a07cd443bedai" title="掘金 → https:&#x2F;&#x2F;juejin.im&#x2F;user&#x2F;5e5c685e6fb9a07cd443bedai" rel="noopener" target="_blank"><i class="fa fa-spinner fa-fw"></i>掘金</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://app.gitbook.com/@79896867/spaces" title="gitbook → https:&#x2F;&#x2F;app.gitbook.com&#x2F;@79896867&#x2F;spaces" rel="noopener" target="_blank"><i class="fa fa-git fa-fw"></i>gitbook</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/jwangtec@163.com" title="E-Mail → jwangtec@163.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.runoob.com/manual/jdk11api/index.html" title="https:&#x2F;&#x2F;www.runoob.com&#x2F;manual&#x2F;jdk11api&#x2F;index.html" rel="noopener" target="_blank">Java11开发文档</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://spring.io/projects/spring-cloud-azure" title="https:&#x2F;&#x2F;spring.io&#x2F;projects&#x2F;spring-cloud-azure" rel="noopener" target="_blank">Spring cloud</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://ife.baidu.com/" title="http:&#x2F;&#x2F;ife.baidu.com&#x2F;" rel="noopener" target="_blank">百度前端技术学院</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://learn666-gif.github.io/Jwang/4cff2ea4.html" title="https:&#x2F;&#x2F;learn666-gif.github.io&#x2F;Jwang&#x2F;4cff2ea4.html" rel="noopener" target="_blank">JAVA体系构建</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jwangtec</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">1.4m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">21:28</span>
+</div>
+
+
+<!-- 网站运行时间的设置 -->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>  努力创造未来
+<script>
+        var now = new Date();
+        function createtime() {
+            var grt= new Date("01/05/2018 00:00:00");//此处修改你的建站时间或者网站上线时间
+            now.setTime(now.getTime()+250);
+            days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+            hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+            if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+            mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+            seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+            snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+            document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+            document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+    setInterval("createtime()",250);
+</script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : '2UzmUUcYke4dpzoJtJNAzAPL-gzGzoHsz',
+      appKey     : 'rdlKv9Hl6K9hnMEp9A1NCRMB',
+      placeholder: "留下邮箱，有回复时你将收到提醒，邮箱不会被公开。",
+      avatar     : 'wavatar',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
