@@ -21,15 +21,15 @@
     var CONFIG = {"hostname":"www.jwang.cloud","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="原型模式用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。 定义看起来有点绕口，实际上在 Java 中，Object 的 clone() 方法就属于原型模式，不妨简单的理解为：原型模式就是用来克隆对象的。 运用举个例子，比如有一天，周杰伦到奶茶店点了一份不加冰的原味奶茶，你说我是周杰伦的忠实粉，我也要一份跟周杰伦一样的。用程序表示如下：  奶茶类：  1234public class">
+  <meta name="description" content="原型模式用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。 定义看起来有点绕口，实际上在 Java 中，Object 的 clone() 方法就属于原型模式，不妨简单的理解为：原型模式就是用来克隆对象的。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="构建型设计模式--原型模式 Prototype">
 <meta property="og:url" content="https://www.jwang.cloud/jwangcloud/1933872641/index.html">
 <meta property="og:site_name" content="jwangcloud">
-<meta property="og:description" content="原型模式用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。 定义看起来有点绕口，实际上在 Java 中，Object 的 clone() 方法就属于原型模式，不妨简单的理解为：原型模式就是用来克隆对象的。 运用举个例子，比如有一天，周杰伦到奶茶店点了一份不加冰的原味奶茶，你说我是周杰伦的忠实粉，我也要一份跟周杰伦一样的。用程序表示如下：  奶茶类：  1234public class">
+<meta property="og:description" content="原型模式用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。 定义看起来有点绕口，实际上在 Java 中，Object 的 clone() 方法就属于原型模式，不妨简单的理解为：原型模式就是用来克隆对象的。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-12-26T09:15:10.000Z">
-<meta property="article:modified_time" content="2021-08-19T11:53:05.421Z">
+<meta property="article:modified_time" content="2021-08-19T11:55:13.177Z">
 <meta property="article:author" content="jwangtec">
 <meta property="article:tag" content="设计模式">
 <meta property="article:tag" content="构建型模式">
@@ -227,7 +227,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-19 19:53:05" itemprop="dateModified" datetime="2021-08-19T19:53:05+08:00">2021-08-19</time>
+                <time title="修改时间：2021-08-19 19:55:13" itemprop="dateModified" datetime="2021-08-19T19:55:13+08:00">2021-08-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -287,6 +287,8 @@
       
         <h2 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h2><p>用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。</p>
 <p>定义看起来有点绕口，实际上在 Java 中，Object 的 clone() 方法就属于原型模式，不妨简单的理解为：原型模式就是用来克隆对象的。</p>
+<span id="more"></span>
+
 <h2 id="运用"><a href="#运用" class="headerlink" title="运用"></a>运用</h2><p>举个例子，比如有一天，周杰伦到奶茶店点了一份不加冰的原味奶茶，你说我是周杰伦的忠实粉，我也要一份跟周杰伦一样的。用程序表示如下：</p>
 <ul>
 <li>奶茶类：</li>
@@ -343,13 +345,13 @@
       <div class="popular-posts-title"><a href="/jwangcloud/655849358/" rel="bookmark">构建型设计模式--工厂模式 Factory</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/jwangcloud/43383346/" rel="bookmark">设计模式的小心思--总述</a></div>
-    </li>
-    <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/jwangcloud/2797841629/" rel="bookmark">构建型设计模式--建造者模式 Builder</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/jwangcloud/1943064750/" rel="bookmark">构建型设计模式--抽象工厂模式 Abstract factory</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/jwangcloud/43383346/" rel="bookmark">设计模式的小心思--总述</a></div>
     </li>
   </ul>
 
@@ -400,12 +402,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/jwangcloud/43383346/" rel="prev" title="设计模式的小心思--总述">
-      <i class="fa fa-chevron-left"></i> 设计模式的小心思--总述
+    <a href="/jwangcloud/655849358/" rel="prev" title="构建型设计模式--工厂模式 Factory">
+      <i class="fa fa-chevron-left"></i> 构建型设计模式--工厂模式 Factory
     </a></div>
       <div class="post-nav-item">
-    <a href="/jwangcloud/332919010/" rel="next" title="构建型设计模式--单例模式 Singleton">
-      构建型设计模式--单例模式 Singleton <i class="fa fa-chevron-right"></i>
+    <a href="/jwangcloud/3791513608/" rel="next" title="Java并发编程06--显示锁(XXXLock)">
+      Java并发编程06--显示锁(XXXLock) <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
