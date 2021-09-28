@@ -16,7 +16,7 @@ password:
 
 <!--more-->
 
-## 基础
+# 基础
 
 - 首先需要在Springboot工程中引入连接阿里云ES所需的jar包，这里我用的是6.7.0的版本。
 
@@ -41,9 +41,9 @@ spring:
     cluster_port: 9200
 ```
 
-## 使用
+# 使用
 
-### 编写连接阿里云ES的工具类
+## 编写连接阿里云ES的工具类
 
 
 ```java
@@ -152,7 +152,7 @@ public class ElasticsearchUtil {
 }
 ```
 
-### 索引创建
+## 索引创建
  
 ```java
     
@@ -183,7 +183,7 @@ public boolean existsIndex(String index) throws IOException {
     
 ```
 
-###  记录
+##  记录
 
 ```java
 /**
@@ -205,9 +205,9 @@ public boolean exists(String index, String type, EsDocument document) throws IOE
 
 ```
 
-###  数据处理
+##  数据处理
 
-- 添加数据
+### 添加数据
 
 ```java
 /**
@@ -235,7 +235,7 @@ public String addData(EsDocument document, String index, String id) {
 }
 ```
 
-- 修改数据
+### 修改数据
 
 ```java
 
@@ -262,7 +262,7 @@ public String updateData(EsDocument document, String index, String id) {
     
 ```
 
-- 批量插入数据
+### 批量插入数据
 
 ```java
 
@@ -295,7 +295,7 @@ public ApiResult insertBatch(String index,List<EsDocument> list) {
 
 ```
 
-- ID删除数据
+### ID删除数据
 
 ```java
 /**
@@ -322,7 +322,7 @@ public ApiResult deleteById(String index, String id) {
     
 ```
 
-- 条件删除数据
+### 条件删除数据
 
 
 ```java
@@ -346,7 +346,7 @@ public void deleteByQuery(String index, QueryBuilder builder) {
 
 ```
 
-- 条件查询数据
+### 条件查询数据
 
 ```java
 /**
@@ -442,7 +442,7 @@ public ApiResult originSearch(String name,int pageNo,int pageSize,String indexNa
 
 ```
 
-- 多字段模糊查询-高亮字段
+### 多字段模糊查询-高亮字段
 
 ```java
 /**
@@ -483,7 +483,7 @@ QueryBuilders.matchAllQuery();         匹配所有文件
 }
 ```
 
-### 相关实体类
+## 相关实体类
 
 ```java
 import lombok.Data;
@@ -517,7 +517,7 @@ public class EsDocument {
 }
 ```
 
-## controller层进行相关调用测试
+# controller层进行相关调用测试
 
 ```java
 
