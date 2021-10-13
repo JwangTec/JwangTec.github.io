@@ -1,6 +1,6 @@
 ---
 title: Springboot连接阿里云ES实现文档搜索
-categories: Elasticsearch
+categories: 数据库
 tags:
   - Elasticsearch
   - 阿里云生态

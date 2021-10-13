@@ -7,7 +7,7 @@ tags:
   - kibana
   - DSL语句
   - SpringData Elasticsearch
-top: 8
+top: 60
 abbrlink: 2538997289
 date: 2019-05-06 18:18:19
 password:
