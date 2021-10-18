@@ -2,7 +2,8 @@
 title: Elasticsearch搜索服务02-ES理论知识
 categories: 数据库
 tags:
-  - ElasticSearch相关概念
+	- ElasticSearch相关概念
+	- ElasticSearch
 top: 60
 abbrlink: 903104783
 date: 2021-10-13 14:13:16

@@ -2,7 +2,8 @@
 title: Elasticsearch搜索服务04-分词器集成
 categories: 数据库
 tags:
-  - ElasticSearch分词器
+	- ElasticSearch分词器
+	- ElasticSearch
 top: 60
 abbrlink: 1672173356
 date: 2021-10-13 14:13:16
