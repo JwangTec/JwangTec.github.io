@@ -1,10 +1,7 @@
 ---
 title: Elasticsearch搜索服务01-了解ES
 categories: 数据库
-tags:
-  - ElasticSearch简介
-  - ElasticSearch安装与启动
-    - ElasticSearch 
+tags: [ElasticSearch简介, ElasticSearch安装与启动, ElasticSearch]
 top: 60
 abbrlink: 463767045
 date: 2021-10-13 14:13:16

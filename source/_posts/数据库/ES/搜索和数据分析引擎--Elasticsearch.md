@@ -1,13 +1,7 @@
 ---
 title: 搜索和数据分析引擎--Elasticsearch
 categories: 数据库
-tags:
-  - 搜索和数据分析
-  - IK分词器
-  - kibana
-  - DSL语句
-  - SpringData Elasticsearch
-  - ElasticSearch
+tags: [搜索和数据分析, IK分词器, kibana, DSL语句, SpringData Elasticsearch, ElasticSearch]
 top: 60
 abbrlink: 2538997289
 date: 2019-05-06 18:18:19
