@@ -1,9 +1,7 @@
 ---
 title: Java并发编程08--Fork/Join分解合并框架
 categories: Java并发编程
-tags:
-  - Fork
-  - Join
+tags: [Fork, Join, 并发编程]
 top: 10
 abbrlink: 4259891498
 password:

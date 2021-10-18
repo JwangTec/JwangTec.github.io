@@ -1,9 +1,7 @@
 ---
 title: Java重要知识积累03--String和StringBuilder和ArrayList
 categories: Java知识积累
-tags:
-  - Java数据类型
-  - String
+tags: [Java, Java数据类型, String]
 top: 10
 abbrlink: 3937920951
 date: 2019-07-02 18:18:19

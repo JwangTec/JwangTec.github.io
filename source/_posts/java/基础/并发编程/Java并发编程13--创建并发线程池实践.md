@@ -1,8 +1,7 @@
 ---
 title: Java并发编程13--创建并发线程池实践
 categories: Java并发编程
-tags:
-  - 线程池创建
+tags: [线程池创建, 并发编程]
 top: 10
 abbrlink: 1546721459
 password:

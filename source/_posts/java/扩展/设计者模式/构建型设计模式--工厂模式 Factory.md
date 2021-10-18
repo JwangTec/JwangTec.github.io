@@ -1,10 +1,7 @@
 ---
 title: 构建型设计模式--工厂模式 Factory
 categories: 设计模式
-tags:
-  - 设计模式
-  - 工厂模式 Factory
-  - 简单工厂模式
+tags: [设计模式, 工厂模式 Factory, 简单工厂模式]
 top: 90
 abbrlink: 655849358
 password:

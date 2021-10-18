@@ -1,9 +1,7 @@
 ---
 title: Elasticsearch搜索服务03-ES实际运用
 categories: 数据库
-tags:
-	- ElasticSearch操作
-	- ElasticSearch
+tags: [ElasticSearch操作, ElasticSearch]
 top: 60
 abbrlink: 3823127571
 date: 2021-10-13 14:13:16

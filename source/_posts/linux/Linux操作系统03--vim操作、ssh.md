@@ -1,9 +1,7 @@
 ---
 title: Linux操作系统03--vim操作、ssh
 categories: Linux操作系统
-tags:
-  - vim
-  - ssh
+tags: [Linux, vim, ssh]
 top: 9
 abbrlink: 2793636500
 date: 2019-05-08 18:18:19

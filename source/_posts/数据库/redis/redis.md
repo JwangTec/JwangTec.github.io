@@ -1,10 +1,7 @@
 ---
 title: redis
 categories: redis
-tags:
-  - redis常用数据类型及操作命令
-  - jedis操作redis
-  - redis持久化
+tags: [redis, redis常用数据类型及操作命令, jedis操作redis, redis持久化]
 top: 8
 abbrlink: 2066075671
 date: 2019-05-06 18:18:19

@@ -1,8 +1,7 @@
 ---
 title: 通用技术01--git
 categories: 通用技术
-tags:
-  - git
+tags: [git]
 top: 5
 abbrlink: 2499844314
 date: 2019-05-03 18:18:19

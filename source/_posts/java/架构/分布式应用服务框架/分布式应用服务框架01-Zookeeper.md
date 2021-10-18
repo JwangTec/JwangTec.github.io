@@ -1,11 +1,7 @@
 ---
 title: 分布式应用服务框架01-Zookeeper
 categories: 分布式应用服务框架
-tags:
-  - Zookeeper
-  - Zookeeper集群搭建
-  - Zookeeper选举模式
-  - zookeeper实现
+tags: [Zookeeper, Zookeeper集群搭建, Zookeeper选举模式, zookeeper实现, 分布式应用服务框架]
 top: 13
 abbrlink: 1918450812
 date: 2019-10-01 18:18:19

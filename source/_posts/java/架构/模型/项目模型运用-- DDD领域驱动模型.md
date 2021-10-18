@@ -1,9 +1,7 @@
 ---
 title: 项目模型运用-- DDD领域驱动模型
 categories: Docker
-tags:
-  - DDD
-  - 领域驱动
+tags: [DDD, 领域驱动]
 top: 90
 abbrlink: 2680834629
 date: 2021-07-22 09:18:19

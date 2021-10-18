@@ -1,9 +1,7 @@
 ---
 title: 分布式数据库架构实践07--Mycat企业级运维
 categories: 分布式数据库架构
-tags:
-  - Mycat-Web性能监控平台
-  - Mycat调优
+tags: [Mycat-Web性能监控平台, Mycat调优, 分布式数据库架构]
 top: 12
 abbrlink: 2395128656
 date: 2019-09-01 18:18:19

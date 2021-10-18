@@ -1,11 +1,7 @@
 ---
 title: 消息中间件01-RabbitMQ入门
 categories: 消息中间件
-tags:
-  - 消息队列
-  - RabbitMQ的使用操作
-  - RabbitMQ的5种模式
-  - SpringBoot整合RabbitMQ
+tags: [消息队列, RabbitMQ的使用操作, RabbitMQ的5种模式,  SpringBoot整合RabbitMQ, 消息中间件]
 top: 13
 abbrlink: 2259534704
 date: 2019-10-01 18:18:19

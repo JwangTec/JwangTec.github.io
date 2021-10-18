@@ -1,12 +1,7 @@
 ---
 title: 项目管理工具01-Maven
 categories: 项目管理工具
-tags:
-  - Maven介绍
-  - Maven安装及常用命令
-  - IDEA上使用Maven
-  - 私服
-  - Lombok
+tags: [Maven介绍, Maven安装及常用命令, IDEA上使用Maven, 私服, Lombok, Maven]
 top: 12
 abbrlink: 3720442140
 date: 2019-09-01 18:18:19

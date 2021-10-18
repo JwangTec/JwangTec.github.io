@@ -1,10 +1,7 @@
 ---
 title: 构建型设计模式--建造者模式 Builder
 categories: 设计模式
-tags:
-  - 设计模式
-  - null
-  - 建造者模式
+tags: [设计模式, 建造者模式]
 top: 90
 abbrlink: 2797841629
 password:

@@ -1,8 +1,7 @@
 ---
 title: Java并发编程02--synchronized
 categories: Java并发编程
-tags:
-  - synchronized
+tags: [synchronized, 并发编程]
 top: 10
 abbrlink: 3357090801
 date: 2019-08-01 18:18:19

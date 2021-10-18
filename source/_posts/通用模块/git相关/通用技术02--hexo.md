@@ -1,8 +1,7 @@
 ---
 title: 通用技术02--hexo
 categories: git
-tags:
-  - hexo
+tags: [git, hexo]
 top: 5
 abbrlink: 2780304565
 date: 2019-05-05 18:18:19

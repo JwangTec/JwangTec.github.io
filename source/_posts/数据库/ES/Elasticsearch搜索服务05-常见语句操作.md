@@ -1,9 +1,7 @@
 ---
 title: Elasticsearch搜索服务05-常见语句操作
 categories: 数据库
-tags:
-	- ElasticSearch常用语句操作
-	- ElasticSearch
+tags: [ElasticSearch常用语句操作, ElasticSearch]
 top: 60
 abbrlink: 3048712516
 date: 2021-10-13 14:13:16

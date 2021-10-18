@@ -1,8 +1,7 @@
 ---
 title: Java重要知识积累02--从数据结构到Java常用集合
 categories: Java知识积累
-tags:
-  - Java集合 - 数据结构
+tags: [Java, Java集合,  数据结构]
 top: 10
 abbrlink: 3265662706
 date: 2019-07-02 18:18:19

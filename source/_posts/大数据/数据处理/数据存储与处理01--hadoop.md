@@ -1,9 +1,7 @@
 ---
 title: 数据存储与处理01--hadoop
 categories: 大数据
-tags:
-  - 数据存储
-  - 数据处理
+tags: [数据存储, 数据处理, 大数据]
 top: 4
 abbrlink: 1462761565
 date: 2019-05-02 18:18:19

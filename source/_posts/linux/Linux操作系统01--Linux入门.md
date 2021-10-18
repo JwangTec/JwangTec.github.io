@@ -1,8 +1,7 @@
 ---
 title: Linux操作系统01--Linux入门
 categories: Linux操作系统
-tags:
-  - Linux入门
+tags: [Linux, Linux入门]
 top: 9
 abbrlink: 1737435959
 date: 2019-05-08 18:18:19

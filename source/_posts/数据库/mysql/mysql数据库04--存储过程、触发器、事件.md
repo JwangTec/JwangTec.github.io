@@ -1,10 +1,7 @@
 ---
 title: mysql数据库04--存储过程、触发器、事件
 categories: 数据库
-tags:
-  - mysql存储器
-  - mysql触发器
-  - mysql事件
+tags: [mysql存储器, 关系型数据库, mysql触发器, mysql事件]
 top: 8
 abbrlink: 898521826
 date: 2019-05-07 18:18:19

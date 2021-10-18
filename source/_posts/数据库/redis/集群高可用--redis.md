@@ -1,8 +1,7 @@
 ---
 title: 集群高可用--redis
 categories: 集群高可用
-tags:
-  - redis
+tags: [redis]
 top: 8
 abbrlink: 2097771556
 date: 2019-05-06 18:18:19

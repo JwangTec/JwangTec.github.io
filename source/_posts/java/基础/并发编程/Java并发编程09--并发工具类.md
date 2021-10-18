@@ -1,8 +1,7 @@
 ---
 title: Java并发编程09--并发工具类
 categories: Java并发编程
-tags:
-  - 并发工具类
+tags: [并发工具类, 并发编程]
 top: 10
 abbrlink: 873762885
 password:

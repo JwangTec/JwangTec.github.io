@@ -1,8 +1,7 @@
 ---
 title: Java并发编程05--atomic原子操作类
 categories: Java并发编程
-tags:
-  - atomic
+tags: [atomic, 并发编程]
 top: 10
 abbrlink: 673356023
 date: 2019-08-02 18:18:19

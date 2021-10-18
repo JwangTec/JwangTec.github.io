@@ -1,9 +1,7 @@
 ---
 title: 消息中间件03-RocketMQ
 categories: 消息中间件
-tags:
-  - 消息队列
-  - RocketMQ
+tags: [消息队列, RocketMQ, 消息中间件]
 top: 13
 abbrlink: 986289229
 date: 2021-07-13 18:18:19

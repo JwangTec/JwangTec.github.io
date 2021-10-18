@@ -1,8 +1,7 @@
 ---
 title: Java并发编程11--ThreadLocal
 categories: Java并发编程
-tags:
-  - ThreadLocal
+tags: [ThreadLocal, 并发编程]
 top: 10
 abbrlink: 1281709871
 password:

@@ -1,8 +1,7 @@
 ---
 title: Java虚拟机01--JVM理解
 categories: JVM
-tags:
-  - 深入理解JVM
+tags: [JVM, 深入理解JVM]
 top: 10
 abbrlink: 3952652746
 date: 2019-09-01 18:18:19

@@ -1,12 +1,7 @@
 ---
 title: 微服务框架SpringCloud01-注册中心、负载均衡、熔断器
 categories: Java框架
-tags:
-  - Java框架
-  - Spring Cloud
-  - Spring Cloud Eureka
-  - Spring Cloud Ribbon
-  - Spring Cloud Hystrix
+tags: [微服务框架, Spring Cloud, Spring Cloud Eureka, Spring Cloud Ribbon, Spring Cloud Hystrix]
 top: 11
 abbrlink: 3243820324
 date: 2019-07-01 18:18:19

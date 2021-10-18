@@ -1,9 +1,7 @@
 ---
 title: Java虚拟机04--JVM调优实践
 categories: JVM
-tags:
-  - 服务器性能指标
-  - JVM参数调优
+tags: [JVM, 服务器性能指标, JVM参数调优]
 top: 10
 abbrlink: 158342446
 date: 2019-09-01 18:18:19

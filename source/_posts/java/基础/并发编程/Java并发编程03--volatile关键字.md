@@ -1,8 +1,7 @@
 ---
 title: Java并发编程03--volatile关键字
 categories: Java并发编程
-tags:
-  - volatile
+tags: [volatile, 并发编程]
 top: 10
 abbrlink: 3511257114
 date: 2019-08-01 18:18:19

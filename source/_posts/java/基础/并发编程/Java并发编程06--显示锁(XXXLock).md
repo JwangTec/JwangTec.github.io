@@ -1,8 +1,7 @@
 ---
 title: Java并发编程06--显示锁(XXXLock)
 categories: Java并发编程
-tags:
-  - lock
+tags: [lock, 并发编程]
 top: 10
 abbrlink: 3791513608
 password:

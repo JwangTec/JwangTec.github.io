@@ -1,8 +1,7 @@
 ---
 title: MongoDB数据库03--mongodb实践
 categories: 数据库
-tags:
-  - mongodb实践
+tags: [mongodb实践, 非关系型数据库]
 top: 8
 abbrlink: 449959058
 date: 2019-05-07 18:18:19

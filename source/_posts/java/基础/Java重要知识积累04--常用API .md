@@ -1,10 +1,7 @@
 ---
 title: Java重要知识积累04--常用API
 categories: Java知识积累
-tags:
-  - 权限修饰符
-  - BigInteger
-  - BigDecimal
+tags: [Java, 权限修饰符, BigInteger, BigDecimal]
 top: 10
 abbrlink: 3250697702
 date: 2019-07-03 18:18:19

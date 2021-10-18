@@ -1,13 +1,7 @@
 ---
 title: 分布式数据库架构实践05--Mycat企业级应用实践
 categories: 分布式数据库架构
-tags:
-  - Mycat
-  - 全局序列号
-  - Mycat分库
-  - Mycat读写分离
-  - MyCat分片规则
-  - 跨库join
+tags: [Mycat, 全局序列号, Mycat分库, Mycat读写分离, MyCat分片规则,  跨库join, 分布式数据库架构]
 top: 12
 abbrlink: 3881685427
 date: 2019-09-01 18:18:19

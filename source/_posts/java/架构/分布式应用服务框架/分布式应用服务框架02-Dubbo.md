@@ -1,11 +1,7 @@
 ---
 title: 分布式应用服务框架02-Dubbo
 categories: 分布式应用服务框架
-tags:
-  - Zookeeper注册中心
-  - Dubbo生产者和消费者
-  - Dubbo管理控制台
-  - Dubbo负载均衡
+tags: [Zookeeper注册中心, Dubbo生产者和消费者, Dubbo管理控制台, Dubbo负载均衡, 分布式应用服务框架]
 top: 13
 abbrlink: 3214322465
 date: 2019-10-01 18:18:19

@@ -1,8 +1,7 @@
 ---
 title: MongoDB数据库01--MongoDB概述
 categories: 数据库
-tags:
-  - MongoDB
+tags: [MongoDB, 非关系型数据库]
 top: 8
 abbrlink: 207375873
 date: 2019-05-07 18:18:19

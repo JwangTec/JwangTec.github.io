@@ -1,9 +1,7 @@
 ---
 title: Java重要框架02--mybatis进阶
 categories: Java框架
-tags:
-  - Java框架
-  - mybatis
+tags: [Java框架, mybatis]
 top: 11
 abbrlink: 380147732
 date: 2019-07-01 18:18:19

@@ -1,8 +1,7 @@
 ---
 title: 通用技术03--hexo博客搭建
 categories: git
-tags:
-  - hexo博客搭建
+tags: [git, hexo博客搭建]
 top: 5
 abbrlink: 3848869124
 date: 2019-05-05 18:18:19

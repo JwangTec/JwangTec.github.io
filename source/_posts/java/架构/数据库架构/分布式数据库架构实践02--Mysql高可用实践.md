@@ -1,8 +1,7 @@
 ---
 title: 分布式数据库架构实践02--Mysql高可用实践
 categories: 分布式数据库架构
-tags:
-  - Mysql高可用实践
+tags: [Mysql高可用实践, 分布式数据库架构]
 top: 12
 abbrlink: 2860326216
 date: 2019-09-01 18:18:19

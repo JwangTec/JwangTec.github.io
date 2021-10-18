@@ -1,11 +1,7 @@
 ---
 title: Spring02-IOC注解开发及AOP简述
 categories: Java框架
-tags:
-  - Java框架
-  - Spring
-  - AOP简述
-  - IOC注解开发
+tags: [Java框架, Spring, AOP简述, IOC注解开发, spring]
 top: 11
 abbrlink: 1860077176
 date: 2019-07-01 18:18:19

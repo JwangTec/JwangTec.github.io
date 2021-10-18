@@ -1,9 +1,7 @@
 ---
 title: SpringMVC01-基础知识及常用注解开发
 categories: Java框架
-tags:
-  - Java框架
-  - Spring MVC
+tags: [Java框架, Spring MVC]
 top: 11
 abbrlink: 4011234037
 date: 2019-07-01 18:18:19

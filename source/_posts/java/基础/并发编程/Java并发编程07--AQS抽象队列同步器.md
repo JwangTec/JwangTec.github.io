@@ -1,8 +1,7 @@
 ---
 title: Java并发编程07--AQS抽象队列同步器
 categories: Java并发编程
-tags:
-  - AQS
+tags: [AQS, 并发编程]
 top: 10
 abbrlink: 3407258096
 password:

@@ -1,11 +1,7 @@
 ---
 title: 分布式数据库架构实践06--Mycat企业级架构设计&应用
 categories: 分布式数据库架构
-tags:
-  - Mycat主从切换
-  - 动态扩容
-  - 数据迁移
-  - Haproxy+keepalived+mycat高可用负载均衡集群
+tags: [Mycat主从切换, 动态扩容, 数据迁移, Haproxy+keepalived+mycat高可用负载均衡集群, 分布式数据库架构]
 top: 12
 abbrlink: 1100440702
 date: 2019-09-01 18:18:19

@@ -1,12 +1,7 @@
 ---
 title: SpringBoot01-入门学习
 categories: Java框架
-tags:
-  - Java框架
-  - Spring boot
-  - Spring boot配置文件
-  - Spring boot集成第三方框架
-  - Spring boot版本控制
+tags: [Java框架, Spring boot, Spring boot配置文件, Spring boot集成第三方框架, Spring boot版本控制]
 top: 11
 abbrlink: 3436949008
 date: 2019-07-01 18:18:19

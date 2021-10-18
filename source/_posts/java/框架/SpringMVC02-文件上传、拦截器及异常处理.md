@@ -1,13 +1,7 @@
 ---
 title: SpringMVC02-文件上传、拦截器及异常处理
 categories: Java框架
-tags:
-  - Java框架
-  - Spring MVC
-  - 拦截器
-  - 统一异常处理
-  - SSM架构
-  - 文件上传
+tags: [Java框架, Spring MVC, 拦截器, 统一异常处理, SSM架构, 文件上传]
 top: 11
 abbrlink: 2296578456
 date: 2019-07-01 18:18:19

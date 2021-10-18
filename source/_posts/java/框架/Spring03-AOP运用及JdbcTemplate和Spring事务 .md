@@ -1,10 +1,7 @@
 ---
 title: Spring03-AOP运用及JdbcTemplate和Spring事务
 categories: Java框架
-tags:
-  - Java框架
-  - Spring
-  - AOP运用 - Spring事务 - JdbcTemplate
+tags: [Java框架, Spring, AOP运用, Spring事务, JdbcTemplate, spring]
 top: 11
 abbrlink: 3027323732
 date: 2019-07-01 18:18:19

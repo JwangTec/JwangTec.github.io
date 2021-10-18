@@ -1,8 +1,7 @@
 ---
 title: 分布式数据库架构实践04--Mycat核心概念&源码部署
 categories: 分布式数据库架构
-tags:
-  - Mycat
+tags: [Mycat, 分布式数据库架构]
 top: 12
 abbrlink: 164096051
 date: 2019-09-01 18:18:19

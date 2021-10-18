@@ -1,13 +1,7 @@
 ---
 title: 微服务框架SpringCloud02-远程调用、请求压缩、日志配置
 categories: Java框架
-tags:
-  - Java框架
-  - Spring Cloud
-  - Spring Cloud feign
-  - Spring Cloud Gateway
-  - Spring Cloud config
-  - Spring Cloud Bus
+tags: [微服务框架, Java框架, Spring Cloud, Spring Cloud feign, Spring Cloud Gateway, Spring Cloud config, Spring Cloud Bus]
 top: 11
 abbrlink: 4153565428
 date: 2019-07-01 18:18:19

@@ -1,9 +1,7 @@
 ---
 title: Elasticsearch搜索服务06-Spring Data ElasticSearch
 categories: 数据库
-tags:
-	- Spring Data ElasticSearch
-	- ElasticSearch
+tags: [Spring Data ElasticSearch, ElasticSearch]
 top: 60
 abbrlink: 3747212493
 date: 2021-10-13 14:13:16

@@ -1,11 +1,7 @@
 ---
 title: Java虚拟机03--垃圾回收机制
 categories: JVM
-tags:
-  - 垃圾定位
-  - 垃圾回收算法
-  - 垃圾收集器
-  - 分析工具GC easy
+tags: [JVM, 垃圾定位, 垃圾回收算法, 垃圾收集器, 分析工具GC easy]
 top: 10
 abbrlink: 1150816938
 date: 2019-09-01 18:18:19

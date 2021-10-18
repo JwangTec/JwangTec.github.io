@@ -1,8 +1,7 @@
 ---
 title: Java并发编程10--并发下的Map
 categories: Java并发编程
-tags:
-  - Map解析
+tags: [Map解析, 并发编程]
 top: 10
 abbrlink: 1588313176
 password:

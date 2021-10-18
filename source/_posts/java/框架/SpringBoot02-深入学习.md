@@ -1,12 +1,7 @@
 ---
 title: SpringBoot02-深入学习
 categories: Java框架
-tags:
-  - Java框架
-  - Spring boot
-  - Spring boot自动配置原理
-  - Spring boot监控
-  - Spring boot部署及监听机制
+tags: [Java框架, Spring boot, Spring boot自动配置原理, Spring boot监控, Spring boot部署及监听机制]
 top: 11
 abbrlink: 538586870
 date: 2019-07-01 18:18:19

@@ -1,9 +1,7 @@
 ---
 title: Java重要框架04--静态页面生成框架Thymeleaf
 categories: Java框架
-tags:
-  - Java框架
-  - Thymeleaf
+tags: [Java框架, Thymeleaf]
 top: 11
 abbrlink: 2482136458
 date: 2019-07-05 19:18:19

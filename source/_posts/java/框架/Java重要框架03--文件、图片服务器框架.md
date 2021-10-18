@@ -1,9 +1,7 @@
 ---
 title: Java重要框架03--文件、图片服务器框架
 categories: Java框架
-tags:
-  - Java框架
-  - FastDFS
+tags: [Java框架, FastDFS]
 top: 11
 abbrlink: 3058054830
 date: 2019-07-05 18:18:19

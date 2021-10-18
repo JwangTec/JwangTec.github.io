@@ -1,8 +1,7 @@
 ---
 title: Linux操作系统02--Linux权限
 categories: Linux操作系统
-tags:
-  - Linux权限
+tags: [Linux, Linux权限]
 top: 9
 abbrlink: 4264740339
 date: 2019-05-08 18:18:19

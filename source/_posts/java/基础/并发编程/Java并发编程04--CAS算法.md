@@ -1,8 +1,7 @@
 ---
 title: Java并发编程04--CAS算法
 categories: Java并发编程
-tags:
-  - CAS
+tags: [CAS, 并发编程]
 top: 10
 abbrlink: 2545724321
 date: 2019-08-02 18:18:19

@@ -1,12 +1,7 @@
 ---
 title: 容器技术01-Docker
 categories: Docker
-tags:
-  - Docker相关组件
-  - Docker安装和启动
-  - 容器创建
-  - Docker常用命令
-  - Docker部署
+tags: [Docker相关组件, Docker安装和启动, 容器创建, Docker常用命令, Docker部署, Docker]
 top: 13
 abbrlink: 2745172249
 date: 2019-10-01 18:18:19

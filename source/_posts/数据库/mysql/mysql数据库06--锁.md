@@ -1,8 +1,7 @@
 ---
 title: mysql数据库06--锁
 categories: 数据库
-tags:
-  - mysql锁
+tags: [mysql锁, 关系型数据库]
 top: 8
 abbrlink: 1196357161
 date: 2019-05-07 18:18:19

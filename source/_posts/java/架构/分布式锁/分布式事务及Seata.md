@@ -1,11 +1,7 @@
 ---
 title: 分布式事务及Seata
 categories: 分布式事务
-tags:
-  - 分布式事务
-  - CAP定理
-  - 分布式事务解决方案
-  - Seata工作流程
+tags: [分布式事务, CAP定理, 分布式事务解决方案, Seata工作流程]
 top: 13
 abbrlink: 4169379575
 date: 2019-10-01 18:18:19

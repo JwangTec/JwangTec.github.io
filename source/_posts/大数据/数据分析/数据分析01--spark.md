@@ -1,8 +1,7 @@
 ---
 title: 数据分析01--spark
 categories: 大数据
-tags:
-  - 数据分析
+tags: [数据分析, 大数据]
 top: 4
 abbrlink: 648089816
 date: 2019-05-02 18:18:19

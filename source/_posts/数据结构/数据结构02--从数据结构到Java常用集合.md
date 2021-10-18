@@ -1,8 +1,7 @@
 ---
 title: 数据结构02--从数据结构到Java常用集合
 categories: 数据结构
-tags:
-  - Java常用集合
+tags: [数据结构, Java常用集合]
 top: 3
 abbrlink: 2612458690
 date: 2019-03-28 18:18:19

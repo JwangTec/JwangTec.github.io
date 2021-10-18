@@ -1,8 +1,7 @@
 ---
 title: mysql数据库02--进阶语句
 categories: 数据库
-tags:
-  - mysql数据库
+tags: [mysql数据库, 关系型数据库]
 top: 8
 abbrlink: 1482967651
 date: 2019-05-06 18:18:19

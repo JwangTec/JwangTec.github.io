@@ -1,8 +1,7 @@
 ---
 title: Java并发编程12--ThreadPoolExecutor线程池
 categories: Java并发编程
-tags:
-  - ThreadPoolExecutor线程池
+tags: [ThreadPoolExecutor线程池, 并发编程]
 top: 10
 abbrlink: 2407816807
 password:
