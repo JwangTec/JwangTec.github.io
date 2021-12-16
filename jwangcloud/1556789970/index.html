@@ -21,12 +21,12 @@
     var CONFIG = {"hostname":"www.jwang.cloud","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="本文框架 定义 为了避免请求发送者与多个请求处理者耦合在一起，于是将所有请求的处理者通过前一对象记住其下一个对象的引用而连成一条链；当有请求发生时，可将请求沿着这条链传递，直到有对象处理它为止。  在责任链模式中，客户只需要将请求发送到责任链上即可，无须关心请求的处理细节和请求的传递过程，请求会自动进行传递。所以责任链将请求的发送者和请求的处理者解耦了。   优缺点责任链模式是一种对象行为型模式">
+  <meta name="description" content="本文框架">
 <meta property="og:type" content="article">
-<meta property="og:title" content="行为型模式--责任链模式 Chain of responsibility">
+<meta property="og:title" content="行为型设计模式--责任链模式 Chain of responsibility">
 <meta property="og:url" content="https://www.jwang.cloud/jwangcloud/1556789970/index.html">
 <meta property="og:site_name" content="jwangcloud">
-<meta property="og:description" content="本文框架 定义 为了避免请求发送者与多个请求处理者耦合在一起，于是将所有请求的处理者通过前一对象记住其下一个对象的引用而连成一条链；当有请求发生时，可将请求沿着这条链传递，直到有对象处理它为止。  在责任链模式中，客户只需要将请求发送到责任链上即可，无须关心请求的处理细节和请求的传递过程，请求会自动进行传递。所以责任链将请求的发送者和请求的处理者解耦了。   优缺点责任链模式是一种对象行为型模式">
+<meta property="og:description" content="本文框架">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/mode/chain%20of%20res.png">
 <meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/mode/chain01.png">
@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/mode/chain3.png">
 <meta property="og:image" content="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/mode/chain04.png">
 <meta property="article:published_time" content="2021-12-16T01:39:49.000Z">
-<meta property="article:modified_time" content="2021-12-16T04:20:34.708Z">
+<meta property="article:modified_time" content="2021-12-16T06:08:24.664Z">
 <meta property="article:author" content="jwangtec">
 <meta property="article:tag" content="设计模式">
 <meta property="article:tag" content="行为型设计模式">
@@ -55,7 +55,7 @@
   };
 </script>
 
-  <title>行为型模式--责任链模式 Chain of responsibility | jwangcloud</title>
+  <title>行为型设计模式--责任链模式 Chain of responsibility | jwangcloud</title>
   
 
 
@@ -148,6 +148,11 @@
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -216,7 +221,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          行为型模式--责任链模式 Chain of responsibility
+          行为型设计模式--责任链模式 Chain of responsibility
         </h1>
 
         <div class="post-meta">
@@ -227,7 +232,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-12-16 09:39:49 / 修改时间：12:20:34" itemprop="dateCreated datePublished" datetime="2021-12-16T09:39:49+08:00">2021-12-16</time>
+              <time title="创建时间：2021-12-16 09:39:49 / 修改时间：14:08:24" itemprop="dateCreated datePublished" datetime="2021-12-16T09:39:49+08:00">2021-12-16</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -286,6 +291,8 @@
 
       
         <h2 id="本文框架"><a href="#本文框架" class="headerlink" title="本文框架"></a>本文框架</h2><p><img data-src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/mode/chain%20of%20res.png"></p>
+<span id="more"></span>
+
 <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><ul>
 <li><p>为了避免请求发送者与多个请求处理者耦合在一起，于是将所有请求的处理者通过前一对象记住其下一个对象的引用而连成一条链；当有请求发生时，可将请求沿着这条链传递，直到有对象处理它为止。</p>
 </li>
@@ -506,10 +513,10 @@
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/jwangcloud/3511050084/" rel="bookmark">结构型设计模式--适配器模式 Adapter</a></div>
+      <div class="popular-posts-title"><a href="/jwangcloud/1059511123/" rel="bookmark">结构型设计模式--代理模式Proxy</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/jwangcloud/1059511123/" rel="bookmark">结构型设计模式--代理模式Proxy</a></div>
+      <div class="popular-posts-title"><a href="/jwangcloud/3950356185/" rel="bookmark">结构型设计模式--享元模式Flyweight</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/jwangcloud/2786812680/" rel="bookmark">结构型设计模式--外观模式 Facade</a></div>
@@ -546,7 +553,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://www.jwang.cloud/jwangcloud/1556789970/" title="行为型模式--责任链模式 Chain of responsibility">https://www.jwang.cloud/jwangcloud/1556789970/</a>
+    <a href="https://www.jwang.cloud/jwangcloud/1556789970/" title="行为型设计模式--责任链模式 Chain of responsibility">https://www.jwang.cloud/jwangcloud/1556789970/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -651,7 +658,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">142</span>
+          <span class="site-state-item-count">144</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -664,7 +671,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">268</span>
+        <span class="site-state-item-count">272</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -683,7 +690,7 @@
         <a href="https://juejin.im/user/5e5c685e6fb9a07cd443bedai" title="掘金 → https:&#x2F;&#x2F;juejin.im&#x2F;user&#x2F;5e5c685e6fb9a07cd443bedai" rel="noopener" target="_blank"><i class="fa fa-spinner fa-fw"></i>掘金</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://app.gitbook.com/@79896867/spaces" title="gitbook → https:&#x2F;&#x2F;app.gitbook.com&#x2F;@79896867&#x2F;spaces" rel="noopener" target="_blank"><i class="fa fa-git fa-fw"></i>gitbook</a>
+        <a href="https://app.gitbook.com/@79896867/spaces" title="gitbook → https:&#x2F;&#x2F;app.gitbook.com&#x2F;@79896867&#x2F;spaces" rel="noopener" target="_blank"><i class="fa fa-github fa-fw"></i>gitbook</a>
       </span>
       <span class="links-of-author-item">
         <a href="/jwangtec@163.com" title="E-Mail → jwangtec@163.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
@@ -703,10 +710,10 @@
           <a href="https://spring.io/projects/spring-cloud-azure" title="https:&#x2F;&#x2F;spring.io&#x2F;projects&#x2F;spring-cloud-azure" rel="noopener" target="_blank">Spring cloud</a>
         </li>
         <li class="links-of-blogroll-item">
-          <a href="http://ife.baidu.com/" title="http:&#x2F;&#x2F;ife.baidu.com&#x2F;" rel="noopener" target="_blank">百度前端技术学院</a>
+          <a href="https://www.jwang.cloud/jwangcloud/43383346/" title="https:&#x2F;&#x2F;www.jwang.cloud&#x2F;jwangcloud&#x2F;43383346&#x2F;">设计模式总述</a>
         </li>
         <li class="links-of-blogroll-item">
-          <a href="https://learn666-gif.github.io/Jwang/4cff2ea4.html" title="https:&#x2F;&#x2F;learn666-gif.github.io&#x2F;Jwang&#x2F;4cff2ea4.html" rel="noopener" target="_blank">JAVA体系构建</a>
+          <a href="https://www.jwang.cloud/jwangcloud/2347443716/" title="https:&#x2F;&#x2F;www.jwang.cloud&#x2F;jwangcloud&#x2F;2347443716&#x2F;">Java多线程总述</a>
         </li>
     </ul>
   </div>
@@ -750,7 +757,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">23:31</span>
+    <span title="站点阅读时长">24:09</span>
 </div>
 
 
