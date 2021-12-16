@@ -128,7 +128,7 @@ menu:
   #archives: /archives/ || fa fa-archive
   #schedule: /schedule/ || fa fa-calendar
   #sitemap: /sitemap.xml || fa fa-sitemap
-  #commonweal: /404/ || fa fa-heartbeat
+  commonweal: /404/ || fa fa-heartbeat
 
 # Enable / Disable menu icons / item badges.
 menu_settings:
@@ -186,7 +186,7 @@ social:
   简书: https://www.jianshu.com/u/684433bc744b|| fa fa-heartbeat
   csdn: https://blog.csdn.net/qq_34536604|| fa fa-crosshairs
   掘金: https://juejin.im/user/5e5c685e6fb9a07cd443bedai|| fa fa-spinner
-  gitbook: https://app.gitbook.com/@79896867/spaces|| fa fa-git
+  gitbook: https://app.gitbook.com/@79896867/spaces|| fa fa-github
   E-Mail: jwangtec@163.com|| fa fa-envelope
   #E-Mail: mailto:yourname@gmail.com || fa fa-envelope
   #Weibo: https://weibo.com/yourname || fa fa-weibo
@@ -214,8 +214,8 @@ links:
   #Title: http://yoursite.com
   Java11开发文档: https://www.runoob.com/manual/jdk11api/index.html
   Spring cloud: https://spring.io/projects/spring-cloud-azure
-  百度前端技术学院: http://ife.baidu.com/
-  JAVA体系构建: https://learn666-gif.github.io/Jwang/4cff2ea4.html
+  设计模式总述: https://www.jwang.cloud/jwangcloud/43383346/
+  Java多线程总述: https://www.jwang.cloud/jwangcloud/2347443716/
 
 # Table of Contents in the Sidebar
 # Front-matter variable (unsupport wrap expand_all).

@@ -1,5 +1,5 @@
 ---
-title: 行为型模式--责任链模式 Chain of responsibility
+title: 行为型设计模式--责任链模式 Chain of responsibility
 categories: 设计模式
 tags:
   - 设计模式
@@ -15,6 +15,8 @@ password:
 ## 本文框架
 
 ![](https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/mode/chain%20of%20res.png)
+
+<!--more-->
 
 ## 定义
 

@@ -1,7 +1,13 @@
 ---
 title: Spring01-Spring基础知识
 categories: Java框架
-tags: [Java框架, Spring, IOC, DI, Spring5, spring]]
+tags:
+  - Java框架
+  - Spring
+  - IOC
+  - DI
+  - Spring5
+  - spring
 top: 11
 abbrlink: 978502610
 date: 2019-07-01 18:18:19

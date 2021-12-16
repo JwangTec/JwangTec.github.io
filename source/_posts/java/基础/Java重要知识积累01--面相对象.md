@@ -1,12 +1,15 @@
 ---
-title:Java重要知识积累01--面相对象
+title: Java重要知识积累01--面相对象
 categories: Java知识积累
-tags: [Java, 面相对象]
+tags:
+  - Java
+  - 面相对象
 top: 10
 abbrlink: 1572511114
 date: 2019-07-01 18:18:19
 password:
 ---
+
 
 
 
