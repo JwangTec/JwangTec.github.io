@@ -10,7 +10,6 @@ password:
 ---
 
 
-## 本文架构
 
 ![JVM](https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/JVM/JVM%E8%87%AA%E5%8A%A8%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.png)
 

@@ -12,7 +12,6 @@ password:
 ---
 
 
-## 本文框架
 
 ![](https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/mode/chain%20of%20res.png)
 
