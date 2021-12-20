@@ -1350,7 +1350,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #8cffb5;
+  background: #ff67cb;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1520,6 +1520,27 @@ pre .javascript .function {
 }
 .post-toc .nav .active-current > a:hover {
   color: #fc6423;
+}
+.sidebar-related {
+  font-size: 0.875em;
+}
+.sidebar-related ol {
+  list-style-type: disc;
+  margin: 0;
+  padding: 0 2px 5px 25px;
+  text-align: left;
+}
+.sidebar-related-title {
+  margin-top: 20px;
+  padding-left: 0;
+}
+.sidebar-related-title li {
+  border-bottom-color: #fc6423;
+  color: #fc6423;
+  border-bottom: 1px solid;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 0.875em;
 }
 .site-state {
   display: flex;
