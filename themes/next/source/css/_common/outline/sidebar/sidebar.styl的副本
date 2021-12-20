@@ -48,6 +48,4 @@
 
 @import 'sidebar-toc' if (hexo-config('toc.enable'));
 
-@import 'sidebar-related' if (hexo-config('toc.enable'));
-
 @import 'site-state' if (hexo-config('site_state'));
