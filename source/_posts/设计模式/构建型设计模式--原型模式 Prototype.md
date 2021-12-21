@@ -1,8 +1,8 @@
 ---
 title: 构建型设计模式--原型模式 Prototype
 categories: 设计模式
-tags: [设计模式, 构建型模式, 原型模式]
-top: 90
+tags: [构建型模式, 原型模式]
+top: 10
 abbrlink: 1933872641
 password:
 ---

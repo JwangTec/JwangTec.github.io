@@ -1,8 +1,8 @@
 ---
 title: 结构型设计模式--适配器模式 Adapter
 categories: 设计模式
-tags: [设计模式, 适配器模式, 结构型设计模式]
-top: 90
+tags: [适配器模式, 结构型模式]
+top: 10
 abbrlink: 3511050084
 password:
 ---

@@ -1,10 +1,10 @@
 ---
 title: 结构型设计模式-组合模式Composite
 categories: 设计模式
-tags: [设计模式, 结构型设计模式, 组合模式]
+tags: [结构型模式, 组合模式]
 abbrlink: 2368099213
 date: 2021-09-23 10:50:55
-top: 90
+top: 10
 password:
 ---
 

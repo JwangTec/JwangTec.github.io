@@ -2,11 +2,10 @@
 title: 设计模式--python实现
 tags:
   - python
-  - 设计模式
 top: 10
 abbrlink: 2590054529
 date: 2019-05-01 18:18:19
-categories:
+categories: 设计模式
 password:
 ---
 

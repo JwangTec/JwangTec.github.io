@@ -2,10 +2,9 @@
 title: 行为型设计模式--责任链模式 Chain of responsibility
 categories: 设计模式
 tags:
-  - 设计模式
-  - 行为型设计模式
+  - 行为型模式
   - 责任链模式
-top: 90
+top: 10
 abbrlink: 1556789970
 date: 2021-12-16 09:39:49
 password:

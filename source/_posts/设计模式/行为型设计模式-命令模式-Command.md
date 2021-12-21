@@ -1,11 +1,8 @@
 ---
 title: 行为型设计模式-命令模式 Command
 categories: 设计模式
-tags:
-  - 设计模式
-  - 行为型设计模式
-  - 命令模式
-top: 90
+tags: [行为型模式, 命令模式]
+top: 10
 abbrlink: 4030613938
 date: 2021-12-20 09:48:52
 password:

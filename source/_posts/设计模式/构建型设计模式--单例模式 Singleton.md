@@ -1,8 +1,8 @@
 ---
 title: 构建型设计模式--单例模式 Singleton
 categories: 设计模式
-tags: [设计模式, 单例模式, 构建型模式]
-top: 90
+tags: [单例模式, 构建型模式]
+top: 10
 abbrlink: 332919010
 password:
 ---

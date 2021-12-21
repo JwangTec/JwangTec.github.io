@@ -1,8 +1,8 @@
 ---
 title: 结构型设计模式-桥接模式 Bridge
 categories: 设计模式
-tags: [设计模式, 结构型设计模式, 桥接模式]
-top: 90
+tags: [结构型模式, 桥接模式]
+top: 10
 abbrlink: 3532680722
 date: 2021-09-23 10:03:43
 password:

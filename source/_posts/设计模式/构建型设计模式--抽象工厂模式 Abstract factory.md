@@ -1,8 +1,8 @@
 ---
 title: 构建型设计模式--抽象工厂模式 Abstract factory
 categories: 设计模式
-tags: [设计模式, 抽象工厂模式, 构建型模式]
-top: 90
+tags: [抽象工厂模式, 构建型模式]
+top: 10
 abbrlink: 1943064750
 password:
 ---

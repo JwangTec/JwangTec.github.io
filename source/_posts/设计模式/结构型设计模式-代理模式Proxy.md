@@ -1,8 +1,8 @@
 ---
 title: 结构型设计模式--代理模式Proxy
 categories: 设计模式
-tags: [设计模式, 结构型设计模式, 代理模式]
-top: 90
+tags: [结构型模式, 代理模式]
+top: 10
 abbrlink: 1059511123
 date: 2021-09-23 15:24:03
 password:
