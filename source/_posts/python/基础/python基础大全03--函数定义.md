@@ -1,9 +1,11 @@
 ---
 title: python基础大全03--函数定义
-categories: python
+categories: python基础
 tags:
+  - python
+  - 基础知识
   - 函数
-top: 1
+top: 7
 abbrlink: 2679684480
 date: 2019-04-18 18:18:19
 password:

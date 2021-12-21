@@ -1,9 +1,10 @@
 ---
 title: Django框架02--搭建第一个页面
-categories: python框架
+categories: python-Django
 tags:
-  - Django页面搭建
-top: 6
+  - python
+  - Django
+top: 8
 abbrlink: 2301932064
 date: 2019-06-02 18:18:19
 password:

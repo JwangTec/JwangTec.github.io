@@ -1,9 +1,11 @@
 ---
 title: python基础大全04--控制语句
-categories: python
+categories: python基础
 tags:
+  - python
+  - 基础知识
   - 控制语句
-top: 1
+top: 7
 abbrlink: 3540061980
 date: 2019-04-22 18:18:19
 password:

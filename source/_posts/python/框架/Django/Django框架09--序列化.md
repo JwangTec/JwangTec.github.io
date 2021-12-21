@@ -1,9 +1,10 @@
 ---
 title: Django框架09--序列化
-categories: python框架
+categories: python-Django
 tags:
-  - Django序列化
-top: 6
+  - python
+  - Django
+top: 8
 abbrlink: 2889044135
 date: 2019-06-09 18:18:19
 password:

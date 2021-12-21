@@ -1,9 +1,10 @@
 ---
 title: Django框架05--语法整理
-categories: python框架
+categories: python-Django
 tags:
-  - Django语法整理
-top: 6
+  - python
+  - Django
+top: 8
 abbrlink: 663967090
 date: 2019-06-05 18:18:19
 password:

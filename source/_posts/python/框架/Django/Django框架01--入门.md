@@ -1,9 +1,10 @@
 ---
 title: Django框架01--入门
-categories: python框架
+categories: python-Django
 tags:
+  - python
   - Django
-top: 6
+top: 8
 abbrlink: 216270077
 date: 2019-06-01 18:18:19
 password:

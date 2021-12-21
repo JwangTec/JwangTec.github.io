@@ -1,10 +1,10 @@
 ---
 title: python基础大全02--helloword
-categories: python
+categories: python基础
 tags:
-  - 数据类型
-  - python入门
-top: 1
+  - python
+  - 基础知识
+top: 7
 abbrlink: 3728702410
 date: 2019-03-28 18:18:19
 password:

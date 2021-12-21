@@ -1,9 +1,10 @@
 ---
 title: Django框架04--基础知识
-categories: python框架
+categories: python-Django
 tags:
-  - Django基础知识
-top: 6
+  - python
+  - Django
+top: 8
 abbrlink: 3407305082
 date: 2019-06-04 18:18:19
 password:

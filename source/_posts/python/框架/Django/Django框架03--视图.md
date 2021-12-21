@@ -1,9 +1,10 @@
 ---
 title: Django框架03--视图
-categories: python框架
+categories: python-Django
 tags:
-  - Django视图
-top: 6
+  - python
+  - Django
+top: 8
 abbrlink: 3329310760
 date: 2019-06-03 18:18:19
 password:

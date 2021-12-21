@@ -1,9 +1,11 @@
 ---
 title: python基础大全05--list
-categories: python
+categories: python基础
 tags:
-  - python集合
-top: 1
+  - python
+  - 基础知识
+  - 集合
+top: 7
 abbrlink: 2660417926
 date: 2019-04-20 18:18:19
 password:

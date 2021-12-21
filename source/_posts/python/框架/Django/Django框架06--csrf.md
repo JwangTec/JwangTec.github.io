@@ -1,9 +1,10 @@
 ---
 title: Django框架06--csrf
-categories: python框架
+categories: python-Django
 tags:
-  - Django CSRF
-top: 6
+  - python
+  - Django
+top: 8
 abbrlink: 493232681
 date: 2019-06-06 18:18:19
 password:

@@ -1,9 +1,10 @@
 ---
 title: Django框架07--表单
-categories: python框架
+categories: python-Django
 tags:
-  - Django表单
-top: 6
+  - python
+  - Django
+top: 8
 abbrlink: 3826544670
 date: 2019-06-07 18:18:19
 password:

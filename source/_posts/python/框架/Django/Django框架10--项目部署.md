@@ -1,9 +1,10 @@
 ---
 title: Django框架10--项目部署
-categories: python框架
+categories: python-Django
 tags:
-  - Django项目部署
-top: 6
+  - python
+  - Django
+top: 8
 abbrlink: 3485546001
 date: 2019-06-10 18:18:19
 password:

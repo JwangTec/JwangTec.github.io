@@ -1,12 +1,8 @@
 ---
 title: python基础大全01--内置对象、占位符、运算符、表达式
-categories: python
-tags:
-  - 内置对象
-  - 占位符
-  - 运算符
-  - 表达式
-top: 1
+categories: python基础
+tags: []
+top: 7
 abbrlink: 446152610
 date: 2019-03-29 18:18:19
 password:

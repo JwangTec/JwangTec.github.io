@@ -1,9 +1,10 @@
 ---
 title: Django框架08--请求类型
-categories: python框架
+categories: python-Django
 tags:
-  - Django请求类型
-top: 6
+  - python
+  - Django
+top: 8
 abbrlink: 1334139912
 date: 2019-06-08 18:18:19
 password:
