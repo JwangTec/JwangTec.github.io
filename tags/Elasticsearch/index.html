@@ -317,7 +317,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">252</span>
+        <span class="site-state-item-count">109</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -544,8 +544,7 @@ NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
 
 </body>
 </html>
-  days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
-            hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+         hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
             if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
             mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
             seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
