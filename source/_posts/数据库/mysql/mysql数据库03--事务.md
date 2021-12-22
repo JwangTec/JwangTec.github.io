@@ -1,8 +1,9 @@
 ---
 title: mysql数据库03--事务
 categories: 数据库
-tags: [mysql数据库事务, , 关系型数据库]
-top: 8
+tags:
+  - mysql
+top: 13
 abbrlink: 864966898
 date: 2019-05-06 18:18:19
 password:

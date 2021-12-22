@@ -1,11 +1,10 @@
 ---
 title: Thymeleaf、Rabbitmq实现静态页
-categories: Java扩展
+categories: Java
 tags:
-  - Thymeleaf的介绍
-  - Thymeleaf的入门
-  - Thymeleaf的语法及标签
-top: 12
+  - Java
+  - 扩展知识
+top: 18
 abbrlink: 1497436460
 date: 2019-07-06 18:18:19
 password:

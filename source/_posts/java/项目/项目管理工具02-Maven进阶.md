@@ -1,8 +1,9 @@
 ---
 title: 项目管理工具02-Maven进阶
-categories: 项目管理工具
-tags: [Maven基础回顾, jar包冲突, 工程分解, Maven]
-top: 12
+categories: 项目管理
+tags:
+  - Maven
+top: 17
 abbrlink: 3362157817
 date: 2019-09-01 18:18:19
 password:

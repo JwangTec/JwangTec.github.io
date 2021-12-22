@@ -1,12 +1,11 @@
 ---
 title: 如何提升变更频率低的数据访问速度--lua脚本语言
-categories: Java扩展
+categories: Java
 tags:
-  - Java扩展
+  - Java
+  - 扩展知识
   - lua
-  - canal
-  - OpenResty
-top: 12
+top: 18
 abbrlink: 2696540171
 date: 2019-07-06 18:18:19
 password:

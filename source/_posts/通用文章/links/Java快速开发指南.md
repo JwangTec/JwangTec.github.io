@@ -1,11 +1,11 @@
 ---
 title: Java快速开发指南
-categories: Java
+categories: 通用文章
 tags:
   - 开发指南
   - Java编程
   - 项目实战
-top: 800
+top: 2
 abbrlink: 2522846927
 date: 2021-12-07 10:39:54
 password:

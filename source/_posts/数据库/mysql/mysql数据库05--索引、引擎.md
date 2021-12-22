@@ -1,8 +1,9 @@
 ---
 title: mysql数据库05--索引、引擎
 categories: 数据库
-tags: [mysql索引, 关系型数据库, mysql引擎]
-top: 8
+tags:
+  - mysql
+top: 13
 abbrlink: 1501163261
 date: 2019-05-07 18:18:19
 password:

@@ -213,9 +213,12 @@ links_settings:
 links:
   #Title: http://yoursite.com
   Java11开发文档: https://www.runoob.com/manual/jdk11api/index.html
+  Java快速开发指南: https://www.jwang.cloud/jwangcloud/2522846927/
   Spring cloud: https://spring.io/projects/spring-cloud-azure
-  设计模式总述: https://www.jwang.cloud/jwangcloud/43383346/
+  设计模式总述: https://www.jwang.cloud/jwangcloud/3787758006/
   Java多线程总述: https://www.jwang.cloud/jwangcloud/2347443716/
+  Java虚拟机总述: https://www.jwang.cloud/jwangcloud/3527088870/
+  日积月累: https://www.jwang.cloud/jwangcloud/3128384431/
 
 # Table of Contents in the Sidebar
 # Front-matter variable (unsupport wrap expand_all).

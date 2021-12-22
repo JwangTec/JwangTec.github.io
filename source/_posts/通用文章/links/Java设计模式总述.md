@@ -36,6 +36,8 @@ password:
 
 ## 分类及简述
 
+[设计模式--python实现](https://www.jwang.cloud/jwangcloud/2590054529/)
+
 ### 构建型设计模式
 
 -  [工厂方法模式](https://www.jwang.cloud/jwangcloud/655849358/)：为每一类对象建立工厂，将对象交由工厂创建、客户端只和工厂打交道
