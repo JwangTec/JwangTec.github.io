@@ -28,17 +28,17 @@
 <meta property="og:site_name" content="jwangcloud">
 <meta property="og:description" content="红黑树转化过程添加操作宏观过程：首先将红黑树当作一颗查找树一样将结点插入，然后将结点着为红色，最后通过旋转和重新着色的方法使之重新成为红黑树">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.jwang.cloud/jwangcloud/2764984296/assets/1301290-20190418213129039-1750834042.jpg">
-<meta property="og:image" content="https://www.jwang.cloud/jwangcloud/2764984296/assets/1301290-20190418213129777-667737935.jpg">
-<meta property="og:image" content="https://www.jwang.cloud/jwangcloud/2764984296/assets/1301290-20190418213130624-539000870.jpg">
-<meta property="og:image" content="https://www.jwang.cloud/jwangcloud/2764984296/assets/1301290-20190418213131667-1276564969.jpg">
-<meta property="og:image" content="https://www.jwang.cloud/assets/1301290-20190418213133079-1448372531.jpg">
-<meta property="og:image" content="https://www.jwang.cloud/jwangcloud/2764984296/assets/1301290-20190418213134136-940254682.jpg">
+<meta property="og:image" content="https://www.jwang.cloud/jwangcloud/2764984296/1301290-20190418213129039-1750834042.jpg">
+<meta property="og:image" content="https://www.jwang.cloud/jwangcloud/2764984296/1301290-20190418213129777-667737935.jpg">
+<meta property="og:image" content="https://www.jwang.cloud/jwangcloud/2764984296/1301290-20190418213130624-539000870.jpg">
+<meta property="og:image" content="https://www.jwang.cloud/jwangcloud/2764984296/1301290-20190418213131667-1276564969.jpg">
+<meta property="og:image" content="https://www.jwang.cloud/jwangcloud/2764984296/1301290-20190418213133079-1448372531.jpg">
+<meta property="og:image" content="https://www.jwang.cloud/jwangcloud/2764984296/1301290-20190418213134136-940254682.jpg">
 <meta property="og:image" content="https://img2018.cnblogs.com/blog/1301290/201904/1301290-20190418213136770-843083460.jpg">
-<meta property="og:image" content="https://www.jwang.cloud/assets/1301290-20190418213137634-1958102851.jpg">
-<meta property="og:image" content="https://www.jwang.cloud/assets/1301290-20190418213139039-597178902.jpg">
-<meta property="og:image" content="https://www.jwang.cloud/assets/1301290-20190418213140154-225773995.jpg">
-<meta property="og:image" content="https://www.jwang.cloud/assets/1301290-20190418213143002-1972356300.jpg">
+<meta property="og:image" content="https://www.jwang.cloud/jwangcloud/2764984296/1301290-20190418213137634-1958102851.jpg">
+<meta property="og:image" content="https://www.jwang.cloud/jwangcloud/2764984296/1301290-20190418213139039-597178902.jpg">
+<meta property="og:image" content="https://www.jwang.cloud/jwangcloud/2764984296/1301290-20190418213140154-225773995.jpg">
+<meta property="og:image" content="https://www.jwang.cloud/jwangcloud/2764984296/1301290-20190418213143002-1972356300.jpg">
 <meta property="og:image" content="https://img2018.cnblogs.com/blog/1301290/201904/1301290-20190418213143907-1237419880.jpg">
 <meta property="og:image" content="https://img2018.cnblogs.com/blog/1301290/201904/1301290-20190418213144640-886967587.jpg">
 <meta property="og:image" content="https://img2018.cnblogs.com/blog/1301290/201904/1301290-20190418213145413-74677869.jpg">
@@ -62,7 +62,7 @@
 <meta property="article:author" content="jwangtec">
 <meta property="article:tag" content="红黑树">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.jwang.cloud/jwangcloud/2764984296/assets/1301290-20190418213129039-1750834042.jpg">
+<meta name="twitter:image" content="https://www.jwang.cloud/jwangcloud/2764984296/1301290-20190418213129039-1750834042.jpg">
 
 <link rel="canonical" href="https://www.jwang.cloud/jwangcloud/2764984296/">
 
@@ -348,16 +348,16 @@
 <p>然后又将爷爷结点当作插入结点看待，一直进行上面的操作，直到当前结点为根结点，然后将根结点变成黑色</p>
 <p>原图：</p>
 <p>图4</p>
-<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1301290/201904/1301290-20190418213128551-1953687643.jpg"><img data-src="assets/1301290-20190418213129039-1750834042.jpg" alt="红黑树"></a></p>
+<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1301290/201904/1301290-20190418213128551-1953687643.jpg"><img data-src="/jwangcloud/2764984296/1301290-20190418213129039-1750834042.jpg" alt="红黑树"></a></p>
 <p>插入一个125的结点：</p>
 <p>图5</p>
-<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1301290/201904/1301290-20190418213129398-2128554117.jpg"><img data-src="assets/1301290-20190418213129777-667737935.jpg" alt="红黑树"></a></p>
+<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1301290/201904/1301290-20190418213129398-2128554117.jpg"><img data-src="/jwangcloud/2764984296/1301290-20190418213129777-667737935.jpg" alt="红黑树"></a></p>
 <p>现在125结点和130结点都是红色的，显然违背了规则4，所以将新插入结点的父亲130结点和插入结点的叔叔结点150变成黑色，并将新插入结点的爷爷结点140变成红色，图如下：</p>
 <p>图6</p>
-<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1301290/201904/1301290-20190418213130230-631833017.jpg"><img data-src="assets/1301290-20190418213130624-539000870.jpg" alt="红黑树"></a></p>
+<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1301290/201904/1301290-20190418213130230-631833017.jpg"><img data-src="/jwangcloud/2764984296/1301290-20190418213130624-539000870.jpg" alt="红黑树"></a></p>
 <p>然后又将140结点当作新插入结点处理（因为140结点和新插入结点面临的情况都是一样的：和父亲结点都是红色），也就是做如下处理：将140结点的父亲结点120和140的叔叔结点60变成黑色结点，将140结点的爷爷结点变成红色，因为遍历到了根结点，要满足根结点是黑色的性质要求，所以又将140的爷爷结点也就是根结点变成黑色，图如下：</p>
 <p>图7</p>
-<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1301290/201904/1301290-20190418213130950-338187702.jpg"><img data-src="assets/1301290-20190418213131667-1276564969.jpg" alt="红黑树"></a></p>
+<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1301290/201904/1301290-20190418213130950-338187702.jpg"><img data-src="/jwangcloud/2764984296/1301290-20190418213131667-1276564969.jpg" alt="红黑树"></a></p>
 <p>到这里，为新插入结点125所做的某些结点重新着色的操作就完成了，现在该树是标准的红黑树了！</p>
 <p>4.新插入的结点的父亲结点为红色，其叔叔结点为黑色，</p>
 <p>1）父亲结点为爷爷结点的左孩子，新插入结点为父节点的左孩子（左左情况）</p>
@@ -365,10 +365,10 @@
 <p>上述两种情况都是同一个处理办法</p>
 <p>比如下图，新插入结点为25，其父亲结点30为红色，其叔叔结点为空黑色叶子结点，且新插入结点和其父节点都是左孩子：</p>
 <p>图8</p>
-<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1301290/201904/1301290-20190418213132372-445385592.jpg"><img data-src="/assets/1301290-20190418213133079-1448372531.jpg" alt="红黑树"></a></p>
+<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1301290/201904/1301290-20190418213132372-445385592.jpg"><img data-src="/jwangcloud/2764984296/1301290-20190418213133079-1448372531.jpg" alt="红黑树"></a></p>
 <p>我们将其父亲结点和爷爷结点颜色互换，然后针对爷爷结点进行一次左旋，图如下：</p>
 <p>图9</p>
-<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1301290/201904/1301290-20190418213133579-1872891758.jpg"><img data-src="assets/1301290-20190418213134136-940254682.jpg" alt="红黑树"></a></p>
+<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1301290/201904/1301290-20190418213133579-1872891758.jpg"><img data-src="/jwangcloud/2764984296/1301290-20190418213134136-940254682.jpg" alt="红黑树"></a></p>
 <p>现在这颗树完全满足红黑树的5个性质了（最好自己对照5个性质看一下）</p>
 <p>现在又一个问题，我们为什么要进行旋转？</p>
 <p>假设我们只将新增结点的父亲结点和其爷爷结点的颜色互换了，图如下：</p>
@@ -381,13 +381,13 @@
 <p>上述两种情况都是同一个处理办法</p>
 <p>比如下图，新插入结点是126，其父结点125为红色，其叔叔结点为空的黑色结点，而且插入结点是右结点，父结点是左结点</p>
 <p>图11</p>
-<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1301290/201904/1301290-20190418213137143-547506862.jpg"><img data-src="/assets/1301290-20190418213137634-1958102851.jpg" alt="红黑树"></a></p>
+<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1301290/201904/1301290-20190418213137143-547506862.jpg"><img data-src="/jwangcloud/2764984296/1301290-20190418213137634-1958102851.jpg" alt="红黑树"></a></p>
 <p>我们将父亲结点125看作当前结点进行左旋，旋转结果如下：</p>
 <p>图12</p>
-<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1301290/201904/1301290-20190418213138385-1642628320.jpg"><img data-src="/assets/1301290-20190418213139039-597178902.jpg" alt="红黑树"></a></p>
+<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1301290/201904/1301290-20190418213138385-1642628320.jpg"><img data-src="/jwangcloud/2764984296/1301290-20190418213139039-597178902.jpg" alt="红黑树"></a></p>
 <p>现在我们的当前结点是125，现在125的处境和上面的情况4是一样的（父节点为红，叔叔结点为黑，插入结点为左结点，父亲结点也为左孩子）现在我们继续按照情况4的处理办法处理上述情况（措施和情况4一样，父亲结点和爷爷结点互换颜色，然后针对爷爷结点进行左旋），处理后情况如下：</p>
 <p>图13</p>
-<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1301290/201904/1301290-20190418213139526-1239863354.jpg"><img data-src="/assets/1301290-20190418213140154-225773995.jpg" alt="红黑树"></a></p>
+<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1301290/201904/1301290-20190418213139526-1239863354.jpg"><img data-src="/jwangcloud/2764984296/1301290-20190418213140154-225773995.jpg" alt="红黑树"></a></p>
 <p>现在树就是一颗标准的红黑树了！</p>
 <p>我们现在总结一下插入结点面临的几种情况以及采取的措施：</p>
 <blockquote>
@@ -446,7 +446,7 @@
 <p>1）删除结点为红色</p>
 <p>直接删除，比如下图，想要删除130结点</p>
 <p>图14</p>
-<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1301290/201904/1301290-20190418213142426-2090249626.jpg"><img data-src="/assets/1301290-20190418213143002-1972356300.jpg" alt="红黑树2"></a></p>
+<p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1301290/201904/1301290-20190418213142426-2090249626.jpg"><img data-src="/jwangcloud/2764984296/1301290-20190418213143002-1972356300.jpg" alt="红黑树2"></a></p>
 <p>直接删除130结点，结果图如下：</p>
 <p>图15</p>
 <p><a target="_blank" rel="noopener" href="https://img2018.cnblogs.com/blog/1301290/201904/1301290-20190418213143416-622890444.jpg"><img data-src="https://img2018.cnblogs.com/blog/1301290/201904/1301290-20190418213143907-1237419880.jpg" alt="红黑树2(D:/课程研发/项目三加强课程/jdk集合/assets/1301290-20190418213143907-1237419880.jpg)"></a></p>
@@ -808,7 +808,7 @@
 <div class="copyright">
   
   &copy; 2018 – 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
