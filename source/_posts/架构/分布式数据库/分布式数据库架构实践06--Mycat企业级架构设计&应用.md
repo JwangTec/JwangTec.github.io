@@ -11,17 +11,14 @@ date: 2019-09-01 18:18:19
 password:
 ---
 
-<img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/DB1.jpeg" width="1000" height="200" align="middle" />
-
-
-
 
 
 ## Mycat主从切换
 
-<!--more-->
 
 ​	基于Mycat主从复制方案，当前存在一个主节点和一个从节点，主节点负责写操作，从节点负责读操作。当在一个dataHost中配置了两个或多个writeHost，如果第一个writeHost宕机，则Mycat会在默认3次心跳检查失败后，自动切换到下一个可用的writeHost执行DML语句，并在**conf/dnindex.properties**文件里记录当前所用的writeHost的index。
+​ 
+​ <!--more-->   
 
 ![image-20200621190210292](https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/DB/1/assets/image-20200621190210292.png)
 

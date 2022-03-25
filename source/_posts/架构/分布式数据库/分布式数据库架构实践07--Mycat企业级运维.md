@@ -12,16 +12,13 @@ date: 2019-09-01 18:18:19
 password:
 ---
 
-<img src="https://jwangtec.oss-cn-chengdu.aliyuncs.com/jwangcloud/index/DB1.jpeg" width="1000" height="200" align="middle" />
-
-
 ## Mycat-Web性能监控平台
 
-<!--more-->
 
 ​	在现在的企业开发中，作为一个合格的开发人员来说，不仅要完成正常的编码任务，同时也要掌握一定的运维能力。当线上系统出现问题时，要能够快速的将隐藏问题找出来并进行解决。
-
 ​	Mycat-web是mycat的可视化运维监控平台。其能够管理和监控mycat的流量、连接数、线程数、JVM、内存。并且基于内部统计还能够分析出慢SQL与高频SQL。为sql优化提供了重要的依据。
+​ 
+​ <!--more-->   
 
 ###  Mycat-web安装
 
